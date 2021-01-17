@@ -1,6 +1,12 @@
 ---
 layout: single
 title:  "Crawling!"
+
+categories :
+  - Python
+
+tags :
+  - Crawling
 ---
 
 
