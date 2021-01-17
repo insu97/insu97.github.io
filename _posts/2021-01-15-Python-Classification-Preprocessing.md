@@ -45,7 +45,7 @@ train.head()
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -232,7 +232,7 @@ train.head()
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -605,7 +605,7 @@ plt.show()
 
 
 
-![png](/_posts/image/classification/output_40_0.png)
+![png](/assets/images/classification/output_40_0.png)
 
 
 ```python
@@ -635,7 +635,7 @@ train.plot(kind = 'box' , x = "Survived" , y = "Age")
 
 
 
-![png](/_posts/image/classification/output_43_1.png)
+![png](/assets/images/classification/output_43_1.png)
 
 
 
@@ -664,7 +664,7 @@ train[condition]
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -1105,7 +1105,7 @@ train.plot(kind = 'box' , x = "Survived" , y = "SibSp")
 
 
 
-![png](/_posts/image/classification/output_49_1.png)
+![png](/assets/images/classification/output_49_1.png)
 
 
 
@@ -1134,7 +1134,7 @@ train[condition]
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -1706,7 +1706,7 @@ train.plot(kind = 'scatter' , x = "Survived" , y = "Fare")
 
 
 
-![png](/_posts/image/classification/output_55_1.png)
+![png](/assets/images/classification/output_55_1.png)
 
 
 
@@ -1736,4 +1736,4 @@ plt.show()
 
 
 
-![png](/_posts/image/classification/output_58_1.png)
+![png](/assets/images/classification/output_58_1.png)
