@@ -598,7 +598,7 @@ plt.show()
 
 
 
-![png](./image/classification/output_40_0.png)
+![png](_posts/image/classification/output_40_0.png)
 
 
 ```python
@@ -628,7 +628,7 @@ train.plot(kind = 'box' , x = "Survived" , y = "Age")
 
 
 
-![png](./image/classification/output_43_1.png)
+![png](_posts/image/classification/output_43_1.png)
 
 
 
@@ -1098,7 +1098,7 @@ train.plot(kind = 'box' , x = "Survived" , y = "SibSp")
 
 
 
-![png](./image/classification/output_49_1.png)
+![png](_posts/image/classification/output_49_1.png)
 
 
 
@@ -1698,7 +1698,7 @@ train.plot(kind = 'scatter' , x = "Survived" , y = "Fare")
 
 
 
-![png](./image/classification/output_55_1.png)
+![png](_posts/image/classification/output_55_1.png)
 
 
 
@@ -1728,4 +1728,4 @@ plt.show()
 
 
 
-![png](./image/classification/output_58_0.png)
+![png](_posts/image/classification/output_58_1.png)
