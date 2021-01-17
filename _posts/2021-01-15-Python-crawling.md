@@ -9,33 +9,42 @@ tags :
   - Crawling
 ---
 
-
+# 라이브러리 설정
 
 ```python
-import time
 import requests
 from bs4 import BeautifulSoup
 ```
+
+# 페이지 설정
 
 
 ```python
 page = requests.get("https://sponbbang.com/bj/")
 ```
 
+# 페이지 텍스트 받아오기
+
 
 ```python
 rating_page = page.text
 ```
+
+#  깔끔하게 변경
 
 
 ```python
 soup = BeautifulSoup(rating_page, 'html.parser')
 ```
 
+# 필요한 태그( or class) 선택
+
 
 ```python
 li_tags = soup.select('.double_right')
 ```
+
+#  텍스트 모으기
 
 
 ```python
@@ -48,12 +57,12 @@ for li in li_tags:
     title.append(li.text)
 ```
 
+# 출력
+
 
 ```python
 title[5:]
 ```
-
-
 
 
     ['이영호 T',
