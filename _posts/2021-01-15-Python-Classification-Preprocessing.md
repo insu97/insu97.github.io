@@ -1,6 +1,13 @@
 ---
 layout: single
 title:  "Preprocessing!"
+
+categories :
+  - Python
+
+tags :
+  - Classification
+  - Preprocessing
 ---
 
 kaggle 타이타닉 data 사용 : https://www.kaggle.com/c/titanic
@@ -38,7 +45,7 @@ train.head()
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -225,7 +232,7 @@ train.head()
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -657,7 +664,7 @@ train[condition]
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -1127,7 +1134,7 @@ train[condition]
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
