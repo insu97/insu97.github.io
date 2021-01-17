@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Classification!"
+title:  "Preprocessing!"
 ---
 
 kaggle 타이타닉 data 사용 : https://www.kaggle.com/c/titanic
