@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Preprocessing!"
+title:  "Classification-Preprocessing!"
 
 categories :
   - Python
@@ -45,7 +45,7 @@ train.head()
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -232,7 +232,7 @@ train.head()
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -664,7 +664,7 @@ train[condition]
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
@@ -1134,7 +1134,7 @@ train[condition]
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
