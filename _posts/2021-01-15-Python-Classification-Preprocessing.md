@@ -1738,6 +1738,8 @@ plt.show()
 
 ![png](/assets/images/classification/output_58_1.png)
 
+전처리 데이터 저장
+
 ```python
 train.to_csv("../data/titanic/pre_train.csv" , index = False)
 test.to_csv("../data/titanic/pre_test.csv" , index = False)
