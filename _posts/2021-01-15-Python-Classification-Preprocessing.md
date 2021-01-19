@@ -45,7 +45,7 @@ train.head()
     .dataframe tbody tr th {
         vertical-align: top;
     }
-
+    
     .dataframe thead th {
         text-align: right;
     }
@@ -232,7 +232,7 @@ train.head()
     .dataframe tbody tr th {
         vertical-align: top;
     }
-
+    
     .dataframe thead th {
         text-align: right;
     }
@@ -664,7 +664,7 @@ train[condition]
     .dataframe tbody tr th {
         vertical-align: top;
     }
-
+    
     .dataframe thead th {
         text-align: right;
     }
@@ -1134,7 +1134,7 @@ train[condition]
     .dataframe tbody tr th {
         vertical-align: top;
     }
-
+    
     .dataframe thead th {
         text-align: right;
     }
@@ -1737,3 +1737,8 @@ plt.show()
 
 
 ![png](/assets/images/classification/output_58_1.png)
+
+```python
+train.to_csv("../data/titanic/pre_train.csv" , index = False)
+test.to_csv("../data/titanic/pre_test.csv" , index = False)
+```
