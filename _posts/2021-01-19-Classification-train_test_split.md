@@ -1,3 +1,15 @@
+---
+layout: single
+title:  "Classification-train_test_split!"
+
+categories :
+  - Python
+
+tags :
+  - Classification
+  - train_test_split
+---
+
 ```python
 import warnings
 warnings.filterwarnings('ignore')
@@ -13,7 +25,7 @@ test = pd.read_csv("../data/titanic/pre_test.csv")
 
 # random
     - 어떤 데이터 셋에도 특정 값이 누락되어서는 안되며 비슷한 샘플이 연이어 나오면 성능이 나빠질 가능성이 존재
-    - 과적합을 줄일 수 있다. 
+    - 과적합을 줄일 수 있다.
 
 
 ```python
