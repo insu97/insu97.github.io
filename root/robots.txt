@@ -1,4 +1,8 @@
-User-agent: *
+User-agent: python
+User-agent: classification
+User-agent: Crawling
+User-agent: train_test_split
 Allow: /
+# Disallow: /diary/
 
 Sitemap: http://insu97.github.io/sitemap.xml
