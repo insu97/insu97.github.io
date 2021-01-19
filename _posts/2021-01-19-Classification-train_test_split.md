@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Classification-train_test_split!"
+title:  "train_test_split!"
 
 categories :
   - Python
