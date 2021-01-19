@@ -1736,7 +1736,7 @@ plt.show()
 
 
 
-![png](/assets/images/classification/output_58_1.png)
+![png](/assets/images/classification/output_58_0.png)
 
 
 # 전처리 데이터 저장
