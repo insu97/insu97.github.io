@@ -1,3 +1,15 @@
+---
+layout: single
+title:  "Prediction-pycaret!"
+
+categories :
+  - Python
+
+tags :
+  - Prediction
+  - pycaret
+---
+
 ```python
 import warnings
 warnings.filterwarnings('ignore')
