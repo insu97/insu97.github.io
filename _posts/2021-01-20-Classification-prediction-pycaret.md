@@ -6,6 +6,7 @@ categories :
   - Python
 
 tags :
+  - Classification
   - Prediction
   - pycaret
 ---
