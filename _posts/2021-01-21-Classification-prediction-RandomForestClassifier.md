@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Classification-RandomForestClassifier!"
+title:  "Classification-RandomForest!"
 
 categories :
   - Python
