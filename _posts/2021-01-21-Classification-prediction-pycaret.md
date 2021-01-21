@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Classification-Prediction-Pycaret!"
+title:  "Pycaret!"
 
 categories :
   - Python
@@ -1427,5 +1427,4 @@ submission.to_csv("../data/titanic/gender_submission.csv" , index = False)
 ```
 
 점수
-
-![image.png](attachment:image.png)
+![png](/assets/images/classification/score_pycaret.png)
