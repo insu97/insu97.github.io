@@ -1,3 +1,18 @@
+---
+layout: single
+title:  "Classification-Prediction-Pycaret!"
+
+categories :
+  - Python
+
+tags :
+  - Classification
+  - Prediction
+  - Pycaret
+---
+
+
+
 ```python
 import warnings
 warnings.filterwarnings('ignore')
@@ -1207,7 +1222,7 @@ predictions
     .dataframe tbody tr th {
         vertical-align: top;
     }
-    
+
     .dataframe thead th {
         text-align: right;
     }
