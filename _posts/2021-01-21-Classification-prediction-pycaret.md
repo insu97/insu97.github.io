@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Pycaret!"
+title:  "Classification-Pycaret!"
 
 categories :
   - Python
