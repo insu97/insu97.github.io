@@ -2,6 +2,8 @@ User-agent: python
 User-agent: classification
 User-agent: Crawling
 User-agent: train_test_split
+User-agent: Pycaret
+User-agent: *
 Allow: /
 # Disallow: /diary/
 
