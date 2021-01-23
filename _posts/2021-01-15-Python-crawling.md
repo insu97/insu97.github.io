@@ -7,6 +7,9 @@ categories :
 
 tags :
   - Crawling
+
+comments : true
+
 ---
 
 # 라이브러리 설정

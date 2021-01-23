@@ -10,6 +10,9 @@ tags :
   - Prediction
   - RandomForestClassifier
   - hyperparameter
+
+comments : true
+
 ---
 
 ```python

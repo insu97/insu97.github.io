@@ -8,6 +8,9 @@ categories :
 tags :
   - Classification
   - Preprocessing
+
+comments : true
+
 ---
 
 kaggle 타이타닉 data 사용 : https://www.kaggle.com/c/titanic
