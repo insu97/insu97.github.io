@@ -3,10 +3,11 @@ layout: archive
 comments: true
 ---
 
-{{ content }}
 {% if page.comments != false %}
       {% include disqus_comments.html %}
 {% endif %}
+
+{{ content }}
 
 <ul class="taxonomy__index">
   {% assign postsInYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
