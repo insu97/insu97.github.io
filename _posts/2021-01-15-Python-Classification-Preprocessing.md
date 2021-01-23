@@ -1748,3 +1748,7 @@ plt.show()
 train.to_csv("../data/titanic/pre_train.csv" , index = False)
 test.to_csv("../data/titanic/pre_test.csv" , index = False)
 ```
+
+{%- if site.disqus.shortname -%}
+  {%- include disqus.html -%} // disqus.html 파일이 있는 경로를 지정해주면 된다.
+{%- endif -%}
