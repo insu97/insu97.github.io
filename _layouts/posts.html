@@ -3,10 +3,6 @@ layout: archive
 comments: true
 ---
 
-{% if page.comments != false %}
-  {% include disqus_comments.html %}
-{% endif %}
-
 {{ content }}
 
 <ul class="taxonomy__index">
@@ -34,3 +30,5 @@ comments: true
   </section>
 
 {% endfor %}
+
+{% include disqus.html %}
