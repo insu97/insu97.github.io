@@ -118,7 +118,7 @@ submission['Survived'] = answer.astype('int')
 submission.to_csv("../data/titanic/gender_submission.csv" , index = False)
 ```
 
-![png](/assets/images/classification/score_LR_calssification.png)
+![png](/assets/images/classification/score_LR_classification.png)
 
 # 하이퍼 파라미터
 
@@ -219,7 +219,7 @@ submission['Survived'] = answer.astype('int')
 submission.to_csv("../data/titanic/gender_submission.csv" , index = False)
 ```
 
-![png](/assets/images/classification/score_LR_calssification_random.png)
+![png](/assets/images/classification/score_LR_classification_random.png)
 
 ## 그리드 서치
 
@@ -355,6 +355,6 @@ submission['Survived'] = answer.astype('int')
 submission.to_csv("../data/titanic/gender_submission.csv" , index = False)
 ```
 
-![png](/assets/images/classification/score_LR_calssification_grid.png)
+![png](/assets/images/classification/score_LR_classification_grid.png)
 
 하이퍼 파라미터로 모델을 개선시켜도 점수가 크게 변하지는 않는다
