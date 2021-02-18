@@ -16,6 +16,8 @@ comments : true
 
 
 ```java
+// switch
+
 public class syntax {
     public static void main(String[] args) {
         int i = 10 ;
@@ -38,6 +40,8 @@ public class syntax {
 ==> 출력 : A 구역입니다.
 
 ```java
+// for
+
 public class syntax {
     public static void main(String[] args) {
         for (int i = 1; i <= 10; i++) {
