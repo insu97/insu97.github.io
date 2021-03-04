@@ -1,13 +1,14 @@
-User-agent: python
-User-agent: classification
-User-agent: Crawling
-User-agent: train_test_split
-User-agent: Pycaret
-User-agent: java
-User-agent : Stock
-User-agent: P_I_S
-User-agent: *
-Allow: /
+#User-agent: python
+#User-agent: classification
+#User-agent: Crawling
+#User-agent: train_test_split
+#User-agent: Pycaret
+#User-agent: java
+#User-agent : Stock
+#User-agent: P_I_S
+#User-agent: *
+#Allow: /
+
 # Disallow: /diary/
 
 Sitemap: http://insu97.github.io/sitemap.xml
