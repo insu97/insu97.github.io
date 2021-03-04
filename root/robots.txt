@@ -10,4 +10,4 @@ User-agent: *
 Allow: /
 # Disallow: /diary/
 
-# Sitemap: http://insu97.github.io/sitemap.xml
+Sitemap: http://insu97.github.io/sitemap.xml
