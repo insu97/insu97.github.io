@@ -18,7 +18,12 @@ main:
     url: /tags/
 
 Stock:
-  - title: Stock
+  - title : Stock
     children:
       - title: "Stock"
-        url: /stock/Stock/
+        url: /stock/
+Python:
+  - title : Python
+    children :
+      - title : "Python"
+        url : /python/
