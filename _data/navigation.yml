@@ -17,7 +17,7 @@ main:
   - title: "Tags"
     url: /tags/
 
-docs:
+Stock:
   - title: Stock
     children:
       - title: "Stock"
