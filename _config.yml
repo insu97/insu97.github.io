@@ -101,6 +101,9 @@ author:
   bio              : "정리"
   location         : "일산"
   email            : "qktdlstn9701@naver.com"
+  sidebar :
+    nav : "docs"
+
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
