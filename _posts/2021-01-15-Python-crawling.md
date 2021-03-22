@@ -10,6 +10,9 @@ tags :
 
 comments : true
 
+sidebar:
+  nav: "Python"
+  
 ---
 
 # 라이브러리 설정

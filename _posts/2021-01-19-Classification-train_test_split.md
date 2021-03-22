@@ -11,6 +11,9 @@ tags :
 
 comments : true
 
+sidebar:
+  nav: "Python"
+  
 ---
 
 ```python

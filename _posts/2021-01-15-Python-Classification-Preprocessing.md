@@ -11,6 +11,9 @@ tags :
 
 comments : true
 
+sidebar:
+  nav: "Python"
+  
 ---
 
 kaggle 타이타닉 data 사용 : https://www.kaggle.com/c/titanic

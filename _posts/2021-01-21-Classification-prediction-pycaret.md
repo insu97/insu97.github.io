@@ -12,6 +12,9 @@ tags :
 
 comments : true
 
+sidebar:
+  nav: "Python"
+  
 ---
 
 
