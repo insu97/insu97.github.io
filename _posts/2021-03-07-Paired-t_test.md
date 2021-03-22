@@ -10,6 +10,9 @@ tags :
   - t-test
 
 comments : true
+
+sidebar:
+  nav: "R"
 ---
 
 

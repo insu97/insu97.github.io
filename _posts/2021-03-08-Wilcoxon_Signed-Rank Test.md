@@ -9,6 +9,9 @@ tags :
   - Wilcoxon
 
 comments : true
+
+sidebar:
+  nav: "R"
 ---
 
 

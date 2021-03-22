@@ -9,6 +9,9 @@ tags :
   - Two_Sample T-test
 
 comments : true
+
+sidebar:
+  nav: "R"
 ---
 
 # Two_Sample T-test

@@ -22,7 +22,7 @@ Stock:
     children:
       - title: "Stock"
         url: /stock/Stock/
-        
+
 Python:
   - title : Python
     children :
@@ -40,3 +40,21 @@ Python:
         url : /python/Classification-prediction-RandomForestClassifier/
       - title : "pycaret"
         url : /python/Classification-prediction-pycaret/
+
+R :
+  - title : R
+    children :
+      - title : "기술통계"
+        url : /r/기술통계/
+      - title : "가설검정"
+        url : /r/가설검정/
+      - title : "one-sample T-test"
+        url : /r/One-t_test/
+      - title : "Paired-t_test"
+        url : /r/Paired-t_test/
+      - title : "Wilcoxon_Signed-Rank-Test"
+        url : /r/Wilcoxon_Signed-Rank-Test/
+      - title : "Two_Sample-t_test"
+        url : /r/Two_Sample-T-test/
+      - title : "Wilcoxon_Rank_Sum_Test"
+        url : /r/Wilcoxon_Rank_Sum_Test/

@@ -9,6 +9,9 @@ tags :
   - Wilcoxon Rank_sum Test
 
 comments : true
+
+sidebar:
+  nav: "R"
 ---
 
 
