@@ -21,4 +21,4 @@ docs:
   - title: Stock
     children:
       - title: "주식"
-        url: /docs/posts/stock.md
+        url: /posts/Stock.md
