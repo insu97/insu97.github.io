@@ -21,9 +21,22 @@ Stock:
   - title : Stock
     children:
       - title: "Stock"
-        url: /stock/
+        url: /stock/Stock/
+        
 Python:
   - title : Python
     children :
-      - title : "Python"
-        url : /python/
+      - title : "머신러닝 정리"
+        url : /python/Python-머신러닝/
+      - title : "크롤링"
+        url : /python/Python-crawling/
+      - title : "전처리"
+        url : /python/Python-Classification-Preprocessing/
+      - title : "train_test_split"
+        url : /python/Classification-train_test_split/
+      - title : "LogisticRegression"
+        url : /python/Classification-prediction-LogisticRegression/
+      - title : "RandomForestClassifier"
+        url : /python/Classification-prediction-RandomForestClassifier/
+      - title : "pycaret"
+        url : /python/Classification-prediction-pycaret/
