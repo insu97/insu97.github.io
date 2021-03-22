@@ -29,8 +29,6 @@ logo                     : # path of logo image to display in the masthead, e.g.
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
-sidebar:
-  nav: "docs"
 comments:
   provider               :  disqus # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
   disqus:
@@ -101,8 +99,7 @@ author:
   bio              : "정리"
   location         : "일산"
   email            : "qktdlstn9701@naver.com"
-  sidebar :
-    nav : "docs"
+  sidebar : nav : "docs"
 
   links:
     - label: "Email"
