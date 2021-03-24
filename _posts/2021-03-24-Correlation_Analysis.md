@@ -1,12 +1,12 @@
 ---
 layout: single
-title:  "correlation_Analysis!"
+title:  "Correlation_Analysis!"
 
 categories :
   - R
 
 tags :
-  - correlation_Analysis
+  - Correlation_Analysis
 
 comments : true
 
