@@ -21,7 +21,10 @@ title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "P_I_S"
 description              : "MY BLOG"
+
 cover                    : assets/images/home/photo_1.jpg
+favicon                  : assets/images/home/photo_2.jpg
+
 url                      : https://insu97.github.io
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
