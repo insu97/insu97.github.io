@@ -62,7 +62,4 @@ R :
         url : /r/Correlation_Analysis/
 
  ADSP :
-   - title : ADSP
-     children :
-       - title : "ADSP_1"
-         url : /adsp/ADSP_1/
+  - title : ADSP
