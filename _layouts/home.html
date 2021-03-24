@@ -4,6 +4,14 @@ layout: archive
 
 {{ content }}
 
+
+<div class="jumbotron"
+  style="text-align: center; background-image:url(/assets/img/home/photo_1.jpg); background-size: cover;">
+  <img class="author-profile-img" src="/assets/img/profile.png" />
+  <p class="jumbotron-heading" style="text-shadow: white;">Hi, I am {{site.author}} !</p>
+  <p class="lead" style="text-shadow: white;" id="typewriteText"></p>
+</div>
+
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
 {% if paginator %}
