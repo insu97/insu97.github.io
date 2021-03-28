@@ -68,6 +68,8 @@ ADSP :
     children :
       - title : "ADSP_1"
         url : /adsp/ADSP_1/
+      - title : "APSP_2"
+        url : /adsp/ADSP_2/
 
 DataBase :
   - title : DataBase
