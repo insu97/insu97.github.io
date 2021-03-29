@@ -1,0 +1,66 @@
+---
+layout: single
+title:  "Java_1!"
+
+categories :
+  - Java
+
+tags :
+  - Java
+
+comments : true
+
+---
+
+1 . 정적 팩터리 메서드 ( Static factory method )
+
+```java
+public class Java_1 {
+
+    public static void main(String[] args) {
+
+        Menu Hamburger_1 = new Menu("햄버거", 7000);
+        Menu kimbap_1 = new Menu("김밥", 2500);
+        
+	    // 정적 팩터리 메서드 사용-> 가독성 증가
+        Menu Hamburger_2 = Menu.newHamburger();
+        Menu kimbap_2 = Menu.newKimbap();		    
+
+    }
+
+}
+
+
+class Menu {
+    String name;
+    long price;
+
+    public Menu(String name , long price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    // 정적 팩토리 메소드
+    public static Menu newHamburger() {
+        return new Menu("햄버거", 7000);
+    }
+
+    // 정적 팩토리 메소드
+    public static Menu newKimbap() {
+        return new Menu("김밥" , 2500);
+    }
+
+}
+```
+
+
+
+  - 장점
+    - 이름을 가질 수 있다.
+    - 호출될 때마다 인스턴스를 새로 생성하지는 않아도 된다.
+    - 반환 타입의 하위 타입 객체를 반환할 수 있는 능력이 있다.
+    - 입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있다.
+    - 정적 팩터리 메서드를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 된다.
+  - 단점
+    - 상속을 하려면 public이나 protected 생성자가 필요.
+    - 정적 팩터리 메서드는 프로그래머가 찾기 어렵다.
