@@ -83,3 +83,9 @@ Java :
     children :
       - title : "Java_1"
         url : /java/Java_1/
+
+EXCEL :
+  - title : EXCEL
+    children :
+      - title : "EXCEL_통계_1"
+        url : /통계/EXCEL_통계_1/
