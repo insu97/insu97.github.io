@@ -76,3 +76,10 @@ DataBase :
     children :
       - title : "DataBase_1"
         url : /database/DataBase_1/
+
+
+Java :
+  - title : Java
+    children :
+      - title : "Java_1"
+        url : /java/Java_1/
