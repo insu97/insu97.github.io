@@ -22,6 +22,8 @@ Stock:
     children:
       - title: "Stock"
         url: /stock/Stock/
+      - title: "Stock"
+        url: /stock/stock_차트/
 
 Python:
   - title : Python
