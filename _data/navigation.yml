@@ -62,6 +62,8 @@ R :
         url : /r/Correlation_Analysis/
       - title : "단순회귀분석"
         url : /r/단순회귀분석/
+      - title : "다중회귀분석"
+        url : /r/다중회귀분석/
 
 ADSP :
   - title : ADSP
