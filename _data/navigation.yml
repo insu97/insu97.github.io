@@ -82,8 +82,8 @@ DataBase :
         url : /database/DataBase_1/
 
 
-Java :
+EFFECTIVE_JAVA :
   - title : Java
     children :
-      - title : "Java_1"
-        url : /java/Java_1/
+      - title : "EFFECTIVE_1"
+        url : /java/EFFECTIVE_1/
