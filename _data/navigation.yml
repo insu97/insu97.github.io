@@ -86,14 +86,14 @@ EFFECTIVE_JAVA :
   - title : EFFECTIVE_JAVA
     children :
       - title : "EFFECTIVE_1"
-        url : /java/EFFECTIVE_1/
+        url : /effective_java/EFFECTIVE_1/
 
 Java_basic :
   - title : Java_basic
     children :
       - title : "Java_basic_1"
-        url : /java/Java_기초_1/
+        url : /java_basic/Java_기초_1/
       - title : "Java_basic_2"
-        url : /java/Java_기초_2/
+        url : /java_basic/Java_기초_2/
       - title : "Java_basic_3"
-        url : /java/Java_기초_3/
+        url : /java_basic/Java_기초_3/
