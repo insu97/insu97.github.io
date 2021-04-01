@@ -83,7 +83,7 @@ DataBase :
 
 
 EFFECTIVE_JAVA :
-  - title : Java
+  - title : EFFECTIVE_JAVA
     children :
       - title : "EFFECTIVE_1"
         url : /java/EFFECTIVE_1/
