@@ -93,3 +93,5 @@ Java_basic :
     children :
       - title : "Java_basic_1"
         url : /java/Java_기초_1/
+      - title : "Java_basic_2"
+        url : /java/Java_기초_2/
