@@ -91,11 +91,11 @@ EFFECTIVE_JAVA :
 Java_basic :
   - title : Java_basic
     children :
-      - title : "Java_basic_1"
+      - title : "변수"
         url : /java_basic/Java_기초_1/
-      - title : "Java_basic_2"
+      - title : "데이터타입"
         url : /java_basic/Java_기초_2/
-      - title : "Java_basic_3"
+      - title : "형변환"
         url : /java_basic/Java_기초_3/
-      - title : "Java_basic_4"
+      - title : "조건연산자"
         url : /java_basic/Java_기초_4/
