@@ -91,6 +91,8 @@ EFFECTIVE_JAVA :
 Java_basic :
   - title : Java_basic
     children :
+      - title : "출력"
+        url : /java_basic/Java_기초_0/
       - title : "변수"
         url : /java_basic/Java_기초_1/
       - title : "데이터타입"
