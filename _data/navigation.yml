@@ -78,8 +78,8 @@ ADSP :
 DataBase :
   - title : DataBase
     children :
-      - title : "DataBase_1"
-        url : /database/DataBase_1/
+      - title : "DataBase_기초_1"
+        url : /database/DataBase_기초_1/
 
 
 EFFECTIVE_JAVA :
