@@ -80,6 +80,8 @@ DataBase :
     children :
       - title : "DataBase_기초_1"
         url : /database/DataBase_기초_1/
+      - title : "DataBase_기초_2"
+        url : /database/DataBase_기초_2/
 
 
 EFFECTIVE_JAVA :
