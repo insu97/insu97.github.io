@@ -22,7 +22,7 @@ Stock:
     children:
       - title: "Stock"
         url: /stock/Stock/
-      - title: "Stock_Record!"
+      - title: "Stock_Record"
         url: /stock/Stock_record/
 
 Python:
