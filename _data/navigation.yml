@@ -23,7 +23,7 @@ Stock:
       - title: "Stock"
         url: /stock/Stock/
       - title: "Stock_Record!"
-        url: /stock/Stock_Record/
+        url: /stock/Stock_record/
 
 Python:
   - title : Python
