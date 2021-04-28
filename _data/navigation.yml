@@ -22,6 +22,8 @@ Stock:
     children:
       - title: "Stock"
         url: /stock/Stock/
+      - title: "Stock_Record!"
+        url: /stock/Stock_Record/
 
 Python:
   - title : Python
