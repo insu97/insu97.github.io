@@ -124,9 +124,7 @@ HTML :
     children :
       - title : "HTML-basic"
         url : /html/HTML_1/
-    children :
       - title : "HTML-context"
         url : /html/HTML_2/
-    children :
       - title : "HTML-latex"
         url : /html/HTML_3/
