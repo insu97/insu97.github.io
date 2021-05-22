@@ -122,5 +122,11 @@ Java_basic :
 HTML :
   - title : HTML
     children :
-      - title : "HTML-1"
+      - title : "HTML-basic"
         url : /html/HTML_1/
+    children :
+      - title : "HTML-basic"
+        url : /html/context/
+    children :
+      - title : "HTML-basic"
+        url : /html/latex/
