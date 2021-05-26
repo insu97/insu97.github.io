@@ -80,6 +80,8 @@ DataBase :
         url : /database/DataBase_기초_1/
       - title : "DataBase_기초_2"
         url : /database/DataBase_기초_2/
+      - title : "DataBase_기초_3"
+        url : /database/DataBase_기초_3/
 
 
 EFFECTIVE_JAVA :
