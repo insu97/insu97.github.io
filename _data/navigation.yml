@@ -16,13 +16,7 @@ main:
     url: /categories/
   - title: "Tags"
     url: /tags/
-
-Stock:
-  - title : Stock
-    children:
-      - title: "Stock"
-        url: /stock/Stock/
-
+    
 Python:
   - title : Python
     children :
