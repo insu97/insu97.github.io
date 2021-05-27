@@ -16,7 +16,7 @@ main:
     url: /categories/
   - title: "Tags"
     url: /tags/
-    
+
 Python:
   - title : Python
     children :
@@ -78,6 +78,8 @@ DataBase :
         url : /database/DataBase_기초_3/
       - title : "DataBase_기초_4"
         url : /database/DataBase_기초_4/
+      - title : "DataBase_기초_5"
+        url : /database/DataBase_기초_5/
 
 
 EFFECTIVE_JAVA :
