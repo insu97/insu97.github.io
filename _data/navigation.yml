@@ -127,6 +127,8 @@ Java_basic :
         url : /java_basic/Java_기초_14/
       - title : "Setter/Getter"
         url : /java_basic/Java_기초_15/
+      - title : "Singleton"
+        url : /java_basic/Java_기초_16/
 
 
 HTML :
