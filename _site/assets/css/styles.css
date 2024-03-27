@@ -2,4 +2,24 @@
   color: green;
 }
 
+nav {
+  width: 100px;
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+}
+
+nav a {
+  padding: 20px;
+  display: block;
+}
+
+.main {
+  margin-left: 120px;
+}
+
+.main h1 {
+  text-align: center;
+}
+
 /*# sourceMappingURL=styles.css.map */
