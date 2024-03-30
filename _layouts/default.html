@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/assets/css/styles.css">
-  </head>
+	<head>
+		<meta charset="utf-8">
+		<title>{{ page.title }}</title>
+		<link rel="stylesheet" href="/assets/css/styles.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	</head>
   <body>
-    {% include navigation.html %}
 	<div class = "header">
-		<div class = "favicon">
-			favicon
+		<div class = "blog_image">
+			Blog Image
 		</div>
-		<div class = "h1">
+		<div class = "main_text">
 			<h1><a href='/'>In수</a></h1>
 		</div>
 	</div>
-	<div class = "main">
-		{{ content }}
+	<div class = "center">
+		<div class="nav">
+			{% include navigation.html %}
+		</div>
+		<div class = "main_contents">
+			{{ content }}
+		</div>
 	</div>
   </body>
 </html>
