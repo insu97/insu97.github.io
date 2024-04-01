@@ -99,35 +99,55 @@ html, body {
   font-size: 3vw;
 }
 
-.center {
+.section {
   width: 100vw;
   height: 37vw;
   border-bottom: 1px solid black;
 }
 
-.center .nav {
+.section .nav {
   width: 10%;
   height: 100%;
   float: left;
   border-right: 1px solid black;
 }
 
-.center .nav a {
+.section .nav a {
   display: block;
   text-align: center;
   padding: 10% 0;
   border-bottom: 1px solid black;
 }
 
-.center .main_contents {
+.section .main_contents {
   width: 85%;
   height: 100%;
   # margin-left: 1%;
   float: left;
 }
 
-.center .main_contents div {
+.section .main_contents div {
   padding: 20px;
+}
+
+.footer {
+  height: 5vw;
+  width: 100vw;
+  position: relative;
+  border-bottom: 1px solid black;
+  font-weight: bold;
+}
+
+.footer p {
+  position: absolute;
+  top: 35%;
+  margin-left: 33vw;
+}
+
+.footer a {
+  position: absolute;
+  top: 35%;
+  margin-left: 66vw;
 }
 
 /*# sourceMappingURL=styles.css.map */
