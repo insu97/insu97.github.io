@@ -71,6 +71,11 @@ html, body {
 	float : left;
 }
 
+.blog_image img{
+	width : 100%;
+	height : 100%;
+}
+
 .main_text {
 	width : 90vw;
 	height : 5vw;
@@ -82,11 +87,11 @@ html, body {
 	width : 100%;
 	text-align : center;
 	position : absolute;
-	top : 40%;
+	top : 25%;
 	font-family: "Dokdo", system-ui;
     font-weight: 400;
     font-style: normal;
-	font-size : 40px;
+	font-size : 3vw;
 }
 
 .center {
@@ -105,7 +110,8 @@ html, body {
 .center .nav a {
 	display : block;
 	text-align : center;
-	margin-top : 10%;
+	padding : 10% 0;
+	border-bottom : 1px solid black;
 }
 
 .center .main_contents {
