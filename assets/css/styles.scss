@@ -1,6 +1,5 @@
 ---
 ---
-
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -25,6 +24,8 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	text-decoration-line : none;
+	color: inherit;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -51,6 +52,7 @@ table {
 }
 
 @import "main";
+@import url('https://fonts.googleapis.com/css2?family=Dokdo&display=swap');
 
 html, body {
 	width : 100%;
@@ -60,7 +62,7 @@ html, body {
 .header {
 	height : 5vw;
 	width : 100vw;
-	border : 1px solid black;
+	border-bottom : 1px solid black;
 }
 
 .blog_image {
@@ -81,19 +83,23 @@ html, body {
 	text-align : center;
 	position : absolute;
 	top : 40%;
+	font-family: "Dokdo", system-ui;
+    font-weight: 400;
+    font-style: normal;
+	font-size : 40px;
 }
 
 .center {
 	width : 100vw;
 	height : 37vw;
-	border : 1px solid red;
+	border-bottom : 1px solid black;
 }
 
 .center .nav {
 	width : 10%;
 	height : 100%;
-	border : 1px solid blue;
 	float : left;
+	border-right : 1px solid black;
 }
 
 .center .nav a {
@@ -103,16 +109,12 @@ html, body {
 }
 
 .center .main_contents {
-	width : 88%;
+	width : 85%;
 	height : 100%;
-	margin-left : 1%;
-	border : 1px solid green;
+	# margin-left : 1%;
 	float : left;
 }
 
 .center .main_contents div{
-	width : 95%;
-	height : 90%;
-	padding : 15px;
-	border : 1px solid black;
+	padding : 20px;
 }
