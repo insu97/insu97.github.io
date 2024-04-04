@@ -32,7 +32,7 @@ paginate_multiple:
     sub_dir : '/projects'
   - paginate: 5
     paginate_path: '/study/hadoop/page:num/'
-    sub_dir : '/studys-hadoop'
+    sub_dir : '/'
 
 # paginate_multiple:
 #   - paginate: 5
