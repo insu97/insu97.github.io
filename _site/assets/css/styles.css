@@ -96,7 +96,6 @@ table {
   width: 100vw;
   height: 37vw;
   border-bottom: 1px solid black;
-  position: relative;
 }
 
 .section .nav {
@@ -115,11 +114,16 @@ table {
 }
 
 .section .main_contents {
-  position: relative;
   width: 80%;
   height: 37vw;
   margin-left: 5%;
   float: left;
+}
+
+.section .main_contents li {
+  margin-top: 1.5vw;
+  font-weight: bold;
+  font-size: 2vw;
 }
 
 .footer {
@@ -147,13 +151,13 @@ table {
 
 .tags a {
   display: block;
-  font-size: 1.8vw;
+  font-size: 1.5vw;
   padding-top: 3.5vw;
 }
 
 .pagination {
   width: 100%;
-  height: 20%;
+  height: auto;
   text-align: center;
   top: 25%;
 }

@@ -1,0 +1,13 @@
+---
+layout: default
+title: Study
+tags : ['study']
+---
+
+<ul>
+	<li>
+		{% for item in site.data.study_list %}
+			<a href="{{ item.link }}" {% if page.url == item.link %} class="current"{% endif %}>{{ item.name }}</a>
+		{% endfor %}
+	</li>
+<ul>
