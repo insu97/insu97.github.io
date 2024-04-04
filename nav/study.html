@@ -1,0 +1,9 @@
+---
+title : Study
+layout : default
+tags : ['study']
+---
+
+{% for item in site.data.study_list %}
+  <a href="{{ item.link }}">{{ item.name }}</a>
+{% endfor %}

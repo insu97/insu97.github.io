@@ -21,18 +21,25 @@ defaults:
 plugins:
   - jekyll-paginate # 플러그인 사용을 의미한다.(Jekyll 3)
   - jekyll-paginate-multiple
-# paginate: 2 # 한 페이지당 보여줄 posts 수
 
+paginate: 5 # 한 페이지당 보여줄 posts 수
+paginate_multiple:
+  - paginate : 5
+    paginate_path : "/hadoop/page:numo/"
+    sub_dir : "/hadoop/"
+  - paginate : 5
+    paginate_path : "/ML/page:numo/"
+    sub_dir : "/projects/"
 # paginate_path: "/project/page:numo/" # 다음 페이지에 해당하는 URL
 # paginate_path : "/study/hadoop/page:numo/"
 
-paginate_multiple:
-  - paginate: 5
-    paginate_path: '/project/page:num/'
-    sub_dir : '/projects'
-  - paginate: 5
-    paginate_path: '/study/hadoop/page:num/'
-    sub_dir : '/studys-hadoop'
+# paginate_multiple:
+#   - paginate: 5
+#     paginate_path: '/project/page:num/'
+#     sub_dir : '/projects'
+#   - paginate: 5
+#     paginate_path: '/study/hadoop/page:num/'
+#     sub_dir : '/studys-hadoop'
 
 # paginate_multiple:
 #   - paginate: 5
