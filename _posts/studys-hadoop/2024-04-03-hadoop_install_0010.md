@@ -1,6 +1,6 @@
 ---
 title : Hadoop-Install
-tags : ['project']
+tags : ['hadoop']
 layout : default
 ---
 
