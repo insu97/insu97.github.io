@@ -3,16 +3,16 @@ collections:
     output: true
 
 defaults:
-  - scope:
-      path: ""
-      type: "authors"
-    values:
-      layout: "author"
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
+  # - scope:
+  #     path: ""
+  #     type: "authors"
+  #   values:
+  #     layout: "author"
+  # - scope:
+  #     path: ""
+  #     type: "posts"
+  #   values:
+  #     layout: "post"
   - scope:
       path: ""
     values:
@@ -39,3 +39,10 @@ paginate_multiple:
 #     paginate_path: '/project/page:num/'
 #   - paginate: 5
 #     paginate_path: '/study/hadoop/page:num/'
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_hightlighter: rouge

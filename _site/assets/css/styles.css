@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/
+/* http://meyerweb.com/eric/tools/X/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -17,10 +17,7 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   margin: 0;
-  padding: 0;
   border: 0;
-  font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
   text-decoration-line: none;
   color: inherit;
@@ -34,20 +31,6 @@ footer, header, hgroup, menu, nav, section {
 
 body {
   line-height: 1;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: "";
-  content: none;
 }
 
 table {
@@ -115,15 +98,10 @@ table {
 
 .section .main_contents {
   width: 80%;
-  height: 37vw;
+  height: 95%;
+  margin-top: 1%;
   margin-left: 5%;
   float: left;
-}
-
-.section .main_contents li {
-  margin-top: 1.5vw;
-  font-weight: bold;
-  font-size: 2vw;
 }
 
 .footer {
