@@ -3,8 +3,6 @@ layout: default
 title: Study
 tags : ['study']
 ---
-
-
 <ol style="padding-top : 2vw; font-weight:bold; font-size : 2vw;">
 	{% for item in site.data.study_list %}
 		<li><a href="{{ item.link }}" {% if page.url == item.link %} class="current"{% endif %}>{{ item.name }}</a></li>
