@@ -3,6 +3,8 @@ title : TAGS
 layout : default
 ---
 
-{% for tag in site.data.tags %}
-  {{ tag }}
-{% endfor %}
+<div class="tags">
+  {% for tag in site.data.tags %}
+    <a href="#">{{ tag }}</a>
+  {% endfor %}
+</div>
