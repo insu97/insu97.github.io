@@ -1,0 +1,7 @@
+main:
+- title : HOME
+  url : /index/
+- title : ALL_POSTS
+  url : /posts/
+- title : TAGS
+  url : /tags/

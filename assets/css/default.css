@@ -1,5 +1,7 @@
 html, body {
   margin, padding : 0px;
+  min-width : 700px;
+  min-height: 700px;
 }
 
 /* header */
@@ -7,7 +9,8 @@ html, body {
 .header {
   width : 100vw;
   height :  5vw;
-  margin, padding : 0px;
+  margin : 0px;
+  padding : 0px;
   border-bottom : 1px solid black;
 }
 
@@ -28,9 +31,79 @@ html, body {
   float : left;
   width : 89vw;
   height : 5vw;
+  position : relative;
 }
 
 .header .main_text h1{
-  margin, padding : 0px;
+  margin : 0px;
+  width : 100%;
+  height : 3vw;
   text-align : center;
+
+}
+
+.header .main_text h1 a {
+  color: inherit;
+  text-decoration-line : none;
+  font-size : 3rem;
+  top : 20%;
+  position : absolute;
+}
+
+/* navigation */
+
+.container {
+  width : 100%;
+  height: auto;
+  min-height: 37vw;
+  border-bottom : 1px solid black;
+}
+
+.container .navigation {
+  float : left;
+  width : 10vw;
+  text-align: center;
+  border-right : 1px solid black;
+}
+
+.container .navigation a {
+  float : left;
+  width : 100%;
+  display: block;
+  font-size: 2rem;
+  color : inherit;
+  text-decoration: none;
+  border-bottom : 1px solid black;
+}
+
+.container .main {
+  float : left;
+  width : 80vw;
+  margin : 1vw;
+  min-height : 30vw;
+}
+
+/* footer */
+.footer {
+  width : 100%;
+  min-height: 5vw;
+  position: relative;
+  border-bottom : 1px solid black;
+}
+
+.footer p {
+  float : left;
+  margin : 0 0 0 25vw;
+  padding : 0px;
+  top : 40%;
+  position : absolute;
+}
+
+.footer a {
+  float : left;
+  color: inherit;
+  text-decoration-line : none;
+  top : 40%;
+  position : absolute;
+  margin : 0 0 0 60vw;
 }
