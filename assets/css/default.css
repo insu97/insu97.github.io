@@ -64,6 +64,13 @@ html, body {
   width : 10vw;
   text-align: center;
   border-right : 1px solid black;
+  min-height: 37vw;
+}
+
+.container .navigation ul {
+  list-style: none;
+  padding : 0px;
+  margin : 0px;
 }
 
 .container .navigation a {
