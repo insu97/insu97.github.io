@@ -73,7 +73,7 @@ html, body {
   margin : 0px;
 }
 
-.container .navigation a {
+.container .navigation ul a {
   float : left;
   width : 100%;
   display: block;
