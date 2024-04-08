@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Dokdo&display=swap');
 
-html, body {
-  margin, padding : 0px;
-  min-width : 700px;
-  min-height: 700px;
+html {
+  margin : 0px;
+  padding : 0px;
+  height: 100%;
+}
+body {
+  margin : 0px;
+  padding : 0px;
+  min-height: 100%;
 }
 
 /* header */
@@ -56,16 +61,13 @@ html, body {
 
 .container {
   width : 100%;
-  height: auto;
   min-height: 37vw;
-  border-bottom : 1px solid black;
 }
 
 .container .navigation {
   float : left;
   width : 10vw;
   text-align: center;
-  border-right : 1px solid black;
   min-height: 37vw;
 }
 
@@ -88,9 +90,11 @@ html, body {
 
 .container .main {
   float : left;
+  padding-left : 1vw;
+  padding-top : 1vw;
   width : 80vw;
-  margin : 1vw;
-  min-height : 30vw;
+  min-height : 37vw;
+  border-left : 1px solid black;
 }
 
 .container .main .posts a {
@@ -122,7 +126,9 @@ html, body {
   width : 100%;
   min-height: 5vw;
   position: relative;
+  border-top: 1px solid black;
   border-bottom : 1px solid black;
+  clear : both;
 }
 
 .footer p {
