@@ -5,6 +5,6 @@ layout : default
 
 <div class="tags">
   {% for tag in site.data.tags %}
-    <a href="#">{{ tag }}</a>
+    <a href="{{ "/tags/tag_" | append: tag | append: ".html" }}" class="btn btn-default navbar-btn cursorNorm" role="button">{{page.tagName}}{{tag}}</a>
   {% endfor %}
 </div>

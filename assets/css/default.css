@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dokdo&display=swap');
+
 html, body {
   margin, padding : 0px;
   min-width : 700px;
@@ -39,7 +41,6 @@ html, body {
   width : 100%;
   height : 3vw;
   text-align : center;
-
 }
 
 .header .main_text h1 a {
@@ -48,6 +49,7 @@ html, body {
   font-size : 3rem;
   top : 20%;
   position : absolute;
+  font-family: "Dokdo", system-ui;
 }
 
 /* navigation */
@@ -81,6 +83,7 @@ html, body {
   color : inherit;
   text-decoration: none;
   border-bottom : 1px solid black;
+  font-family: "Dokdo", system-ui;
 }
 
 .container .main {
@@ -106,6 +109,14 @@ html, body {
   font-size: 1.5rem;
 }
 
+.container .main .tag_ a {
+  border-bottom: 1px solid black;
+  padding : 10px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.5rem;
+}
+
 /* footer */
 .footer {
   width : 100%;
@@ -118,15 +129,19 @@ html, body {
   float : left;
   margin : 0 0 0 25vw;
   padding : 0px;
-  top : 40%;
+  top : 30%;
   position : absolute;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .footer a {
   float : left;
   color: inherit;
   text-decoration-line : none;
-  top : 40%;
+  top : 30%;
   position : absolute;
   margin : 0 0 0 60vw;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
