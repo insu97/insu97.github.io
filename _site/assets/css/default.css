@@ -51,7 +51,7 @@ body {
 .header .main_text h1 a {
   color: inherit;
   text-decoration-line : none;
-  font-size : 3rem;
+  font-size : 2.5vw;
   top : 20%;
   position : absolute;
   font-family: "Dokdo", system-ui;
@@ -81,7 +81,7 @@ body {
   float : left;
   width : 100%;
   display: block;
-  font-size: 2rem;
+  font-size: 1.8vw;
   color : inherit;
   text-decoration: none;
   border-bottom : 1px solid black;
@@ -110,7 +110,7 @@ body {
   padding : 10px;
   text-decoration: none;
   color: inherit;
-  font-size: 1.5rem;
+  font-size: 1.5vw;
 }
 
 .container .main .tag_ a {
@@ -118,7 +118,7 @@ body {
   padding : 10px;
   text-decoration: none;
   color: inherit;
-  font-size: 1.5rem;
+  font-size: 1.5vw;
 }
 
 /* footer */
@@ -138,7 +138,7 @@ body {
   top : 30%;
   position : absolute;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.2vw;
 }
 
 .footer a {
@@ -149,5 +149,5 @@ body {
   position : absolute;
   margin : 0 0 0 60vw;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.2vw;
 }
