@@ -45,8 +45,15 @@
 <h1 id="베이스라인-코드-따라잡기">베이스라인 코드 따라잡기</h1>
 
 <ol>
-  <li>
-    <p>Configuration(=CFG) 설정</p>
+  <li>Configuration(=CFG) 설정
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">CFG</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="sh">'</span><span class="s">IMG_SIZE</span><span class="sh">'</span><span class="p">:</span><span class="mi">224</span><span class="p">,</span>
+   <span class="sh">'</span><span class="s">EPOCHS</span><span class="sh">'</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+   <span class="sh">'</span><span class="s">LEARNING_RATE</span><span class="sh">'</span><span class="p">:</span><span class="mf">3e-4</span><span class="p">,</span>
+   <span class="sh">'</span><span class="s">BATCH_SIZE</span><span class="sh">'</span><span class="p">:</span><span class="mi">32</span><span class="p">,</span>
+   <span class="sh">'</span><span class="s">SEED</span><span class="sh">'</span><span class="p">:</span><span class="mi">41</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>dataset 나누기 [ train_test_split ]</p>
@@ -56,7 +63,7 @@
   </li>
   <li>데이터 전처리
     <ul>
-      <li>이미지 크기 : 224</li>
+      <li>이미지 크기 : 224 [ 관습적으로 224 사용 ]</li>
       <li>배치 사이즈 : 32</li>
     </ul>
   </li>
