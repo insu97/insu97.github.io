@@ -3,6 +3,9 @@ title : Hadoop_Install
 layout : default
 tags: [hadoop]
 ---
+
+{% include markdown.html %}
+
 # 01. 설치
 
 ## 1. virtualbox download
