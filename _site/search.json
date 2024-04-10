@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "DLFS3-Step001",
+      "category" : "",
+      "tags"     : "DLfS3, DeepLearning",
+      "url"      : "/2024/04/10/Step001.DLfS3.html",
+      "date"     : "2024-04-10 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "001.저해상도 조류 이미지 분류 AI 경진대회",
       "category" : "",
       "tags"     : "dacon, project",
