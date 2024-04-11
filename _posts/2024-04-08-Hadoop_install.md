@@ -1,6 +1,6 @@
 ---
 title : Hadoop_Install
-layout : default
+layout : markdown
 tags: [hadoop]
 ---
 
