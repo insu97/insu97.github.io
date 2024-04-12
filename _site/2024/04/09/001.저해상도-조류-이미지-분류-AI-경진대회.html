@@ -33,11 +33,13 @@
 					<div class="markdown-body">
   <h1 id="001저해상도-조류-이미지-분류-ai-경진대회---2024년04월09일">001.저해상도 조류 이미지 분류 AI 경진대회 - 2024년04월09일</h1>
 
-<!-- - tag : dacon project  -->
+<!-- - tag : dacon project pytorch  -->
 <ul>
   <li>tag : <a href="/tags/tag_dacon.html" class="btn btn-default navbar-btn cursorNorm" role="button">dacon</a>
 |
 <a href="/tags/tag_project.html" class="btn btn-default navbar-btn cursorNorm" role="button">project</a>
+|
+<a href="/tags/tag_pytorch.html" class="btn btn-default navbar-btn cursorNorm" role="button">pytorch</a>
 |</li>
 </ul>
 
@@ -65,7 +67,15 @@
   <li>데이터 전처리
     <ul>
       <li>이미지 크기 : 224 [ 관습적으로 224 사용 ]</li>
-      <li>배치 사이즈 : 32</li>
+      <li>배치 사이즈 : 32
+        <blockquote>
+          <p>파이토치에는 데이터 작업을 위한 기본 요소 두가지인 torch.utils.data.DataLoader 와 torch.utils.data.Dataset 존재</p>
+          <blockquote>
+            <p>Dataset 은 샘플과 정답(label)을 저장<br />
+DataLoader 은 Dataset 을 순회 가능한 객체(iterable)로 감싸는 기능</p>
+          </blockquote>
+        </blockquote>
+      </li>
     </ul>
   </li>
   <li>
