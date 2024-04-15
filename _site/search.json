@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "HDFS의 정의 및 작동방식",
+      "category" : "",
+      "tags"     : "hadoop",
+      "url"      : "/2024/04/15/HDFS%EC%9D%98-%EC%A0%95%EC%9D%98-%EB%B0%8F-%EC%9E%91%EB%8F%99%EB%B0%A9%EC%8B%9D.html",
+      "date"     : "2024-04-15 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "DLFS3-Step002",
       "category" : "",
       "tags"     : "DLfS3, DeepLearning",

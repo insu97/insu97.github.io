@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HDFS의 정의 및 작동방식</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+</div>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts.html">ALL_POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <h1 id="hdfs의-정의-및-작동방식---2024년04월15일">HDFS의 정의 및 작동방식 - 2024년04월15일</h1>
+
+<!-- - tag : hadoop  -->
+<ul>
+  <li>tag : <a href="/tags/tag_hadoop.html" class="btn btn-default navbar-btn cursorNorm" role="button">hadoop</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="hdfs--the-hadoop-distributed-file-system">HDFS : The Hadoop Distributed File System</h1>
+
+<ol>
+  <li>HDFS 란 ?
+    <ul>
+      <li>빅데이터를 전체 클러스터에 분산해 안정적으로 저장하여 애플리케이션이 그 데이터를 신속하게 액세스해 분석할 수 있게 하는 시스템</li>
+    </ul>
+  </li>
+  <li>파일 불러오는 방법
+    <ol>
+      <li>Client Node 에서 Name Node에게 파일 A가 필요하다고 요청</li>
+      <li>Name Node는 파일 A의 정보를 알려줌 ( Ex. 어디에 저장되어 있는지 )</li>
+      <li>해당 ‘Data Node’에 방문해 그 블록들을 가져와서 파일 A를 구성</li>
+    </ol>
+  </li>
+  <li>파일 쓰는 방법
+    <ol>
+      <li>Name Node에게 위치 물어보기</li>
+      <li>Name Node가 새 파일 항목을 확인하고 위치 정한 후 Data Node 지정</li>
+      <li>그러면 Client Node는 정해진 Data Node에게 가서 파일을 준다.</li>
+      <li>받은 Data Node는 주변의 다른 Data Node에게 복사본을 전달한다.</li>
+      <li>그 후 Data Node는 Client Node를 통해 Name Node에게 정보 전달 -&gt; Name Node는 새로운 파일의 블록과 복사본의 위치 기억</li>
+    </ol>
+  </li>
+  <li>Name Node가 하나뿐이여야 하며 Name Node가 오류가 생긴다면 해결책!
+    <ol>
+      <li>메타데이터를 계속 백업하기 : Name Node가 편집 로그를 로컬 디스크와 NFS(네트워크 파일 시스템)에 동시에 작성하도록 구성하는 것</li>
+      <li>이차적 이름 노드를 운영하기 : ‘주 Name Node’의 편집 로그 복사본을 유지</li>
+      <li>HDFS Federation : HDFS 파일 구조 내에 ‘명칭 공간 볼륨(namespace volume)’이라고 부르는 서브디렉터리마다 분리된 이름 노드를 지정</li>
+      <li>HDFS 고가용성(High Availabilty)을 사용해 ‘동적 예비 이름 노드’를 운영 : Name Node가 HDFS가 아닌 다른 안전한 공유 저장소에 편집 로그를 작성</li>
+    </ol>
+  </li>
+</ol>
+
+</div>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
