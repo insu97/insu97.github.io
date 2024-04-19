@@ -1,6 +1,30 @@
 [
   
     {
+      "title"    : "PostgreSQL &amp; PgAdmin 설치",
+      "category" : "",
+      "tags"     : "database, sql",
+      "url"      : "/2024/04/19/Postgre&PgAdmin%EC%84%A4%EC%B9%98.html",
+      "date"     : "2024-04-19 00:00:00 +0900"
+    } ,
+  
+    {
+      "title"    : "Hadoop-MapReduce",
+      "category" : "",
+      "tags"     : "hadoop, MapReduce",
+      "url"      : "/2024/04/17/Hadoop-MapReduce.html",
+      "date"     : "2024-04-17 00:00:00 +0900"
+    } ,
+  
+    {
+      "title"    : "DataBase 개요",
+      "category" : "",
+      "tags"     : "database, sql",
+      "url"      : "/2024/04/17/DataBase%EA%B0%9C%EC%9A%94.html",
+      "date"     : "2024-04-17 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Github",
       "category" : "",
       "tags"     : "git",
@@ -46,6 +70,14 @@
       "tags"     : "hadoop",
       "url"      : "/2024/04/11/Hadoop_%EA%B0%9C%EC%9A%94%EB%B0%8F%EC%97%AD%EC%82%AC.html",
       "date"     : "2024-04-11 00:00:00 +0900"
+    } ,
+  
+    {
+      "title"    : "DLFS3-Step004",
+      "category" : "",
+      "tags"     : "DLfS3, DeepLearning",
+      "url"      : "/2024/04/10/Step004.DLfS3.html",
+      "date"     : "2024-04-10 00:00:00 +0900"
     } ,
   
     {
