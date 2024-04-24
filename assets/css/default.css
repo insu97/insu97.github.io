@@ -1245,3 +1245,31 @@ body {
 .markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
   color: #d1242f;
 }
+
+/* /study.html */
+.main .study {
+  min-height: 37vw;
+}
+
+.main .study details {
+  padding-top : 1vw;
+}
+
+.main .study a {
+  color: inherit;
+  text-decoration-line : none;
+}
+
+/* /project.html */
+.main .project {
+  min-height: 37vw;
+}
+
+.main .project details {
+  padding-top : 1vw;
+}
+
+.main .project a {
+  color: inherit;
+  text-decoration-line : none;
+}

@@ -5,3 +5,7 @@ main:
   url : /posts/index.html
 - title : TAGS
   url : /tags.html
+- title : STUDY
+  url : /study.html
+- title : PROJECT
+  url : /project.html
