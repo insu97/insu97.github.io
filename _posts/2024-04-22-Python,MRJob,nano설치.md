@@ -1,7 +1,7 @@
 ---
 title : Python, MRJob, nano 설치
 layout : markdown
-tags: [hadoop]
+tags: [hadoop, hadoop-udemy]
 ---
 
 {% include markdown.html %}

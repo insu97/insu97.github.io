@@ -1,7 +1,7 @@
 ---
 title : Hadoop_Install
 layout : markdown
-tags: [hadoop]
+tags: [hadoop, hadoop-udemy]
 ---
 
 {% include markdown.html %}

@@ -1,7 +1,7 @@
 ---
 title : Hadoop-Putty
 layout : markdown
-tags: [hadoop]
+tags: [hadoop, hadoop-udemy]
 ---
 
 {% include markdown.html %}

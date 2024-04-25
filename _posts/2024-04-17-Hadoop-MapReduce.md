@@ -1,7 +1,7 @@
 ---
 title : Hadoop-MapReduce
 layout : markdown
-tags: [hadoop, MapReduce]
+tags: [hadoop, MapReduce, hadoop-udemy]
 ---
 
 {% include markdown.html %}

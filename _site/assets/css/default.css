@@ -110,11 +110,13 @@ body {
 }
 
 .container .main .tags a {
+  float: left;
   border : 0.1vw solid black;
   padding : 10px;
   text-decoration: none;
   color: inherit;
   font-size: 1.5vw;
+  margin : 0.5vw;
 }
 
 .container .main .tag_ p {
