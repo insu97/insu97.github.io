@@ -53,3 +53,14 @@ tags: [database, sql, sql-udemy]
 8. 테이블 조회 쿼리 작성 후 f5 누르기 -> 잘 실행되는지 확인
 
 ** PgAdmin : GUI로서 실질적 쿼리를 실행하고 PostgreSql에 연결하기 위해 사용
+
+---
+
+* Tip
+> 비밀번호 잊어버렸을 때 **C:/Program Files/PostgreSQL/16(Version)/data/pg_hba.conf** 여기로 들어가서  
+> METHOD 아래 trust 로 전부 바꾼다음 -> PgAdmin 실행 후 아래 코드 query로 실행  
+```
+ALTER USER postgres WITH PASSWORD '새로운 비밀번호 입력';
+```
+> 그 다음 다시 **C:/Program Files/PostgreSQL/16(Version)/data/pg_hba.conf** 원래 값으로 변경
+> 재 실행 하면 완료!

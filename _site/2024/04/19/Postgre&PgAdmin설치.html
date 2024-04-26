@@ -109,6 +109,21 @@
 
 <p>** PgAdmin : GUI로서 실질적 쿼리를 실행하고 PostgreSql에 연결하기 위해 사용</p>
 
+<hr />
+
+<ul>
+  <li>Tip
+    <blockquote>
+      <p>비밀번호 잊어버렸을 때 <strong>C:/Program Files/PostgreSQL/16(Version)/data/pg_hba.conf</strong> 여기로 들어가서<br />
+METHOD 아래 trust 로 전부 바꾼다음 -&gt; PgAdmin 실행 후 아래 코드 query로 실행</p>
+      <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ALTER USER postgres WITH PASSWORD '새로운 비밀번호 입력';
+</code></pre></div>      </div>
+      <p>그 다음 다시 <strong>C:/Program Files/PostgreSQL/16(Version)/data/pg_hba.conf</strong> 원래 값으로 변경
+재 실행 하면 완료!</p>
+    </blockquote>
+  </li>
+</ul>
+
 </div>
 
 			  </div>

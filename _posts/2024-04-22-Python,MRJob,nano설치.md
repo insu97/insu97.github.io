@@ -18,3 +18,11 @@ tags: [hadoop, hadoop-udemy]
 9. **pip install mrjob==0.7.4** 입력
 10. **pip install PyYAML==5.4.1** 입력
 11. **yum install nano** 입력
+
+---
+
+* Tip.
+> nano 명렁어 사용하다가 [Error writing /filename: Permission denied] 에러 발생 시 아래 코드 입력
+```hadoop
+sudo nano [filename]
+```
