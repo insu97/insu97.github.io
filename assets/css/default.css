@@ -164,6 +164,21 @@ body {
 
 /* markdown */
 
+.md-content {
+  float : left;
+  width : 75%;
+  height: 100%;
+  padding-right: 1vw;
+  border-right: 1px solid black;
+}
+
+.md-index {
+  float : left;
+  width : 22%;
+  height : 100%;
+  padding-left : 1vw;
+}
+
 /*light*/
 
 .markdown-body {
