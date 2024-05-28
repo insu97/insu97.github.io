@@ -9,7 +9,7 @@ tags: [paper, paper-cnn]
 # 요약
 
 1. ImageNet LSVRC-2010 콘테스트에서 120만 개의 고해상도 이미지를 1000개의 다른 클래스로 분류
-2. 6천만 개의 파라미터와 65만 개의 뉴런을 가진 신경망은 5개의 컨볼루션 레이어로 구성 그 중 일부는 최대 풀링 레이어, 최종 1000 방향 소프트맥슬르 가진 3개의 완전 연결 레이어로 구성
+2. 6천만 개의 파라미터와 65만 개의 뉴런을 가진 신경망은 5개의 컨볼루션 레이어로 구성 그 중 일부는 최대 풀링 레이어, 최종 1000 방향 소프트맥스를 가진 3개의 완전 연결 레이어로 구성
 3. 과적합을 줄이기 위해서 ‘드롭아웃’ 사용
 4. CNN은 표준 feedforward nn 보다 더 적은 연결과 파라미터, 쉽게 훈련시킬 수 있으며 이론적으로 최고 성능 모델은 feedforward nn 보다 약간 나쁘다.
 5. ImageNet에서 두 가지 오류율을 보고하는것이 일반적 [ Top-1, Top-5 : 모델이 가장 가능성이 높다고 생각하는 다섯 개의 레이블 중 올바른 레이블이 아닌 테스트 이미지의 비율]
@@ -102,4 +102,5 @@ tags: [paper, paper-cnn]
 
 ---
 
-논문 원본 : [site](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
+논문 원본 : [site](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) | 
+코드 구현 : [site](https://github.com/insu97/PAPER/blob/main/ImageNet_Classification_with_Deep_Convolutional_Neural_Networks.ipynb)
