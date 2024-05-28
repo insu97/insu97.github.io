@@ -1,7 +1,7 @@
 ---
 title : ImageNet Classification with Deep Convolutional Neural Networks
 layout : markdown
-tags: [paper]
+tags: [paper, paper-cnn]
 ---
 
 {% include markdown.html %}
