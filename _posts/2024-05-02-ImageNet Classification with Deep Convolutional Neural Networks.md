@@ -20,6 +20,31 @@ tags: [paper, paper-cnn]
 9. GPU는 특정 계층에서만 통신한다.
 10. Lateral inhibition 을 사용하는 이유 : ReLU을 사용 → 큰 값의 양수가 들어오면 주변의 픽셀에 영향을 크게 미침 → 같은 픽셀 위치에 있는 것 끼리 정규화하기 위해 사용
 11. 일반적으로 훈련 중에 Pooling 이 겹치는 모델이 과적합되기가 약간 더 어려움
+12. 완전 연결 계층들의 뉴런들은 이전 계층의 모든 뉴런들에 연결된다.
+13. 제1 convolutional layer는 224 * 224 * 3 입력이미지를 크기 11*11*3의 96개의 커널을 4 stride 를 사용하여 필터링한다.
+14. 제2 convolutional layer는 5 * 5 * 48의 256커널로 필터링한다.
+15. 제3 convolutional layer는 3 * 3 * 256의 384커널들을 갖는다.
+16. 제4 convolutional layer는 3 * 3 * 192의 384커널들을 갖는다.
+17. 제5 convolutional layer는 3 * 3 * 192의 256커널들을 갖는다.
+18. 완전 연결된 계층들은 각각 4096개의 뉴런들을 갖는다.
+19. 데이터 증강을 사용해서 만든 데이터들은 디스크에 저장할 필요가 없다.
+20. 첫 번째 증강은 이미지 변환(256 * 256 → 224 * 224)과 수평 반사를 생성하는 것으로 구성
+21. 두 번째 증강은 훈련 이미지에서 RGB 채널의 강도를 변경하는 것으로 구성
+22. Dropout : 확률이 0.5인 각각의 히든 뉴런 출력값을 0으로 만드는 기술
+23. Dropout이 적용된 뉴런은 순전파, 역전파에 관여하지 않는다.
+24. Dropout은 뉴런이 특정 다른 뉴런에 의존할 수 없기 때문에, 뉴런의 복잡한 공동 적응을 줄인다.
+25. 처음 두 완전 연결 계층에서 Dropout 계층 사용
+26. Dropout은 반복 횟수를 대략 2배로 증가시킴
+27. 확률적 경사 하강법을 이용해 훈련 ( batch_size : 128, momentum : 0.9, weight decay : 0.0005 )
+28. 상수 1로 완젼 연결된 은닉층, 제2,4,5 Convolution층의 뉴런 변수를 초기화, 나머지는 상수 0으로 초기화
+29. 학습률은 0.01로 초기화 하고 종료하기 전에 3배를 줄였다.
+30. ILSVRC2010 대회
+
+    ![Untitled](\assets\images\paper\ImageNet Classification with Deep Convolutional Neural Networks\2010.png)
+
+31. ILSVRC2012 대회
+
+    ![Untitled](\assets\images\paper\ImageNet Classification with Deep Convolutional Neural Networks\2012.png)
 
 ---
 # 개념
