@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "DLFS1",
+      "category" : "",
+      "tags"     : "DLfS1, DeepLearning",
+      "url"      : "/2024/07/09/DLFS1.html",
+      "date"     : "2024-07-09 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Ambari 화면 admin 접속",
       "category" : "",
       "tags"     : "hadoop, hadoop-udemy",
