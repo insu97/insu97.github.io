@@ -1,10 +1,18 @@
 [
   
     {
-      "title"    : "DLFS1",
+      "title"    : "DLFS1-CNN",
+      "category" : "",
+      "tags"     : "DLFS1, DeepLearning, CNN",
+      "url"      : "/2024/07/12/DLFS1-CNN.html",
+      "date"     : "2024-07-12 00:00:00 +0900"
+    } ,
+  
+    {
+      "title"    : "DLFS1-DL",
       "category" : "",
       "tags"     : "DLFS1, DeepLearning",
-      "url"      : "/2024/07/09/DLFS1.html",
+      "url"      : "/2024/07/09/DLFS1-DL.html",
       "date"     : "2024-07-09 00:00:00 +0900"
     } ,
   
