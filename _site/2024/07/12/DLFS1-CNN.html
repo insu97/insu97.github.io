@@ -75,19 +75,17 @@ OW = ( W + 2P - FW ) / S + 1</p>
   <li>3차원 필터를 FN개 적용 : ( FN, C ,FH, FW)</li>
 </ul>
 
-<ol>
-  <li>합성곱 계층(Convolutional layer)</li>
-  <li>풀링 계층(Pooling layer)
-    <ul>
-      <li>풀링은 세로 * 가로 방향의 공간을 줄이는 연산</li>
-      <li>최대 풀링(max pooling), 평균 풀링(average pooling)존재 [ 이미지 인식 분야에서는 주로 최대 풀링 사용 ]</li>
-      <li>특징</li>
-    </ul>
-  </li>
-  <li>학습해야 할 매개변수가 없다.</li>
-  <li>채널 수가 변하지 않는다.</li>
-  <li>입력의 변화에 영향을 적게 받는다.</li>
-</ol>
+<blockquote>
+  <h2 id="풀링-계층pooling-layer">풀링 계층(Pooling layer)</h2>
+  <p>풀링은 세로 * 가로 방향의 공간을 줄이는 연산<br />
+최대 풀링(max pooling), 평균 풀링(average pooling)존재 [ 이미지 인식 분야에서는 주로 최대 풀링 사용 ]</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 특징
+1. 학습해야 할 매개변수가 없다.
+2. 채널 수가 변하지 않는다.
+3. 입력의 변화에 영향을 적게 받는다.
+</code></pre></div></div>
 
 <hr />
 
