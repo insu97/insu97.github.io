@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "Spyder 사용법",
+      "category" : "",
+      "tags"     : "spyder",
+      "url"      : "/2024/07/16/spyder.html",
+      "date"     : "2024-07-16 00:00:00 +0900"
+    } ,
+  
+    {
+      "title"    : "Drug 다중분류",
+      "category" : "",
+      "tags"     : "drug-multiclass-classification, kaggle",
+      "url"      : "/2024/07/16/drug-multiclass-classification.html",
+      "date"     : "2024-07-16 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "DLFS1-CNN",
       "category" : "",
       "tags"     : "DLFS1, DeepLearning, CNN",
