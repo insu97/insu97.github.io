@@ -55,6 +55,29 @@
 
 <h2 id="다중분류-문제를-딥러닝을-사용하여-풀어보기">다중분류 문제를 딥러닝을 사용하여 풀어보기</h2>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#%% data preprocessing
+</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="p">.</span><span class="nf">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="sh">'</span><span class="s">Sex</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">BP</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">Cholesterol</span><span class="sh">'</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="nf">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">Sex</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">BP</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">Cholesterol</span><span class="sh">'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">le</span> <span class="o">=</span> <span class="nc">LabelEncoder</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="sh">'</span><span class="s">Drug</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="p">.</span><span class="nf">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="sh">'</span><span class="s">Drug</span><span class="sh">'</span><span class="p">])</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Drug LabelEncoder : </span><span class="sh">"</span><span class="p">,</span> <span class="n">le</span><span class="p">.</span><span class="n">classes_</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="nf">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">Drug</span><span class="sh">'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sh">'</span><span class="s">Drug</span><span class="sh">'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/drug/df.head().png" alt="image" /></p>
+<blockquote>
+  <p>Na_to_k : 혈중 나트륨 vs 칼륨 비율<br />
+BP : 혈압</p>
+
+</blockquote>
+
+<hr />
+
 <blockquote>
   <p>구현 사이트 : <a href="https://github.com/insu97/Project/tree/main/001.Drug_classification">github_site</a></p>
 </blockquote>
