@@ -2,6 +2,7 @@
 title : ImageNet Classification with Deep Convolutional Neural Networks
 layout : markdown
 tags: [paper, paper-cnn]
+toc : true
 ---
 
 {% include markdown.html %}
@@ -102,5 +103,5 @@ tags: [paper, paper-cnn]
 
 ---
 
-논문 원본 : [site](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) | 
+논문 원본 : [site](https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) |
 코드 구현 : [site](https://github.com/insu97/PAPER/blob/main/ImageNet_Classification_with_Deep_Convolutional_Neural_Networks.ipynb)

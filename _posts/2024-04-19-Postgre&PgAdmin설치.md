@@ -2,6 +2,7 @@
 title : PostgreSQL & PgAdmin 설치
 layout : markdown
 tags: [database, sql, sql-udemy]
+toc : true
 ---
 
 {% include markdown.html %}

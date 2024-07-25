@@ -7,6 +7,10 @@ layout : default
     {{content}}
   </div>
   <div class="md-index">
+    <h2>목차</h2>
+    {% toc %}
+    <hr>
+    <h2>관련 POST</h2>
     {% for post in site.posts %}
       {% for i in post.tags %}
         {% if i == page.tags[0] %}
