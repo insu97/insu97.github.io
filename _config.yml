@@ -1,3 +1,5 @@
 paginate: 10
 paginate_path: "/posts/page:num/"
-plugins: [jekyll-paginate, jekyll-toc]
+plugins:
+  - jekyll-paginate
+  - jekyll-toc
