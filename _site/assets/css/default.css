@@ -36,7 +36,7 @@ body {
 
 .header .main_text {
   float : left;
-  width : 89vw;
+  width : 79vw;
   height : 5vw;
   position : relative;
 }
@@ -55,6 +55,14 @@ body {
   top : 20%;
   position : absolute;
   font-family: "Dokdo", system-ui;
+}
+
+.header #clock {
+  float : left;
+  width : 10vw;
+  text-align : center;
+  font-size: 1.5vw;
+  margin-top : 1.5vw;
 }
 
 /* navigation */
@@ -135,10 +143,6 @@ body {
 .container .main .search {
   float : left;
   width : 20%;
-}
-
-.container .main .calendar {
-  float : left;
 }
 
 /* footer */
