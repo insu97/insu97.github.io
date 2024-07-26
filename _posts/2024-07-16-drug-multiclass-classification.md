@@ -7,9 +7,7 @@ toc : true
 
 {% include markdown.html %}
 
-## 다중분류 문제를 딥러닝을 사용하여 풀어보기
-
-### data preprocessing
+## Data preprocessing
 ```python
 
 df = pd.concat([df, pd.get_dummies(df[['Sex','BP','Cholesterol']], dtype=int)], axis=1)
@@ -34,16 +32,6 @@ y = df['Drug']
 
 ```python
 select_scaler = input("Scaler 선택 : ['StandardScaler', 'MinMaxScaler', 'Normalizer']")
-
-if select_scaler == 'StandardScaler':
-    scaler = StandardScaler()
-    X = scaler.fit_transform(X)
-elif select_scaler == 'MinMaxScaler':
-    scaler = MinMaxScaler()
-    X = scaler.fit_transform(X)
-elif select_scaler == 'Normalizer':
-    scaler = Normalizer()
-    X = scaler.fit_transform(X)
 ```
 
 ---
@@ -59,6 +47,38 @@ x_train = x_train[40:]
 y_val = y_train[:40]
 y_train = y_train[40:]
 ```
+
+---
+## Parameter
+
+### optimizer and learning_rate
+```python
+learning_rate = 0.01
+
+select_optimizer = input("optimizer 선택 : ['SGD','Momentum','Nesterov','AdaGrad','RMSprop','Adam']")
+```
+
+---
+## Hyperparameter
+
+```python
+iters_num= 1000
+train_size = x_train.shape[0]
+batch_size = 50
+dropout_ratio = 0.1
+weight_decay_lambda = 0.1
+use_batchnorm = True
+```
+
+---
+## model 생성
+```python
+net = simpleNet(9, [6,6,6,6,6], 5, dropout_ratio=dropout_ratio, weight_decay_lambda=weight_decay_lambda, use_batchnorm=use_batchnorm)
+```
+---
+## 결과
+![image](/assets/images/drug/train_test_acc.png)
+![image](/assets/images/drug/train_loss.png)
 
 ---
 

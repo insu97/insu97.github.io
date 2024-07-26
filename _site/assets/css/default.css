@@ -167,7 +167,7 @@ body {
 
 .md-content {
   float : left;
-  width : 80%;
+  width : 78%;
   min-height: 37vw;
   height: 100%;
   padding-right: 1vw;
@@ -176,7 +176,7 @@ body {
 
 .md-index {
   float : right;
-  width : 18%;
+  width : 20%;
   height : 100%;
 }
 
