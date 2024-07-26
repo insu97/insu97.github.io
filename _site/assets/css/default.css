@@ -132,6 +132,15 @@ body {
   font-size: 1vw;
 }
 
+.container .main .search {
+  float : left;
+  width : 20%;
+}
+
+.container .main .calendar {
+  float : left;
+}
+
 /* footer */
 .footer {
   width : 100%;

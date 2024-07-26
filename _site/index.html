@@ -9,6 +9,10 @@
 		<script type="text/javascript"
     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
 	</head>
   <body>
       <div class = "header">
@@ -39,25 +43,89 @@
 					</ul>
 			  </div>
 			  <div class="main">
-					<!-- HTML elements for search -->
-<input type="text" id="search-input" placeholder="Search blog posts..">
-<ul id="results-container"></ul>
-<!-- or without installing anything -->
-<!-- <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script> -->
+					<div class="search">
+  <!-- HTML elements for search -->
+  <input type="text" id="search-input" placeholder="Search blog posts..">
+  <ul id="results-container"></ul>
+  <!-- or without installing anything -->
+  <!-- <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script> -->
 
-<script src="/assets/js/simple-jekyll-search.js"></script>
+  <script src="/assets/js/simple-jekyll-search.js"></script>
 
-<script>
-  window.simpleJekyllSearch = new SimpleJekyllSearch({
-    searchInput: document.getElementById('search-input'),
-    resultsContainer: document.getElementById('results-container'),
-    json: '/search.json',
-    searchResultTemplate: '<li><a href="{url}?query={query}" title="{desc}">{title}</a></li>',
-    noResultsText: 'No results found',
-    limit: 10,
-    fuzzy: false,
-    exclude: ['Welcome']
-  })
+  <script>
+    window.simpleJekyllSearch = new SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('results-container'),
+      json: '/search.json',
+      searchResultTemplate: '<li><a href="{url}?query={query}" title="{desc}">{title}</a></li>',
+      noResultsText: 'No results found',
+      limit: 10,
+      fuzzy: false,
+      exclude: ['Welcome']
+    })
+  </script>
+</div>
+
+<!-- 원하는 위치에 달력을 삽입 -->
+<div id="calendar"></div>
+<!-- <button id="add-event">이벤트 추가</button>
+<button id="delete-event">이벤트 삭제</button> -->
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var events = JSON.parse(localStorage.getItem('events')) || [];
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          editable: true,
+          selectable: true,
+          events: events,
+          dateClick: function(info) {
+            var title = prompt('이벤트 제목을 입력하세요:');
+            if (title) {
+              var newEvent = {
+                title: title,
+                start: info.dateStr,
+                allDay: true
+              };
+              events.push(newEvent);
+              localStorage.setItem('events', JSON.stringify(events));
+              calendar.addEvent(newEvent);
+              alert('이벤트가 추가되었습니다: ' + title);
+            }
+          },
+          eventClick: function(info) {
+            var isConfirmed = confirm('이 이벤트를 삭제하시겠습니까?');
+            if (isConfirmed) {
+              info.event.remove();
+              events = events.filter(function(event) {
+                return event.start !== info.event.startStr || event.title !== info.event.title;
+              });
+              localStorage.setItem('events', JSON.stringify(events));
+              alert('이벤트가 삭제되었습니다.');
+            }
+          }
+        });
+
+        calendar.render();
+
+        document.getElementById('add-event').addEventListener('click', function() {
+          var title = prompt('이벤트 제목을 입력하세요:');
+          var dateStr = prompt('날짜를 입력하세요 (YYYY-MM-DD):');
+          if (title && dateStr) {
+            var newEvent = {
+              title: title,
+              start: dateStr,
+              allDay: true
+            };
+            events.push(newEvent);
+            localStorage.setItem('events', JSON.stringify(events));
+            calendar.addEvent(newEvent);
+            alert('이벤트가 추가되었습니다: ' + title);
+          }
+        });
+      });
 </script>
 
 			  </div>
