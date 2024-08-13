@@ -1,14 +1,6 @@
 [
   
     {
-      "title"    : "Spyder 사용법",
-      "category" : "",
-      "tags"     : "spyder",
-      "url"      : "/2024/07/16/spyder.html",
-      "date"     : "2024-07-16 00:00:00 +0900"
-    } ,
-  
-    {
       "title"    : "Drug 다중분류",
       "category" : "",
       "tags"     : "drug-multiclass-classification, kaggle",
@@ -17,91 +9,11 @@
     } ,
   
     {
-      "title"    : "DLFS1-CNN",
-      "category" : "",
-      "tags"     : "DLFS1, DeepLearning, CNN",
-      "url"      : "/2024/07/12/DLFS1-CNN.html",
-      "date"     : "2024-07-12 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "DLFS1-DL",
-      "category" : "",
-      "tags"     : "DLFS1, DeepLearning",
-      "url"      : "/2024/07/09/DLFS1-DL.html",
-      "date"     : "2024-07-09 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "Ambari 화면 admin 접속",
-      "category" : "",
-      "tags"     : "hadoop, hadoop-udemy",
-      "url"      : "/2024/05/20/Ambari.html",
-      "date"     : "2024-05-20 00:00:00 +0900"
-    } ,
-  
-    {
       "title"    : "ImageNet Classification with Deep Convolutional Neural Networks",
       "category" : "",
       "tags"     : "paper, paper-cnn",
       "url"      : "/2024/05/02/ImageNet-Classification-with-Deep-Convolutional-Neural-Networks.html",
       "date"     : "2024-05-02 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "Python, MRJob, nano 설치",
-      "category" : "",
-      "tags"     : "hadoop, hadoop-udemy",
-      "url"      : "/2024/04/22/Python,MRJob,nano%EC%84%A4%EC%B9%98.html",
-      "date"     : "2024-04-22 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "PostgreSQL &amp; PgAdmin 설치",
-      "category" : "",
-      "tags"     : "database, sql, sql-udemy",
-      "url"      : "/2024/04/19/Postgre&PgAdmin%EC%84%A4%EC%B9%98.html",
-      "date"     : "2024-04-19 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "Hadoop-MapReduce",
-      "category" : "",
-      "tags"     : "hadoop, MapReduce, hadoop-udemy",
-      "url"      : "/2024/04/17/Hadoop-MapReduce.html",
-      "date"     : "2024-04-17 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "DataBase 개요",
-      "category" : "",
-      "tags"     : "database, sql, sql-udemy",
-      "url"      : "/2024/04/17/DataBase%EA%B0%9C%EC%9A%94.html",
-      "date"     : "2024-04-17 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "Github",
-      "category" : "",
-      "tags"     : "git",
-      "url"      : "/2024/04/16/github.html",
-      "date"     : "2024-04-16 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "DLFS3-Step004",
-      "category" : "",
-      "tags"     : "DLFS3, DeepLearning",
-      "url"      : "/2024/04/16/Step004.DLfS3.html",
-      "date"     : "2024-04-16 00:00:00 +0900"
-    } ,
-  
-    {
-      "title"    : "Hadoop-Putty",
-      "category" : "",
-      "tags"     : "hadoop, hadoop-udemy",
-      "url"      : "/2024/04/16/Hadoop-putty.html",
-      "date"     : "2024-04-16 00:00:00 +0900"
     } ,
   
     {
