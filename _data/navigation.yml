@@ -1,7 +1,7 @@
 main:
 - title : HOME
   url : /index.html
-- title : ALL_POSTS
+- title : POSTS
   url : /posts/index.html
 - title : TAGS
   url : /tags.html

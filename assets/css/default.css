@@ -142,7 +142,13 @@ body {
 
 .container .main .search {
   float : left;
-  width : 20%;
+  width : 10vw;
+}
+
+.container .main #calendar {
+  float : right;
+  width : 60vw;
+  height: 37vw;
 }
 
 /* footer */
