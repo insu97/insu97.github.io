@@ -1,7 +1,7 @@
 ---
 layout : markdown
 title : Drug 다중분류
-tags : [drug-multiclass-classification, kaggle]
+tags : [multiclass-classification, kaggle]
 toc : true
 ---
 

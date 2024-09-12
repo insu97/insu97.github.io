@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/study.html">STUDY</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					    <li><a href="/paper.html">PAPER</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="2024-생명연구자원-ai활용-경진대회-인공지능-활용-부문---2024년09월12일">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문 - 2024년09월12일</h1>
+
+<!-- - tag : multiclass-classification dacon  -->
+<ul>
+  <li>tag : <a href="/tags/tag_multiclass-classification.html" class="btn btn-default navbar-btn cursorNorm" role="button">multiclass-classification</a>
+|
+<a href="/tags/tag_dacon.html" class="btn btn-default navbar-btn cursorNorm" role="button">dacon</a>
+|</li>
+</ul>
+
+<hr />
+
+<p>site : <a href="https://dacon.io/competitions/official/236355/overview/description">Dacon_site</a></p>
+
+<hr />
+
+<ul>
+  <li>공모전 신청 후 데이터를 다운받아 <strong>train.shape</strong> 을 찍어보니까 컬럼 수가 약 4천 개가 넘어가는 것을 확인</li>
+  <li><strong>WT</strong> 라는 값이 매우 많고 아주 적게 다른 값이 존재함을 확인</li>
+  <li>평소처럼 원-핫 인코딩을 하면 컬럼 수가 더 증가하는 것을 생각하여 사용 X</li>
+  <li><strong>WT</strong> 값은 중요하지 않다고 보고 <strong>WT</strong> 값은 0 나머지 값은 1로 변경</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">].</span><span class="nf">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="sh">'</span><span class="s">WT</span><span class="sh">'</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">].</span><span class="nf">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="sh">'</span><span class="s">WT</span><span class="sh">'</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>데이터가 약 6천개의 행과 약 4천개의 컬럼으로 컬럼 수가 많다고 판단<br />
+– 1. 차원축소 : PCA<br />
+– 2. feature 선택 : VarinaceThreshold, Unvariate Feature Selection</li>
+</ul>
+
+<p>! 추가적으로 기술해야 할 것</p>
+<ol>
+  <li>차원축소를 실행할 때 적절한 차원 수 구하는 방법</li>
+  <li>feature 선택 기법에 대해서 공부하기 <a href="https://curriculum.cosadama.com/machine-learning/2-5/">참고사이트</a></li>
+</ol>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#2024-생명연구자원-ai활용-경진대회-인공지능-활용-부문---2024년09월12일">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문 - 2024년09월12일</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/09/12/2024-%EC%83%9D%EB%AA%85%EC%97%B0%EA%B5%AC%EC%9E%90%EC%9B%90-AI%ED%99%9C%EC%9A%A9-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%ED%99%9C%EC%9A%A9-%EB%B6%80%EB%AC%B8.html">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문 [ 2024년09월12일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/07/16/drug-multiclass-classification.html">Drug 다중분류 [ 2024년07월16일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
