@@ -126,11 +126,64 @@
 <span class="n">test_vt</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">VT</span><span class="p">.</span><span class="nf">get_feature_names_out</span><span class="p">()]</span>
 </code></pre></div></div>
 
+<h2 id="univariate-feature-selectionufs">Univariate Feature Selection(UFS)</h2>
+
+<blockquote>
+  <p>일변량 통계 검정을 기반으로 최적의 피처를 선택<br />
+회귀분석일 때 파라미터 : f_rregression, mutual_info_regression<br />
+분류분석일 때 파라미터 : chi2, f_classif, mutual_info_classif</p>
+</blockquote>
+
+<p>-&gt; 여기서는 분류문제 이므로 chi2를 선택하여 사용했음</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span>
+<span class="kn">from</span> <span class="n">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">chi2</span> <span class="c1"># 카이제곱값 이용
+</span>
+<span class="kn">from</span> <span class="n">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="n">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="c1"># 가능한 k 값 (몇 개의 변수를 선택할지)
+</span><span class="n">k_values</span> <span class="o">=</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># 10개씩 증가하면서 최대 500개까지 탐색 (필요에 따라 조정 가능)
+</span>
+<span class="c1"># 결과 저장 리스트
+</span><span class="n">mean_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="sh">'</span><span class="s">SUBCLASS</span><span class="sh">'</span><span class="p">]</span>
+
+<span class="c1"># 각 k 값에 대해 교차 검증을 통한 성능 평가
+</span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_values</span><span class="p">:</span>
+    <span class="n">selector</span> <span class="o">=</span> <span class="nc">SelectKBest</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">X_new</span> <span class="o">=</span> <span class="n">selector</span><span class="p">.</span><span class="nf">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># 분류 모델 정의 (랜덤 포레스트로 예시)
+</span>    <span class="n">clf</span> <span class="o">=</span> <span class="nc">RandomForestClassifier</span><span class="p">()</span>
+
+    <span class="c1"># 교차 검증을 통한 성능 평가
+</span>    <span class="n">scores</span> <span class="o">=</span> <span class="nf">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># 5-fold 교차 검증
+</span>    <span class="n">mean_scores</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+
+<span class="c1"># 최적의 k 값 찾기
+</span><span class="n">optimal_k</span> <span class="o">=</span> <span class="n">k_values</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">mean_scores</span><span class="p">)]</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">최적의 k 값: </span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>-&gt; 최적의 k값을 찾고 학습시킨 후 제출하였는데 <strong>VarianceThreshold</strong> 보다 정확도가 너무 낮게 나왔다.<br />
+– 이유 ( 내 생각 )</p>
+<ol>
+  <li>RandomForest 분류 모델이 성능이 좋지 않을 때 [ 서포트 벡터 머신 분류 보다 ]</li>
+  <li>파라미터인 카이제곱값이 성능이 좋지 않은 경우</li>
+  <li>UFS 피쳐 선택방법이 희소행렬일 때 성능이 좋지 않은 경우</li>
+</ol>
+
+<hr />
+
 <p>! 추가적으로 기술해야 할 것</p>
 <ol>
   <li>차원축소를 실행할 때 적절한 차원 수 구하는 방법</li>
-  <li>feature 선택 기법에 대해서 공부하기</li>
   <li>분류 모델 선정</li>
+  <li>UFS 변수 선택 성능이 좋지 않은 이유 검증</li>
 </ol>
 
 <hr />
@@ -149,6 +202,7 @@
 <li class="toc-entry toc-h1"><a href="#변수-선택">변수 선택</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#variancethreshold">VarianceThreshold</a></li>
+<li class="toc-entry toc-h2"><a href="#univariate-feature-selectionufs">Univariate Feature Selection(UFS)</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#참고-사이트">참고 사이트</a></li>
