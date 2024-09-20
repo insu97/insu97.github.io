@@ -85,6 +85,8 @@
 
 <hr />
 
+<h1 id="생각">생각</h1>
+
 <ul>
   <li>공모전 신청 후 데이터를 다운받아 <strong>train.shape</strong> 을 찍어보니까 컬럼 수가 약 4천 개가 넘어가는 것을 확인</li>
   <li><strong>WT</strong> 라는 값이 매우 많고 아주 적게 다른 값이 존재함을 확인</li>
@@ -98,14 +100,44 @@
 
 <ul>
   <li>데이터가 약 6천개의 행과 약 4천개의 컬럼으로 컬럼 수가 많다고 판단<br />
-– 1. 차원축소 : PCA<br />
-– 2. feature 선택 : VarinaceThreshold, Unvariate Feature Selection</li>
+– 1. feature 선택 : VarinaceThreshold, Unvariate Feature Selection<br />
+– 2. 차원축소 : PCA</li>
 </ul>
+
+<h1 id="변수-선택">변수 선택</h1>
+<h2 id="variancethreshold">VarianceThreshold</h2>
+
+<blockquote>
+  <p>분산 임계값을 충족하지 않는 모든 피처를 제거하는 방식</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">VarianceThreshold</span>
+
+<span class="n">VT</span> <span class="o">=</span> <span class="nc">VarianceThreshold</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">))</span> <span class="c1"># 임계값 정하기
+</span><span class="n">VT</span><span class="p">.</span><span class="nf">fit_transform</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">])</span>
+
+<span class="n">VT</span><span class="p">.</span><span class="nf">get_feature_names_out</span><span class="p">()</span>  <span class="c1"># 남은 피처 확인
+</span>
+<span class="c1"># 학습 데이터 재구성
+</span><span class="n">vt_col</span> <span class="o">=</span> <span class="n">VT</span><span class="p">.</span><span class="nf">get_feature_names_out</span><span class="p">().</span><span class="nf">tolist</span><span class="p">()</span>
+<span class="n">vt_col</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">SUBCLASS</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">train_vt</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">vt_col</span><span class="p">]</span>
+<span class="n">test_vt</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">VT</span><span class="p">.</span><span class="nf">get_feature_names_out</span><span class="p">()]</span>
+</code></pre></div></div>
 
 <p>! 추가적으로 기술해야 할 것</p>
 <ol>
   <li>차원축소를 실행할 때 적절한 차원 수 구하는 방법</li>
-  <li>feature 선택 기법에 대해서 공부하기 <a href="https://curriculum.cosadama.com/machine-learning/2-5/">참고사이트</a></li>
+  <li>feature 선택 기법에 대해서 공부하기</li>
+  <li>분류 모델 선정</li>
+</ol>
+
+<hr />
+<h1 id="참고-사이트">참고 사이트</h1>
+<ol>
+  <li><a href="https://curriculum.cosadama.com/machine-learning/2-5/">머신러닝, 개념과 실습을 한번에</a></li>
+  <li><a href="https://techblog-history-younghunjo1.tistory.com/134">PCA, 주성분의 개수는 어떤 기준으로 설정할까?</a></li>
 </ol>
 
   </div>
@@ -113,6 +145,13 @@
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#2024-생명연구자원-ai활용-경진대회-인공지능-활용-부문---2024년09월12일">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문 - 2024년09월12일</a></li>
+<li class="toc-entry toc-h1"><a href="#생각">생각</a></li>
+<li class="toc-entry toc-h1"><a href="#변수-선택">변수 선택</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#variancethreshold">VarianceThreshold</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#참고-사이트">참고 사이트</a></li>
 </ul>
     <hr>
     <h2>관련 POST</h2>
