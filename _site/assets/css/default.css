@@ -99,8 +99,8 @@ body {
 .container .main {
   float : left;
   padding-left : 1vw;
-  padding-top : 1vw;
-  padding-bottom: 1vw;
+  /* padding-top : 1vw;
+  padding-bottom: 1vw; */
   width : 80%;
   min-height : 37vw;
   border-left : 1px solid black;
