@@ -94,9 +94,41 @@
   <li><strong>WT</strong> 값은 중요하지 않다고 보고 <strong>WT</strong> 값은 0 나머지 값은 1로 변경</li>
 </ul>
 
+<h1 id="wt값-처리">WT값 처리</h1>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">].</span><span class="nf">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="sh">'</span><span class="s">WT</span><span class="sh">'</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">].</span><span class="nf">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="sh">'</span><span class="s">WT</span><span class="sh">'</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
 </code></pre></div></div>
+
+<ul>
+  <li>행의 모든 값이 WT값인 경우 확인</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="n">test</span><span class="p">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="sh">'</span><span class="s">SUBCLASS</span><span class="sh">'</span><span class="p">]</span>
+
+<span class="n">all_wt_train</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">X</span><span class="p">))):</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">).</span><span class="nf">all</span><span class="p">():</span>
+        <span class="n">all_wt_train</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="nf">len</span><span class="p">(</span><span class="n">all_wt_train</span><span class="p">)</span> <span class="c1"># 출력 : 94
+</span>
+<span class="n">train</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">all_wt_train</span><span class="p">,</span> <span class="p">:][</span><span class="sh">'</span><span class="s">SUBCLASS</span><span class="sh">'</span><span class="p">].</span><span class="nf">value_counts</span><span class="p">()</span>
+</code></pre></div></div>
+<p><img src="/assets/images/dacon/Dacon_001.png" alt="image" /></p>
+
+<ul>
+  <li>모든 행 값이 WT인데 종속변수 값이 나뉘므로 SUBCLASS 값을 24로 통일</li>
+  <li>참고로 test 데이터에도 모든 행이 WT값인 행이 존재</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">all_wt_train</span><span class="p">:</span>
+    <span class="n">train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="sh">'</span><span class="s">SUBCLASS</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">24</span>
+</code></pre></div></div>
+
+<h1 id="변수-선택">변수 선택</h1>
 
 <ul>
   <li>데이터가 약 6천개의 행과 약 4천개의 컬럼으로 컬럼 수가 많다고 판단<br />
@@ -104,7 +136,6 @@
 – 2. 차원축소 : PCA</li>
 </ul>
 
-<h1 id="변수-선택">변수 선택</h1>
 <h2 id="variancethreshold">VarianceThreshold</h2>
 
 <blockquote>
@@ -169,13 +200,16 @@
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">최적의 k 값: </span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>-&gt; 최적의 k값을 찾고 학습시킨 후 제출하였는데 <strong>VarianceThreshold</strong> 보다 정확도가 너무 낮게 나왔다.<br />
-– 이유 ( 내 생각 )</p>
-<ol>
-  <li>RandomForest 분류 모델이 성능이 좋지 않을 때 [ 서포트 벡터 머신 분류 보다 ]</li>
-  <li>파라미터인 카이제곱값이 성능이 좋지 않은 경우</li>
-  <li>UFS 피쳐 선택방법이 희소행렬일 때 성능이 좋지 않은 경우</li>
-</ol>
+<p>-&gt; 최적의 k값을 찾고 학습시킨 후 제출하였는데 <strong>VarianceThreshold</strong> 보다 정확도가 너무 낮게 나왔다.</p>
+<ul>
+  <li>이유 ( 내 생각 )
+    <ol>
+      <li>RandomForest 분류 모델이 성능이 좋지 않을 때 [ 서포트 벡터 머신 분류 보다 ]</li>
+      <li>파라미터인 카이제곱값이 성능이 좋지 않은 경우</li>
+      <li>UFS 피쳐 선택방법이 희소행렬일 때 성능이 좋지 않은 경우</li>
+    </ol>
+  </li>
+</ul>
 
 <hr />
 
@@ -199,6 +233,7 @@
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#2024-생명연구자원-ai활용-경진대회-인공지능-활용-부문---2024년09월12일">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문 - 2024년09월12일</a></li>
 <li class="toc-entry toc-h1"><a href="#생각">생각</a></li>
+<li class="toc-entry toc-h1"><a href="#wt값-처리">WT값 처리</a></li>
 <li class="toc-entry toc-h1"><a href="#변수-선택">변수 선택</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#variancethreshold">VarianceThreshold</a></li>
