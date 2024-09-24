@@ -96,7 +96,7 @@
 
 <h1 id="전처리">전처리</h1>
 
-<h2 id="wt-값">WT 값</h2>
+<h2 id="데이터-value">데이터 value</h2>
 
 <h3 id="wt--0-else-1">WT = 0 else 1</h3>
 
@@ -130,7 +130,7 @@
     <span class="n">train</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="sh">'</span><span class="s">SUBCLASS</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">24</span>
 </code></pre></div></div>
 
-<h3 id="wt--0-else-숫자로-변경">WT = 0 else 숫자로 변경</h3>
+<h3 id="wt--0-and-숫자만-남기기">WT = 0 and 숫자만 남기기</h3>
 
 <blockquote>
   <p>데이터가 숫자가 중심에 있고 영어가 감싸져 있는 형태로 확인<br />
@@ -163,7 +163,35 @@
 -&gt; 데이터 값이 45 23 25 이렇게 있을 경우 행으로 더해서 값을 바꿔주는 방식이 맞을까?<br />
 -&gt; 감싸져 있는 문자는 아무 의미가 없는걸까?</p>
 
-<h1 id="변수-선택">변수 선택</h1>
+<h3 id="wt--0-and-hashlib-라이브러리-사용">WT = 0 and hashlib 라이브러리 사용</h3>
+
+<blockquote>
+  <p>hashlib 라이브러리를 이용해서 모든 문자열을 바이트 -&gt; MD5 -&gt; 16진수 순서로 변환<br />
+그 다음 다시 숫자로 변환</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">hashlib</span>
+
+<span class="c1"># 해시 함수 정의
+</span><span class="k">def</span> <span class="nf">hash_variation</span><span class="p">(</span><span class="n">variation</span><span class="p">):</span>
+    <span class="c1"># 문자열을 바이트로 인코딩
+</span>    <span class="n">encoded</span> <span class="o">=</span> <span class="n">variation</span><span class="p">.</span><span class="nf">encode</span><span class="p">()</span>
+    <span class="c1"># hashlib으로 md5 해시 생성
+</span>    <span class="n">hash_object</span> <span class="o">=</span> <span class="n">hashlib</span><span class="p">.</span><span class="nf">md5</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span>
+    <span class="c1"># 해시값을 16진수 형태로 반환
+</span>    <span class="k">return</span> <span class="n">hash_object</span><span class="p">.</span><span class="nf">hexdigest</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">apply</span><span class="p">(</span><span class="n">hash_variation</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">([</span><span class="nf">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<ul>
+  <li>코드가 간단한 것에 비해서 성능은 좋음</li>
+  <li>하지만 데이터에 대한 정보를 잘 살리고 있는지 판단이 안됨.</li>
+</ul>
+
+<h2 id="변수-선택">변수 선택</h2>
 
 <ul>
   <li>데이터가 약 6천개의 행과 약 4천개의 컬럼으로 컬럼 수가 많다고 판단<br />
@@ -171,7 +199,7 @@
 – 2. 차원축소 : PCA[밀집행렬에만 적용가능], SVD[희소행렬에 적용 가능]</li>
 </ul>
 
-<h2 id="variancethreshold">VarianceThreshold</h2>
+<h3 id="variancethreshold">VarianceThreshold</h3>
 
 <blockquote>
   <p>분산 임계값을 충족하지 않는 모든 피처를 제거하는 방식</p>
@@ -192,7 +220,7 @@
 <span class="n">test_vt</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="n">VT</span><span class="p">.</span><span class="nf">get_feature_names_out</span><span class="p">()]</span>
 </code></pre></div></div>
 
-<h2 id="univariate-feature-selectionufs">Univariate Feature Selection(UFS)</h2>
+<h3 id="univariate-feature-selectionufs">Univariate Feature Selection(UFS)</h3>
 
 <blockquote>
   <p>일변량 통계 검정을 기반으로 최적의 피처를 선택<br />
@@ -246,7 +274,7 @@
   </li>
 </ul>
 
-<h2 id="truncatedsvd">TruncatedSVD</h2>
+<h3 id="truncatedsvd">TruncatedSVD</h3>
 
 <blockquote>
   <p><a href="https://ko.wikipedia.org/wiki/%ED%8A%B9%EC%9E%87%EA%B0%92_%EB%B6%84%ED%95%B4">나무위키</a></p>
@@ -291,20 +319,21 @@
 <li class="toc-entry toc-h1"><a href="#생각">생각</a></li>
 <li class="toc-entry toc-h1"><a href="#전처리">전처리</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#wt-값">WT 값</a>
+<li class="toc-entry toc-h2"><a href="#데이터-value">데이터 value</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#wt--0-else-1">WT = 0 else 1</a></li>
 <li class="toc-entry toc-h3"><a href="#행의-모든-값이-wt값인-경우">행의 모든 값이 WT값인 경우</a></li>
-<li class="toc-entry toc-h3"><a href="#wt--0-else-숫자로-변경">WT = 0 else 숫자로 변경</a></li>
+<li class="toc-entry toc-h3"><a href="#wt--0-and-숫자만-남기기">WT = 0 and 숫자만 남기기</a></li>
+<li class="toc-entry toc-h3"><a href="#wt--0-and-hashlib-라이브러리-사용">WT = 0 and hashlib 라이브러리 사용</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#변수-선택">변수 선택</a>
+<li class="toc-entry toc-h2"><a href="#변수-선택">변수 선택</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#variancethreshold">VarianceThreshold</a></li>
-<li class="toc-entry toc-h2"><a href="#univariate-feature-selectionufs">Univariate Feature Selection(UFS)</a></li>
-<li class="toc-entry toc-h2"><a href="#truncatedsvd">TruncatedSVD</a></li>
+<li class="toc-entry toc-h3"><a href="#variancethreshold">VarianceThreshold</a></li>
+<li class="toc-entry toc-h3"><a href="#univariate-feature-selectionufs">Univariate Feature Selection(UFS)</a></li>
+<li class="toc-entry toc-h3"><a href="#truncatedsvd">TruncatedSVD</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#참고-사이트">참고 사이트</a></li>
