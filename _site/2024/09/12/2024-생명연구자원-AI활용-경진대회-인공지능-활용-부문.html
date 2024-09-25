@@ -191,6 +191,98 @@
   <li>하지만 데이터에 대한 정보를 잘 살리고 있는지 판단이 안됨.</li>
 </ul>
 
+<h3 id="wt--0--original-position-new-">WT = 0, [ original, position, new ]</h3>
+
+<ul>
+  <li>데이터 값이 ‘문자열’ + ‘숫자’ + ‘문자열’ 로 구성되어 있음을 확인</li>
+  <li>한 개의 컬럼을 3개로 나누어 데이터 프레임 재구성</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_original</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_position</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_new</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">apply</span><span class="p">(</span><span class="n">extract_numbers</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">.</span><span class="nf">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_original</span><span class="sh">'</span><span class="p">],</span> <span class="n">X</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_position</span><span class="sh">'</span><span class="p">],</span> <span class="n">X</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_new</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">A</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">A</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_position</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_position</span><span class="sh">'</span><span class="p">].</span><span class="nf">astype</span><span class="p">(</span><span class="sh">'</span><span class="s">int</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">.</span><span class="nf">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>다음 original 값이 단일 문자 또는 문자열이기 때문에 구분하여 전처리</li>
+  <li>그 후 단백질 구성 성분으로 맵핑
+    <ul>
+      <li>EX. origianl : RAR -&gt; R A R 로 구분 후 숫자로 맵핑 후 더하기</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>단일 문자 처리</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">amino_acid_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">'</span><span class="s">A</span><span class="sh">'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">'</span><span class="s">C</span><span class="sh">'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="sh">'</span><span class="s">D</span><span class="sh">'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="sh">'</span><span class="s">E</span><span class="sh">'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="sh">'</span><span class="s">F</span><span class="sh">'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="sh">'</span><span class="s">G</span><span class="sh">'</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="sh">'</span><span class="s">H</span><span class="sh">'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="sh">'</span><span class="s">I</span><span class="sh">'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="sh">'</span><span class="s">K</span><span class="sh">'</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="sh">'</span><span class="s">L</span><span class="sh">'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">M</span><span class="sh">'</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="sh">'</span><span class="s">N</span><span class="sh">'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="sh">'</span><span class="s">P</span><span class="sh">'</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="sh">'</span><span class="s">Q</span><span class="sh">'</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="sh">'</span><span class="s">R</span><span class="sh">'</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="sh">'</span><span class="s">S</span><span class="sh">'</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="sh">'</span><span class="s">T</span><span class="sh">'</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="sh">'</span><span class="s">V</span><span class="sh">'</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="sh">'</span><span class="s">W</span><span class="sh">'</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="sh">'</span><span class="s">Y</span><span class="sh">'</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="sh">'</span><span class="s">fs</span><span class="sh">'</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="n">amino_acid_array</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="n">amino_acid_dict</span><span class="p">[</span><span class="n">aa</span><span class="p">]</span> <span class="k">for</span> <span class="n">aa</span> <span class="ow">in</span> <span class="n">amino_acid_dict</span><span class="p">])</span>
+
+<span class="c1"># 빠른 벡터화된 매핑 적용 (문자만 변환, 정수는 그대로 유지)
+</span><span class="k">def</span> <span class="nf">encode_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">encode_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">):</span>
+        <span class="c1"># 문자열일 경우에만 amino_acid_dict 변환 적용
+</span>        <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">amino_acid_dict</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span>  <span class="c1"># 해당하지 않는 경우 원래 값을 반환
+</span>        <span class="k">return</span> <span class="n">cell</span>  <span class="c1"># 정수는 그대로 반환
+</span>
+    <span class="c1"># applymap으로 셀별로 함수 적용
+</span>    <span class="k">return</span> <span class="n">df</span><span class="p">.</span><span class="nf">applymap</span><span class="p">(</span><span class="n">encode_cell</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="nf">encode_dataframe</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>문자열 처리</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">astype</span><span class="p">(</span><span class="sh">'</span><span class="s">int</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">)):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tmp</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">tmp</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="nf">encode_sequence</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">].</span><span class="nf">upper</span><span class="p">())))</span>
+            <span class="k">pass</span>
+
+
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">.</span><span class="nf">astype</span><span class="p">(</span><span class="sh">'</span><span class="s">int</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">X</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="nf">astype</span><span class="p">(</span><span class="sh">'</span><span class="s">int</span><span class="sh">'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>전처리 방법 중 가장 데이터 정보 값을 잘 처리했다고 생각.</p>
+</blockquote>
+
 <h2 id="변수-선택">변수 선택</h2>
 
 <ul>
@@ -325,6 +417,7 @@
 <li class="toc-entry toc-h3"><a href="#행의-모든-값이-wt값인-경우">행의 모든 값이 WT값인 경우</a></li>
 <li class="toc-entry toc-h3"><a href="#wt--0-and-숫자만-남기기">WT = 0 and 숫자만 남기기</a></li>
 <li class="toc-entry toc-h3"><a href="#wt--0-and-hashlib-라이브러리-사용">WT = 0 and hashlib 라이브러리 사용</a></li>
+<li class="toc-entry toc-h3"><a href="#wt--0--original-position-new-">WT = 0, [ original, position, new ]</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#변수-선택">변수 선택</a>
