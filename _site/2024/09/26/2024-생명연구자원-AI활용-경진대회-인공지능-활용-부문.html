@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문-2</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/study.html">STUDY</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					    <li><a href="/paper.html">PAPER</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="2024-생명연구자원-ai활용-경진대회-인공지능-활용-부문-2---2024년09월26일">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문-2 - 2024년09월26일</h1>
+
+<!-- - tag : multiclass-classification dacon ML DL  -->
+<ul>
+  <li>tag : <a href="/tags/tag_multiclass-classification.html" class="btn btn-default navbar-btn cursorNorm" role="button">multiclass-classification</a>
+|
+<a href="/tags/tag_dacon.html" class="btn btn-default navbar-btn cursorNorm" role="button">dacon</a>
+|
+<a href="/tags/tag_ML.html" class="btn btn-default navbar-btn cursorNorm" role="button">ML</a>
+|
+<a href="/tags/tag_DL.html" class="btn btn-default navbar-btn cursorNorm" role="button">DL</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="train_test_split">train_test_split</h1>
+
+<blockquote>
+  <p>전처리한 데이터를 갖고 학습 및 평가하기 위해 진행</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="학습">학습</h1>
+
+<h2 id="svc">SVC</h2>
+
+<blockquote>
+  <p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">참고</a><br />
+서포트 벡터 머신 기법 중 다중 분류 모델 사용<br />
+데이터 스케일에 매우 민감 -&gt; 스케일러 적용 후 학습</p>
+</blockquote>
+
+<ul>
+  <li>매개변수<br />
+– 1. gamma : 하나의 샘플이 미치는 영향의 범위<br />
+– 2. C : 정규화 매개변수, 정규화의 강도는 C에 반비례</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="c1"># 학습
+</span><span class="n">model</span> <span class="o">=</span> <span class="nc">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="sh">'</span><span class="s">scale</span><span class="sh">'</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># 0.30806451612903224
+</span><span class="n">model</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>    <span class="c1"># 0.17033852767329394
+</span></code></pre></div></div>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#2024-생명연구자원-ai활용-경진대회-인공지능-활용-부문-2---2024년09월26일">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문-2 - 2024년09월26일</a></li>
+<li class="toc-entry toc-h1"><a href="#train_test_split">train_test_split</a></li>
+<li class="toc-entry toc-h1"><a href="#학습">학습</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#svc">SVC</a></li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/09/26/2024-%EC%83%9D%EB%AA%85%EC%97%B0%EA%B5%AC%EC%9E%90%EC%9B%90-AI%ED%99%9C%EC%9A%A9-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%ED%99%9C%EC%9A%A9-%EB%B6%80%EB%AC%B8.html">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문-2 [ 2024년09월26일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/09/12/2024-%EC%83%9D%EB%AA%85%EC%97%B0%EA%B5%AC%EC%9E%90%EC%9B%90-AI%ED%99%9C%EC%9A%A9-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%ED%99%9C%EC%9A%A9-%EB%B6%80%EB%AC%B8.html">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문-1 [ 2024년09월12일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/07/16/drug-multiclass-classification.html">Drug 다중분류 [ 2024년07월16일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
