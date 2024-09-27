@@ -285,6 +285,35 @@
   <p>전처리 방법 중 가장 데이터 정보 값을 잘 처리했다고 생각.</p>
 </blockquote>
 
+<h4 id="change--new---original">CHANGE = NEW - ORIGINAL</h4>
+
+<blockquote>
+  <p>position 컬럼은 변동없음<br />
+CHANGE = NEW - ORIGINAL 이 방식을 적용</p>
+  <blockquote>
+    <p>하지만, NEW 컬럼에서 fs 값 즉 -1 인 경우에는 CHANGE = NEW * ORIGINAL</p>
+    <blockquote>
+      <p>fs 값은 조금 특별하게 처리하고 싶었다.</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">X_change</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">()</span>
+
+<span class="c1"># position
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="k">if</span> <span class="sh">'</span><span class="s">_position</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">X_change</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="c1"># CHANGE = NEW - ORIGINAL
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">columns</span><span class="p">))):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">X</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">].</span><span class="n">values</span><span class="p">:</span> <span class="c1"># NEW = 'fs' 인 경우
+</span>            <span class="n">X_change</span><span class="p">[</span><span class="n">X</span><span class="p">.</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">_</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_change</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">X_change</span><span class="p">[</span><span class="n">X</span><span class="p">.</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">_</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="sh">'</span><span class="s">_change</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">X</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+</code></pre></div></div>
+
 <h2 id="변수-선택">변수 선택</h2>
 
 <ul>
@@ -411,7 +440,11 @@
 <li class="toc-entry toc-h3"><a href="#행의-모든-값이-wt값인-경우">행의 모든 값이 WT값인 경우</a></li>
 <li class="toc-entry toc-h3"><a href="#wt--0-and-숫자만-남기기">WT = 0 and 숫자만 남기기</a></li>
 <li class="toc-entry toc-h3"><a href="#wt--0-and-hashlib-라이브러리-사용">WT = 0 and hashlib 라이브러리 사용</a></li>
-<li class="toc-entry toc-h3"><a href="#wt--0--original-position-new-">WT = 0, [ original, position, new ]</a></li>
+<li class="toc-entry toc-h3"><a href="#wt--0--original-position-new-">WT = 0, [ original, position, new ]</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#change--new---original">CHANGE = NEW - ORIGINAL</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#변수-선택">변수 선택</a>

@@ -123,6 +123,78 @@
 </span><span class="n">model</span><span class="p">.</span><span class="nf">score</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>    <span class="c1"># 0.17033852767329394
 </span></code></pre></div></div>
 
+<h2 id="dl---tensorflow">DL - Tensorflow</h2>
+
+<blockquote>
+  <p>딥러닝 라이브러리인 Tensorflow 를 사용하여 학습</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="n">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="n">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dropout</span>
+<span class="kn">from</span> <span class="n">tensorflow.keras.regularizers</span> <span class="kn">import</span> <span class="n">l2</span>
+<span class="kn">from</span> <span class="n">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">BatchNormalization</span>
+
+<span class="c1"># 모델 정의
+</span><span class="n">model</span> <span class="o">=</span> <span class="nc">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">x_train</span><span class="p">.</span><span class="n">columns</span><span class="p">),</span> <span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">,</span> <span class="n">kernel_regularizer</span><span class="o">=</span><span class="nf">l2</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)))</span>  <span class="c1"># 입력 레이어
+</span><span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">BatchNormalization</span><span class="p">())</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">,</span> <span class="n">kernel_regularizer</span><span class="o">=</span><span class="nf">l2</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)))</span> <span class="c1"># 은닉층
+</span><span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">BatchNormalization</span><span class="p">())</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">,</span> <span class="n">kernel_regularizer</span><span class="o">=</span><span class="nf">l2</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span> <span class="c1"># 은닉층
+</span><span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">BatchNormalization</span><span class="p">())</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">softmax</span><span class="sh">'</span><span class="p">))</span>  <span class="c1"># 출력 레이어 (다중 클래스)
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>가장 많이 신경 쓴 점은 과적합</p>
+  <blockquote>
+    <p>사용한 기법은 가중치 규제(L2), Dropout, BatchNormalization</p>
+  </blockquote>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+
+<span class="c1"># 모델 컴파일
+</span><span class="n">model</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="nc">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">),</span>
+              <span class="n">loss</span><span class="o">=</span><span class="sh">'</span><span class="s">sparse_categorical_crossentropy</span><span class="sh">'</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">accuracy</span><span class="sh">'</span><span class="p">])</span>
+
+<span class="kn">from</span> <span class="n">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">Callback</span>
+<span class="kn">from</span> <span class="n">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">EarlyStopping</span>
+<span class="kn">from</span> <span class="n">tensorflow.keras.callbacks</span> <span class="kn">import</span> <span class="n">ReduceLROnPlateau</span>
+
+<span class="n">early_stopping</span> <span class="o">=</span> <span class="nc">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="sh">'</span><span class="s">val_loss</span><span class="sh">'</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">restore_best_weights</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">reduce_lr</span> <span class="o">=</span> <span class="nc">ReduceLROnPlateau</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="sh">'</span><span class="s">val_loss</span><span class="sh">'</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_lr</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">)</span>
+
+<span class="c1"># 모델 학습
+</span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">reduce_lr</span><span class="p">,</span> <span class="n">early_stopping</span><span class="p">])</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>optimizer 로 Adam 을 사용<br />
+learning_rate=0.001<br />
+손실 함수 : sparse_categorical_crossentropy<br />
+EarlyStopping : 5번 학습 후 val_loss 값이 좋아지지 않았다면 조기 종료<br />
+ReduceLROnPlateau : 3번 학습 후 val_loss 값이 좋아지지 않았다면 learning_rate * 0.5</p>
+</blockquote>
+
+<hr />
+
+<h1 id="결과">결과</h1>
+
+<ol>
+  <li>전처리를 어떤 방식으로 하고, 어떤 방식으로 학습을 시켜도 과적합이 발생</li>
+  <li>과적합을 해결하면 train_set, test_set 전부 20% 정도의 좋지 않은 정확도를 보여줌</li>
+  <li>내 생각은 데이터 전처리에 대한 생각을 다시 해야 하거나, 데이터가 좋지 않음을 생각</li>
+</ol>
+
   </div>
   <div class="md-index">
     <h2>목차</h2>
@@ -132,8 +204,10 @@
 <li class="toc-entry toc-h1"><a href="#학습">학습</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#svc">SVC</a></li>
+<li class="toc-entry toc-h2"><a href="#dl---tensorflow">DL - Tensorflow</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#결과">결과</a></li>
 </ul>
     <hr>
     <h2>관련 POST</h2>
