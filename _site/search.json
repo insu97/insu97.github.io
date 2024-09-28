@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "HackerRank - SQL - Basic Select",
+      "category" : "",
+      "tags"     : "SQL, MySQL",
+      "url"      : "/2024/09/28/HackerRank_001.html",
+      "date"     : "2024-09-28 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문-2",
       "category" : "",
       "tags"     : "multiclass-classification, dacon, ML, DL",
