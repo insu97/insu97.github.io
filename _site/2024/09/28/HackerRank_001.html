@@ -202,7 +202,7 @@
 <span class="p">)</span>
 </code></pre></div></div>
 
-<h2 id="010">010</h2>
+<h2 id="010---like">010 - like</h2>
 
 <ul>
   <li>문제 : Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.</li>
@@ -215,6 +215,120 @@
    <span class="k">OR</span> <span class="n">CITY</span> <span class="k">like</span> <span class="s1">'i%'</span>
    <span class="k">OR</span> <span class="n">CITY</span> <span class="k">like</span> <span class="s1">'o%'</span>
    <span class="k">OR</span> <span class="n">CITY</span> <span class="k">like</span> <span class="s1">'u%'</span>
+</code></pre></div></div>
+
+<h2 id="011---substring">011 - SUBSTRING</h2>
+
+<ul>
+  <li>문제 : Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">CITY</span>
+<span class="k">FROM</span> <span class="n">STATION</span>
+<span class="k">WHERE</span> <span class="k">SUBSTRING</span><span class="p">(</span><span class="n">CITY</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'a'</span><span class="p">,</span><span class="s1">'e'</span><span class="p">,</span><span class="s1">'i'</span><span class="p">,</span><span class="s1">'o'</span><span class="p">,</span><span class="s1">'u'</span><span class="p">)</span>
+  <span class="k">and</span> <span class="k">SUBSTRING</span><span class="p">(</span><span class="n">CITY</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'a'</span><span class="p">,</span><span class="s1">'e'</span><span class="p">,</span><span class="s1">'i'</span><span class="p">,</span><span class="s1">'o'</span><span class="p">,</span><span class="s1">'u'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="012---not-like">012 - NOT LIKE</h2>
+
+<ul>
+  <li>문제 : Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">CITY</span>
+<span class="k">FROM</span> <span class="n">STATION</span>
+<span class="k">WHERE</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'a%'</span>
+  <span class="k">and</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'e%'</span>
+  <span class="k">and</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'i%'</span>
+  <span class="k">and</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'o%'</span>
+  <span class="k">and</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'u%'</span>
+</code></pre></div></div>
+
+<h2 id="013">013</h2>
+
+<ul>
+  <li>문제 : Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">CITY</span>
+<span class="k">FROM</span> <span class="n">STATION</span>
+<span class="k">WHERE</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%a'</span>
+  <span class="k">and</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%e'</span>
+  <span class="k">and</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%i'</span>
+  <span class="k">and</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%o'</span>
+  <span class="k">and</span> <span class="n">CITY</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%u'</span>
+</code></pre></div></div>
+
+<h2 id="014">014</h2>
+
+<ul>
+  <li>문제 : Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">city</span>
+<span class="k">FROM</span> <span class="n">STATION</span>
+<span class="k">WHERE</span> <span class="p">(</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%a'</span>
+  <span class="k">and</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%e'</span>
+  <span class="k">and</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%i'</span>
+  <span class="k">and</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%o'</span>
+  <span class="k">and</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'%u'</span> <span class="p">)</span>
+  <span class="k">or</span>
+  <span class="p">(</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'a%'</span>
+  <span class="k">and</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'e%'</span>
+  <span class="k">and</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'i%'</span>
+  <span class="k">and</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'o%'</span>
+  <span class="k">and</span> <span class="n">city</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'u%'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="015---substr">015 - SUBSTR</h2>
+
+<ul>
+  <li>문제 : Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">city</span>
+<span class="k">FROM</span> <span class="n">STATION</span>
+<span class="k">WHERE</span> <span class="n">SUBSTR</span><span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">,</span> <span class="s1">'o'</span><span class="p">,</span> <span class="s1">'u'</span><span class="p">)</span>
+  <span class="k">and</span> <span class="n">SUBSTR</span><span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">,</span> <span class="s1">'o'</span><span class="p">,</span> <span class="s1">'u'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="016">016</h2>
+
+<ul>
+  <li>문제 : Query the Name of any student in STUDENTS who scored higher than  75 Marks. Order your output by the last three characters of each name.</li>
+  <li>If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">NAME</span>
+<span class="k">FROM</span> <span class="n">STUDENTS</span>
+<span class="k">WHERE</span> <span class="n">Marks</span> <span class="o">&gt;</span> <span class="mi">75</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">SUBSTR</span><span class="p">(</span><span class="n">NAME</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">ASC</span>
+       <span class="p">,</span> <span class="n">ID</span>
+</code></pre></div></div>
+
+<h2 id="017">017</h2>
+
+<ul>
+  <li>문제 : Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span>
+<span class="k">FROM</span> <span class="n">Employee</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">name</span> <span class="k">ASC</span>
+</code></pre></div></div>
+
+<h2 id="018">018</h2>
+
+<ul>
+  <li>문제 : Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than $2000 per month</li>
+  <li>who have been employees for less than  10 months. Sort your result by ascending employee_id.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span>
+<span class="k">FROM</span> <span class="n">Employee</span>
+<span class="k">WHERE</span> <span class="n">salary</span> <span class="o">&gt;</span> <span class="mi">2000</span>
+  <span class="k">and</span> <span class="n">months</span> <span class="o">&lt;</span> <span class="mi">10</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">employee_id</span> <span class="k">ASC</span>
 </code></pre></div></div>
 
   </div>
@@ -233,7 +347,15 @@
 <li class="toc-entry toc-h2"><a href="#007---mod">007 - MOD</a></li>
 <li class="toc-entry toc-h2"><a href="#008">008</a></li>
 <li class="toc-entry toc-h2"><a href="#009---union-all">009 - UNION ALL</a></li>
-<li class="toc-entry toc-h2"><a href="#010">010</a></li>
+<li class="toc-entry toc-h2"><a href="#010---like">010 - like</a></li>
+<li class="toc-entry toc-h2"><a href="#011---substring">011 - SUBSTRING</a></li>
+<li class="toc-entry toc-h2"><a href="#012---not-like">012 - NOT LIKE</a></li>
+<li class="toc-entry toc-h2"><a href="#013">013</a></li>
+<li class="toc-entry toc-h2"><a href="#014">014</a></li>
+<li class="toc-entry toc-h2"><a href="#015---substr">015 - SUBSTR</a></li>
+<li class="toc-entry toc-h2"><a href="#016">016</a></li>
+<li class="toc-entry toc-h2"><a href="#017">017</a></li>
+<li class="toc-entry toc-h2"><a href="#018">018</a></li>
 </ul>
 </li>
 </ul>
