@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/study.html">STUDY</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					    <li><a href="/paper.html">PAPER</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="데이터ai를-활용한-물가-예측-경진대회--농산물-가격을-중심으로---2024년10월01일">데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로 - 2024년10월01일</h1>
+
+<!-- - tag : dacon  -->
+<ul>
+  <li>tag : <a href="/tags/tag_dacon.html" class="btn btn-default navbar-btn cursorNorm" role="button">dacon</a>
+|</li>
+</ul>
+
+<hr />
+
+<ul>
+  <li>site : <a href="https://www.dacon.io/competitions/official/236381/overview/description">Dacon_site</a></li>
+  <li>기간 : 2024-10-01 ~ 2024-10-14</li>
+</ul>
+
+<hr />
+
+<h1 id="문제설명">문제설명</h1>
+
+<ol>
+  <li>train_data : 2018 ~ 2021년의 순 단위(10일)</li>
+  <li>test_data : 추론 시점 T가 비식별화된 2022년의 순 단위의 데이터</li>
+  <li>sub_data : 추론 시점 T 기준으로 T+1순, T+2순, T+3순의 평균가격을 예측하여 제출</li>
+</ol>
+
+<ul>
+  <li>조건<br />
+<img src="/assets/images/dacon/Dacon_002.png" alt="image" /></li>
+</ul>
+
+<h1 id="해야할-일">해야할 일</h1>
+
+<ol>
+  <li>Baseline 코드 뜯어보기</li>
+  <li>train_data 전처리
+    <blockquote>
+      <p>위 사진에 부합하는 데이터만 남기기</p>
+    </blockquote>
+  </li>
+  <li>test_data 는 어떻게 처리해야 하는지 고민</li>
+  <li>sub_data 에 어떻게 예측할지 생각 [ 시계열 모델 , 회귀분석 ]</li>
+</ol>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#데이터ai를-활용한-물가-예측-경진대회--농산물-가격을-중심으로---2024년10월01일">데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로 - 2024년10월01일</a></li>
+<li class="toc-entry toc-h1"><a href="#문제설명">문제설명</a></li>
+<li class="toc-entry toc-h1"><a href="#해야할-일">해야할 일</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/10/01/%EB%8D%B0%EC%9D%B4%ED%84%B0-AI%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%AC%BC%EA%B0%80-%EC%98%88%EC%B8%A1-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%EB%86%8D%EC%82%B0%EB%AC%BC-%EA%B0%80%EA%B2%A9%EC%9D%84-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C.html">데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로 [ 2024년10월01일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/09/26/2024-%EC%83%9D%EB%AA%85%EC%97%B0%EA%B5%AC%EC%9E%90%EC%9B%90-AI%ED%99%9C%EC%9A%A9-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%ED%99%9C%EC%9A%A9-%EB%B6%80%EB%AC%B8.html">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문-2 [ 2024년09월26일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/09/12/2024-%EC%83%9D%EB%AA%85%EC%97%B0%EA%B5%AC%EC%9E%90%EC%9B%90-AI%ED%99%9C%EC%9A%A9-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%ED%99%9C%EC%9A%A9-%EB%B6%80%EB%AC%B8.html">2024 생명연구자원 AI활용 경진대회 인공지능 활용 부문-1 [ 2024년09월12일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
