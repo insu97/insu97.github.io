@@ -100,6 +100,89 @@
 <img src="/assets/images/dacon/Dacon_002.png" alt="image" /></li>
 </ul>
 
+<h1 id="전처리">전처리</h1>
+
+<h2 id="품목별로-전처리">품목별로 전처리</h2>
+
+<h3 id="건고추">건고추</h3>
+
+<ul>
+  <li>건고추</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_csv</span><span class="p">(</span><span class="sh">"</span><span class="s">../data/raw_data/train/train.csv</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">train_건고추</span> <span class="o">=</span> <span class="n">train</span><span class="p">[(</span><span class="n">train</span><span class="p">[</span><span class="sh">'</span><span class="s">품목명</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">건고추</span><span class="sh">'</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">'</span><span class="s">품종명</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">화건</span><span class="sh">'</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">'</span><span class="s">거래단위</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">30 kg</span><span class="sh">'</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="sh">'</span><span class="s">등급</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">상품</span><span class="sh">'</span><span class="p">)]</span>
+
+<span class="n">train_건고추</span> <span class="o">=</span> <span class="n">train_건고추</span><span class="p">[[</span><span class="sh">'</span><span class="s">평균가격(원)</span><span class="sh">'</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_00</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_csv</span><span class="p">(</span><span class="sh">"</span><span class="s">../data/raw_data/test/TEST_00.csv</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">test_00_건고추</span> <span class="o">=</span> <span class="n">test_00</span><span class="p">[(</span><span class="n">test_00</span><span class="p">[</span><span class="sh">'</span><span class="s">품목명</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">건고추</span><span class="sh">'</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">test_00</span><span class="p">[</span><span class="sh">'</span><span class="s">품종명</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">화건</span><span class="sh">'</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">test_00</span><span class="p">[</span><span class="sh">'</span><span class="s">거래단위</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">30 kg</span><span class="sh">'</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">test_00</span><span class="p">[</span><span class="sh">'</span><span class="s">등급</span><span class="sh">'</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">상품</span><span class="sh">'</span><span class="p">)]</span>
+
+<span class="n">test_00_건고추</span> <span class="o">=</span> <span class="n">test_00_건고추</span><span class="p">[[</span><span class="sh">'</span><span class="s">평균가격(원)</span><span class="sh">'</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<h2 id="scaler">Scaler</h2>
+
+<h3 id="minmaxscaler">MinMaxScaler</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># MinMaxScaler를 이용한 스케일링
+</span><span class="n">scaler</span> <span class="o">=</span> <span class="nc">MinMaxScaler</span><span class="p">(</span><span class="n">feature_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">.</span><span class="nf">fit_transform</span><span class="p">(</span><span class="n">train_건고추</span><span class="p">)</span>
+<span class="n">test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">.</span><span class="nf">fit_transform</span><span class="p">(</span><span class="n">test_00_건고추</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="dataset">dataset</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 시계열 데이터를 위한 시퀀스 생성 함수
+# T-8 ~ T 시점까지 데이터를 가지고 T+1, T+2, T+3 인 시점 예측
+</span><span class="k">def</span> <span class="nf">create_sequences</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">):</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">seq_length</span> <span class="o">-</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="n">X</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">seq_length</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">seq_length</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">seq_length</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="model">Model</h1>
+
+<h2 id="lstm">LSTM</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># LSTM 모델 생성
+</span><span class="n">model</span> <span class="o">=</span> <span class="nc">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">LSTM</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">seq_length</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># T+1, T+2, T+3 예측
+</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="sh">'</span><span class="s">adam</span><span class="sh">'</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="sh">'</span><span class="s">mean_squared_error</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="c1"># 모델 학습
+</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="p">(</span><span class="n">X_train</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_train</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># LSTM에 맞게 데이터 형태 변환
+</span><span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 테스트 데이터도 시퀀스 형태로 변환
+</span><span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="n">test_scaled</span><span class="p">.</span><span class="nf">flatten</span><span class="p">()])</span>  <span class="c1"># 테스트 데이터의 마지막 9개 시점을 입력으로 사용
+</span><span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="p">(</span><span class="n">X_test</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_test</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># 예측 수행
+</span><span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="c1"># 예측값을 원래 스케일로 역변환
+</span><span class="n">predicted_prices</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">.</span><span class="nf">inverse_transform</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">concatenate</span><span class="p">((</span><span class="n">predicted</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">((</span><span class="n">predicted</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="c1"># T+1, T+2, T+3 값을 개별적으로 출력
+</span><span class="n">T_plus_1</span> <span class="o">=</span> <span class="n">predicted_prices</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">T_plus_2</span> <span class="o">=</span> <span class="n">predicted_prices</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">T_plus_3</span> <span class="o">=</span> <span class="n">predicted_prices</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># 결과 출력
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">예측값 (T+1):</span><span class="sh">"</span><span class="p">,</span> <span class="n">T_plus_1</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">예측값 (T+2):</span><span class="sh">"</span><span class="p">,</span> <span class="n">T_plus_2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">예측값 (T+3):</span><span class="sh">"</span><span class="p">,</span> <span class="n">T_plus_3</span><span class="p">)</span>
+</code></pre></div></div>
+
 <h1 id="해야할-일">해야할 일</h1>
 
 <ol>
@@ -119,6 +202,26 @@
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#데이터ai를-활용한-물가-예측-경진대회--농산물-가격을-중심으로---2024년10월01일">데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로 - 2024년10월01일</a></li>
 <li class="toc-entry toc-h1"><a href="#문제설명">문제설명</a></li>
+<li class="toc-entry toc-h1"><a href="#전처리">전처리</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#품목별로-전처리">품목별로 전처리</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#건고추">건고추</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#scaler">Scaler</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#minmaxscaler">MinMaxScaler</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dataset">dataset</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#model">Model</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#lstm">LSTM</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#해야할-일">해야할 일</a></li>
 </ul>
     <hr>
