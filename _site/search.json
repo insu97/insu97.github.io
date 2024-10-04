@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "HackerRank - SQL - Advanced Select",
+      "category" : "",
+      "tags"     : "SQL, MySQL",
+      "url"      : "/2024/10/04/HackerRank_002.html",
+      "date"     : "2024-10-04 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로",
       "category" : "",
       "tags"     : "dacon",
