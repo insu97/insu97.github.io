@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로</title>
+		<title>데이터·AI를 활용한 물가 예측 경진대회 농산물 가격을 중심으로</title>
 		<link rel="stylesheet" href="/assets/css/default.css">
 		<link rel="stylesheet" href="/assets/css/code.css">
 		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
@@ -70,7 +70,7 @@
 			  <div class="main">
 					<div class="markdown-body">
   <div class="md-content">
-    <h1 id="데이터ai를-활용한-물가-예측-경진대회--농산물-가격을-중심으로---2024년10월01일">데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로 - 2024년10월01일</h1>
+    <h1 id="데이터ai를-활용한-물가-예측-경진대회-농산물-가격을-중심으로---2024년10월01일">데이터·AI를 활용한 물가 예측 경진대회 농산물 가격을 중심으로 - 2024년10월01일</h1>
 
 <!-- - tag : dacon  -->
 <ul>
@@ -278,11 +278,45 @@
         <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
 </code></pre></div></div>
 
+<h1 id="모델-관련-정리">모델 관련 정리</h1>
+
+<h2 id="rnn">RNN</h2>
+
+<blockquote>
+  <p><strong>RNN (Recurrent Neural Network)</strong>는 순환 신경망으로, 시계열 데이터나 연속된 데이터를 처리하기 위해 고안된 신경망 구조<br />
+일반적인 인공 신경망(ANN)은 독립적인 입력을 처리하는 반면, RNN은 이전 단계의 정보를 기억하며 그 정보를 다음 단계의 계산에 반영할 수 있다.<br />
+RNN의 가장 큰 특징은 순환 구조 -&gt; 네트워크가 <strong>각 타임 스텝(time step)</strong>마다 현재 입력과 <strong>이전의 숨겨진 상태(hidden state)</strong>를 이용해 출력을 계산하는 방식<br />
+이를 통해 과거의 정보를 활용할 수 있게 된다.</p>
+</blockquote>
+
+<h2 id="lstm-1">LSTM</h2>
+
+<blockquote>
+  <p><strong>LSTM (Long Short-Term Memory)</strong>는 RNN의 단점을 보완하기 위해 만들어진 변형된 네트워크<br />
+기본 RNN의 경우 <strong>장기 의존성 문제(long-term dependency problem)</strong>가 존재</p>
+  <blockquote>
+    <p><strong>장기 의존성 문제(long-term dependency problem)</strong> : 시간이 길어지면서 과거의 정보를 잘 기억하지 못하는 현상을 의미</p>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <p>LSTM은 이러한 문제를 해결하기 위해 <strong>셀 상태(cell state)</strong>와 <strong>게이트 구조(gates)</strong>를 도입<br />
+LSTM은 기억하고자 하는 정보를 선택적으로 유지하거나 버릴 수 있게 하여, <strong>장기 및 단기 메모리(long-term and short-term memory)</strong>를 모두 관리할 수 있다.<br />
+이로 인해 LSTM은 긴 시퀀스 데이터에서 중요한 정보를 유지하고, 불필요한 정보를 잊어버리는 방식으로 성능을 향상시킬 수 있다.</p>
+</blockquote>
+
+<h3 id="느낀점">느낀점</h3>
+
+<ul>
+  <li>RNN 이 이번 공모전 데이터에 더 좋은 성능을 보였다.[같은 파라미터를 사용]</li>
+  <li>그 이유는 데이터의 시간이 장기가 아닌 것으로 판단하여 과거의 정보를 잘 기억하여 학습하였다고 생각</li>
+</ul>
+
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#데이터ai를-활용한-물가-예측-경진대회--농산물-가격을-중심으로---2024년10월01일">데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로 - 2024년10월01일</a></li>
+<li class="toc-entry toc-h1"><a href="#데이터ai를-활용한-물가-예측-경진대회-농산물-가격을-중심으로---2024년10월01일">데이터·AI를 활용한 물가 예측 경진대회 농산물 가격을 중심으로 - 2024년10월01일</a></li>
 <li class="toc-entry toc-h1"><a href="#문제설명">문제설명</a></li>
 <li class="toc-entry toc-h1"><a href="#전처리">전처리</a>
 <ul>
@@ -305,6 +339,16 @@
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#전처리부터-모델-학습까지">전처리부터 모델 학습까지</a></li>
+<li class="toc-entry toc-h1"><a href="#모델-관련-정리">모델 관련 정리</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#rnn">RNN</a></li>
+<li class="toc-entry toc-h2"><a href="#lstm-1">LSTM</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#느낀점">느낀점</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
     <hr>
     <h2>관련 POST</h2>
@@ -318,7 +362,7 @@
       
         
           <p>
-            <a href="/2024/10/01/%EB%8D%B0%EC%9D%B4%ED%84%B0-AI%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%AC%BC%EA%B0%80-%EC%98%88%EC%B8%A1-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%EB%86%8D%EC%82%B0%EB%AC%BC-%EA%B0%80%EA%B2%A9%EC%9D%84-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C.html">데이터·AI를 활용한 물가 예측 경진대회  농산물 가격을 중심으로 [ 2024년10월01일 ]</a>
+            <a href="/2024/10/01/%EB%8D%B0%EC%9D%B4%ED%84%B0-AI%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%AC%BC%EA%B0%80-%EC%98%88%EC%B8%A1-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%EB%86%8D%EC%82%B0%EB%AC%BC-%EA%B0%80%EA%B2%A9%EC%9D%84-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C.html">데이터·AI를 활용한 물가 예측 경진대회 농산물 가격을 중심으로 [ 2024년10월01일 ]</a>
           </p>
         
       
