@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "HackerRank - Python - Warmup",
+      "category" : "",
+      "tags"     : "Python, Algorithms",
+      "url"      : "/2024/10/07/HackerRank_Python_001.html",
+      "date"     : "2024-10-07 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Obsidian_setting",
       "category" : "",
       "tags"     : "Obsidian",
@@ -12,7 +20,7 @@
       "title"    : "HackerRank - SQL - Advanced Select",
       "category" : "",
       "tags"     : "SQL, MySQL",
-      "url"      : "/2024/10/04/HackerRank_002.html",
+      "url"      : "/2024/10/04/HackerRank_SQL_002.html",
       "date"     : "2024-10-04 00:00:00 +0900"
     } ,
   
@@ -28,7 +36,7 @@
       "title"    : "HackerRank - SQL - Basic Select",
       "category" : "",
       "tags"     : "SQL, MySQL",
-      "url"      : "/2024/09/28/HackerRank_001.html",
+      "url"      : "/2024/09/28/HackerRank_SQL_001.html",
       "date"     : "2024-09-28 00:00:00 +0900"
     } ,
   
