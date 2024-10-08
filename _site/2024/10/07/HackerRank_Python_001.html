@@ -144,6 +144,87 @@
     <span class="k">return</span> <span class="nf">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
 </code></pre></div></div>
 
+<h1 id="006">006</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">plusMinus</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="nf">round</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">round</span><span class="p">(</span><span class="n">c</span><span class="o">/</span><span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">round</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span> <span class="mi">6</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h1 id="007">007</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">staircase</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="sh">'</span><span class="s">#</span><span class="sh">'</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h1 id="008">008</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">miniMaxSum</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="n">a</span><span class="p">,</span> <span class="nf">sum</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="009">009</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">birthdayCakeCandles</span><span class="p">(</span><span class="n">candles</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">candles</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">candles</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<h1 id="010">010</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">timeConversion</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">8</span><span class="p">:]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">AM</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">AM</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">:</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">12</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">-=</span> <span class="mi">12</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="sh">'</span><span class="s">00</span><span class="sh">'</span>
+        <span class="k">elif</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="sh">'</span><span class="s">0</span><span class="sh">'</span> <span class="o">+</span> <span class="nf">str</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+
+        <span class="k">return</span> <span class="n">c</span>
+    <span class="k">elif</span> <span class="n">s</span><span class="p">[</span><span class="mi">8</span><span class="p">:]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">PM</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">PM</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">:</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">b</span> <span class="o">+=</span> <span class="mi">12</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">24</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">-=</span> <span class="mi">12</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="sh">'</span><span class="s">00</span><span class="sh">'</span>
+        <span class="k">elif</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="sh">'</span><span class="s">0</span><span class="sh">'</span> <span class="o">+</span> <span class="nf">str</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+
+        <span class="k">return</span> <span class="n">c</span>
+</code></pre></div></div>
+
   </div>
   <div class="md-index">
     <h2>목차</h2>
@@ -154,6 +235,11 @@
 <li class="toc-entry toc-h1"><a href="#003">003</a></li>
 <li class="toc-entry toc-h1"><a href="#004">004</a></li>
 <li class="toc-entry toc-h1"><a href="#005">005</a></li>
+<li class="toc-entry toc-h1"><a href="#006">006</a></li>
+<li class="toc-entry toc-h1"><a href="#007">007</a></li>
+<li class="toc-entry toc-h1"><a href="#008">008</a></li>
+<li class="toc-entry toc-h1"><a href="#009">009</a></li>
+<li class="toc-entry toc-h1"><a href="#010">010</a></li>
 </ul>
     <hr>
     <h2>관련 POST</h2>

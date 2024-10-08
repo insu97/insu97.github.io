@@ -72,3 +72,89 @@ def diagonalDifference(arr):
 
     return abs(a - b)
 ```
+
+# 006
+
+```python
+def plusMinus(arr):
+    a = 0
+    b = 0
+    c = 0
+
+    for i in arr:
+        if i > 0:
+            a += 1
+        elif i == 0:
+            b += 1
+        else:
+            c += 1
+
+    print(round(a/len(arr), 6))
+    print(round(c/len(arr), 6))
+    print(round(b/len(arr), 6))
+```
+
+# 007
+
+```python
+def staircase(n):
+
+    for i in range(1, n+1):
+        print(' ' * (n-i) + '#' * (i))
+```
+
+# 008
+
+```python
+def miniMaxSum(arr):
+
+    a = max(arr)
+    b = min(arr)
+
+    print(sum(arr) - a, sum(arr) - b)
+```
+
+# 009
+
+```python
+def birthdayCakeCandles(candles):
+    a = max(candles)
+    b = 0
+    for i in candles:
+        if a == i:
+            b += 1
+
+    return b
+```
+
+# 010
+
+```python
+def timeConversion(s):
+
+    if s[8:] == 'AM':
+        a = s.split('AM')[0]
+        b = int(a.split(':')[0])
+        if b >= 12:
+            b -= 12
+        if b == 0:
+            b = '00'
+        elif b < 10:
+            b = '0' + str(b)
+        c = str(b) + a[2:]
+
+        return c
+    elif s[8:] == 'PM':
+        a = s.split('PM')[0]
+        b = int(a.split(':')[0])
+        b += 12
+        if b >= 24:
+            b -= 12
+        if b == 0:
+            b = '00'
+        elif b < 10:
+            b = '0' + str(b)
+        c = str(b) + a[2:]
+
+        return c
+```
