@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Obsidian_setting</title>
+		<title>데이터 과학을 위한 통계 - 탐색적 데이터 분석</title>
 		<link rel="stylesheet" href="/assets/css/default.css">
 		<link rel="stylesheet" href="/assets/css/code.css">
 		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
@@ -70,82 +70,86 @@
 			  <div class="main">
 					<div class="markdown-body">
   <div class="md-content">
-    <h1 id="obsidian_setting---2024년10월05일">Obsidian_setting - 2024년10월05일</h1>
+    <h1 id="데이터-과학을-위한-통계---탐색적-데이터-분석---2024년10월09일">데이터 과학을 위한 통계 - 탐색적 데이터 분석 - 2024년10월09일</h1>
 
-<!-- - tag : Obsidian  -->
+<!-- - tag : Practical_Statistics_for_Data_Scientists Python Book  -->
 <ul>
-  <li>tag : <a href="/tags/tag_Obsidian.html" class="btn btn-default navbar-btn cursorNorm" role="button">Obsidian</a>
+  <li>tag : <a href="/tags/tag_Practical_Statistics_for_Data_Scientists.html" class="btn btn-default navbar-btn cursorNorm" role="button">Practical_Statistics_for_Data_Scientists</a>
+|
+<a href="/tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|
+<a href="/tags/tag_Book.html" class="btn btn-default navbar-btn cursorNorm" role="button">Book</a>
 |</li>
 </ul>
 
 <hr />
 
-<h1 id="obsidian-setting">Obsidian Setting</h1>
+<h1 id="탐색적-데이터-분석">탐색적 데이터 분석</h1>
 
-<ol>
-  <li>Google Play Store 에서 Termux 설치 후 다음 명령어 입력</li>
-</ol>
+<blockquote>
+  <p>Exploratory Data Analysis ( EDA )</p>
+</blockquote>
 
-<pre><code class="language-Linux">pkg install git # git 설치
-git clone &lt;repo 주소&gt;
-</code></pre>
+<h1 id="정형화된-데이터의-요소">정형화된 데이터의 요소</h1>
 
-<p>-&gt; git clone <repo 주소=""> 입력 후 ID, PASSWD 입력<br />
---&gt; PASSWD : 깃허브 토큰 생성 후 입력해야 함 [ 비밀번호 X ]</repo></p>
+<blockquote>
+  <p>수치형(연속, 이산)과 범주형(이진, 순서) 존재</p>
+</blockquote>
 
-<pre><code class="language-Linux">pkg install rsync
-termux-setup-storage # 앱 권한 부여
-chmod -R u+rwX &lt;obsidian 설치 로컬 주소 입력&gt;
-rsync -avz &lt;termux에서 clone 한 주소&gt; &lt;로컬 주소&gt; # 클론한 데이터를 로컬로 복사
-pkg install vim
-</code></pre>
+<h1 id="테이블-데이터">테이블 데이터</h1>
 
-<pre><code class="language-Linux">nano sync_to_obsidian.sh # 자동화 파일 생성
-</code></pre>
+<blockquote>
+  <p>DataFrame, Feature, Outcome(종속변수), record(DataFrame 에서 한 행을 의미)</p>
+</blockquote>
 
-<p>-&gt; sync_to_obsidian.sh 파일에 아래 입력</p>
+<h1 id="위치-추정">위치 추정</h1>
 
-<pre><code class="language-Linux">rm -rf &lt;clone 주소&gt;
-rm -rf &lt;로컬 주소&gt;
-git clone &lt;repo 주소&gt;
-rsync -avz &lt;clone 주소&gt; &lt;로컬 주소&gt;
-</code></pre>
+<blockquote>
+  <p>평균, 가중평균, 중간값, 백분위수, 가중 중간값, 절사평균(정해진 개수의 극단값을 제외한 나머지 값들의 평균)<br />
+로버스트하다(극단값들에 민감하지 않다는 것을 의미), 특잇값</p>
+</blockquote>
 
-<p>-&gt; esc 누르고 :wq 입력후 나오기 # 저장 후 나오기</p>
+<h1 id="변이-추정">변이 추정</h1>
 
-<pre><code class="language-Linux">chmod +x sync_to_obsidian.sh # 실행할 수 있도록 권한 부여
-./sync_to_obsidian.sh # 입력 후 작동하는지 확인하기
-</code></pre>
+<blockquote>
+  <p>편차(EX. 오차, 잔차), 분산(평균과의 편차를 제곱한 값들의 합을 n-1로 나눈 값) <br />
+표준편차, 평균절대편차(평균과의 편차의 절대값의 평균), 중간값의 중위절대편차(중간값과의 편차의 절댓값의 중간값)<br />
+범위(데이터의 최댓값과 최솟값의 차이), 순서통계량, 백분위수, 사분위범위(IQR, 75번째 백분위수와 25번째 백분위수 사이의 차이)</p>
+</blockquote>
 
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#obsidian_setting---2024년10월05일">Obsidian_setting - 2024년10월05일</a></li>
-<li class="toc-entry toc-h1"><a href="#obsidian-setting">Obsidian Setting</a></li>
+<li class="toc-entry toc-h1"><a href="#데이터-과학을-위한-통계---탐색적-데이터-분석---2024년10월09일">데이터 과학을 위한 통계 - 탐색적 데이터 분석 - 2024년10월09일</a></li>
+<li class="toc-entry toc-h1"><a href="#탐색적-데이터-분석">탐색적 데이터 분석</a></li>
+<li class="toc-entry toc-h1"><a href="#정형화된-데이터의-요소">정형화된 데이터의 요소</a></li>
+<li class="toc-entry toc-h1"><a href="#테이블-데이터">테이블 데이터</a></li>
+<li class="toc-entry toc-h1"><a href="#위치-추정">위치 추정</a></li>
+<li class="toc-entry toc-h1"><a href="#변이-추정">변이 추정</a></li>
 </ul>
     <hr>
     <h2>관련 POST</h2>
     
       
         
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
           <p>
-            <a href="/2024/10/05/Obsidian_setting.html">Obsidian_setting [ 2024년10월05일 ]</a>
+            <a href="/2024/10/09/Practical_Statistics_for_Data_Scientists_01.html">데이터 과학을 위한 통계 - 탐색적 데이터 분석 [ 2024년10월09일 ]</a>
           </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
         
       
     
