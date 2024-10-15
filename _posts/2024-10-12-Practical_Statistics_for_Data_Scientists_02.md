@@ -8,11 +8,49 @@ toc : true
 
 # 임의표본추출과 표본편향
 
-1. 모집단(어떤 데이터 집합을 구성하는 전체 대상 혹은 전체 집합) -> 표본(sample)(모집단에서 얻은 부분집합)
-2. 랜덤표본추출 : 무작위로 표본 추출
-3. 층화표본추출 : 모집단을 층으로 나눈 뒤, 각 층에서 무작위로 표본을 추출하는 것
-4. 편향(bias) : 계통상의 오류
-5. 표본편향 : 모집단을 잘못 대표하는 표본
+- 모집단(어떤 데이터 집합을 구성하는 전체 대상 혹은 전체 집합) -> 표본(sample)(모집단에서 얻은 부분집합)  
+- 랜덤표본추출 : 무작위로 표본 추출    
+
+  ```python
+  import pandas as pd
+
+  # 예시 데이터프레임 생성
+  df = pd.DataFrame({
+      'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Henry', 'Ivy', 'Jack'],
+      'Grade': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'B', 'A', 'B'],
+      'Score': [85, 72, 90, 65, 78, 88, 62, 75, 92, 70]
+  })
+
+  # 랜덤 표본 추출
+  drawn_sample = df.sample(n=3)
+
+  # 결과 출력
+  print(drawn_sample)
+  ```  
+
+| Name | Grade | Score |
+| --- | --- | --- |
+| Grace | C | 62 |
+| Ivy | C | 92 |
+| Charlie | C | 90 |
+
+- 층화표본추출 : 모집단을 층으로 나눈 뒤, 각 층에서 무작위로 표본을 추출하는 것  
+
+  ```python
+  from sklearn.model_selection import train_test_split
+
+  X = df.drop('Grade', axis=1)  # 특성
+  y = df['Grade']  # 목표 변수
+
+  # 70%는 훈련 세트, 30%는 테스트 세트로 층화 분할
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, stratify=y)
+
+  print("훈련 세트 크기:", len(X_train))  # 7
+  print("테스트 세트 크기:", len(X_test)) # 3
+  ```
+
+- 편향(bias) : 계통상의 오류  
+- 표본편향 : 모집단을 잘못 대표하는 표본  
 
 # 선택편향
 
@@ -40,7 +78,25 @@ toc : true
 # 신뢰구간
 
 1. 신뢰수준
-2. 구간끝점 : 신뢰구간의 양 끝점
+2. 구간끝점 : 신뢰구간의 양 끝점  
+
+  ```python
+  # 신뢰수준 설정 (예: 95%)
+  confidence_level = 0.95
+
+  # 'Score' 열에 대한 신뢰구간 계산
+  scores = df['Score']
+  n = len(scores)
+  mean = np.mean(scores)
+  std_err = stats.sem(scores) # 표준오차
+
+  # scipy.stats.t.interval 함수를 사용하여 신뢰구간 계산
+  lower_bound, upper_bound = stats.t.interval(confidence_level, df=n-1, loc=mean, scale=std_err)
+
+  print(f"{confidence_level*100}% 신뢰구간:")
+  print(f"하한: {lower_bound:.2f}") # 70.08
+  print(f"상한: {upper_bound:.2f}") # 85.32
+  ```
 
 # 정규분포
 
@@ -49,6 +105,8 @@ toc : true
 3. z-score : 개별 데이터 포인트를 정규화한 값
 4. 표준정규분포 : 평균=0, 표준편차=1 인 정규분포
 5. QQ-plot : 표본분포가 특정 분포에 얼마나 가까운지를 보여주는 그림
+
+{% include plotly/qq-plot.html %}
 
 # 긴 꼬리 분포
 

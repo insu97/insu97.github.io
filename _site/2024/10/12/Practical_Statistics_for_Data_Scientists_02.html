@@ -86,13 +86,75 @@
 
 <h1 id="임의표본추출과-표본편향">임의표본추출과 표본편향</h1>
 
-<ol>
+<ul>
   <li>모집단(어떤 데이터 집합을 구성하는 전체 대상 혹은 전체 집합) -&gt; 표본(sample)(모집단에서 얻은 부분집합)</li>
-  <li>랜덤표본추출 : 무작위로 표본 추출</li>
-  <li>층화표본추출 : 모집단을 층으로 나눈 뒤, 각 층에서 무작위로 표본을 추출하는 것</li>
+  <li>
+    <p>랜덤표본추출 : 무작위로 표본 추출</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="c1"># 예시 데이터프레임 생성
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">({</span>
+    <span class="sh">'</span><span class="s">Name</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">Alice</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Bob</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Charlie</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">David</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Eve</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Frank</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Grace</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Henry</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Ivy</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Jack</span><span class="sh">'</span><span class="p">],</span>
+    <span class="sh">'</span><span class="s">Grade</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">A</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">B</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">A</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">C</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">B</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">A</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">C</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">B</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">A</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">B</span><span class="sh">'</span><span class="p">],</span>
+    <span class="sh">'</span><span class="s">Score</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="mi">85</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">70</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># 랜덤 표본 추출
+</span><span class="n">drawn_sample</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="nf">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># 결과 출력
+</span><span class="nf">print</span><span class="p">(</span><span class="n">drawn_sample</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Grade</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Grace</td>
+      <td>C</td>
+      <td>62</td>
+    </tr>
+    <tr>
+      <td>Ivy</td>
+      <td>C</td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <td>Charlie</td>
+      <td>C</td>
+      <td>90</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>
+    <p>층화표본추출 : 모집단을 층으로 나눈 뒤, 각 층에서 무작위로 표본을 추출하는 것</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="nf">drop</span><span class="p">(</span><span class="sh">'</span><span class="s">Grade</span><span class="sh">'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 특성
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sh">'</span><span class="s">Grade</span><span class="sh">'</span><span class="p">]</span>  <span class="c1"># 목표 변수
+</span>
+<span class="c1"># 70%는 훈련 세트, 30%는 테스트 세트로 층화 분할
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">훈련 세트 크기:</span><span class="sh">"</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span>  <span class="c1"># 7
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">테스트 세트 크기:</span><span class="sh">"</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span> <span class="c1"># 3
+</span></code></pre></div>    </div>
+  </li>
   <li>편향(bias) : 계통상의 오류</li>
   <li>표본편향 : 모집단을 잘못 대표하는 표본</li>
-</ol>
+</ul>
 
 <h1 id="선택편향">선택편향</h1>
 
@@ -132,6 +194,23 @@
   <li>구간끝점 : 신뢰구간의 양 끝점</li>
 </ol>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1"># 신뢰수준 설정 (예: 95%)
+</span>  <span class="n">confidence_level</span> <span class="o">=</span> <span class="mf">0.95</span>
+
+  <span class="c1"># 'Score' 열에 대한 신뢰구간 계산
+</span>  <span class="n">scores</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sh">'</span><span class="s">Score</span><span class="sh">'</span><span class="p">]</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+  <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+  <span class="n">std_err</span> <span class="o">=</span> <span class="n">stats</span><span class="p">.</span><span class="nf">sem</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="c1"># 표준오차
+</span>
+  <span class="c1"># scipy.stats.t.interval 함수를 사용하여 신뢰구간 계산
+</span>  <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">stats</span><span class="p">.</span><span class="n">t</span><span class="p">.</span><span class="nf">interval</span><span class="p">(</span><span class="n">confidence_level</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std_err</span><span class="p">)</span>
+
+  <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">confidence_level</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s">% 신뢰구간:</span><span class="sh">"</span><span class="p">)</span>
+  <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">하한: </span><span class="si">{</span><span class="n">lower_bound</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 70.08
+</span>  <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">상한: </span><span class="si">{</span><span class="n">upper_bound</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># 85.32
+</span></code></pre></div></div>
+
 <h1 id="정규분포">정규분포</h1>
 
 <ol>
@@ -141,6 +220,48 @@
   <li>표준정규분포 : 평균=0, 표준편차=1 인 정규분포</li>
   <li>QQ-plot : 표본분포가 특정 분포에 얼마나 가까운지를 보여주는 그림</li>
 </ol>
+
+<style>
+
+</style>
+
+<div id="fig_el321221415041786083858948971"></div>
+<script>
+function mpld3_load_lib(url, callback){
+  var s = document.createElement('script');
+  s.src = url;
+  s.async = true;
+  s.onreadystatechange = s.onload = callback;
+  s.onerror = function(){console.warn("failed to load library " + url);};
+  document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
+   // already loaded: just create the figure
+   !function(mpld3){
+       
+       mpld3.draw_figure("fig_el321221415041786083858948971", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-1.6486440028948732, 1.6486440028948732], "ylim": [58.890972723158825, 96.50902727684118], "xdomain": [-1.6486440028948732, 1.6486440028948732], "ydomain": [58.890972723158825, 96.50902727684118], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el32122141442463536", "lines": [{"data": "data01", "xindex": 0, "yindex": 2, "coordinates": "data", "id": "el32122141505547552", "color": "#FF0000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}], "paths": [], "markers": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el32122141478240128pts", "facecolor": "#0000FF", "edgecolor": "#0000FF", "edgewidth": 1.0, "alpha": 1, "zorder": 2, "markerpath": [[[0.0, 3.0], [0.7956093000000001, 3.0], [1.5587396123545605, 2.683901074764725], [2.121320343559643, 2.121320343559643], [2.683901074764725, 1.5587396123545605], [3.0, 0.7956093000000001], [3.0, 0.0], [3.0, -0.7956093000000001], [2.683901074764725, -1.5587396123545605], [2.121320343559643, -2.121320343559643], [1.5587396123545605, -2.683901074764725], [0.7956093000000001, -3.0], [0.0, -3.0], [-0.7956093000000001, -3.0], [-1.5587396123545605, -2.683901074764725], [-2.121320343559643, -2.121320343559643], [-2.683901074764725, -1.5587396123545605], [-3.0, -0.7956093000000001], [-3.0, 0.0], [-3.0, 0.7956093000000001], [-2.683901074764725, 1.5587396123545605], [-2.121320343559643, 2.121320343559643], [-1.5587396123545605, 2.683901074764725], [-0.7956093000000001, 3.0], [0.0, 3.0]], ["M", "C", "C", "C", "C", "C", "C", "C", "C", "Z"]]}], "texts": [{"text": "Theoretical quantiles", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141505434208"}, {"text": "Ordered Values", "position": [-0.07075866188769415, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141505433392"}, {"text": "QQ Plot of Scores", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141478233456"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[-1.4987672753589756, 62.0, 60.60088429378075], [-0.9849466741389483, 65.0, 66.46295378045009], [-0.6470380273640686, 70.0, 70.31808135384318], [-0.371098189575024, 72.0, 73.46622002212318], [-0.12121408713229873, 75.0, 76.31709437137097], [0.12121408713229859, 78.0, 79.08290562862902], [0.371098189575024, 85.0, 81.93377997787682], [0.6470380273640689, 88.0, 85.08191864615682], [0.9849466741389483, 90.0, 88.93704621954991], [1.4987672753589756, 92.0, 94.79911570621925]]}, "id": "el32122141504178608", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+   }(mpld3);
+}else if(typeof define === "function" && define.amd){
+   // require.js is available: use it to load d3/mpld3
+   require.config({paths: {d3: "https://d3js.org/d3.v5"}});
+   require(["d3"], function(d3){
+      window.d3 = d3;
+      mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.10.js", function(){
+         
+         mpld3.draw_figure("fig_el321221415041786083858948971", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-1.6486440028948732, 1.6486440028948732], "ylim": [58.890972723158825, 96.50902727684118], "xdomain": [-1.6486440028948732, 1.6486440028948732], "ydomain": [58.890972723158825, 96.50902727684118], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el32122141442463536", "lines": [{"data": "data01", "xindex": 0, "yindex": 2, "coordinates": "data", "id": "el32122141505547552", "color": "#FF0000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}], "paths": [], "markers": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el32122141478240128pts", "facecolor": "#0000FF", "edgecolor": "#0000FF", "edgewidth": 1.0, "alpha": 1, "zorder": 2, "markerpath": [[[0.0, 3.0], [0.7956093000000001, 3.0], [1.5587396123545605, 2.683901074764725], [2.121320343559643, 2.121320343559643], [2.683901074764725, 1.5587396123545605], [3.0, 0.7956093000000001], [3.0, 0.0], [3.0, -0.7956093000000001], [2.683901074764725, -1.5587396123545605], [2.121320343559643, -2.121320343559643], [1.5587396123545605, -2.683901074764725], [0.7956093000000001, -3.0], [0.0, -3.0], [-0.7956093000000001, -3.0], [-1.5587396123545605, -2.683901074764725], [-2.121320343559643, -2.121320343559643], [-2.683901074764725, -1.5587396123545605], [-3.0, -0.7956093000000001], [-3.0, 0.0], [-3.0, 0.7956093000000001], [-2.683901074764725, 1.5587396123545605], [-2.121320343559643, 2.121320343559643], [-1.5587396123545605, 2.683901074764725], [-0.7956093000000001, 3.0], [0.0, 3.0]], ["M", "C", "C", "C", "C", "C", "C", "C", "C", "Z"]]}], "texts": [{"text": "Theoretical quantiles", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141505434208"}, {"text": "Ordered Values", "position": [-0.07075866188769415, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141505433392"}, {"text": "QQ Plot of Scores", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141478233456"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[-1.4987672753589756, 62.0, 60.60088429378075], [-0.9849466741389483, 65.0, 66.46295378045009], [-0.6470380273640686, 70.0, 70.31808135384318], [-0.371098189575024, 72.0, 73.46622002212318], [-0.12121408713229873, 75.0, 76.31709437137097], [0.12121408713229859, 78.0, 79.08290562862902], [0.371098189575024, 85.0, 81.93377997787682], [0.6470380273640689, 88.0, 85.08191864615682], [0.9849466741389483, 90.0, 88.93704621954991], [1.4987672753589756, 92.0, 94.79911570621925]]}, "id": "el32122141504178608", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+      });
+    });
+}else{
+    // require.js not available: dynamically load d3 & mpld3
+    mpld3_load_lib("https://d3js.org/d3.v5.js", function(){
+         mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.10.js", function(){
+                 
+                 mpld3.draw_figure("fig_el321221415041786083858948971", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-1.6486440028948732, 1.6486440028948732], "ylim": [58.890972723158825, 96.50902727684118], "xdomain": [-1.6486440028948732, 1.6486440028948732], "ydomain": [58.890972723158825, 96.50902727684118], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 10, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el32122141442463536", "lines": [{"data": "data01", "xindex": 0, "yindex": 2, "coordinates": "data", "id": "el32122141505547552", "color": "#FF0000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}], "paths": [], "markers": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el32122141478240128pts", "facecolor": "#0000FF", "edgecolor": "#0000FF", "edgewidth": 1.0, "alpha": 1, "zorder": 2, "markerpath": [[[0.0, 3.0], [0.7956093000000001, 3.0], [1.5587396123545605, 2.683901074764725], [2.121320343559643, 2.121320343559643], [2.683901074764725, 1.5587396123545605], [3.0, 0.7956093000000001], [3.0, 0.0], [3.0, -0.7956093000000001], [2.683901074764725, -1.5587396123545605], [2.121320343559643, -2.121320343559643], [1.5587396123545605, -2.683901074764725], [0.7956093000000001, -3.0], [0.0, -3.0], [-0.7956093000000001, -3.0], [-1.5587396123545605, -2.683901074764725], [-2.121320343559643, -2.121320343559643], [-2.683901074764725, -1.5587396123545605], [-3.0, -0.7956093000000001], [-3.0, 0.0], [-3.0, 0.7956093000000001], [-2.683901074764725, 1.5587396123545605], [-2.121320343559643, 2.121320343559643], [-1.5587396123545605, 2.683901074764725], [-0.7956093000000001, 3.0], [0.0, 3.0]], ["M", "C", "C", "C", "C", "C", "C", "C", "C", "Z"]]}], "texts": [{"text": "Theoretical quantiles", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141505434208"}, {"text": "Ordered Values", "position": [-0.07075866188769415, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141505433392"}, {"text": "QQ Plot of Scores", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el32122141478233456"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[-1.4987672753589756, 62.0, 60.60088429378075], [-0.9849466741389483, 65.0, 66.46295378045009], [-0.6470380273640686, 70.0, 70.31808135384318], [-0.371098189575024, 72.0, 73.46622002212318], [-0.12121408713229873, 75.0, 76.31709437137097], [0.12121408713229859, 78.0, 79.08290562862902], [0.371098189575024, 85.0, 81.93377997787682], [0.6470380273640689, 88.0, 85.08191864615682], [0.9849466741389483, 90.0, 88.93704621954991], [1.4987672753589756, 92.0, 94.79911570621925]]}, "id": "el32122141504178608", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+            })
+         });
+}
+</script>
 
 <h1 id="긴-꼬리-분포">긴 꼬리 분포</h1>
 
