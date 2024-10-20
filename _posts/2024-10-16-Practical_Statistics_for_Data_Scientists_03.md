@@ -24,12 +24,42 @@ toc : true
 - 대상(subject) : 처리를 적용할 개체 대상(유의어 : 피실험자)
 - 검정통계량(test statistic) : 처리 효과를 측정하기 위한 지표
 
+```python
+# A/B 테스트 데이터
+# A 그룹의 데이터 (예: A 버전의 전환율)
+A_conversions = 45  # 전환한 사람 수
+A_total = 500       # A 그룹의 총 사용자 수
+
+# B 그룹의 데이터 (예: B 버전의 전환율)
+B_conversions = 60  # 전환한 사람 수
+B_total = 520       # B 그룹의 총 사용자 수
+
+# 비율 계산 (전환율)
+A_rate = A_conversions / A_total # 0.0900
+B_rate = B_conversions / B_total # 0.1154
+
+# 각 그룹의 표준 오차 계산
+A_std_error = np.sqrt(A_rate * (1 - A_rate) / A_total)
+B_std_error = np.sqrt(B_rate * (1 - B_rate) / B_total)
+
+# Z-통계량 계산 (Z-score)
+z_score = (B_rate - A_rate) / np.sqrt(A_std_error**2 + B_std_error**2) # 1.3377
+
+# p-value 계산
+p_value = stats.norm.sf(abs(z_score)) * 2  # 양측 테스트이므로 * 2 , p-value : # 0.1810
+```
+
+> p_value > 유의수준(0.05) 이므로 통계적으로 유의한 차이가 없다.
+
+
 # 가설검정
 
 - 귀무가설 : 우연 때문이라는 가설(=영가설)
 - 대립가설 : 귀무가설과의 대조(증명하고자 하는 가설)
 - 일원검정 : 한 방향으로만 우연히 일어날 확률을 계산하는 가설검정
 - 이원검정 : 양방향으로 우연히 일어날 확률을 계산하는 가설검정
+
+> 위 A/B test 에서 p-value 값이 0.1810 이므로 귀무가설을 기각할 수 없다.
 
 # 재표본추출
 
@@ -50,6 +80,20 @@ toc : true
 - 검정통계량 : 관심의 차이 또는 효과에 대한 측정 지표
 - t 통계량 : 평균과 같이 표준화된 형태의 일반적인 검정통계량
 - t 분포 : 관측된 t 통계량을 비교할 수 있는 (귀무가설에서 파생된)기준분포
+
+```python
+# 두 집단의 데이터 예시
+group_A = np.array([23, 25, 27, 22, 20, 30, 28, 26, 24, 29])
+group_B = np.array([31, 33, 35, 29, 27, 40, 36, 34, 32, 38])
+
+# 두 집단에 대한 독립 표본 t-검정 수행
+t_stat, p_value = stats.ttest_ind(group_A, group_B) # t : -5.0138, p : 0.0001
+
+# 자유도 계산
+df = len(group_A) + len(group_B) - 2
+```
+
+{% include plotly/t-distribution.html %}
 
 # 다중검정
 
@@ -74,6 +118,16 @@ toc : true
 - F-statistic : 그룹 평균 간의 차이가 랜덤 모델에서 예상되는 것에서 벗어나는 정도를 측정하는 표준화된 통계량
 - SS(sum of squares) : 어떤 평균으로부터의 편차들의 제곱합
 
+```python
+# 세 그룹의 데이터 (임의의 데이터 생성)
+group_1 = np.array([23, 25, 27, 22, 20, 30, 28, 26, 24, 29])
+group_2 = np.array([31, 33, 35, 29, 27, 40, 36, 34, 32, 38])
+group_3 = np.array([19, 21, 17, 23, 18, 20, 22, 19, 21, 24])
+
+# 일원분산분석 (ANOVA) 수행
+f_stat, p_value = stats.f_oneway(group_1, group_2, group_3) # F : 42.2481, p-value < alpha
+```
+
 # 카이제곱검정
 
 > 카이제곱검정 : 횟수 관련 데이터에 주로 사용되며 예상되는 분포에 얼마나 잘 맞는지를 검정
@@ -82,6 +136,25 @@ toc : true
 - 기댓값 : 어떤 가정(보통 귀무가설)으로부터 데이터가 발생할 때, 그에 대해 기대하는 정도
 - 피어슨 잔차 : $$ R = \frac{관측값 - 기댓값}{\sqrt{기댓값}} $$
 - 자유도 : (r-1)(c-1) [ r : 행, c : 열 ]
+
+```python
+# 교차표 (contingency table) 데이터 생성
+# 예시: 두 범주형 변수의 교차 빈도
+#       예를 들어, 그룹 A와 그룹 B에서 특정 결과를 얻은 빈도
+observed = np.array([[20, 30],
+                     [25, 35]])
+
+# 카이제곱 검정 수행
+chi2_stat, p_value, dof, expected = stats.chi2_contingency(observed)
+
+# 결과 출력
+print(f"Chi-Square 통계량: {chi2_stat:.4f}") # 카이제곱 통계량 : 1
+print(f"P-값: {p_value:.4f}") # 0
+print(f"자유도: {dof}") # 1
+print("기대빈도:\n", expected)
+# [[20.45454545 29.54545455]
+# [24.54545455 35.45454545]]
+```
 
 # 멀티암드 밴딧 알고리즘
 
