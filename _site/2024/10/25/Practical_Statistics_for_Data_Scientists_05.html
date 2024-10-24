@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>데이터 과학을 위한 통계 - 분류</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/study.html">STUDY</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					    <li><a href="/paper.html">PAPER</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="데이터-과학을-위한-통계---분류---2024년10월25일">데이터 과학을 위한 통계 - 분류 - 2024년10월25일</h1>
+
+<!-- - tag : Practical_Statistics_for_Data_Scientists Python Book  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Practical_Statistics_for_Data_Scientists.html" class="btn btn-default navbar-btn cursorNorm" role="button">Practical_Statistics_for_Data_Scientists</a>
+|
+<a href="/tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|
+<a href="/tags/tag_Book.html" class="btn btn-default navbar-btn cursorNorm" role="button">Book</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="나이브-베이즈">나이브 베이즈</h1>
+
+<blockquote>
+  <p>naive Bayes 알고리즘은 주어진 결과에 대해 예측변숫값을 관찰할 확률을 사용<br />
+예측변수가 주어졌을 때, 결과 Y = i를 관찰할 확률, 즉 정말 관심 있는 것을 추정</p>
+</blockquote>
+
+<ul>
+  <li>조건부확률 : 어떤 사건(Y= i)이 주어졌을 때, 사건(X = i)을 관찰할 확률</li>
+  <li>사후확률 : 예측 정보를 통합한 후 결과의 확률(이와 달리, 사전확률에서는 예측변수에 대한 정보를 고려하지 않는다.)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Iris 데이터셋 로드
+</span><span class="n">iris</span> <span class="o">=</span> <span class="nf">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="p">.</span><span class="n">data</span>  <span class="c1"># 특징 데이터
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="p">.</span><span class="n">target</span>  <span class="c1"># 레이블 데이터
+</span>
+<span class="c1"># 학습 데이터와 테스트 데이터로 분리
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Gaussian Naive Bayes 모델 생성 및 학습
+</span><span class="n">model</span> <span class="o">=</span> <span class="nc">GaussianNB</span><span class="p">()</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># 테스트 데이터에 대해 예측
+</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># 정확도 및 분류 성능 평가
+</span><span class="n">accuracy</span> <span class="o">=</span> <span class="nf">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="c1"># Accuracy: 97.78%
+</span></code></pre></div></div>
+<h1 id="판별분석">판별분석</h1>
+
+<ul>
+  <li>공분산 : 하나의 변수가 다른 변수와 함께 변화하는 정도(유사한 크기와 방향)를 측정하는 지표</li>
+  <li>판별함수 : 예측변수에 적용했을 때, 클래스 구분을 최대화하는 함수</li>
+  <li>판별 가중치 : 판별함수를 적용하여 얻은 점수를 말하며, 어떤 클래스에 속할 확률을 추정하는 데 사용된다.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="c1"># 두 변수 데이터 (예시 데이터)
+</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">]</span>
+
+<span class="c1"># 공분산 계산
+</span><span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">cov</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># 공분산 값
+</span><span class="n">cov_xy</span> <span class="o">=</span> <span class="n">cov_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+<p><img src="/assets/images/data_scientists/cov.png" alt="cov" /></p>
+
+<h1 id="로지스틱-회귀">로지스틱 회귀</h1>
+
+<blockquote>
+  <p>로지스틱 회귀는 결과가 이진형 변수이다.</p>
+</blockquote>
+
+<ul>
+  <li>logit : (0 ~ 1이 아니라) \(\pm \infty\)의 범위에서 어떤 클래스에 속할 확률을 결정하는 함수</li>
+  <li>odds : ‘실패(0)’에 대한 ‘성공(1)’의 비율</li>
+  <li>log odds : 변환 모델(선형)의 응답변수, 이 값을 통해 확률을 구한다.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 데이터셋 로드 (유방암 진단 데이터셋)
+</span><span class="n">data</span> <span class="o">=</span> <span class="nf">load_breast_cancer</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">data</span>  <span class="c1"># 특징 데이터
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">target</span>  <span class="c1"># 레이블 (이진 클래스: 0과 1)
+</span>
+<span class="c1"># 학습 데이터와 테스트 데이터로 분할
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># 로지스틱 회귀 모델 생성 및 학습
+</span><span class="n">model</span> <span class="o">=</span> <span class="nc">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>  <span class="c1"># 반복 횟수 설정
+</span><span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># 테스트 데이터에 대한 확률 예측
+</span><span class="n">y_proba</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># 클래스 1에 속할 확률
+</span>
+<span class="c1"># 클래스 1의 확률 가져오기 (양성 클래스)
+</span><span class="n">probs</span> <span class="o">=</span> <span class="n">y_proba</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># odds 및 log odds 계산
+</span><span class="n">odds</span> <span class="o">=</span> <span class="n">probs</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">probs</span><span class="p">)</span>
+<span class="n">log_odds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">odds</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>출력</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">First</span> <span class="mi">10</span> <span class="n">samples</span><span class="sh">'</span><span class="s"> odds:
+[7.22592689e+00 3.06485905e-08 1.60786038e-03 8.17214888e+02
+ 7.07486668e+03 2.00329645e-10 6.15220705e-11 1.96425715e-02
+ 6.23237035e+01 1.74551484e+02]
+
+First 10 samples</span><span class="sh">'</span> <span class="n">log</span> <span class="n">odds</span><span class="p">:</span>
+<span class="p">[</span>  <span class="mf">1.97767552</span> <span class="o">-</span><span class="mf">17.30067916</span>  <span class="o">-</span><span class="mf">6.43285094</span>   <span class="mf">6.70590208</span>   <span class="mf">8.86430388</span>
+ <span class="o">-</span><span class="mf">22.33105688</span> <span class="o">-</span><span class="mf">23.51162513</span>  <span class="o">-</span><span class="mf">3.93005605</span>   <span class="mf">4.13234183</span>   <span class="mf">5.16221973</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h1 id="분류-모델-평가하기">분류 모델 평가하기</h1>
+
+<ul>
+  <li>정확도</li>
+  <li>혼동행렬(confusion matrix)</li>
+  <li>민감도 : 1을 정확히 1로 분류한 비울(= recall[재현율])</li>
+  <li>특이도 : 0을 정확히 0으로 분류한 비율</li>
+  <li>정밀도 : 1이라고 예측한 것들 중에 1이 맞는 경우의 비율</li>
+  <li>ROC 곡선 : 민감도와 특이성을 표시한 그림</li>
+  <li>lift : 모델이 다른 확률 컷오프에 대해 (비교적 드문) 1을 얼마나 더 효과적으로 구분하는지 나타내는 지표</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 데이터셋 로드
+</span><span class="n">data</span> <span class="o">=</span> <span class="nf">load_breast_cancer</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">data</span>  <span class="c1"># 특징 데이터
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">target</span>  <span class="c1"># 레이블 (이진 클래스: 0과 1)
+</span>
+<span class="c1"># 학습 데이터와 테스트 데이터로 분할
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># 로지스틱 회귀 모델 생성 및 학습
+</span><span class="n">model</span> <span class="o">=</span> <span class="nc">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># 예측 및 확률 예측
+</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_proba</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># 클래스 1에 대한 확률
+</span>
+<span class="c1"># 혼동행렬 생성
+</span><span class="n">conf_matrix</span> <span class="o">=</span> <span class="nf">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="c1"># 민감도(Recall), 특이도(Specificity), 정밀도(Precision), 정확도(Accuracy) 계산
+</span><span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">conf_matrix</span><span class="p">.</span><span class="nf">ravel</span><span class="p">()</span>
+<span class="n">sensitivity</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span>  <span class="c1"># 민감도 (TPR)
+</span><span class="n">specificity</span> <span class="o">=</span> <span class="n">tn</span> <span class="o">/</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>  <span class="c1"># 특이도 (TNR)
+</span><span class="n">precision</span> <span class="o">=</span> <span class="nf">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>  <span class="c1"># 정밀도
+</span><span class="n">accuracy</span> <span class="o">=</span> <span class="nf">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>  <span class="c1"># 정확도
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ROC Curve 및 AUC 계산
+</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="nf">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
+<span class="n">roc_auc</span> <span class="o">=</span> <span class="nf">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+
+<span class="c1"># ROC 곡선 그리기
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">blue</span><span class="sh">'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="sh">'</span><span class="s">ROC curve (area = </span><span class="si">{</span><span class="n">roc_auc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">)</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">gray</span><span class="sh">'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="sh">'</span><span class="s">--</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">False Positive Rate (1 - Specificity)</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">True Positive Rate (Sensitivity)</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">'</span><span class="s">ROC Curve</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="sh">"</span><span class="s">lower right</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Lift 곡선 그리기
+</span><span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">thresholds_pr</span> <span class="o">=</span> <span class="nf">precision_recall_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">)</span>
+<span class="n">lift</span> <span class="o">=</span> <span class="n">precision</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="o">/</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>  <span class="c1"># Lift 계산
+</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="n">lift</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="sh">'</span><span class="s">green</span><span class="sh">'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">'</span><span class="s">Lift curve</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Recall</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">Lift</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">'</span><span class="s">Lift Curve</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="sh">"</span><span class="s">upper right</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>출력</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Confusion</span> <span class="n">Matrix</span><span class="p">:</span>
+<span class="p">[[</span><span class="mi">39</span>  <span class="mi">4</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mi">1</span> <span class="mi">70</span><span class="p">]]</span>
+<span class="nc">Sensitivity </span><span class="p">(</span><span class="n">Recall</span><span class="p">):</span> <span class="mf">0.99</span>
+<span class="n">Specificity</span><span class="p">:</span> <span class="mf">0.91</span>
+<span class="n">Precision</span><span class="p">:</span> <span class="mf">0.95</span>
+<span class="n">Accuracy</span><span class="p">:</span> <span class="mf">0.96</span>
+</code></pre></div></div>
+
+<style>
+
+</style>
+
+<div id="fig_el1263220870905623205328044032"></div>
+<script>
+function mpld3_load_lib(url, callback){
+  var s = document.createElement('script');
+  s.src = url;
+  s.async = true;
+  s.onreadystatechange = s.onload = callback;
+  s.onerror = function(){console.warn("failed to load library " + url);};
+  document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
+   // already loaded: just create the figure
+   !function(mpld3){
+       
+       mpld3.draw_figure("fig_el1263220870905623205328044032", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [0.0, 1.0], "ylim": [0.0, 1.05], "xdomain": [0.0, 1.0], "ydomain": [0.0, 1.05], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 6, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 7, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el126322087090555792", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086095632", "color": "#0000FF", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086276928", "color": "#808080", "linewidth": 1.5, "dasharray": "6,6", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el126322087091300416", "color": "#0000FF", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data04", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el126322087085792080", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "False Positive Rate (1 - Specificity)", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085788048"}, {"text": "True Positive Rate (Sensitivity)", "position": [-0.0801672640382318, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086080512"}, {"text": "ROC Curve", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085793520"}, {"text": "ROC curve (area = 1.00)", "position": [0.6051075268817204, 0.0503246753246753], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el126322087086081376"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 0.0], [0.0, 0.014084507042253521], [0.0, 0.971830985915493], [0.046511627906976744, 0.971830985915493], [0.046511627906976744, 0.9859154929577465], [0.11627906976744186, 0.9859154929577465], [0.11627906976744186, 1.0], [1.0, 1.0]], "data02": [[0.0, 0.0], [1.0, 1.0]], "data03": [[0.5214755077658303, 0.06610750360750359], [0.5513440860215053, 0.06610750360750359], [0.5812126642771803, 0.06610750360750359]], "data04": [[0.5155017921146954, 0.02254689754689751], [0.9790919952210274, 0.02254689754689751], [0.9850657108721624, 0.02254689754689751], [0.9850657108721624, 0.03156565656565655], [0.9850657108721624, 0.09505772005772006], [0.9850657108721624, 0.10407647907647907], [0.9790919952210274, 0.10407647907647907], [0.5155017921146954, 0.10407647907647907], [0.5095280764635604, 0.10407647907647907], [0.5095280764635604, 0.09505772005772006], [0.5095280764635604, 0.03156565656565655], [0.5095280764635604, 0.02254689754689751], [0.5155017921146954, 0.02254689754689751]]}, "id": "el126322087090562320", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+   }(mpld3);
+}else if(typeof define === "function" && define.amd){
+   // require.js is available: use it to load d3/mpld3
+   require.config({paths: {d3: "https://d3js.org/d3.v5"}});
+   require(["d3"], function(d3){
+      window.d3 = d3;
+      mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.10.js", function(){
+         
+         mpld3.draw_figure("fig_el1263220870905623205328044032", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [0.0, 1.0], "ylim": [0.0, 1.05], "xdomain": [0.0, 1.0], "ydomain": [0.0, 1.05], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 6, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 7, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el126322087090555792", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086095632", "color": "#0000FF", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086276928", "color": "#808080", "linewidth": 1.5, "dasharray": "6,6", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el126322087091300416", "color": "#0000FF", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data04", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el126322087085792080", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "False Positive Rate (1 - Specificity)", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085788048"}, {"text": "True Positive Rate (Sensitivity)", "position": [-0.0801672640382318, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086080512"}, {"text": "ROC Curve", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085793520"}, {"text": "ROC curve (area = 1.00)", "position": [0.6051075268817204, 0.0503246753246753], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el126322087086081376"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 0.0], [0.0, 0.014084507042253521], [0.0, 0.971830985915493], [0.046511627906976744, 0.971830985915493], [0.046511627906976744, 0.9859154929577465], [0.11627906976744186, 0.9859154929577465], [0.11627906976744186, 1.0], [1.0, 1.0]], "data02": [[0.0, 0.0], [1.0, 1.0]], "data03": [[0.5214755077658303, 0.06610750360750359], [0.5513440860215053, 0.06610750360750359], [0.5812126642771803, 0.06610750360750359]], "data04": [[0.5155017921146954, 0.02254689754689751], [0.9790919952210274, 0.02254689754689751], [0.9850657108721624, 0.02254689754689751], [0.9850657108721624, 0.03156565656565655], [0.9850657108721624, 0.09505772005772006], [0.9850657108721624, 0.10407647907647907], [0.9790919952210274, 0.10407647907647907], [0.5155017921146954, 0.10407647907647907], [0.5095280764635604, 0.10407647907647907], [0.5095280764635604, 0.09505772005772006], [0.5095280764635604, 0.03156565656565655], [0.5095280764635604, 0.02254689754689751], [0.5155017921146954, 0.02254689754689751]]}, "id": "el126322087090562320", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+      });
+    });
+}else{
+    // require.js not available: dynamically load d3 & mpld3
+    mpld3_load_lib("https://d3js.org/d3.v5.js", function(){
+         mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.10.js", function(){
+                 
+                 mpld3.draw_figure("fig_el1263220870905623205328044032", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [0.0, 1.0], "ylim": [0.0, 1.05], "xdomain": [0.0, 1.0], "ydomain": [0.0, 1.05], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 6, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 7, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el126322087090555792", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086095632", "color": "#0000FF", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086276928", "color": "#808080", "linewidth": 1.5, "dasharray": "6,6", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el126322087091300416", "color": "#0000FF", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data04", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el126322087085792080", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "False Positive Rate (1 - Specificity)", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085788048"}, {"text": "True Positive Rate (Sensitivity)", "position": [-0.0801672640382318, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086080512"}, {"text": "ROC Curve", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085793520"}, {"text": "ROC curve (area = 1.00)", "position": [0.6051075268817204, 0.0503246753246753], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el126322087086081376"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 0.0], [0.0, 0.014084507042253521], [0.0, 0.971830985915493], [0.046511627906976744, 0.971830985915493], [0.046511627906976744, 0.9859154929577465], [0.11627906976744186, 0.9859154929577465], [0.11627906976744186, 1.0], [1.0, 1.0]], "data02": [[0.0, 0.0], [1.0, 1.0]], "data03": [[0.5214755077658303, 0.06610750360750359], [0.5513440860215053, 0.06610750360750359], [0.5812126642771803, 0.06610750360750359]], "data04": [[0.5155017921146954, 0.02254689754689751], [0.9790919952210274, 0.02254689754689751], [0.9850657108721624, 0.02254689754689751], [0.9850657108721624, 0.03156565656565655], [0.9850657108721624, 0.09505772005772006], [0.9850657108721624, 0.10407647907647907], [0.9790919952210274, 0.10407647907647907], [0.5155017921146954, 0.10407647907647907], [0.5095280764635604, 0.10407647907647907], [0.5095280764635604, 0.09505772005772006], [0.5095280764635604, 0.03156565656565655], [0.5095280764635604, 0.02254689754689751], [0.5155017921146954, 0.02254689754689751]]}, "id": "el126322087090562320", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+            })
+         });
+}
+</script>
+
+<style>
+
+</style>
+
+<div id="fig_el1263220870913050727085888496"></div>
+<script>
+function mpld3_load_lib(url, callback){
+  var s = document.createElement('script');
+  s.src = url;
+  s.async = true;
+  s.onreadystatechange = s.onload = callback;
+  s.onerror = function(){console.warn("failed to load library " + url);};
+  document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
+   // already loaded: just create the figure
+   !function(mpld3){
+       
+       mpld3.draw_figure("fig_el1263220870913050727085888496", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.05, 1.05], "ylim": [0.969718309859155, 1.6359154929577464], "xdomain": [-0.05, 1.05], "ydomain": [0.969718309859155, 1.6359154929577464], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 8, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el126322087086512256", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086203648", "color": "#008000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el126322087086083008", "color": "#008000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el126322087086630832", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "Recall", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085788048"}, {"text": "Lift", "position": [-0.08043608124253286, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086081520"}, {"text": "Lift Curve", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086289024"}, {"text": "Lift curve", "position": [0.8330645161290323, 0.9237012987012989], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el126322087086627328"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[1.0, 1.0], [1.0, 1.0088495575221237], [1.0, 1.0178571428571428], [1.0, 1.027027027027027], [1.0, 1.0363636363636364], [1.0, 1.0458715596330275], [1.0, 1.0555555555555556], [1.0, 1.0654205607476634], [1.0, 1.0754716981132073], [1.0, 1.0857142857142856], [1.0, 1.096153846153846], [1.0, 1.1067961165048543], [1.0, 1.1176470588235292], [1.0, 1.1287128712871286], [1.0, 1.14], [1.0, 1.1515151515151514], [1.0, 1.163265306122449], [1.0, 1.1752577319587627], [1.0, 1.1875], [1.0, 1.2], [1.0, 1.2127659574468084], [1.0, 1.225806451612903], [1.0, 1.2391304347826086], [1.0, 1.2527472527472527], [1.0, 1.2666666666666666], [1.0, 1.2808988764044942], [1.0, 1.2954545454545452], [1.0, 1.3103448275862069], [1.0, 1.3255813953488371], [1.0, 1.3411764705882352], [1.0, 1.357142857142857], [1.0, 1.3734939759036142], [1.0, 1.3902439024390243], [1.0, 1.4074074074074072], [1.0, 1.4249999999999998], [1.0, 1.4430379746835442], [1.0, 1.4615384615384615], [1.0, 1.4805194805194803], [1.0, 1.5], [0.9859154929577465, 1.4985915492957746], [0.9859154929577465, 1.5188427864484202], [0.9859154929577465, 1.5396488520162066], [0.9859154929577465, 1.561032863849765], [0.971830985915493, 1.5604046816107915], [0.971830985915493, 1.5826961770623742], [0.971830985915493, 1.6056338028169013], [0.9577464788732394, 1.6056338028169013], [0.9436619718309859, 1.6056338028169013], [0.9295774647887324, 1.6056338028169013], [0.9154929577464789, 1.6056338028169013], [0.9014084507042254, 1.6056338028169013], [0.8873239436619719, 1.6056338028169013], [0.8732394366197183, 1.6056338028169013], [0.8591549295774648, 1.6056338028169013], [0.8450704225352113, 1.6056338028169013], [0.8309859154929577, 1.6056338028169013], [0.8169014084507042, 1.6056338028169013], [0.8028169014084507, 1.6056338028169013], [0.7887323943661971, 1.6056338028169013], [0.7746478873239436, 1.6056338028169013], [0.7605633802816901, 1.6056338028169013], [0.7464788732394366, 1.6056338028169013], [0.7323943661971831, 1.6056338028169013], [0.7183098591549296, 1.6056338028169013], [0.704225352112676, 1.6056338028169013], [0.6901408450704225, 1.6056338028169013], [0.676056338028169, 1.6056338028169013], [0.6619718309859155, 1.6056338028169013], [0.647887323943662, 1.6056338028169013], [0.6338028169014085, 1.6056338028169013], [0.6197183098591549, 1.6056338028169013], [0.6056338028169014, 1.6056338028169013], [0.5915492957746479, 1.6056338028169013], [0.5774647887323944, 1.6056338028169013], [0.5633802816901409, 1.6056338028169013], [0.5492957746478874, 1.6056338028169013], [0.5352112676056338, 1.6056338028169013], [0.5211267605633803, 1.6056338028169013], [0.5070422535211268, 1.6056338028169013], [0.49295774647887325, 1.6056338028169013], [0.4788732394366197, 1.6056338028169013], [0.4647887323943662, 1.6056338028169013], [0.4507042253521127, 1.6056338028169013], [0.43661971830985913, 1.6056338028169013], [0.4225352112676056, 1.6056338028169013], [0.4084507042253521, 1.6056338028169013], [0.39436619718309857, 1.6056338028169013], [0.38028169014084506, 1.6056338028169013], [0.36619718309859156, 1.6056338028169013], [0.352112676056338, 1.6056338028169013], [0.3380281690140845, 1.6056338028169013], [0.323943661971831, 1.6056338028169013], [0.30985915492957744, 1.6056338028169013], [0.29577464788732394, 1.6056338028169013], [0.28169014084507044, 1.6056338028169013], [0.2676056338028169, 1.6056338028169013], [0.2535211267605634, 1.6056338028169013], [0.23943661971830985, 1.6056338028169013], [0.22535211267605634, 1.6056338028169013], [0.2112676056338028, 1.6056338028169013], [0.19718309859154928, 1.6056338028169013], [0.18309859154929578, 1.6056338028169013], [0.16901408450704225, 1.6056338028169013], [0.15492957746478872, 1.6056338028169013], [0.14084507042253522, 1.6056338028169013], [0.1267605633802817, 1.6056338028169013], [0.11267605633802817, 1.6056338028169013], [0.09859154929577464, 1.6056338028169013], [0.08450704225352113, 1.6056338028169013], [0.07042253521126761, 1.6056338028169013], [0.056338028169014086, 1.6056338028169013], [0.04225352112676056, 1.6056338028169013], [0.028169014084507043, 1.6056338028169013], [0.014084507042253521, 1.6056338028169013], [0.0, 1.6056338028169013]], "data02": [[0.7494324970131422, 0.9394841269841272], [0.7793010752688172, 0.9394841269841272], [0.8091696535244922, 0.9394841269841272]], "data03": [[0.7434587813620072, 0.895923520923521], [0.9790919952210274, 0.895923520923521], [0.9850657108721624, 0.895923520923521], [0.9850657108721624, 0.9049422799422802], [0.9850657108721624, 0.9684343434343436], [0.9850657108721624, 0.9774531024531026], [0.9790919952210274, 0.9774531024531026], [0.7434587813620072, 0.9774531024531026], [0.7374850657108721, 0.9774531024531026], [0.7374850657108721, 0.9684343434343436], [0.7374850657108721, 0.9049422799422802], [0.7374850657108721, 0.895923520923521], [0.7434587813620072, 0.895923520923521]]}, "id": "el126322087091305072", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+   }(mpld3);
+}else if(typeof define === "function" && define.amd){
+   // require.js is available: use it to load d3/mpld3
+   require.config({paths: {d3: "https://d3js.org/d3.v5"}});
+   require(["d3"], function(d3){
+      window.d3 = d3;
+      mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.10.js", function(){
+         
+         mpld3.draw_figure("fig_el1263220870913050727085888496", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.05, 1.05], "ylim": [0.969718309859155, 1.6359154929577464], "xdomain": [-0.05, 1.05], "ydomain": [0.969718309859155, 1.6359154929577464], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 8, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el126322087086512256", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086203648", "color": "#008000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el126322087086083008", "color": "#008000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el126322087086630832", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "Recall", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085788048"}, {"text": "Lift", "position": [-0.08043608124253286, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086081520"}, {"text": "Lift Curve", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086289024"}, {"text": "Lift curve", "position": [0.8330645161290323, 0.9237012987012989], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el126322087086627328"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[1.0, 1.0], [1.0, 1.0088495575221237], [1.0, 1.0178571428571428], [1.0, 1.027027027027027], [1.0, 1.0363636363636364], [1.0, 1.0458715596330275], [1.0, 1.0555555555555556], [1.0, 1.0654205607476634], [1.0, 1.0754716981132073], [1.0, 1.0857142857142856], [1.0, 1.096153846153846], [1.0, 1.1067961165048543], [1.0, 1.1176470588235292], [1.0, 1.1287128712871286], [1.0, 1.14], [1.0, 1.1515151515151514], [1.0, 1.163265306122449], [1.0, 1.1752577319587627], [1.0, 1.1875], [1.0, 1.2], [1.0, 1.2127659574468084], [1.0, 1.225806451612903], [1.0, 1.2391304347826086], [1.0, 1.2527472527472527], [1.0, 1.2666666666666666], [1.0, 1.2808988764044942], [1.0, 1.2954545454545452], [1.0, 1.3103448275862069], [1.0, 1.3255813953488371], [1.0, 1.3411764705882352], [1.0, 1.357142857142857], [1.0, 1.3734939759036142], [1.0, 1.3902439024390243], [1.0, 1.4074074074074072], [1.0, 1.4249999999999998], [1.0, 1.4430379746835442], [1.0, 1.4615384615384615], [1.0, 1.4805194805194803], [1.0, 1.5], [0.9859154929577465, 1.4985915492957746], [0.9859154929577465, 1.5188427864484202], [0.9859154929577465, 1.5396488520162066], [0.9859154929577465, 1.561032863849765], [0.971830985915493, 1.5604046816107915], [0.971830985915493, 1.5826961770623742], [0.971830985915493, 1.6056338028169013], [0.9577464788732394, 1.6056338028169013], [0.9436619718309859, 1.6056338028169013], [0.9295774647887324, 1.6056338028169013], [0.9154929577464789, 1.6056338028169013], [0.9014084507042254, 1.6056338028169013], [0.8873239436619719, 1.6056338028169013], [0.8732394366197183, 1.6056338028169013], [0.8591549295774648, 1.6056338028169013], [0.8450704225352113, 1.6056338028169013], [0.8309859154929577, 1.6056338028169013], [0.8169014084507042, 1.6056338028169013], [0.8028169014084507, 1.6056338028169013], [0.7887323943661971, 1.6056338028169013], [0.7746478873239436, 1.6056338028169013], [0.7605633802816901, 1.6056338028169013], [0.7464788732394366, 1.6056338028169013], [0.7323943661971831, 1.6056338028169013], [0.7183098591549296, 1.6056338028169013], [0.704225352112676, 1.6056338028169013], [0.6901408450704225, 1.6056338028169013], [0.676056338028169, 1.6056338028169013], [0.6619718309859155, 1.6056338028169013], [0.647887323943662, 1.6056338028169013], [0.6338028169014085, 1.6056338028169013], [0.6197183098591549, 1.6056338028169013], [0.6056338028169014, 1.6056338028169013], [0.5915492957746479, 1.6056338028169013], [0.5774647887323944, 1.6056338028169013], [0.5633802816901409, 1.6056338028169013], [0.5492957746478874, 1.6056338028169013], [0.5352112676056338, 1.6056338028169013], [0.5211267605633803, 1.6056338028169013], [0.5070422535211268, 1.6056338028169013], [0.49295774647887325, 1.6056338028169013], [0.4788732394366197, 1.6056338028169013], [0.4647887323943662, 1.6056338028169013], [0.4507042253521127, 1.6056338028169013], [0.43661971830985913, 1.6056338028169013], [0.4225352112676056, 1.6056338028169013], [0.4084507042253521, 1.6056338028169013], [0.39436619718309857, 1.6056338028169013], [0.38028169014084506, 1.6056338028169013], [0.36619718309859156, 1.6056338028169013], [0.352112676056338, 1.6056338028169013], [0.3380281690140845, 1.6056338028169013], [0.323943661971831, 1.6056338028169013], [0.30985915492957744, 1.6056338028169013], [0.29577464788732394, 1.6056338028169013], [0.28169014084507044, 1.6056338028169013], [0.2676056338028169, 1.6056338028169013], [0.2535211267605634, 1.6056338028169013], [0.23943661971830985, 1.6056338028169013], [0.22535211267605634, 1.6056338028169013], [0.2112676056338028, 1.6056338028169013], [0.19718309859154928, 1.6056338028169013], [0.18309859154929578, 1.6056338028169013], [0.16901408450704225, 1.6056338028169013], [0.15492957746478872, 1.6056338028169013], [0.14084507042253522, 1.6056338028169013], [0.1267605633802817, 1.6056338028169013], [0.11267605633802817, 1.6056338028169013], [0.09859154929577464, 1.6056338028169013], [0.08450704225352113, 1.6056338028169013], [0.07042253521126761, 1.6056338028169013], [0.056338028169014086, 1.6056338028169013], [0.04225352112676056, 1.6056338028169013], [0.028169014084507043, 1.6056338028169013], [0.014084507042253521, 1.6056338028169013], [0.0, 1.6056338028169013]], "data02": [[0.7494324970131422, 0.9394841269841272], [0.7793010752688172, 0.9394841269841272], [0.8091696535244922, 0.9394841269841272]], "data03": [[0.7434587813620072, 0.895923520923521], [0.9790919952210274, 0.895923520923521], [0.9850657108721624, 0.895923520923521], [0.9850657108721624, 0.9049422799422802], [0.9850657108721624, 0.9684343434343436], [0.9850657108721624, 0.9774531024531026], [0.9790919952210274, 0.9774531024531026], [0.7434587813620072, 0.9774531024531026], [0.7374850657108721, 0.9774531024531026], [0.7374850657108721, 0.9684343434343436], [0.7374850657108721, 0.9049422799422802], [0.7374850657108721, 0.895923520923521], [0.7434587813620072, 0.895923520923521]]}, "id": "el126322087091305072", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+      });
+    });
+}else{
+    // require.js not available: dynamically load d3 & mpld3
+    mpld3_load_lib("https://d3js.org/d3.v5.js", function(){
+         mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.10.js", function(){
+                 
+                 mpld3.draw_figure("fig_el1263220870913050727085888496", {"width": 600.0, "height": 400.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.05, 1.05], "ylim": [0.969718309859155, 1.6359154929577464], "xdomain": [-0.05, 1.05], "ydomain": [0.969718309859155, 1.6359154929577464], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 8, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el126322087086512256", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el126322087086203648", "color": "#008000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}, {"data": "data02", "xindex": 0, "yindex": 1, "coordinates": "axes", "id": "el126322087086083008", "color": "#008000", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 1000002.0, "drawstyle": "default"}], "paths": [{"data": "data03", "xindex": 0, "yindex": 1, "coordinates": "axes", "pathcodes": ["M", "L", "S", "L", "S", "L", "S", "L", "S", "Z"], "id": "el126322087086630832", "dasharray": "none", "alpha": 0.8, "facecolor": "rgba(255, 255, 255, 0.8)", "edgecolor": "rgba(204, 204, 204, 0.8)", "edgewidth": 1.0, "zorder": 1000000.0}], "markers": [], "texts": [{"text": "Recall", "position": [0.5, -0.09505772005772006], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "hanging", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087085788048"}, {"text": "Lift", "position": [-0.08043608124253286, 0.5], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -90.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086081520"}, {"text": "Lift Curve", "position": [0.5, 1.027056277056277], "coordinates": "axes", "h_anchor": "middle", "v_baseline": "auto", "rotation": -0.0, "fontsize": 12.0, "color": "#000000", "alpha": 1, "zorder": 3, "id": "el126322087086289024"}, {"text": "Lift curve", "position": [0.8330645161290323, 0.9237012987012989], "coordinates": "axes", "h_anchor": "start", "v_baseline": "auto", "rotation": -0.0, "fontsize": 10.0, "color": "#000000", "alpha": 1, "zorder": 1000003.0, "id": "el126322087086627328"}], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[1.0, 1.0], [1.0, 1.0088495575221237], [1.0, 1.0178571428571428], [1.0, 1.027027027027027], [1.0, 1.0363636363636364], [1.0, 1.0458715596330275], [1.0, 1.0555555555555556], [1.0, 1.0654205607476634], [1.0, 1.0754716981132073], [1.0, 1.0857142857142856], [1.0, 1.096153846153846], [1.0, 1.1067961165048543], [1.0, 1.1176470588235292], [1.0, 1.1287128712871286], [1.0, 1.14], [1.0, 1.1515151515151514], [1.0, 1.163265306122449], [1.0, 1.1752577319587627], [1.0, 1.1875], [1.0, 1.2], [1.0, 1.2127659574468084], [1.0, 1.225806451612903], [1.0, 1.2391304347826086], [1.0, 1.2527472527472527], [1.0, 1.2666666666666666], [1.0, 1.2808988764044942], [1.0, 1.2954545454545452], [1.0, 1.3103448275862069], [1.0, 1.3255813953488371], [1.0, 1.3411764705882352], [1.0, 1.357142857142857], [1.0, 1.3734939759036142], [1.0, 1.3902439024390243], [1.0, 1.4074074074074072], [1.0, 1.4249999999999998], [1.0, 1.4430379746835442], [1.0, 1.4615384615384615], [1.0, 1.4805194805194803], [1.0, 1.5], [0.9859154929577465, 1.4985915492957746], [0.9859154929577465, 1.5188427864484202], [0.9859154929577465, 1.5396488520162066], [0.9859154929577465, 1.561032863849765], [0.971830985915493, 1.5604046816107915], [0.971830985915493, 1.5826961770623742], [0.971830985915493, 1.6056338028169013], [0.9577464788732394, 1.6056338028169013], [0.9436619718309859, 1.6056338028169013], [0.9295774647887324, 1.6056338028169013], [0.9154929577464789, 1.6056338028169013], [0.9014084507042254, 1.6056338028169013], [0.8873239436619719, 1.6056338028169013], [0.8732394366197183, 1.6056338028169013], [0.8591549295774648, 1.6056338028169013], [0.8450704225352113, 1.6056338028169013], [0.8309859154929577, 1.6056338028169013], [0.8169014084507042, 1.6056338028169013], [0.8028169014084507, 1.6056338028169013], [0.7887323943661971, 1.6056338028169013], [0.7746478873239436, 1.6056338028169013], [0.7605633802816901, 1.6056338028169013], [0.7464788732394366, 1.6056338028169013], [0.7323943661971831, 1.6056338028169013], [0.7183098591549296, 1.6056338028169013], [0.704225352112676, 1.6056338028169013], [0.6901408450704225, 1.6056338028169013], [0.676056338028169, 1.6056338028169013], [0.6619718309859155, 1.6056338028169013], [0.647887323943662, 1.6056338028169013], [0.6338028169014085, 1.6056338028169013], [0.6197183098591549, 1.6056338028169013], [0.6056338028169014, 1.6056338028169013], [0.5915492957746479, 1.6056338028169013], [0.5774647887323944, 1.6056338028169013], [0.5633802816901409, 1.6056338028169013], [0.5492957746478874, 1.6056338028169013], [0.5352112676056338, 1.6056338028169013], [0.5211267605633803, 1.6056338028169013], [0.5070422535211268, 1.6056338028169013], [0.49295774647887325, 1.6056338028169013], [0.4788732394366197, 1.6056338028169013], [0.4647887323943662, 1.6056338028169013], [0.4507042253521127, 1.6056338028169013], [0.43661971830985913, 1.6056338028169013], [0.4225352112676056, 1.6056338028169013], [0.4084507042253521, 1.6056338028169013], [0.39436619718309857, 1.6056338028169013], [0.38028169014084506, 1.6056338028169013], [0.36619718309859156, 1.6056338028169013], [0.352112676056338, 1.6056338028169013], [0.3380281690140845, 1.6056338028169013], [0.323943661971831, 1.6056338028169013], [0.30985915492957744, 1.6056338028169013], [0.29577464788732394, 1.6056338028169013], [0.28169014084507044, 1.6056338028169013], [0.2676056338028169, 1.6056338028169013], [0.2535211267605634, 1.6056338028169013], [0.23943661971830985, 1.6056338028169013], [0.22535211267605634, 1.6056338028169013], [0.2112676056338028, 1.6056338028169013], [0.19718309859154928, 1.6056338028169013], [0.18309859154929578, 1.6056338028169013], [0.16901408450704225, 1.6056338028169013], [0.15492957746478872, 1.6056338028169013], [0.14084507042253522, 1.6056338028169013], [0.1267605633802817, 1.6056338028169013], [0.11267605633802817, 1.6056338028169013], [0.09859154929577464, 1.6056338028169013], [0.08450704225352113, 1.6056338028169013], [0.07042253521126761, 1.6056338028169013], [0.056338028169014086, 1.6056338028169013], [0.04225352112676056, 1.6056338028169013], [0.028169014084507043, 1.6056338028169013], [0.014084507042253521, 1.6056338028169013], [0.0, 1.6056338028169013]], "data02": [[0.7494324970131422, 0.9394841269841272], [0.7793010752688172, 0.9394841269841272], [0.8091696535244922, 0.9394841269841272]], "data03": [[0.7434587813620072, 0.895923520923521], [0.9790919952210274, 0.895923520923521], [0.9850657108721624, 0.895923520923521], [0.9850657108721624, 0.9049422799422802], [0.9850657108721624, 0.9684343434343436], [0.9850657108721624, 0.9774531024531026], [0.9790919952210274, 0.9774531024531026], [0.7434587813620072, 0.9774531024531026], [0.7374850657108721, 0.9774531024531026], [0.7374850657108721, 0.9684343434343436], [0.7374850657108721, 0.9049422799422802], [0.7374850657108721, 0.895923520923521], [0.7434587813620072, 0.895923520923521]]}, "id": "el126322087091305072", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+            })
+         });
+}
+</script>
+
+<h1 id="불균형-데이터-다루기">불균형 데이터 다루기</h1>
+<ul>
+  <li>과소표본 : 분류 모델에서 개수가 많은 클래스 데이터 중 일부 소수만을 사용하는 것(= 다운샘플)</li>
+  <li>과잉표본 : 분류 모델에서 희귀 클래스 데이터를 중복하여, 필요하면 부트스트랩에서 사용하는 것(= 업샘플)</li>
+  <li>상향 가중치 or 하향 가중치 : 모델에서 회귀(혹은 다수) 클래스에 높은(혹은 낮은) 가중치를 주는 것</li>
+  <li>데이터 생성 : 부트스트랩과 비슷하게 다시 샘플링한 레코드를 빼고 원래 원본과 살짝 다르게 데이터를 생성하는 것</li>
+  <li>z-score : 표준화 결과</li>
+  <li>k : 최근접 이웃 알고리즘에서 이웃들의 개수</li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#데이터-과학을-위한-통계---분류---2024년10월25일">데이터 과학을 위한 통계 - 분류 - 2024년10월25일</a></li>
+<li class="toc-entry toc-h1"><a href="#나이브-베이즈">나이브 베이즈</a></li>
+<li class="toc-entry toc-h1"><a href="#판별분석">판별분석</a></li>
+<li class="toc-entry toc-h1"><a href="#로지스틱-회귀">로지스틱 회귀</a></li>
+<li class="toc-entry toc-h1"><a href="#분류-모델-평가하기">분류 모델 평가하기</a></li>
+<li class="toc-entry toc-h1"><a href="#불균형-데이터-다루기">불균형 데이터 다루기</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/10/25/Practical_Statistics_for_Data_Scientists_05.html">데이터 과학을 위한 통계 - 분류 [ 2024년10월25일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/10/21/Practical_Statistics_for_Data_Scientists_04.html">데이터 과학을 위한 통계 - 회귀와 예측 [ 2024년10월21일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/10/16/Practical_Statistics_for_Data_Scientists_03.html">데이터 과학을 위한 통계 - 통계적 실험과 유의성검정 [ 2024년10월16일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/10/12/Practical_Statistics_for_Data_Scientists_02.html">데이터 과학을 위한 통계 - 데이터와 표본분포 [ 2024년10월12일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/10/09/Practical_Statistics_for_Data_Scientists_01.html">데이터 과학을 위한 통계 - 탐색적 데이터 분석 [ 2024년10월09일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
