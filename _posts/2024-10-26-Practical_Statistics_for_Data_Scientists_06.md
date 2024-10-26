@@ -1,0 +1,27 @@
+---
+layout : markdown
+title : 데이터 과학을 위한 통계 - 통계적 머신러닝
+tags : [Practical_Statistics_for_Data_Scientists, Python, Book]
+toc : true
+---
+{% include markdown.html %}
+
+# k-최근접 이웃
+
+> K-nearest neighbors(KNN)
+
+- 과정
+1. 특징들이 가장 유사한 k개의 레코드를 찾는다.
+2. 분류 : 이 유사한 레코드들 중에 다수가 속한 클래스가 무엇인지 찾은 후에 새로운 레코드를 그 클래스에 할당한다.
+3. 예측(KNN 회귀) : 유사한 레코드들의 평균을 찾아서 새로운 레코드에 대한 예측값으로 사용한다.
+
+# 트리 모델
+
+> 회귀 및 분석 트리(classification and regression tree, CART), Decision tree  
+> Random Forest, 부스팅 트리
+
+- 재귀 분할 : 마지막 분할 영역에 해당하는 출력이 최대한 비슷한 결과를 보이도록 데이터를 반복적으로 분할하는 것
+- 분할값 : 분할값을 기준으로 예측변수를 그 값보다 작은 영역과 큰 영역으로 나눈다.
+- loss : 분류하는 과정에서 발생하는 오분류의 수, 손실이 클수록 불순도가 높다고 할 수 있다.
+- 불순도(impurity) : 데이터를 분할한 집합에서 서로 다른 클래스의 데이터가 얼마나 섞여 있는지를 나타냄
+- 가지치기(pruning) : 학습이 끝난 트리 모델에서 오버피팅을 줄이기 위해 가지들을 하나씩 잘라내는 과정
