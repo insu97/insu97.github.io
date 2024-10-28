@@ -1,7 +1,7 @@
 ---
 layout : markdown
 title : Funnel_Analysis
-tags : [Funnel_Analysis, Blog]
+tags : [Blog, Funnel_Analysis]
 toc : true
 ---
 {% include markdown.html %}

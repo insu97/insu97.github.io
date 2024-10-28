@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "A/B TEST",
+      "category" : "",
+      "tags"     : "Blog, AB_TEST",
+      "url"      : "/2024/10/28/AB_test.html",
+      "date"     : "2024-10-28 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "데이터 과학을 위한 통계 - 통계적 머신러닝",
       "category" : "",
       "tags"     : "Practical_Statistics_for_Data_Scientists, Python, Book",
@@ -27,7 +35,7 @@
     {
       "title"    : "Funnel_Analysis",
       "category" : "",
-      "tags"     : "Funnel_Analysis, Blog",
+      "tags"     : "Blog, Funnel_Analysis",
       "url"      : "/2024/10/18/Funnel_Analysis.html",
       "date"     : "2024-10-18 00:00:00 +0900"
     } ,
