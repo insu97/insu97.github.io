@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "데이터 과학을 위한 통계 - 비지도 학습",
+      "category" : "",
+      "tags"     : "Practical_Statistics_for_Data_Scientists, Python, Book",
+      "url"      : "/2024/10/30/Practical_Statistics_for_Data_Scientists_07.html",
+      "date"     : "2024-10-30 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "GROWTH HACKING 01",
       "category" : "",
       "tags"     : "Growth_Hacking, Book",
