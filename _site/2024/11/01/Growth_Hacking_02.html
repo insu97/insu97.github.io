@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Obsidian_setting</title>
+		<title>GROWTH HACKING 02</title>
 		<link rel="stylesheet" href="/assets/css/default.css">
 		<link rel="stylesheet" href="/assets/css/code.css">
 		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
@@ -70,72 +70,77 @@
 			  <div class="main">
 					<div class="markdown-body">
   <div class="md-content">
-    <h1 id="obsidian_setting---2024년10월05일">Obsidian_setting - 2024년10월05일</h1>
+    <h1 id="growth-hacking-02---2024년11월01일">GROWTH HACKING 02 - 2024년11월01일</h1>
 
-<!-- - tag : Obsidian  -->
+<!-- - tag : Growth_Hacking Book  -->
 <ul>
-  <li>tag : <a href="/tags/tag_Obsidian.html" class="btn btn-default navbar-btn cursorNorm" role="button">Obsidian</a>
+  <li>tag : <a href="/tags/tag_Growth_Hacking.html" class="btn btn-default navbar-btn cursorNorm" role="button">Growth_Hacking</a>
+|
+<a href="/tags/tag_Book.html" class="btn btn-default navbar-btn cursorNorm" role="button">Book</a>
 |</li>
 </ul>
 
 <hr />
 
-<h1 id="obsidian-setting">Obsidian Setting</h1>
+<h1 id="성장-모델">성장 모델</h1>
+
+<blockquote>
+  <p>‘시장을 이기는 사업은 없다’ == ‘고객의 삶을 이기는 제품은 없다’</p>
+</blockquote>
+
+<ul>
+  <li>성장 모델(Growth Model) : ‘다름’을 이해하고, 우리 사업과 서비스에 맞는 성장 전략을 선택하는 것</li>
+</ul>
+
+<h2 id="3가지-서비스-순환-고리와-성장-승수">3가지 서비스 순환 고리와 성장 승수</h2>
+
+<ul>
+  <li>직선형 관점 : 서비스 접근 - 재방문 - 구매 - 종료</li>
+  <li>순환형 관점 : 서비스 접근 - 재방문 - 구매 - 추천 - 새로운 고객의 서비스 접근 - 재방문 - 구매 - 추천 -&gt; 새로운 고객의 서비스 접근 -&gt; (순환 계속)</li>
+</ul>
 
 <ol>
-  <li>Google Play Store 에서 Termux 설치 후 다음 명령어 입력</li>
+  <li>콘텐츠형 순환 고리 : 사용자가 콘텐츠 생산에 참여하는 서비스들이 여기에 해당</li>
+  <li>유로 광고형 순환 고리 : 유료 서비스를 판매하는 사업들이 여기에 해당</li>
+  <li>바이럴형 순환 고리 : 콘텐츠형과 유료 광고형 순환 고리와 함께 동작하는 경우</li>
 </ol>
 
-<pre><code class="language-Linux">pkg install git # git 설치
-git clone &lt;repo 주소&gt;
-</code></pre>
+<blockquote>
+  <p>1/(1-r) : 성장 승수 [ r : 새 사용자로 전환되는 비율 , EX) 1000 -&gt; 600 : r = 0.6 ]<br />
+최종 사용자 : a * 1/(1-r) [ a : 최초에 있던 사용자의 수 ]</p>
+</blockquote>
 
-<p>-&gt; git clone <repo 주소=""> 입력 후 ID, PASSWD 입력<br />
---&gt; PASSWD : 깃허브 토큰 생성 후 입력해야 함 [ 비밀번호 X ]</repo></p>
+<h2 id="급속-성장을-달섬하는-법">급속 성장을 달섬하는 법</h2>
 
-<pre><code class="language-Linux">pkg install rsync
-termux-setup-storage # 앱 권한 부여
-chmod -R u+rwX &lt;obsidian 설치 로컬 주소 입력&gt;
-rsync -avz &lt;termux에서 clone 한 주소&gt; &lt;로컬 주소&gt; # 클론한 데이터를 로컬로 복사
-pkg install vim
-</code></pre>
+<ul>
+  <li>우리가 원하는 것은 “J 커브”</li>
+</ul>
 
-<pre><code class="language-Linux">nano sync_to_obsidian.sh # 자동화 파일 생성
-</code></pre>
-
-<p>-&gt; sync_to_obsidian.sh 파일에 아래 입력</p>
-
-<pre><code class="language-Linux">rm -rf &lt;clone 주소&gt;
-rm -rf &lt;로컬 주소&gt;
-git clone &lt;repo 주소&gt;
-rsync -avz &lt;clone 주소&gt; &lt;로컬 주소&gt;
-</code></pre>
-
-<p>-&gt; esc 누르고 :wq 입력후 나오기 # 저장 후 나오기</p>
-
-<pre><code class="language-Linux">chmod +x sync_to_obsidian.sh # 실행할 수 있도록 권한 부여
-./sync_to_obsidian.sh # 입력 후 작동하는지 확인하기
-</code></pre>
+<blockquote>
+  <p>달성하기 위해서는 성장 승수의 r값이 1이 넘어가면 된다.<br />
+시장의 크기는 제한되어 있으므로 결국 시장의 크기만큼 사용자를 획득할 수 있다.</p>
+</blockquote>
 
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#obsidian_setting---2024년10월05일">Obsidian_setting - 2024년10월05일</a></li>
-<li class="toc-entry toc-h1"><a href="#obsidian-setting">Obsidian Setting</a></li>
+<li class="toc-entry toc-h1"><a href="#growth-hacking-02---2024년11월01일">GROWTH HACKING 02 - 2024년11월01일</a></li>
+<li class="toc-entry toc-h1"><a href="#성장-모델">성장 모델</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#3가지-서비스-순환-고리와-성장-승수">3가지 서비스 순환 고리와 성장 승수</a></li>
+<li class="toc-entry toc-h2"><a href="#급속-성장을-달섬하는-법">급속 성장을 달섬하는 법</a></li>
+</ul>
+</li>
 </ul>
     <hr>
     <h2>관련 POST</h2>
     
       
         
-      
-        
-      
-    
-      
-        
-      
+          <p>
+            <a href="/2024/11/01/Growth_Hacking_02.html">GROWTH HACKING 02 [ 2024년11월01일 ]</a>
+          </p>
         
       
         
@@ -143,70 +148,6 @@ rsync -avz &lt;clone 주소&gt; &lt;로컬 주소&gt;
     
       
         
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-        
-      
-    
       
         
       
@@ -216,8 +157,80 @@ rsync -avz &lt;clone 주소&gt; &lt;로컬 주소&gt;
       
         
           <p>
-            <a href="/2024/10/05/Obsidian_setting.html">Obsidian_setting [ 2024년10월05일 ]</a>
+            <a href="/2024/10/29/Growth_Hacking_01.html">GROWTH HACKING 01 [ 2024년10월29일 ]</a>
           </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
         
       
     

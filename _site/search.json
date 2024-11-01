@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "GROWTH HACKING 02",
+      "category" : "",
+      "tags"     : "Growth_Hacking, Book",
+      "url"      : "/2024/11/01/Growth_Hacking_02.html",
+      "date"     : "2024-11-01 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "데이터 과학을 위한 통계 - 비지도 학습",
       "category" : "",
       "tags"     : "Practical_Statistics_for_Data_Scientists, Python, Book",
