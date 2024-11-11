@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Machine Learning At Work - 03</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/study.html">STUDY</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					    <li><a href="/paper.html">PAPER</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="machine-learning-at-work---03---2024년11월11일">Machine Learning At Work - 03 - 2024년11월11일</h1>
+
+<!-- - tag : Machine_Learning_At_Work Book  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Machine_Learning_At_Work.html" class="btn btn-default navbar-btn cursorNorm" role="button">Machine_Learning_At_Work</a>
+|
+<a href="/tags/tag_Book.html" class="btn btn-default navbar-btn cursorNorm" role="button">Book</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="학습-결과-평가하기">학습 결과 평가하기</h1>
+
+<h2 id="분류-평가">분류 평가</h2>
+
+<h3 id="정확도">정확도</h3>
+
+<blockquote>
+  <p>\(정확도 =  \frac{정답과 일치한 수}{전체 데이터 수}\)<br />
+현실에서는 분류할 클래스별로 편차가 있는 경우가 많고 단순히 정확도를 적용하는 것은 대부분 큰 의미가 없다.</p>
+</blockquote>
+
+<h3 id="정밀도">정밀도</h3>
+
+<blockquote>
+  <p>정밀도 : 출력 결과가 실제로 얼마나 정답이었는가</p>
+</blockquote>
+
+<h3 id="재현울">재현울</h3>
+
+<blockquote>
+  <p>재현율 : 출력 결과가 실제 정답 중 어느 정도의 비율을 차지하는가</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>정밀도와 재현율은 상충관계에 있으며 문제 설정에 따라 중시하는 쪽이 달라진다.  
+놓치는 데이터 수가 많더라도 더욱 정확한 예측이 필요하다면 정밀도를 중시
+다소 잘못 걸러내는 비율이 높더라도 데이터 누락을 최소화하고자 할 때는 재현율을 중시
+</code></pre></div></div>
+
+<h3 id="f값">F값</h3>
+
+<blockquote>
+  <p>\(F값 = \frac{2}{\frac{1}{정밀도} + \frac{1}{재현율}}\)<br />
+정밀도와 재현율이 균형을 이룰수록 F값은 커진다.</p>
+</blockquote>
+
+<h3 id="혼동행렬">혼동행렬</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>–</td>
+      <td>–</td>
+      <td>예측</td>
+      <td>결과</td>
+    </tr>
+    <tr>
+      <td>–</td>
+      <td>–</td>
+      <td>양성(스팸)</td>
+      <td>음성(스팸 아님)</td>
+    </tr>
+    <tr>
+      <td>실제</td>
+      <td>양성(스팸)</td>
+      <td>참 양성(TP)</td>
+      <td>거짓 음성(FN)</td>
+    </tr>
+    <tr>
+      <td>결과</td>
+      <td>음성(스팸 아님)</td>
+      <td>거짓 양성(FP)</td>
+      <td>참 음성(TN)</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>\(정밀도 = \frac{TP}{TP + FP}\)<br />
+\(재현율 = \frac{TP}{TP + FN}\)</p>
+</blockquote>
+
+<ul>
+  <li>다중 클래스 분류 평균 구하기</li>
+</ul>
+
+<ol>
+  <li>마이크로 평균
+    <blockquote>
+      <p>EX) 3클래스 분류 일 때 :  \(정밀도_{마이크로평균} = \frac{TP_{1} + TP_{2} + TP_{3}}{TP_{1} + TP_{2} + TP_{3} + FP_{1} + FP_{2} + FP_{3}}\)</p>
+    </blockquote>
+  </li>
+  <li>매크로 평균
+    <blockquote>
+\[정밀도_{매크로 평균} = \frac{정밀도_{1} + 정밀도_{2} + 정밀도_{3}}{3}\]
+    </blockquote>
+  </li>
+</ol>
+
+<h3 id="roc-auc">ROC, AUC</h3>
+
+<blockquote>
+  <p>ROC : 참 양성률(TPR)을 세로축, 거짓 양성률(FPR)을 가록축에 그린 것<br />
+\(TPR = \frac{TP}{TP + FN}\)<br />
+\(FPR = \frac{FP}{FP + TN}\)<br />
+참 양성률은 높을수록, 거짓 양성률은 낮을수록 좋다
+AUC : ROC곡선 그래프 아래에 넓이를 더한 값</p>
+</blockquote>
+
+<h2 id="회귀-평가">회귀 평가</h2>
+
+<h3 id="평균제곱근오차rmse">평균제곱근오차(RMSE)</h3>
+
+<blockquote>
+\[RMSE = \sqrt{\frac{ \sum_{i}{(예측값_{i}-실제값_{i}})^2}{N} }\]
+</blockquote>
+
+<h3 id="결정계수">결정계수</h3>
+
+<blockquote>
+  <p>\(R^2 = 1 - \frac{\sum_{i}{(예측값_{i}-실젯값_{i})^2}}{\sum_{i}{(예측값_{i}-실젯값의 평균_{i})^2}}\)<br />
+결정계수가 1에 가까울수록 성능이 좋은 것이며 0에 가까울수록 성능이 좋지 않은 것이다.</p>
+</blockquote>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#machine-learning-at-work---03---2024년11월11일">Machine Learning At Work - 03 - 2024년11월11일</a></li>
+<li class="toc-entry toc-h1"><a href="#학습-결과-평가하기">학습 결과 평가하기</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#분류-평가">분류 평가</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#정확도">정확도</a></li>
+<li class="toc-entry toc-h3"><a href="#정밀도">정밀도</a></li>
+<li class="toc-entry toc-h3"><a href="#재현울">재현울</a></li>
+<li class="toc-entry toc-h3"><a href="#f값">F값</a></li>
+<li class="toc-entry toc-h3"><a href="#혼동행렬">혼동행렬</a></li>
+<li class="toc-entry toc-h3"><a href="#roc-auc">ROC, AUC</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#회귀-평가">회귀 평가</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#평균제곱근오차rmse">평균제곱근오차(RMSE)</a></li>
+<li class="toc-entry toc-h3"><a href="#결정계수">결정계수</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/11/11/MachineLearningAtWork-03.html">Machine Learning At Work - 03 [ 2024년11월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/10/MachineLearningAtWork-02.html">Machine Learning At Work - 02 [ 2024년11월10일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/09/MachineLearningAtWork-01.html">Machine Learning At Work - 01 [ 2024년11월09일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
