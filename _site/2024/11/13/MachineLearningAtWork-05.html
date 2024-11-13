@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>GROWTH HACKING 07</title>
+		<title>Machine Learning At Work - 05</title>
 		<link rel="stylesheet" href="/assets/css/default.css">
 		<link rel="stylesheet" href="/assets/css/code.css">
 		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
@@ -70,11 +70,11 @@
 			  <div class="main">
 					<div class="markdown-body">
   <div class="md-content">
-    <h1 id="growth-hacking-07---2024년11월06일">GROWTH HACKING 07 - 2024년11월06일</h1>
+    <h1 id="machine-learning-at-work---05---2024년11월13일">Machine Learning At Work - 05 - 2024년11월13일</h1>
 
-<!-- - tag : Growth_Hacking Book  -->
+<!-- - tag : Machine_Learning_At_Work Book  -->
 <ul>
-  <li>tag : <a href="/tags/tag_Growth_Hacking.html" class="btn btn-default navbar-btn cursorNorm" role="button">Growth_Hacking</a>
+  <li>tag : <a href="/tags/tag_Machine_Learning_At_Work.html" class="btn btn-default navbar-btn cursorNorm" role="button">Machine_Learning_At_Work</a>
 |
 <a href="/tags/tag_Book.html" class="btn btn-default navbar-btn cursorNorm" role="button">Book</a>
 |</li>
@@ -82,75 +82,66 @@
 
 <hr />
 
-<h1 id="유로-마케팅">유로 마케팅</h1>
+<h1 id="학습-리소스-수집하기">학습 리소스 수집하기</h1>
 
-<blockquote>
-  <p>Growth Hacking 관점에서 유료 마케팅은 콘텐츠나 입소문 모델을 활용한 유기적 성장을 돕는 수단이 되어야 한다.</p>
-</blockquote>
-
-<h2 id="그로스-해킹-측면의-유료-마케팅-실행-전략">그로스 해킹 측면의 유료 마케팅 실행 전략</h2>
+<h2 id="학습-리소스-수집-방법">학습 리소스 수집 방법</h2>
 
 <ol>
-  <li>광고 채널[오프라인과 온라인, 데스크탑과 모바일], 광고 타겟[광고 타겟 지역]</li>
-  <li>메시지[광고 형태, 광고 메시지]</li>
-  <li>측정[고객 평생 가치]</li>
+  <li>입력 : 엑세스 로그 등에서 추출한 특징량</li>
+  <li>출력 : 분류 레이블 또는 예측값</li>
 </ol>
 
 <ul>
-  <li>광고 채널과 광고 타겟</li>
+  <li>공개된 데이터셋이나 모델 활용
+    <ol>
+      <li><a href="https://archive.ics.uci.edu/">UCI 머신러닝 저장소</a></li>
+      <li><a href="https://www.kaggle.com/">Kaggle</a></li>
+      <li><a href="https://www.image-net.org/index.php">ImageNet</a></li>
+    </ol>
+  </li>
 </ul>
 
 <blockquote>
-  <p>이후에 나오는 메시지나 측정 모두 채널과 타겟에 종속적일 수밖에 없기 때문에<br />
-사실상 유료 마케팅에서 가장 중요한 의사 결정이 발생하는 부분</p>
-</blockquote>
-
-<blockquote>
-  <p>타켓팅 기준 : Funnel 관점에서 타겟팅이 수준에 대한 기준
-볼륨 기준 : 한 번에 도달할 수 있는 광고 대상자 수에 따른 기준</p>
+  <p>주의할 점</p>
+  <ol>
+    <li>모델이나 데이터셋의 라이선스는 상업적으로 사용할 수 있는가?</li>
+    <li>내가 운용하는 시스템이나 서비스에 학습 완료된 모델이나 데이터셋을 적용할 수 있는가?</li>
+  </ol>
 </blockquote>
 
 <ul>
-  <li>메시지</li>
+  <li>개발자가 직접 훈련 데이터 작성
+    <blockquote>
+      <p>기존 데이터를 활용할 수 없을 때는 필요한 훈련 데이터를 개발자가 직접 만든다.</p>
+    </blockquote>
+  </li>
+  <li>동료나 지인에게 데이터 입력 요청
+    <blockquote>
+      <p>EX) 스프레드시트에 대상 데이터를 나열하고 레이블을 부여하는 것<br />
+여러 명에게 작업을 의뢰할 때는 사전에 데이터 내용을 말로 표현할 수 있도록 작업 내용이나 판단 기준을 확실하게 설명해야 한다.</p>
+    </blockquote>
+  </li>
+  <li>크라우드소싱 활용
+    <ol>
+      <li>랜서스 or 크라우드웍스 : 다수의 불특정 사용자가 경쟁하는 방식(공모형)</li>
+      <li>아마존 미캐니컬 터그 or 야후!크라우드소싱 : 단기간에 가능한 단순 작업을 의뢰하는 형태(마이크로 태스크 방식)</li>
+    </ol>
+  </li>
+  <li>서비스에 통합해서 사용자가 입력
+    <blockquote>
+      <p>EX) reCAPTCHA</p>
+    </blockquote>
+  </li>
 </ul>
-
-<blockquote>
-  <p>메시지에서 중요한 것은 ‘명확한 전달성’<br />
-원칙 : 명확한 가치를 제시할 것, 명확한 행동을 요구할 것, Funnel 일관성</p>
-</blockquote>
-
-<ul>
-  <li>측정</li>
-</ul>
-
-\[LTV = \sum_{X=1}^{n}\frac{ARPU - Costs_x}{(1+WACC)^x} - SAC\]
-
-<blockquote>
-  <p>CAC(사용자 획득 비용)<br />
-LTV(사용자 평생 가치)<br />
-ARPU(인당 평균 매출)<br />
-Costs(고객 비용)<br />
-WACC(자본의 이동 평균 비용)<br />
-N : 기간</p>
-</blockquote>
-
-<h2 id="유로-마케팅의-3가지-원칙">유로 마케팅의 3가지 원칙</h2>
-
-<ol>
-  <li>유료 마케팅은 유기적 성장이 시작된 후에 진행해야 한다.</li>
-  <li>유료 마케팅을 진행할 때는 소수의 채널부터 적은 예산으로 시작해서 천천히 확장해야 한다.</li>
-  <li>우리의 현재 상태와 제품의 특정에 맞는 채널은 무엇인지 생각하고 채널을 선택해야 한다.</li>
-</ol>
 
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#growth-hacking-07---2024년11월06일">GROWTH HACKING 07 - 2024년11월06일</a></li>
-<li class="toc-entry toc-h1"><a href="#유로-마케팅">유로 마케팅</a>
+<li class="toc-entry toc-h1"><a href="#machine-learning-at-work---05---2024년11월13일">Machine Learning At Work - 05 - 2024년11월13일</a></li>
+<li class="toc-entry toc-h1"><a href="#학습-리소스-수집하기">학습 리소스 수집하기</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#그로스-해킹-측면의-유료-마케팅-실행-전략">그로스 해킹 측면의 유료 마케팅 실행 전략</a></li>
-<li class="toc-entry toc-h2"><a href="#유로-마케팅의-3가지-원칙">유로 마케팅의 3가지 원칙</a></li>
+<li class="toc-entry toc-h2"><a href="#학습-리소스-수집-방법">학습 리소스 수집 방법</a></li>
 </ul>
 </li>
 </ul>
@@ -159,38 +150,8 @@ N : 기간</p>
     
       
         
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
           <p>
-            <a href="/2024/11/08/Growth_Hacking_09.html">GROWTH HACKING 09 [ 2024년11월08일 ]</a>
+            <a href="/2024/11/13/MachineLearningAtWork-05.html">Machine Learning At Work - 05 [ 2024년11월13일 ]</a>
           </p>
         
       
@@ -200,7 +161,7 @@ N : 기간</p>
       
         
           <p>
-            <a href="/2024/11/07/Growth_Hacking_08.html">GROWTH HACKING 08 [ 2024년11월07일 ]</a>
+            <a href="/2024/11/12/MachineLearningAtWork-04.html">Machine Learning At Work - 04 [ 2024년11월12일 ]</a>
           </p>
         
       
@@ -210,7 +171,7 @@ N : 기간</p>
       
         
           <p>
-            <a href="/2024/11/06/Growth_Hacking_07.html">GROWTH HACKING 07 [ 2024년11월06일 ]</a>
+            <a href="/2024/11/11/MachineLearningAtWork-03.html">Machine Learning At Work - 03 [ 2024년11월11일 ]</a>
           </p>
         
       
@@ -220,7 +181,7 @@ N : 기간</p>
       
         
           <p>
-            <a href="/2024/11/05/Growth_Hacking_06.html">GROWTH HACKING 06 [ 2024년11월05일 ]</a>
+            <a href="/2024/11/10/MachineLearningAtWork-02.html">Machine Learning At Work - 02 [ 2024년11월10일 ]</a>
           </p>
         
       
@@ -230,37 +191,7 @@ N : 기간</p>
       
         
           <p>
-            <a href="/2024/11/04/Growth_Hacking_05.html">GROWTH HACKING 05 [ 2024년11월04일 ]</a>
-          </p>
-        
-      
-        
-      
-    
-      
-        
-          <p>
-            <a href="/2024/11/03/Growth_Hacking_04.html">GROWTH HACKING 04 [ 2024년11월03일 ]</a>
-          </p>
-        
-      
-        
-      
-    
-      
-        
-          <p>
-            <a href="/2024/11/02/Growth_Hacking_03.html">GROWTH HACKING 03 [ 2024년11월02일 ]</a>
-          </p>
-        
-      
-        
-      
-    
-      
-        
-          <p>
-            <a href="/2024/11/01/Growth_Hacking_02.html">GROWTH HACKING 02 [ 2024년11월01일 ]</a>
+            <a href="/2024/11/09/MachineLearningAtWork-01.html">Machine Learning At Work - 01 [ 2024년11월09일 ]</a>
           </p>
         
       
@@ -272,14 +203,58 @@ N : 기간</p>
       
         
       
+    
+      
+        
+      
         
       
     
       
         
-          <p>
-            <a href="/2024/10/29/Growth_Hacking_01.html">GROWTH HACKING 01 [ 2024년10월29일 ]</a>
-          </p>
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
         
       
         
