@@ -5,9 +5,11 @@ main:
   url : /posts/index.html
 - title : TAGS
   url : /tags.html
-- title : STUDY
-  url : /study.html
-- title : PROJECT
-  url : /project.html
-- title : PAPER
-  url : /paper.html
+- title : BOOKS
+  url : /books.html
+# - title : STUDY
+#   url : /study.html
+# - title : PROJECT
+#   url : /project.html
+# - title : PAPER
+#   url : /paper.html
