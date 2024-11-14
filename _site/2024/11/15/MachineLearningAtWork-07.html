@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Machine Learning At Work - 03</title>
+		<title>Machine Learning At Work - 07</title>
 		<link rel="stylesheet" href="/assets/css/default.css">
 		<link rel="stylesheet" href="/assets/css/code.css">
 		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
@@ -66,7 +66,7 @@
 			  <div class="main">
 					<div class="markdown-body">
   <div class="md-content">
-    <h1 id="machine-learning-at-work---03---2024년11월11일">Machine Learning At Work - 03 - 2024년11월11일</h1>
+    <h1 id="machine-learning-at-work---07---2024년11월15일">Machine Learning At Work - 07 - 2024년11월15일</h1>
 
 <!-- - tag : Machine_Learning_At_Work Book  -->
 <ul>
@@ -78,142 +78,134 @@
 
 <hr />
 
-<h1 id="학습-결과-평가하기">학습 결과 평가하기</h1>
+<h1 id="효과-검증-머신러닝-기반-정책-성과-판단하기">효과 검증: 머신러닝 기반 정책 성과 판단하기</h1>
 
-<h2 id="분류-평가">분류 평가</h2>
+<h2 id="효과-검증">효과 검증</h2>
 
-<h3 id="정확도">정확도</h3>
+<ul>
+  <li>비즈니스 지표를 이용한 정책 평가
+    <blockquote>
+      <p>팀 내부에서 공유할 때는 ‘이 기능을 출시하면 예측 정확도가 향상된다.’정도로 충분하지만<br />
+팀 외부로 보고할 때는 예측 정확도가 향상되면 무엇이 좋아지는지 설명해야한다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>정책을 실행한 후의 효과 검증의 필요성</p>
+  </li>
+  <li>오프라인 검증과 온라인 검증
+    <blockquote>
+      <p>오프라인 검증 : 과거 데이터를 사용해 시뮬레이션<br />
+온라인 검증 : 실제 제품에 머신러닝을 적용해 실험을 수행</p>
+    </blockquote>
+  </li>
+  <li>지표 선정</li>
+</ul>
 
+<h2 id="인과-효과-추정">인과 효과 추정</h2>
+
+<ul>
+  <li>상관관계와 인과관계
+    <blockquote>
+      <p>상관관계가 있다고 해서 반드시 인과관계가 있는 것은 아니다</p>
+    </blockquote>
+  </li>
+  <li>루빈의 인과관계 모델
+    <blockquote>
+      <p>EX. 인터넷 광고의 효과<br />
+인과 추론에서는 광고를 보여주는 것<br />
+구매 행동을 결과 변수<br />
+개입한 표본을 개입군 또는 실험군<br />
+개입하지 않은 표본을 대조군 또는 통제군</p>
+    </blockquote>
+  </li>
+  <li>선택 편향에 의한 위장 효과
+    <blockquote>
+      <p>구하고자 하는 평균 처리 효과를 계산할 때는 ‘개입군의 결과 변수의 평균’과 ‘대조군의 결과 변수의 평균’의 차를 구하면 충분<br />
+선택 편향은 개입과 결과 변수 사이에 상관관계를 만들어 효과가 없음에도 효과가 있는 듯 보이는 데이터가 된다.</p>
+    </blockquote>
+  </li>
+  <li>무작위 비교 시험(Randomized Control Trial, RCT)
+    <blockquote>
+      <p>편향이 없는 상태를 만들어서 비교하는 방법</p>
+    </blockquote>
+  </li>
+  <li>과거와 비교한 판단</li>
+</ul>
+
+<h2 id="가설-검정-프레임">가설 검정 프레임</h2>
 <blockquote>
-  <p>\(정확도 =  \frac{정답과 일치한 수}{전체 데이터 수}\)<br />
-현실에서는 분류할 클래스별로 편차가 있는 경우가 많고 단순히 정확도를 적용하는 것은 대부분 큰 의미가 없다.</p>
-</blockquote>
-
-<h3 id="정밀도">정밀도</h3>
-
-<blockquote>
-  <p>정밀도 : 출력 결과가 실제로 얼마나 정답이었는가</p>
-</blockquote>
-
-<h3 id="재현울">재현울</h3>
-
-<blockquote>
-  <p>재현율 : 출력 결과가 실제 정답 중 어느 정도의 비율을 차지하는가</p>
-</blockquote>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>정밀도와 재현율은 상충관계에 있으며 문제 설정에 따라 중시하는 쪽이 달라진다.  
-놓치는 데이터 수가 많더라도 더욱 정확한 예측이 필요하다면 정밀도를 중시
-다소 잘못 걸러내는 비율이 높더라도 데이터 누락을 최소화하고자 할 때는 재현율을 중시
-</code></pre></div></div>
-
-<h3 id="f값">F값</h3>
-
-<blockquote>
-  <p>\(F값 = \frac{2}{\frac{1}{정밀도} + \frac{1}{재현율}}\)<br />
-정밀도와 재현율이 균형을 이룰수록 F값은 커진다.</p>
-</blockquote>
-
-<h3 id="혼동행렬">혼동행렬</h3>
-
-<table>
-  <tbody>
-    <tr>
-      <td>–</td>
-      <td>–</td>
-      <td>예측</td>
-      <td>결과</td>
-    </tr>
-    <tr>
-      <td>–</td>
-      <td>–</td>
-      <td>양성(스팸)</td>
-      <td>음성(스팸 아님)</td>
-    </tr>
-    <tr>
-      <td>실제</td>
-      <td>양성(스팸)</td>
-      <td>참 양성(TP)</td>
-      <td>거짓 음성(FN)</td>
-    </tr>
-    <tr>
-      <td>결과</td>
-      <td>음성(스팸 아님)</td>
-      <td>거짓 양성(FP)</td>
-      <td>참 음성(TN)</td>
-    </tr>
-  </tbody>
-</table>
-
-<blockquote>
-  <p>\(정밀도 = \frac{TP}{TP + FP}\)<br />
-\(재현율 = \frac{TP}{TP + FN}\)</p>
+  <p>가설 검정 : A/B TEST에 기반한 표본(샘플)을 사용해 모집단을 판단하는 기법</p>
 </blockquote>
 
 <ul>
-  <li>다중 클래스 분류 평균 구하기</li>
+  <li>거짓 양성과 거짓 음성
+    <blockquote>
+      <p>드물게 발생하는 일이 발생하면 귀무 가설을 기각한다고 판단하면 귀무가설이 참이라고 해도 유의 수준의 확률에 따라 귀무가설을 잘못 기각할 수 있다.<br />
+이처럼 잘못된 발견을 거짓 양성이라고 한다.<br />
+반대로 실제로는 유의한 차이가 있지만 귀무가설을 기각하지 않는 경우를 거짓 음성이라고 한다.</p>
+    </blockquote>
+  </li>
 </ul>
 
-<ol>
-  <li>마이크로 평균
+<h2 id="ab-test-설계-및-수행">A/B TEST 설계 및 수행</h2>
+
+<ul>
+  <li>과정
+    <ol>
+      <li>지표 선정</li>
+      <li>두 그룹 선정</li>
+      <li>A/A 테스트 : 무작위 추출에 따라 품질이 같은 두 그룹을 얻었는지 확인하는 것</li>
+      <li>한 그룹에 개입</li>
+      <li>결과 확인</li>
+      <li>테스트 종료</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="오프라인-검증">오프라인 검증</h2>
+
+<ul>
+  <li>비즈니스 지표를 사용한 예측 모델 평가
     <blockquote>
-      <p>EX) 3클래스 분류 일 때 :  \(정밀도_{마이크로평균} = \frac{TP_{1} + TP_{2} + TP_{3}}{TP_{1} + TP_{2} + TP_{3} + FP_{1} + FP_{2} + FP_{3}}\)</p>
+      <p>예측 모델 정확도가 비즈니스 지표에 미치는 영향을 알기는 어렵지만 예측을 기반으로 행동한 결과를 고려하면 더욱 쉽게 알 수 있다.</p>
     </blockquote>
   </li>
-  <li>매크로 평균
+  <li>반사실 다루기
     <blockquote>
-\[정밀도_{매크로 평균} = \frac{정밀도_{1} + 정밀도_{2} + 정밀도_{3}}{3}\]
+      <p>분명하지 않은 결과를 다룰 때 가장 편한 방법은 상환 역략을 예측하고 이를 이용한 결과를 만들어 평가하는 것</p>
     </blockquote>
   </li>
-</ol>
+  <li>Off Policy Evaluation
+    <blockquote>
+      <p>효과 검증에서 중요한 점은 예측 모델의 출력 자체가 아니라 예측으로 어떤 행동을 하는 시스템 관점에서의 성능<br />
+OPE : 과거의 다른 정책에 따라 생성한 로그에 기반해 행동 결정 정책을 평가하는 것</p>
+    </blockquote>
+  </li>
+</ul>
 
-<h3 id="roc-auc">ROC, AUC</h3>
+<h2 id="ab-test를-수행할-수-없을-경우">A/B TEST를 수행할 수 없을 경우</h2>
 
-<blockquote>
-  <p>ROC : 참 양성률(TPR)을 세로축, 거짓 양성률(FPR)을 가록축에 그린 것<br />
-\(TPR = \frac{TP}{TP + FN}\)<br />
-\(FPR = \frac{FP}{FP + TN}\)<br />
-참 양성률은 높을수록, 거짓 양성률은 낮을수록 좋다
-AUC : ROC곡선 그래프 아래에 넓이를 더한 값</p>
-</blockquote>
-
-<h2 id="회귀-평가">회귀 평가</h2>
-
-<h3 id="평균제곱근오차rmse">평균제곱근오차(RMSE)</h3>
-
-<blockquote>
-\[RMSE = \sqrt{\frac{ \sum_{i}{(예측값_{i}-실제값_{i}})^2}{N} }\]
-</blockquote>
-
-<h3 id="결정계수">결정계수</h3>
-
-<blockquote>
-  <p>\(R^2 = 1 - \frac{\sum_{i}{(예측값_{i}-실젯값_{i})^2}}{\sum_{i}{(예측값_{i}-실젯값의 평균_{i})^2}}\)<br />
-결정계수가 1에 가까울수록 성능이 좋은 것이며 0에 가까울수록 성능이 좋지 않은 것이다.</p>
-</blockquote>
+<ul>
+  <li>관찰 데이터를 사용한 효과 검증
+    <blockquote>
+      <p>차이의 차이 기법 : 실험군과 유사한 경향을 나타내는 그룹의 결과 변수의 시간 변화를 활용해 개입 전후를 비교하는 기법</p>
+    </blockquote>
+  </li>
+</ul>
 
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#machine-learning-at-work---03---2024년11월11일">Machine Learning At Work - 03 - 2024년11월11일</a></li>
-<li class="toc-entry toc-h1"><a href="#학습-결과-평가하기">학습 결과 평가하기</a>
+<li class="toc-entry toc-h1"><a href="#machine-learning-at-work---07---2024년11월15일">Machine Learning At Work - 07 - 2024년11월15일</a></li>
+<li class="toc-entry toc-h1"><a href="#효과-검증-머신러닝-기반-정책-성과-판단하기">효과 검증: 머신러닝 기반 정책 성과 판단하기</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#분류-평가">분류 평가</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#정확도">정확도</a></li>
-<li class="toc-entry toc-h3"><a href="#정밀도">정밀도</a></li>
-<li class="toc-entry toc-h3"><a href="#재현울">재현울</a></li>
-<li class="toc-entry toc-h3"><a href="#f값">F값</a></li>
-<li class="toc-entry toc-h3"><a href="#혼동행렬">혼동행렬</a></li>
-<li class="toc-entry toc-h3"><a href="#roc-auc">ROC, AUC</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#회귀-평가">회귀 평가</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#평균제곱근오차rmse">평균제곱근오차(RMSE)</a></li>
-<li class="toc-entry toc-h3"><a href="#결정계수">결정계수</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#효과-검증">효과 검증</a></li>
+<li class="toc-entry toc-h2"><a href="#인과-효과-추정">인과 효과 추정</a></li>
+<li class="toc-entry toc-h2"><a href="#가설-검정-프레임">가설 검정 프레임</a></li>
+<li class="toc-entry toc-h2"><a href="#ab-test-설계-및-수행">A/B TEST 설계 및 수행</a></li>
+<li class="toc-entry toc-h2"><a href="#오프라인-검증">오프라인 검증</a></li>
+<li class="toc-entry toc-h2"><a href="#ab-test를-수행할-수-없을-경우">A/B TEST를 수행할 수 없을 경우</a></li>
 </ul>
 </li>
 </ul>
