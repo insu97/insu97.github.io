@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Machine Learning At Work - 07</title>
+		<title>Machine Learning At Work - 08</title>
 		<link rel="stylesheet" href="/assets/css/default.css">
 		<link rel="stylesheet" href="/assets/css/code.css">
 		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
@@ -66,7 +66,7 @@
 			  <div class="main">
 					<div class="markdown-body">
   <div class="md-content">
-    <h1 id="machine-learning-at-work---07---2024년11월15일">Machine Learning At Work - 07 - 2024년11월15일</h1>
+    <h1 id="machine-learning-at-work---08---2024년11월16일">Machine Learning At Work - 08 - 2024년11월16일</h1>
 
 <!-- - tag : Machine_Learning_At_Work Book  -->
 <ul>
@@ -78,134 +78,63 @@
 
 <hr />
 
-<h1 id="효과-검증-머신러닝-기반-정책-성과-판단하기">효과 검증: 머신러닝 기반 정책 성과 판단하기</h1>
+<h1 id="머신러닝-모델-해석하기">머신러닝 모델 해석하기</h1>
 
-<h2 id="효과-검증">효과 검증</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>비즈니스 환경에서는 예측 결과를 상사나 클라이언트, 사용자에게 설명해야 할 때가 있다.
+예측 이유는 무엇이며 어떤 특징량이 기여하는지, 어떤 특징량을 조합하면 더 나은 예측이 가능한지 등이다.
+예측 이유와 사람의 직감이 일치하는지 판단해 예측 모델의 타당성을 평가한다.
+</code></pre></div></div>
 
-<ul>
-  <li>비즈니스 지표를 이용한 정책 평가
-    <blockquote>
-      <p>팀 내부에서 공유할 때는 ‘이 기능을 출시하면 예측 정확도가 향상된다.’정도로 충분하지만<br />
-팀 외부로 보고할 때는 예측 정확도가 향상되면 무엇이 좋아지는지 설명해야한다.</p>
-    </blockquote>
-  </li>
-  <li>
-    <p>정책을 실행한 후의 효과 검증의 필요성</p>
-  </li>
-  <li>오프라인 검증과 온라인 검증
-    <blockquote>
-      <p>오프라인 검증 : 과거 데이터를 사용해 시뮬레이션<br />
-온라인 검증 : 실제 제품에 머신러닝을 적용해 실험을 수행</p>
-    </blockquote>
-  </li>
-  <li>지표 선정</li>
-</ul>
-
-<h2 id="인과-효과-추정">인과 효과 추정</h2>
-
-<ul>
-  <li>상관관계와 인과관계
-    <blockquote>
-      <p>상관관계가 있다고 해서 반드시 인과관계가 있는 것은 아니다</p>
-    </blockquote>
-  </li>
-  <li>루빈의 인과관계 모델
-    <blockquote>
-      <p>EX. 인터넷 광고의 효과<br />
-인과 추론에서는 광고를 보여주는 것<br />
-구매 행동을 결과 변수<br />
-개입한 표본을 개입군 또는 실험군<br />
-개입하지 않은 표본을 대조군 또는 통제군</p>
-    </blockquote>
-  </li>
-  <li>선택 편향에 의한 위장 효과
-    <blockquote>
-      <p>구하고자 하는 평균 처리 효과를 계산할 때는 ‘개입군의 결과 변수의 평균’과 ‘대조군의 결과 변수의 평균’의 차를 구하면 충분<br />
-선택 편향은 개입과 결과 변수 사이에 상관관계를 만들어 효과가 없음에도 효과가 있는 듯 보이는 데이터가 된다.</p>
-    </blockquote>
-  </li>
-  <li>무작위 비교 시험(Randomized Control Trial, RCT)
-    <blockquote>
-      <p>편향이 없는 상태를 만들어서 비교하는 방법</p>
-    </blockquote>
-  </li>
-  <li>과거와 비교한 판단</li>
-</ul>
-
-<h2 id="가설-검정-프레임">가설 검정 프레임</h2>
 <blockquote>
-  <p>가설 검정 : A/B TEST에 기반한 표본(샘플)을 사용해 모집단을 판단하는 기법</p>
+  <p>유명한 논문 <a href="https://arxiv.org/abs/1610.02391">Grad-CAM</a></p>
 </blockquote>
 
-<ul>
-  <li>거짓 양성과 거짓 음성
+<h2 id="회귀">회귀</h2>
+
+<ol>
+  <li>목적 변수와 숫자 타입을 추출한다.
     <blockquote>
-      <p>드물게 발생하는 일이 발생하면 귀무 가설을 기각한다고 판단하면 귀무가설이 참이라고 해도 유의 수준의 확률에 따라 귀무가설을 잘못 기각할 수 있다.<br />
-이처럼 잘못된 발견을 거짓 양성이라고 한다.<br />
-반대로 실제로는 유의한 차이가 있지만 귀무가설을 기각하지 않는 경우를 거짓 음성이라고 한다.</p>
+      <p>한 종류의 값만 갖는 열은 예측에 사용할 수 없으니 버린다.<br />
+개인을 특정할 수 있는 특징량(EX. 임직원번호)은 과적합의 원인이 되어 제거한다.<br />
+범주 타입 데이터를 원-핫 인코딩한 뒤 숫자 타입과 결합하여 데이터프레임을 만든다.</p>
     </blockquote>
   </li>
-</ul>
-
-<h2 id="ab-test-설계-및-수행">A/B TEST 설계 및 수행</h2>
-
-<ul>
-  <li>과정
-    <ol>
-      <li>지표 선정</li>
-      <li>두 그룹 선정</li>
-      <li>A/A 테스트 : 무작위 추출에 따라 품질이 같은 두 그룹을 얻었는지 확인하는 것</li>
-      <li>한 그룹에 개입</li>
-      <li>결과 확인</li>
-      <li>테스트 종료</li>
-    </ol>
-  </li>
-</ul>
-
-<h2 id="오프라인-검증">오프라인 검증</h2>
-
-<ul>
-  <li>비즈니스 지표를 사용한 예측 모델 평가
+  <li>데이터를 만들었으니 상관행렬을 확인해 데이터의 경향을 파악한다.</li>
+  <li>선형 회귀 계수를 이용한 원인 해석
     <blockquote>
-      <p>예측 모델 정확도가 비즈니스 지표에 미치는 영향을 알기는 어렵지만 예측을 기반으로 행동한 결과를 고려하면 더욱 쉽게 알 수 있다.</p>
+      <p>절편(intercept)의 값은 다른 계수에 따라 달라져 우선은 무시<br />
+Min-Max scaler를 활용해서 데이터를 0~1의 영역으로 정규화한 뒤 확인하기<br />
+회귀 계수의 값이 발산했다면 다중공선성 때문이다.<br />
+다중공선성 : 한 특징량이 다른 특징량과 매우 비슷해 예측 가능한 상태에 있음을 의미<br />
+이를 해결하기 위한 한가지 방법은 pd.get_dummies를 할 때 drop_first 옵션을 활성화하면 원-핫 인코딩을 할 때 한 종류의 데이터를 버리고 n-1 종류의 데이터로 만들 수 있다.<br />
+다중공선성이 있는 데이터에서는 회귀 계수가 커지는 과적합이 쉽게 일어나 라쏘, 릿지, 일레스틱넷과 같이 정규항을 추가해 회귀 계수가 커지는 것을 억제하는 선형 회귀 알고리즘을 사용한다.</p>
     </blockquote>
   </li>
-  <li>반사실 다루기
+  <li>회귀 계수 p값 구하기
     <blockquote>
-      <p>분명하지 않은 결과를 다룰 때 가장 편한 방법은 상환 역략을 예측하고 이를 이용한 결과를 만들어 평가하는 것</p>
+      <p>p값이 큰 특징량은 목적 변수에 기여하지 않는다고 판단한다.</p>
     </blockquote>
   </li>
-  <li>Off Policy Evaluation
-    <blockquote>
-      <p>효과 검증에서 중요한 점은 예측 모델의 출력 자체가 아니라 예측으로 어떤 행동을 하는 시스템 관점에서의 성능<br />
-OPE : 과거의 다른 정책에 따라 생성한 로그에 기반해 행동 결정 정책을 평가하는 것</p>
-    </blockquote>
-  </li>
-</ul>
+</ol>
 
-<h2 id="ab-test를-수행할-수-없을-경우">A/B TEST를 수행할 수 없을 경우</h2>
+<h2 id="분류">분류</h2>
 
-<ul>
-  <li>관찰 데이터를 사용한 효과 검증
-    <blockquote>
-      <p>차이의 차이 기법 : 실험군과 유사한 경향을 나타내는 그룹의 결과 변수의 시간 변화를 활용해 개입 전후를 비교하는 기법</p>
-    </blockquote>
-  </li>
-</ul>
+<blockquote>
+  <p>분류 원인 분석 중 DecisionTree or dtreeviz를 사용해서 시각화해서 볼 수 있다.</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shap은 분류 모델은 회귀 모델로 사용할 수도 있지만, 목적 변수가 이진값이면 회귀 모델로 입력하는 것이 시각화가 잘 된다
+</code></pre></div></div>
 
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#machine-learning-at-work---07---2024년11월15일">Machine Learning At Work - 07 - 2024년11월15일</a></li>
-<li class="toc-entry toc-h1"><a href="#효과-검증-머신러닝-기반-정책-성과-판단하기">효과 검증: 머신러닝 기반 정책 성과 판단하기</a>
+<li class="toc-entry toc-h1"><a href="#machine-learning-at-work---08---2024년11월16일">Machine Learning At Work - 08 - 2024년11월16일</a></li>
+<li class="toc-entry toc-h1"><a href="#머신러닝-모델-해석하기">머신러닝 모델 해석하기</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#효과-검증">효과 검증</a></li>
-<li class="toc-entry toc-h2"><a href="#인과-효과-추정">인과 효과 추정</a></li>
-<li class="toc-entry toc-h2"><a href="#가설-검정-프레임">가설 검정 프레임</a></li>
-<li class="toc-entry toc-h2"><a href="#ab-test-설계-및-수행">A/B TEST 설계 및 수행</a></li>
-<li class="toc-entry toc-h2"><a href="#오프라인-검증">오프라인 검증</a></li>
-<li class="toc-entry toc-h2"><a href="#ab-test를-수행할-수-없을-경우">A/B TEST를 수행할 수 없을 경우</a></li>
+<li class="toc-entry toc-h2"><a href="#회귀">회귀</a></li>
+<li class="toc-entry toc-h2"><a href="#분류">분류</a></li>
 </ul>
 </li>
 </ul>
