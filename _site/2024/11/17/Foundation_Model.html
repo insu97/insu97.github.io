@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>A/B TEST</title>
+		<title>Foundation Model</title>
 		<link rel="stylesheet" href="/assets/css/default.css">
 		<link rel="stylesheet" href="/assets/css/code.css">
 		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
@@ -66,83 +66,105 @@
 			  <div class="main">
 					<div class="markdown-body">
   <div class="md-content">
-    <h1 id="ab-test---2024년10월28일">A/B TEST - 2024년10월28일</h1>
+    <h1 id="foundation-model---2024년11월17일">Foundation Model - 2024년11월17일</h1>
 
-<!-- - tag : Blog AB_TEST  -->
+<!-- - tag : Foundation_Model Blog  -->
 <ul>
-  <li>tag : <a href="/tags/tag_Blog.html" class="btn btn-default navbar-btn cursorNorm" role="button">Blog</a>
+  <li>tag : <a href="/tags/tag_Foundation_Model.html" class="btn btn-default navbar-btn cursorNorm" role="button">Foundation_Model</a>
 |
-<a href="/tags/tag_AB_TEST.html" class="btn btn-default navbar-btn cursorNorm" role="button">AB_TEST</a>
+<a href="/tags/tag_Blog.html" class="btn btn-default navbar-btn cursorNorm" role="button">Blog</a>
 |</li>
 </ul>
 
 <hr />
 
+<h1 id="foundation-model">Foundation Model</h1>
+
 <h2 id="정의">정의</h2>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>대규모 데이터세트를 기반으로 훈련된 파운데이션 모델(FM)은 데이터 사이언티스트가 기계 학습(ML)에 접근하는 방식을 변화시킨 대규모 딥 러닝 신경망
+데이터 사이언티스트는 처음부터 인공 지능(AI)을 개발하지 않고 파운데이션 모델을 출발점으로 삼아 새로운 애플리케이션을 더 빠르고 비용 효율적으로 지원하는 ML 모델
+FM이라는 용어는 연구자들이 광범위한 일반화된 데이터와 레이블이 지정되지 않은 데이터에 대해 훈련되고
+언어 이해, 텍스트 및 이미지 생성, 자연어 대화와 같은 다양한 일반 작업을 수행할 수 있는 ML 모델을 설명하기 위해 만들어졌습니다.
+</code></pre></div></div>
+
+<h2 id="독특한-점">독특한 점</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>적응성
+일반적으로 감정을 포착하기 위한 텍스트 분석, 이미지 분류, 트렌드 예측과 같은 특정 작업을 수행하는 기존의 ML 모델과는 다른
+블로그 게시물 작성, 이미지 생성, 수학 문제 해결, 대화 참여, 문서 기반 질문 등 여러 영역에 걸쳐 다양한 작업을 수행할 수 있다.
+</code></pre></div></div>
+
+<h2 id="중요한-이유">중요한 이유</h2>
+
 <blockquote>
-  <p>A/B TEST : 두 가지 이상의 버전을 비교하여 어떤 것이 더 나은 성과를 내는지 판단하는 실험 방법</p>
+  <p>현재 FM을 처음부터 개발하는 데 수백만 달러의 비용이 들지만 장기적으로는 유용하다.<br />
+데이터 사이언티스트는 고유한 ML모델을 처음부터 훈련시키는 것보다 사전 훈련된 FM을 사용하여 새로운 ML 애플리케이션을 개발하는 것이 더 빠르고 저렴하다.</p>
 </blockquote>
 
-<h2 id="ab-test-하는-이유">A/B TEST 하는 이유</h2>
+<h2 id="어떻게-작용하는가">어떻게 작용하는가?</h2>
 
 <blockquote>
-  <p>상관관계로부터 인과관계[ 정확히 말하면 인과관계일 가능성이 높은 것 ]를 찾아내기 위함이다.</p>
+  <p>GAN, 트랜스포머, 변량 인코더 등 복잡한 신경망을 기반으로 한다.<br />
+FM모델은 자체 지도 학습을 사용하여 입력 데이터에서 레이블을 생성한다.<br />
+즉, 레이블이 지정된 훈련 데이터 세트로 모델을 가르치거나 훈련시킨 사람은 아무도 없다.</p>
 </blockquote>
 
-<h2 id="ab-test-절차">A/B TEST 절차</h2>
-
+<h2 id="무엇을-할-수-있는가">무엇을 할 수 있는가?</h2>
 <ol>
-  <li>목표 설정 : 테스트의 목적과 개선하고자 하는 지표를 명확히 정의</li>
-  <li>가설 수립 : 어떤 변경이 목표 달성에 도움이 될 것인지 가설을 세우기</li>
-  <li>테스트 설계 : A안(기존안)과 B안(변경안)을 구체화하기 -&gt; 테스트 기간, 샘플 크기, 분석 방법 등을 결정</li>
-  <li>테스트 실행 : 사용자를 무작위로 A그룹과 B그룹으로 나누고, 각 그룹에 해당 버전을 노출시키기</li>
-  <li>데이터 수집 : 설정한 기간 동안 각 그룹의 성과 데이터를 수집</li>
-  <li>결과 분석 : 통계적 유의성을 검증하여 A안과 B안의 성과 차이를 분석</li>
-  <li>결론 도출 및 적용 : 분석 결과를 바탕으로 더 나은 버전을 선택 -&gt; 선택한 버전을 전체 사용자에게 적용</li>
-  <li>지속적 개선 : 테스트 결과를 바탕으로 새로운 가설을 수립하고 추가 테스트를 진행</li>
+  <li>자연어 처리</li>
+  <li>시각적 이해</li>
+  <li>코드 생성</li>
+  <li>인간 중심의 참여</li>
+  <li>음성을 텍스트로 변환</li>
 </ol>
 
-<h2 id="주의해야-할-점">주의해야 할 점</h2>
+<h2 id="ex">EX</h2>
 
-<ol>
-  <li>Correlation does not imply causation : 상관관계는 인과관계를 뜻하지 않는다.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  - A/B TEST를 통해 인과관계를 알아내려면 두 집단을 나눠야 한다 =&gt; 임의적 할당(random assignment)
-  &gt; EX ] 남성 VS 여성, 이번주 사용자 VS 다음주 사용자
-  - A/B TEST를 통해 찾아낸 결과가 범용성을 지니려면 애초에 실험에 참가한 집단이 모집단을 대표할 수 있어야 한다.
-</code></pre></div>    </div>
+<ul>
+  <li>BERT</li>
+  <li>GPT</li>
+  <li>Amazon Titan</li>
+  <li>AI21 Jurassic</li>
+  <li>Claude</li>
+  <li>Cohere</li>
+  <li>Stable Diffusion</li>
+  <li>BLOOM</li>
+  <li>Hugging Face</li>
+</ul>
+
+<h2 id="도전과제">도전과제</h2>
+
+<ul>
+  <li>도전 과제
+    <ol>
+      <li>인프라 요구 사항</li>
+      <li>이해력 부족 : 프롬프트의 문맥을 이해하는 데 어려움을 겪는다.</li>
+      <li>신뢰할 수 없는 답변 : 특정 주제에 대한 질문에 대한 답변은 신뢰할 수 없으며 때로는 부적절하거나 유해하거나 틀릴 수 있다.</li>
+    </ol>
   </li>
-  <li>테스트를 많이/자주하면 단기적으로 손해가 발생할 수 있다.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &gt; A/B 테스트 결과는 해당 테스트에만 국한되며, 새로운 테스트마다 새로운 기준선이 필요  
-  &gt; 이는 끊임없는 테스트 사이클로 이어질 수 있으며, 장기적인 전략 수립을 방해할 수 있다.
-</code></pre></div>    </div>
-  </li>
-  <li>A/B 테스팅의 결과는 계절 변화나 취향 변화 등 시간의 흐름에 따라 바뀔 수 있다.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &gt; EX ] 작년 겨울에 진행한 테스트는 언제까지 유효할까?
-</code></pre></div>    </div>
-  </li>
-  <li>사용자 행동의 완전한 이해 부족
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &gt; A/B 테스트는 어떤 버전이 더 나은 성과를 보이는지는 알려주지만, 왜 그런지에 대한 깊이 있는 이해를 제공하지 않는다.
-</code></pre></div>    </div>
-  </li>
-</ol>
+</ul>
 
 <hr />
 
 <blockquote>
-  <p><a href="https://datarian.io/blog/a-b-testing?utm_source=webinar&amp;utm_medium=webinar&amp;utm_campaign=referral&amp;utm_content=datarian-2024-oct">참고 사이트</a></p>
+  <p><a href="https://aws.amazon.com/ko/what-is/foundation-models/">참고 사이트</a></p>
 </blockquote>
 
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#ab-test---2024년10월28일">A/B TEST - 2024년10월28일</a>
+<li class="toc-entry toc-h1"><a href="#foundation-model---2024년11월17일">Foundation Model - 2024년11월17일</a></li>
+<li class="toc-entry toc-h1"><a href="#foundation-model">Foundation Model</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#정의">정의</a></li>
-<li class="toc-entry toc-h2"><a href="#ab-test-하는-이유">A/B TEST 하는 이유</a></li>
-<li class="toc-entry toc-h2"><a href="#ab-test-절차">A/B TEST 절차</a></li>
-<li class="toc-entry toc-h2"><a href="#주의해야-할-점">주의해야 할 점</a></li>
+<li class="toc-entry toc-h2"><a href="#독특한-점">독특한 점</a></li>
+<li class="toc-entry toc-h2"><a href="#중요한-이유">중요한 이유</a></li>
+<li class="toc-entry toc-h2"><a href="#어떻게-작용하는가">어떻게 작용하는가?</a></li>
+<li class="toc-entry toc-h2"><a href="#무엇을-할-수-있는가">무엇을 할 수 있는가?</a></li>
+<li class="toc-entry toc-h2"><a href="#ex">EX</a></li>
+<li class="toc-entry toc-h2"><a href="#도전과제">도전과제</a></li>
 </ul>
 </li>
 </ul>
@@ -151,17 +173,11 @@
     
       
         
-      
-        
           <p>
             <a href="/2024/11/17/Foundation_Model.html">Foundation Model [ 2024년11월17일 ]</a>
           </p>
         
       
-    
-      
-        
-      
         
       
     
@@ -260,24 +276,6 @@
       
         
       
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
-          <p>
-            <a href="/2024/10/28/AB_test.html">A/B TEST [ 2024년10월28일 ]</a>
-          </p>
-        
-      
-        
-      
     
       
         
@@ -289,6 +287,10 @@
     
       
         
+      
+        
+      
+    
       
         
       
@@ -305,9 +307,21 @@
     
       
         
-          <p>
-            <a href="/2024/10/18/Funnel_Analysis.html">Funnel_Analysis [ 2024년10월18일 ]</a>
-          </p>
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
         
       
         

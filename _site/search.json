@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Foundation Model",
+      "category" : "",
+      "tags"     : "Foundation_Model, Blog",
+      "url"      : "/2024/11/17/Foundation_Model.html",
+      "date"     : "2024-11-17 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Machine Learning At Work - 08",
       "category" : "",
       "tags"     : "Machine_Learning_At_Work, Book",
