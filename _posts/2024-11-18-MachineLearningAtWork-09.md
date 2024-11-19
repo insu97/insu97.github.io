@@ -43,7 +43,7 @@ toc : true
 2. 달성률 50~200%	：　종료 즈음에 후원이 집중된 프로젝트
 3. 달성률 200% 초과	：　크게 성공한 프로젝트
 
-![피벗테이블_01](/assets/images/Book/Machine_Learning_At_Work/피벗테이블_02.png){: width="1000vw" height="auto"}
+![피벗테이블_02](/assets/images/Book/Machine_Learning_At_Work/피벗테이블_02.png){: width="1000vw" height="auto"}
 
 > 전형적인 실패한 프로젝트  
 > 달성률 10% 미만인 프로젝트가 54% 차지  
