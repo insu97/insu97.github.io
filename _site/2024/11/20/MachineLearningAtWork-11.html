@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Machine Learning At Work - 11</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="machine-learning-at-work---11---2024년11월20일">Machine Learning At Work - 11 - 2024년11월20일</h1>
+
+<!-- - tag : Machine_Learning_At_Work Book  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Machine_Learning_At_Work.html" class="btn btn-default navbar-btn cursorNorm" role="button">Machine_Learning_At_Work</a>
+|
+<a href="/tags/tag_Book.html" class="btn btn-default navbar-btn cursorNorm" role="button">Book</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="슬롯머신-알고리즘을-활용한-강화-학습-입문">슬롯머신 알고리즘을 활용한 강화 학습 입문</h1>
+
+<blockquote>
+  <p>현실에서는 데이터가 충분하지 않거나 데이터 수집에 상당한 비용이 든다.<br />
+이때는 지도 학습을 하지 않고 훈련 데이터를 수집하는 동시에 학습을 수행하는 강화 학습을 활용</p>
+</blockquote>
+
+<h2 id="슬롯머신-알고리즘-용어-정리">슬롯머신 알고리즘 용어 정리</h2>
+
+<ul>
+  <li>팔 : 어떤 시점에서 선택 가능한 선택지를 의미</li>
+  <li>방책 : 미리 정한 알고리즘에 따라 팔을 선택하는 방법을 의미, 정책(policy)라고도 하며 방책에 따라 슬롯머신 알고리즘의 성능이 좌우한다.</li>
+  <li>시행 : 팔을 선택하면 얻는 보상을 의미한다. ‘(팔을)당긴다’라는 용어로 사용하기도 한다.</li>
+  <li>보상 : 어떤 팔을 선택했을 때 얻을 수 있는 가치를 의미한다. return이라 부르기도 한다. 각 팔의 고유한 확률 밀도 분포에 따라 보상을 얻는다고 가정</li>
+  <li>표본 : 시행 결과에 따라 얻는 보상의 집합을 의미, 당기는 팔이 같아도 얻는 보상은 매번 다르다는 것에 주의</li>
+  <li>탐색 : 적은 시행 횟수로 정보가 많지 않아 모평균이 불확실한 팔을 선택하는 것을 의미,
+    <blockquote>
+      <p>탐색을 통해 선택한 팔의 시행 횟수가 증가하면 그에 따라 정보의 양도 증가해 신뢰 구간이 좁아진다.</p>
+    </blockquote>
+  </li>
+  <li>활용 : 여러 팔 중에서 모평균이 큰 팔을 선택하는 것을 의미, 활용을 통해 여러 차례 시행해 누적 보상을 최대화하는 것을 목표로 한다.</li>
+</ul>
+
+<h2 id="확률적-슬롯머신-알고리즘">확률적 슬롯머신 알고리즘</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>비즈니스 현장에서는 최적의 팔을 선택하는 것이 반드시 최적의 전략이라고는 할 수 없다.
+비슷한 수준의 보상을 제공하는 팔이 여럿이라면 어떤 것을 선택해도 무방하다.
+</code></pre></div></div>
+
+<h2 id="알고리즘-종류">알고리즘 종류</h2>
+
+<ol>
+  <li>무작위 알고리즘</li>
+  <li>베이즈 UCB, UCB1</li>
+  <li>소프트맥스 알고리즘</li>
+  <li>어닐링 소프트맥스</li>
+  <li>TS 알고리즘</li>
+</ol>
+
+<h2 id="정리">정리</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>기존의 라이브러리
+- ZOZO Technologies에서 공개한 OPEN BANDIT PIPELINE
+- 각종 콘텍스트 기반 슬롯머신 알고리즘을 비교한 contextualbandits
+
+슬롯머신 알고리즘은 훈련 데이터가 없거나 사용자에게 추천할 때 효과적으로 동작
+</code></pre></div></div>
+
+<h2 id="후기">후기</h2>
+
+<blockquote>
+  <p>책을 보면서 수식은 이해가 가지만 작동원리나 실제 사례에서 사용한 코드에 대한 이해가 부족<br />
+조금 자세하게 들여다 보거나 다른 예제를 보면서 이해하는 시간이 필요해 보임</p>
+</blockquote>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#machine-learning-at-work---11---2024년11월20일">Machine Learning At Work - 11 - 2024년11월20일</a></li>
+<li class="toc-entry toc-h1"><a href="#슬롯머신-알고리즘을-활용한-강화-학습-입문">슬롯머신 알고리즘을 활용한 강화 학습 입문</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#슬롯머신-알고리즘-용어-정리">슬롯머신 알고리즘 용어 정리</a></li>
+<li class="toc-entry toc-h2"><a href="#확률적-슬롯머신-알고리즘">확률적 슬롯머신 알고리즘</a></li>
+<li class="toc-entry toc-h2"><a href="#알고리즘-종류">알고리즘 종류</a></li>
+<li class="toc-entry toc-h2"><a href="#정리">정리</a></li>
+<li class="toc-entry toc-h2"><a href="#후기">후기</a></li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/11/20/MachineLearningAtWork-11.html">Machine Learning At Work - 11 [ 2024년11월20일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/19/MachineLearningAtWork-10.html">Machine Learning At Work - 10 [ 2024년11월19일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/18/MachineLearningAtWork-09.html">Machine Learning At Work - 09 [ 2024년11월18일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/16/MachineLearningAtWork-08.html">Machine Learning At Work - 08 [ 2024년11월16일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/15/MachineLearningAtWork-07.html">Machine Learning At Work - 07 [ 2024년11월15일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/14/MachineLearningAtWork-06.html">Machine Learning At Work - 06 [ 2024년11월14일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/13/MachineLearningAtWork-05.html">Machine Learning At Work - 05 [ 2024년11월13일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/12/MachineLearningAtWork-04.html">Machine Learning At Work - 04 [ 2024년11월12일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/11/MachineLearningAtWork-03.html">Machine Learning At Work - 03 [ 2024년11월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/10/MachineLearningAtWork-02.html">Machine Learning At Work - 02 [ 2024년11월10일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/09/MachineLearningAtWork-01.html">Machine Learning At Work - 01 [ 2024년11월09일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
