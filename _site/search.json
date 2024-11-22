@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Python Class 정리",
+      "category" : "",
+      "tags"     : "Python, Class",
+      "url"      : "/2024/11/22/Python_Class.html",
+      "date"     : "2024-11-22 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Machine Learning At Work - 12",
       "category" : "",
       "tags"     : "Machine_Learning_At_Work, Book",
