@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Python Crawling 정리</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="python-crawling-정리---2024년11월23일">Python Crawling 정리 - 2024년11월23일</h1>
+
+<!-- - tag : Python Crawling  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|
+<a href="/tags/tag_Crawling.html" class="btn btn-default navbar-btn cursorNorm" role="button">Crawling</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="크롤링">크롤링</h1>
+
+<blockquote>
+  <p><a href="https://fminside.net/players">참고 사이트</a></p>
+</blockquote>
+
+<h2 id="library-import">Library Import</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">from</span> <span class="n">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="n">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="n">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="n">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="n">urllib.request</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
+<span class="kn">from</span> <span class="n">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+</code></pre></div></div>
+
+<h2 id="dataframe-정의">DataFrame 정의</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">player_info_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">Name</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Age</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Position(s)</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Foot</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Height</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Weight</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Club</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Wages</span><span class="sh">'</span><span class="p">]</span>
+
+<span class="n">field_player_cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">'</span><span class="s">corners</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">crossing</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">dribbling</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">finishing</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">first-touch</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">free-kick-taking</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">heading</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">long-shots</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">long-throws</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">marking</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">passing</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">penalty-taking</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">tackling</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">technique</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">aggression</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">anticipation</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">bravery</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">composure</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">concentration</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">decisions</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">determination</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">flair</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">leadership</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">off-the-ball</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">positioning</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">teamwork</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">vision</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">work-rate</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">acceleration</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">agility</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">balance</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">jumping-reach</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">natural-fitness</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">pace</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">stamina</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">strength</span><span class="sh">'</span>
+<span class="p">]</span>
+
+<span class="n">goalkeeper_cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">'</span><span class="s">aerial-reach</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">command-of-area</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">communication</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">eccentricity</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">first-touch</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">handling</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">kicking</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">one-on-ones</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">passing</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">punching-tendency</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">reflexes</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rushing-out-tendency</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">throwing</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">aggression</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">anticipation</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">bravery</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">composure</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">concentration</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">decisions</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">determination</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">flair</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">leadership</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">off-the-ball</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">positioning</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">teamwork</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">vision</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">work-rate</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">acceleration</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">agility</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">balance</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">jumping-reach</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">natural-fitness</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">pace</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">stamina</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">strength</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">free-kick-taking</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">penalty-taking</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">technique</span><span class="sh">'</span>
+<span class="p">]</span>
+
+<span class="n">field_player_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">player_info_cols</span> <span class="o">+</span> <span class="n">field_player_cols</span><span class="p">)</span>
+<span class="n">goalkeeper_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">player_info_cols</span> <span class="o">+</span> <span class="n">goalkeeper_cols</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/crawling/image_001.png" alt="image_001" /> <img src="/assets/images/crawling/image_002.png" alt="image_002" /></p>
+
+<blockquote>
+  <p>골키퍼와 필드 플레이어는 공통된 player_info를 갖고 있다.<br />
+단, 스탯 속성은 다르기 때문에 따로 컬럼을 분류하여 만들어야 한다.</p>
+</blockquote>
+
+<h2 id="crawling-시작">Crawling 시작</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 크롤링 시작
+</span><span class="n">options</span> <span class="o">=</span> <span class="n">webdriver</span><span class="p">.</span><span class="nc">ChromeOptions</span><span class="p">()</span>
+<span class="n">options</span><span class="p">.</span><span class="nf">add_argument</span><span class="p">(</span><span class="sh">"</span><span class="s">--headless</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 헤드리스 모드
+</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="p">.</span><span class="nc">Chrome</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+<span class="n">driver</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">https://fminside.net/</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">driver</span><span class="p">.</span><span class="nf">implicitly_wait</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="p">.</span><span class="nf">find_element</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sh">'</span><span class="s">//*[@id=</span><span class="sh">"</span><span class="s">menu</span><span class="sh">"</span><span class="s">]/ul[2]/li[3]/a</span><span class="sh">'</span><span class="p">).</span><span class="nf">click</span><span class="p">()</span>
+<span class="n">driver</span><span class="p">.</span><span class="nf">implicitly_wait</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>헤드리스 모드를 사용하는 이유 : 광고 팝업창이 자꾸 떠서 다음 창으로 안넘어가는 현상을 막기 위해서 사용</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)):</span> <span class="c1"># 100개 데이터만 수집
+</span>    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span> <span class="c1"># Load More Players 버튼 클릭
+</span>        <span class="k">try</span><span class="p">:</span>
+            <span class="n">driver</span><span class="p">.</span><span class="nf">find_element</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sa">f</span><span class="sh">'</span><span class="s">//*[@id=</span><span class="sh">"</span><span class="s">player_table</span><span class="sh">"</span><span class="s">]/div/div[3]/ul[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">]/li[3]/span[2]/b/a</span><span class="sh">'</span><span class="p">).</span><span class="nf">send_keys</span><span class="p">(</span>
+                <span class="n">Keys</span><span class="p">.</span><span class="n">CONTROL</span> <span class="o">+</span> <span class="n">Keys</span><span class="p">.</span><span class="n">ENTER</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">driver</span><span class="p">.</span><span class="nf">find_element</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="sh">'</span><span class="s">//*[@id=</span><span class="sh">"</span><span class="s">player_table</span><span class="sh">"</span><span class="s">]/div/div[3]/a</span><span class="sh">'</span><span class="p">).</span><span class="nf">click</span><span class="p">()</span>
+            <span class="n">driver</span><span class="p">.</span><span class="nf">implicitly_wait</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="nf">window</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">window_handles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># 새 창 전환
+</span>    <span class="n">driver</span><span class="p">.</span><span class="nf">implicitly_wait</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+    <span class="n">info_url</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">current_url</span> <span class="c1"># 현재 URL
+</span>    <span class="n">info_req</span> <span class="o">=</span> <span class="nc">Request</span><span class="p">(</span><span class="n">info_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="sh">'</span><span class="s">User-Agent</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">Mozilla/5.0</span><span class="sh">'</span><span class="p">})</span>
+    <span class="n">info_html</span> <span class="o">=</span> <span class="nf">urlopen</span><span class="p">(</span><span class="n">info_req</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
+    <span class="n">bs_obj</span> <span class="o">=</span> <span class="nc">BeautifulSoup</span><span class="p">(</span><span class="n">info_html</span><span class="p">,</span> <span class="sh">'</span><span class="s">html.parser</span><span class="sh">'</span><span class="p">)</span>
+
+    <span class="n">driver</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="nf">window</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">window_handles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">pi_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># player_info 공통된 컬럼
+</span>    <span class="n">player_info_table</span> <span class="o">=</span> <span class="n">bs_obj</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">#player &gt; div:nth-child(2) &gt; ul</span><span class="sh">'</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+        <span class="n">pi_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">player_info_table</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">select</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">li:nth-child(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">) &gt; span.value</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="n">player_contract_table</span> <span class="o">=</span> <span class="n">bs_obj</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">#player &gt; div:nth-child(3) &gt; ul</span><span class="sh">'</span><span class="p">)</span>
+
+    <span class="n">pi_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">player_contract_table</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">select</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">li:nth-child(</span><span class="si">{</span><span class="mi">1</span><span class="si">}</span><span class="s">) &gt; span.value</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">pi_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">player_contract_table</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">select</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">li:nth-child(</span><span class="si">{</span><span class="mi">3</span><span class="si">}</span><span class="s">) &gt; span.value</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">field_player</span><span class="p">():</span>
+        <span class="c1"># field_player_info
+</span>        <span class="n">fp_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">player_stats_table</span> <span class="o">=</span> <span class="n">bs_obj</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">#player_stats</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">technical_info</span> <span class="o">=</span> <span class="n">player_stats_table</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">div:nth-child(3) &gt; table &gt; tr &gt; td</span><span class="sh">'</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">technical_info</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">fp_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">technical_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="n">mental_info</span> <span class="o">=</span> <span class="n">player_stats_table</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">div:nth-child(4) &gt; table &gt; tr &gt; td</span><span class="sh">'</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">mental_info</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">fp_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">mental_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="n">physical_info</span> <span class="o">=</span> <span class="n">player_stats_table</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">div:nth-child(5) &gt; table &gt; tr &gt; td</span><span class="sh">'</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">physical_info</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">fp_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">physical_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">fp_data</span>
+
+    <span class="k">def</span> <span class="nf">goalkeeper</span><span class="p">():</span>
+        <span class="c1"># goalkeeper_info
+</span>        <span class="n">gk_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">player_stats_table</span> <span class="o">=</span> <span class="n">bs_obj</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">#player_stats</span><span class="sh">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">goalkeeping_info</span> <span class="o">=</span> <span class="n">player_stats_table</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">div:nth-child(3) &gt; table &gt; tr &gt; td</span><span class="sh">'</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">goalkeeping_info</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">gk_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">goalkeeping_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="n">mental_info</span> <span class="o">=</span> <span class="n">player_stats_table</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">div:nth-child(4) &gt; table &gt; tr &gt; td</span><span class="sh">'</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">mental_info</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">gk_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">mental_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="n">physical_info</span> <span class="o">=</span> <span class="n">player_stats_table</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="sh">'</span><span class="s">div:nth-child(5) &gt; table &gt; tr &gt; td</span><span class="sh">'</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">physical_info</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">gk_data</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">physical_info</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">gk_data</span>
+
+    <span class="k">if</span> <span class="n">pi_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">GKGK</span><span class="sh">'</span><span class="p">:</span> <span class="c1"># 골키퍼인 경우
+</span>        <span class="n">gk_data</span> <span class="o">=</span> <span class="nf">goalkeeper</span><span class="p">()</span>
+        <span class="n">goalkeeper_df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="nf">len</span><span class="p">(</span><span class="n">goalkeeper_df</span><span class="p">)]</span> <span class="o">=</span> <span class="n">pi_data</span> <span class="o">+</span> <span class="n">gk_data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fp_data</span> <span class="o">=</span> <span class="nf">field_player</span><span class="p">()</span> <span class="c1"># 필드 플레이어인 경우
+</span>        <span class="n">field_player_df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="nf">len</span><span class="p">(</span><span class="n">field_player_df</span><span class="p">)]</span> <span class="o">=</span> <span class="n">pi_data</span> <span class="o">+</span> <span class="n">fp_data</span>
+</code></pre></div></div>
+
+<h2 id="결과">결과</h2>
+
+<p>&lt;!DOCTYPE html&gt;</p>
+<html>
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+  </head>
+<body>
+<table border="1" style="border-collapse:collapse">
+<tr>
+  <th></th>
+  <th>Name</th>
+  <th>Age</th>
+  <th>Position(s)</th>
+  <th>Foot</th>
+  <th>Height</th>
+  <th>Weight</th>
+  <th>Club</th>
+  <th>Wages</th>
+  <th>corners</th>
+  <th>crossing</th>
+  <th>dribbling</th>
+  <th>finishing</th>
+  <th>first-touch</th>
+  <th>free-kick-taking</th>
+  <th>heading</th>
+  <th>long-shots</th>
+  <th>long-throws</th>
+  <th>marking</th>
+  <th>passing</th>
+  <th>penalty-taking</th>
+  <th>tackling</th>
+  <th>technique</th>
+  <th>aggression</th>
+  <th>anticipation</th>
+  <th>bravery</th>
+  <th>composure</th>
+  <th>concentration</th>
+  <th>decisions</th>
+  <th>determination</th>
+  <th>flair</th>
+  <th>leadership</th>
+  <th>off-the-ball</th>
+  <th>positioning</th>
+  <th>teamwork</th>
+  <th>vision</th>
+  <th>work-rate</th>
+  <th>acceleration</th>
+  <th>agility</th>
+  <th>balance</th>
+  <th>jumping-reach</th>
+  <th>natural-fitness</th>
+  <th>pace</th>
+  <th>stamina</th>
+  <th>strength</th>
+</tr>
+<tr>
+  <td>0</td>
+  <td>Kevin De Bruyne</td>
+  <td>32</td>
+  <td>MC, MR, ML, AMCMC, AMC</td>
+  <td>Right</td>
+  <td>181 CM</td>
+  <td>68 KG</td>
+  <td>Manchester City</td>
+  <td>€ 397,800 pw</td>
+  <td>70</td>
+  <td>95</td>
+  <td>80</td>
+  <td>80</td>
+  <td>80</td>
+  <td>85</td>
+  <td>30</td>
+  <td>85</td>
+  <td>35</td>
+  <td>45</td>
+  <td>90</td>
+  <td>75</td>
+  <td>45</td>
+  <td>90</td>
+  <td>60</td>
+  <td>70</td>
+  <td>65</td>
+  <td>70</td>
+  <td>75</td>
+  <td>90</td>
+  <td>85</td>
+  <td>80</td>
+  <td>65</td>
+  <td>75</td>
+  <td>50</td>
+  <td>70</td>
+  <td>99</td>
+  <td>75</td>
+  <td>80</td>
+  <td>65</td>
+  <td>70</td>
+  <td>50</td>
+  <td>80</td>
+  <td>70</td>
+  <td>80</td>
+  <td>65</td>
+</tr>
+<tr>
+  <td>1</td>
+  <td>Erling Haaland</td>
+  <td>22</td>
+  <td>STST</td>
+  <td>Left</td>
+  <td>195 CM</td>
+  <td>94 KG</td>
+  <td>Manchester City</td>
+  <td>€ 397,800 pw</td>
+  <td>35</td>
+  <td>50</td>
+  <td>70</td>
+  <td>90</td>
+  <td>80</td>
+  <td>65</td>
+  <td>75</td>
+  <td>65</td>
+  <td>25</td>
+  <td>30</td>
+  <td>65</td>
+  <td>85</td>
+  <td>35</td>
+  <td>75</td>
+  <td>75</td>
+  <td>95</td>
+  <td>75</td>
+  <td>90</td>
+  <td>75</td>
+  <td>75</td>
+  <td>99</td>
+  <td>80</td>
+  <td>65</td>
+  <td>90</td>
+  <td>35</td>
+  <td>70</td>
+  <td>70</td>
+  <td>65</td>
+  <td>85</td>
+  <td>80</td>
+  <td>85</td>
+  <td>90</td>
+  <td>95</td>
+  <td>95</td>
+  <td>70</td>
+  <td>85</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Kylian Mbappé</td>
+  <td>24</td>
+  <td>AMR, AML, STAML, ST</td>
+  <td>Right</td>
+  <td>178 CM</td>
+  <td>73 KG</td>
+  <td>PSG</td>
+  <td>€ 1,038,960 pw</td>
+  <td>65</td>
+  <td>60</td>
+  <td>90</td>
+  <td>85</td>
+  <td>90</td>
+  <td>55</td>
+  <td>40</td>
+  <td>75</td>
+  <td>15</td>
+  <td>20</td>
+  <td>75</td>
+  <td>90</td>
+  <td>20</td>
+  <td>85</td>
+  <td>30</td>
+  <td>85</td>
+  <td>60</td>
+  <td>85</td>
+  <td>70</td>
+  <td>75</td>
+  <td>90</td>
+  <td>90</td>
+  <td>65</td>
+  <td>85</td>
+  <td>15</td>
+  <td>50</td>
+  <td>75</td>
+  <td>60</td>
+  <td>99</td>
+  <td>80</td>
+  <td>70</td>
+  <td>40</td>
+  <td>75</td>
+  <td>99</td>
+  <td>70</td>
+  <td>55</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Lionel Messi</td>
+  <td>36</td>
+  <td>AMR, AMC, STAMR, AMC, ST</td>
+  <td>Left</td>
+  <td>169 CM</td>
+  <td>67 KG</td>
+  <td>Inter Miami</td>
+  <td>€ 368,240 pw</td>
+  <td>75</td>
+  <td>75</td>
+  <td>99</td>
+  <td>85</td>
+  <td>95</td>
+  <td>90</td>
+  <td>50</td>
+  <td>80</td>
+  <td>20</td>
+  <td>20</td>
+  <td>95</td>
+  <td>85</td>
+  <td>35</td>
+  <td>99</td>
+  <td>35</td>
+  <td>80</td>
+  <td>50</td>
+  <td>80</td>
+  <td>65</td>
+  <td>90</td>
+  <td>99</td>
+  <td>99</td>
+  <td>70</td>
+  <td>70</td>
+  <td>25</td>
+  <td>70</td>
+  <td>99</td>
+  <td>45</td>
+  <td>80</td>
+  <td>75</td>
+  <td>90</td>
+  <td>30</td>
+  <td>70</td>
+  <td>75</td>
+  <td>65</td>
+  <td>45</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Harry Kane</td>
+  <td>29</td>
+  <td>AMC, STST</td>
+  <td>Right</td>
+  <td>188 CM</td>
+  <td>86 KG</td>
+  <td>FC Bayern</td>
+  <td>€ 423,280 pw</td>
+  <td>45</td>
+  <td>75</td>
+  <td>70</td>
+  <td>95</td>
+  <td>75</td>
+  <td>55</td>
+  <td>80</td>
+  <td>75</td>
+  <td>30</td>
+  <td>40</td>
+  <td>90</td>
+  <td>99</td>
+  <td>45</td>
+  <td>85</td>
+  <td>55</td>
+  <td>75</td>
+  <td>70</td>
+  <td>90</td>
+  <td>75</td>
+  <td>90</td>
+  <td>95</td>
+  <td>60</td>
+  <td>80</td>
+  <td>85</td>
+  <td>40</td>
+  <td>90</td>
+  <td>95</td>
+  <td>80</td>
+  <td>60</td>
+  <td>60</td>
+  <td>75</td>
+  <td>75</td>
+  <td>80</td>
+  <td>70</td>
+  <td>80</td>
+  <td>75</td>
+</tr>
+</table>
+</body>
+</html>
+
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#python-crawling-정리---2024년11월23일">Python Crawling 정리 - 2024년11월23일</a></li>
+<li class="toc-entry toc-h1"><a href="#크롤링">크롤링</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#library-import">Library Import</a></li>
+<li class="toc-entry toc-h2"><a href="#dataframe-정의">DataFrame 정의</a></li>
+<li class="toc-entry toc-h2"><a href="#crawling-시작">Crawling 시작</a></li>
+<li class="toc-entry toc-h2"><a href="#결과">결과</a></li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/11/23/Python_Crawling.html">Python Crawling 정리 [ 2024년11월23일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/22/Python_Class.html">Python Class 정리 [ 2024년11월22일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/10/30/Practical_Statistics_for_Data_Scientists_07.html">데이터 과학을 위한 통계 - 비지도 학습 [ 2024년10월30일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/10/26/Practical_Statistics_for_Data_Scientists_06.html">데이터 과학을 위한 통계 - 통계적 머신러닝 [ 2024년10월26일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/10/25/Practical_Statistics_for_Data_Scientists_05.html">데이터 과학을 위한 통계 - 분류 [ 2024년10월25일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/10/21/Practical_Statistics_for_Data_Scientists_04.html">데이터 과학을 위한 통계 - 회귀와 예측 [ 2024년10월21일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/10/16/Practical_Statistics_for_Data_Scientists_03.html">데이터 과학을 위한 통계 - 통계적 실험과 유의성검정 [ 2024년10월16일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/10/12/Practical_Statistics_for_Data_Scientists_02.html">데이터 과학을 위한 통계 - 데이터와 표본분포 [ 2024년10월12일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+          <p>
+            <a href="/2024/10/09/Practical_Statistics_for_Data_Scientists_01.html">데이터 과학을 위한 통계 - 탐색적 데이터 분석 [ 2024년10월09일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/10/07/HackerRank_Python_001.html">HackerRank - Python - Warmup [ 2024년10월07일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
