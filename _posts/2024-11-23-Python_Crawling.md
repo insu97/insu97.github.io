@@ -1,7 +1,7 @@
 ---
 layout : markdown
 title : Python Crawling 정리
-tags : [Python, Crawling]
+tags : [Crawling, Python]
 toc : true
 ---
 {% include markdown.html %}
