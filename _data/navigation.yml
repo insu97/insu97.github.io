@@ -7,9 +7,9 @@ main:
   url : /tags.html
 - title : BOOKS
   url : /books.html
+- title : PROJECT
+  url : /project.html
 # - title : STUDY
 #   url : /study.html
-# - title : PROJECT
-#   url : /project.html
 # - title : PAPER
 #   url : /paper.html
