@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Python Regular Expression - 03</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="python-regular-expression---03---2024년11월26일">Python Regular Expression - 03 - 2024년11월26일</h1>
+
+<!-- - tag : Regular_Expression Python  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Regular_Expression.html" class="btn btn-default navbar-btn cursorNorm" role="button">Regular_Expression</a>
+|
+<a href="/tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="정규-표현식">정규 표현식</h1>
+
+<h2 id="더-많은-패턴-기능">더 많은 패턴 기능</h2>
+
+<h3 id="메타-문자-더-보기">메타 문자 더 보기</h3>
+
+<ul>
+  <li>| : or 연산자 , Ex. Crow|Servo 는 ‘Crow’나 ‘Servo’와 일치</li>
+  <li>^ : 줄의 시작 부분에 일치</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">^From</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">From Here to Eternity</span><span class="sh">'</span><span class="p">))</span> <span class="c1"># &lt;re.Match object; span=(0, 4), match='From'&gt;
+</span><span class="nf">print</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">^From</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Reciting From Memory</span><span class="sh">'</span><span class="p">))</span> <span class="c1"># None
+</span></code></pre></div></div>
+
+<ul>
+  <li>$ : 줄의 끝부분과 일치하는데, 문자열의 끝이나 줄 바꿈 문자 다음에 오는 모든 위치로 정의</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">}$</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">{block}</span><span class="sh">'</span><span class="p">))</span> <span class="c1"># &lt;re.Match object; span=(6, 7), match='}'&gt;
+</span><span class="nf">print</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">}$</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">{block} </span><span class="sh">'</span><span class="p">))</span> <span class="c1"># None
+</span><span class="nf">print</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">}$</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">{block}</span><span class="se">\n</span><span class="sh">'</span><span class="p">))</span> <span class="c1"># &lt;re.Match object; span=(6, 7), match='}'&gt;
+</span></code></pre></div></div>
+
+<ul>
+  <li>\A : 문자열의 시작 부분에서만 일치 == ^</li>
+  <li>\Z : 문자열 끝부분에서만 일치</li>
+  <li>\b : 단어 경계, 단어의 시작이나 끝부분에서만 일치하는 폭이 없는 어서션 &lt;-&gt; \B : 현재 위치가 단어 경계에 있지 않을 때만 일치</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">\bclass\b</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">no class at all</span><span class="sh">'</span><span class="p">))</span> <span class="c1"># &lt;re.Match object; span=(3, 8), match='class'&gt;
+</span><span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">the declassified algorithm</span><span class="sh">'</span><span class="p">))</span> <span class="c1"># None
+</span><span class="nf">print</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">one subclass is</span><span class="sh">'</span><span class="p">))</span> <span class="c1"># None
+</span></code></pre></div></div>
+
+<h3 id="그룹">그룹</h3>
+
+<ul>
+  <li>() : 일치하는 텍스트의 시작과 끝 인덱스도 포착</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="sh">'</span><span class="s">(a(b)c)d</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sh">'</span><span class="s">abcd</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">m</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 'abcd'
+</span><span class="n">m</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 'abc'
+</span><span class="n">m</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 'b'
+</span></code></pre></div></div>
+
+<h2 id="문자열-수정하기">문자열 수정하기</h2>
+
+<ul>
+  <li>split() : RE가 일치하는 모든 곳에서 분할하여, 문자열을 리스트로 분할
+    <blockquote>
+      <p>.split(string, maxsplit=0) : maxsplit 값이 0이 아니면 최대 maxsplit번 분할만 이루어지고, 나머지 문자열은 리스트의 마지막 요소로 반환</p>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">\W+</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">This is a test, short and sweet, of split().</span><span class="sh">'</span><span class="p">)</span>
+<span class="c1"># ['This', 'is', 'a', 'test', 'short', 'and', 'sweet', 'of', 'split', '']
+</span><span class="n">p</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">This is a test, short and sweet, of split().</span><span class="sh">'</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># ['This', 'is', 'a', 'test, short and sweet, of split().']
+</span></code></pre></div></div>
+
+<ul>
+  <li>sub() : RE가 일치하는 모든 부분 문자열을 찾고, 다른 문자열로 대체
+    <blockquote>
+      <p>.sub(replacement, string, count=0)<br />
+string 에서 가장 왼쪽에 나타나는 겹쳐지지 않은 RE의 일치를 replacement로 치환<br />
+count는 치환될 패턴 일치의 최대 수</p>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="sh">'</span><span class="s">(blue|white|red)</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span><span class="sh">'</span><span class="s">colour</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">blue socks and red shoes</span><span class="sh">'</span><span class="p">)</span> <span class="c1"># 'colour socks and colour shoes'
+</span><span class="n">p</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span><span class="sh">'</span><span class="s">colour</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">blue socks and red shoes</span><span class="sh">'</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 'colour socks and red shoes'
+</span></code></pre></div></div>
+
+<ul>
+  <li>subn() : sub()와 같은 일을 하지만, 새로운 문자열과 치환 횟수를 반환</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="sh">'</span><span class="s">(blue|white|red)</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="nf">subn</span><span class="p">(</span><span class="sh">'</span><span class="s">colour</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">blue socks and red shoes</span><span class="sh">'</span><span class="p">)</span> <span class="c1"># ('colour socks and colour shoes', 2)
+</span><span class="n">p</span><span class="p">.</span><span class="nf">subn</span><span class="p">(</span><span class="sh">'</span><span class="s">colour</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">no colours at all</span><span class="sh">'</span><span class="p">)</span> <span class="c1"># ('no colours at all', 0)
+</span></code></pre></div></div>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#python-regular-expression---03---2024년11월26일">Python Regular Expression - 03 - 2024년11월26일</a></li>
+<li class="toc-entry toc-h1"><a href="#정규-표현식">정규 표현식</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#더-많은-패턴-기능">더 많은 패턴 기능</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#메타-문자-더-보기">메타 문자 더 보기</a></li>
+<li class="toc-entry toc-h3"><a href="#그룹">그룹</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#문자열-수정하기">문자열 수정하기</a></li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/11/26/Python_Regular_Expression-03.html">Python Regular Expression - 03 [ 2024년11월26일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/25/Python_Regular_Expression-02.html">Python Regular Expression - 02 [ 2024년11월25일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/24/Python_Regular_Expression-01.html">Python Regular Expression - 01 [ 2024년11월24일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
