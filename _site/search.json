@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Encoding, Decoding, Closure, Decorator, Iterator, Generator, Type Annotation",
+      "category" : "",
+      "tags"     : "Python_Basic, Python",
+      "url"      : "/2024/11/27/Python-Basic-001.html",
+      "date"     : "2024-11-27 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Python Regular Expression - 03",
       "category" : "",
       "tags"     : "Regular_Expression, Python",
