@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Discovering Statistics Using R - 005</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="discovering-statistics-using-r---005---2024년12월04일">Discovering Statistics Using R - 005 - 2024년12월04일</h1>
+
+<!-- - tag : Discovering_Statistics_Using_R R  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Discovering_Statistics_Using_R.html" class="btn btn-default navbar-btn cursorNorm" role="button">Discovering_Statistics_Using_R</a>
+|
+<a href="/tags/tag_R.html" class="btn btn-default navbar-btn cursorNorm" role="button">R</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="자료에-관한-가정">자료에 관한 가정</h1>
+
+<h2 id="모수적-자료의-가정들">모수적 자료의 가정들</h2>
+
+<ul>
+  <li>모수적 검정 : 통계학자들이 밝혀낸 무수히 많은 분포 중 하나를 따르는 자료를 요구하는 검정
+    <blockquote>
+      <p>그 자료는 반드시 특정한 가정들을 만족하는 모수적 자료</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>** 모수적 검정의 네 가지 기본 가정</p>
+<ol>
+  <li>분포의 정규성 : 가설 검정에 깔린 논리는 뭔가[Ex. 표집분포, 모형의 오차]가 정규분포를 따른다는 점에 의존</li>
+  <li>분산의 동질성 : 자료 전반에서 분산들이 동일하다는 뜻</li>
+  <li>구간 자료 : 자료가 적어도 구간 수준에서 측정한 것</li>
+  <li>독립성 : 서로 다른 참가자들의 자료가 독립적이어야 함</li>
+</ol>
+
+<h2 id="정규성-가정">정규성 가정</h2>
+
+<blockquote>
+  <p>정규성을 점검하는 것이 유익하다. [ 단순히 표본이 크거나 표본 자료가 정규분포를 따르는 경향이 있더라도 !]</p>
+</blockquote>
+
+<h3 id="눈으로-정규성-확인하기">눈으로 정규성 확인하기</h3>
+
+<h4 id="histogram">histogram</h4>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">dlf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"data/DownloadFestival(No Outlier).dat"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="c1"># DataFrame 불러오기</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hist.day1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">dlf</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">day1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">..density..</span><span class="p">),</span><span class="w"> </span><span class="n">colour</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"Hygiene score on day 1"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Density"</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hist.day1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">stat_function</span><span class="p">(</span><span class="n">fun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dnorm</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">dlf</span><span class="o">$</span><span class="n">day1</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">),</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">dlf</span><span class="o">$</span><span class="n">day1</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)),</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># hist.day2, hist.day3 도 그리기</span><span class="w">
+</span></code></pre></div></div>
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_020.png" alt="image_01" style="width: 32%; margin-right: 1vw;" />
+  <img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_021.png" alt="image_02" style="width: 32%; margin-right: 1vw;" />
+  <img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_022.png" alt="image_03" style="width: 32%; margin-right: 1vw;" />
+</div>
+
+<blockquote>
+  <p>ggplot(dlf, aes(day1)) : dlf 데이터프레임에 있는 day1 변수를 그리기<br />
+geom_histogram(aes(y=..density..), colour=”black”, fill=”white”) : 선을 검은색으로 막대 내부를 흰색으로<br />
+stat_function(fun = dnorm : 정규 곡선을 그리기<br />
+mean = mean(dlf$day1, na.rm = TRUE) : 정규분포의 평균을 결측값을 모두 제거한 후의 day1 변수의 평균으로 설정<br />
+sd = sd(dlf$day1, na.rm = TRUE) : 정규분포의 표준편차를 day1 변수의 표준편차로 설정</p>
+</blockquote>
+
+<h4 id="q-q-plot">Q-Q plot</h4>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">dlf</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">day1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">stat_qq</span><span class="p">()</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">dlf</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">day2</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">stat_qq</span><span class="p">()</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">dlf</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">day3</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">stat_qq</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_023.png" alt="image_04" style="width: 32%; margin-right: 1vw;" />
+  <img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_024.png" alt="image_05" style="width: 32%; margin-right: 1vw;" />
+  <img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_025.png" alt="image_06" style="width: 32%; margin-right: 1vw;" />
+</div>
+
+<blockquote>
+  <blockquote>
+    <p>변수 day1 이 가장 정규분포에 가깝다고 생각할 수 있다.</p>
+  </blockquote>
+</blockquote>
+
+<h3 id="정규성의-수량화">정규성의 수량화</h3>
+
+<h4 id="describe">describe()</h4>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">describe</span><span class="p">(</span><span class="n">dlf</span><span class="o">$</span><span class="n">day1</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">describe</span><span class="p">(</span><span class="n">dlf</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"day1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day3"</span><span class="p">)])</span><span class="w"> </span><span class="c1"># 묶어서 한번에 보기</span><span class="w">
+
+</span><span class="c1"># basic = FALSE : 기초 통계량 제외, norm = TRUE : 점수들의 분포에 관련된 통계량들을 표시</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">stat.desc</span><span class="p">(</span><span class="n">dlf</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"day1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day3"</span><span class="p">)],</span><span class="w"> </span><span class="n">basic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="c1"># 묶어서 한번에 보기</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">stat.desc</span><span class="p">(</span><span class="n">dlf</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"day1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day3"</span><span class="p">)],</span><span class="w"> </span><span class="n">basic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">),</span><span class="w"> </span><span class="n">digits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="c1"># 소수점 3째 자리까지 반올림해서 보기</span><span class="w">
+</span></code></pre></div></div>
+<p><img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_026.png" alt="image_07" style="width: 30vw; height: 20vw" /></p>
+
+<blockquote>
+  <p>정규분포에서는 비대칭도(skewness)와 첨도(kurtosis)가 모두 0이어야 한다.<br />
+비대칭도와 첨도가 유용하긴 하지만, 이 값들을 z-score 로 변환해 보는 것도 좋다.<br />
+z-score : 실제 점수를 평균이 0, 표준편차가 1인 분포에 맞추어 변환한 값</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>z-score 로 변환하는 값이 유용한 이유
+1. 서로 다른 측정 방법으로 얻은 서로 다른 표본들의 비대칭도와 첨도를 비교할 수 있다는 점
+2. 자료의 비대칭도와 첨도가 발생할 확률을 파악할 수 있다는 점
+</code></pre></div>  </div>
+  <p>| \(z_{비대칭도} = \frac{S - 평균}{SE_{비대칭도}}\) | \(z_{첨도} = \frac{K - 평균}{SE_{첨도}}\) |<br />
+절댓값이 1.96보다 큰 z-score는 p &lt; 0.05 에서 유의 [크기가 작은 표본]<br />
+절댓값이 2.58보다 큰 z-score는 p &lt; 0.01 에서 유의  [큰 표본]<br />
+절댓값이 3.29보다 큰 z-score는 p &lt; 0.001 에서 유의 [아주 큰 표본]</p>
+</blockquote>
+
+<ul>
+  <li>skew.2SE, kurt.2SE : 비대칭도와 첨도를 두 표준오차로 나눈 값
+    <blockquote>
+      <p>z &gt; 1.96 -&gt; \(\frac{k}{1.96 * SE} &gt; 1\) [p &lt; 0.05, 단! 크기가 작은 표본에서 유의!]</p>
+      <div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EX.</span><span class="w"> </span><span class="n">skew.2SE</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="m">-0.025</span><span class="w"> </span><span class="m">3.61</span><span class="w"> </span><span class="m">2.30</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">day2</span><span class="p">,</span><span class="w"> </span><span class="n">day3의</span><span class="w"> </span><span class="n">분포가</span><span class="w"> </span><span class="n">유의하게</span><span class="w"> </span><span class="n">기울었음을</span><span class="w"> </span><span class="n">의미</span><span class="w">
+</span></code></pre></div>      </div>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="자료-그룹들-살펴보기">자료 그룹들 살펴보기</h3>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">rexam</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"data/RExam.dat"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rexam</span><span class="o">$</span><span class="n">uni</span><span class="o">&lt;-</span><span class="n">factor</span><span class="p">(</span><span class="n">rexam</span><span class="o">$</span><span class="n">uni</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Duncetown University"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Sussex University"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>rexam 데이터프레임에 uni 컬럼의 값 0, 1 을 “Duncetown University”, “Sussex University” 로 대체</p>
+</blockquote>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">by</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">rexam</span><span class="o">$</span><span class="n">exam</span><span class="p">,</span><span class="w"> </span><span class="n">INDICES</span><span class="o">=</span><span class="n">rexam</span><span class="o">$</span><span class="n">uni</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">describe</span><span class="p">)</span><span class="w"> </span><span class="c1"># data : 분석할 자료, INDICES : 그룹화 변수, FUN : 자료에 적용할 함수</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">by</span><span class="p">(</span><span class="n">rexam</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"exam"</span><span class="p">,</span><span class="w"> </span><span class="s2">"numeracy"</span><span class="p">)],</span><span class="w"> </span><span class="n">rexam</span><span class="o">$</span><span class="n">uni</span><span class="p">,</span><span class="w"> </span><span class="n">stat.desc</span><span class="p">,</span><span class="w"> </span><span class="n">basic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="분포의-정규성-검정">분포의 정규성 검정</h2>
+
+<h3 id="샤피로-윌크-검정shapiro-wilk-test">샤피로-윌크 검정(Shapiro-Wilk test)</h3>
+<blockquote>
+  <p>표본의 점수들을 그 표본과 표준편차가 같은 정규분포에서 뽑은 점수들과 비교<br />
+이 검정에서 유의하지 않은 결과(p &gt; 0.05)가 나왔다면, 표본 분포가 정규분포와 그리 다르지 않다는 것</p>
+</blockquote>
+
+<ul>
+  <li>주의!
+    <blockquote>
+      <p>이 검정에서 유의한 결과가 나왔다고 해서, 이 자료의 분포는 정규분포에서 많이 벗어나니 정규성을 가정한 통계적 절차들을 사용하면 안된다고 성급하게 판단하면 안 된다.<br />
+이유 : 표본이 크면 정규분포를 조금만 벗어나도 유의한 결과가 나오기 쉽다는 점을 고려<br />
+따라서 검정에만 의존하지 말고 그래프를 그려서 눈으로도 확인해야 한다.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">shapiro.test</span><span class="p">(</span><span class="n">rexam</span><span class="o">$</span><span class="n">exam</span><span class="p">)</span><span class="w">     </span><span class="c1"># W = 0.96131, p-value = 0.004991 &lt; 0.05 -&gt; 변수가 정규성에서 이탈</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shapiro.test</span><span class="p">(</span><span class="n">rexam</span><span class="o">$</span><span class="n">numeracy</span><span class="p">)</span><span class="w"> </span><span class="c1"># W = 0.92439, p-value = 2.424e-05</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>개별 분포가 아닌 각 그룹의 분포가 중요하다!!</p>
+</blockquote>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">by</span><span class="p">(</span><span class="n">rexam</span><span class="o">$</span><span class="n">exam</span><span class="p">,</span><span class="w"> </span><span class="n">rexam</span><span class="o">$</span><span class="n">uni</span><span class="p">,</span><span class="w"> </span><span class="n">shapiro.test</span><span class="p">)</span><span class="w"> </span><span class="c1"># 대학별로 검정 실행</span><span class="w">
+</span><span class="c1"># Duncetown University : W = 0.97217, p-value = 0.2829</span><span class="w">
+</span><span class="c1"># Sussex University : W = 0.98371, p-value = 0.7151</span><span class="w">
+</span><span class="c1"># 두 대학 모두 정규분포에 가깝다</span><span class="w">
+
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">by</span><span class="p">(</span><span class="n">rexam</span><span class="o">$</span><span class="n">numeracy</span><span class="p">,</span><span class="w"> </span><span class="n">rexam</span><span class="o">$</span><span class="n">uni</span><span class="p">,</span><span class="w"> </span><span class="n">shapiro.test</span><span class="p">)</span><span class="w">
+</span><span class="c1"># Duncetown University : W = 0.94082, p-value = 0.01452</span><span class="w">
+</span><span class="c1"># Sussex University : W = 0.93235, p-value = 0.006787</span><span class="w">
+</span><span class="c1"># 두 대학 모두 유의한 수준으로 정규분포가 아니라는 결과가 나왔다.</span><span class="w">
+
+</span><span class="c1"># 그래프로 비교</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">rexam</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">exam</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">stat_qq</span><span class="p">()</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">rexam</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">sample</span><span class="o">=</span><span class="n">numeracy</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">stat_qq</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_027.png" alt="image_08" style="width: 48%; margin-right: 1vw;" />
+  <img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_028.png" alt="image_09" style="width: 48%; margin-right: 1vw;" />
+</div>
+
+<h2 id="분산의-동질성-검정">분산의 동질성 검정</h2>
+
+<blockquote>
+  <p>분산의 동질성 : 여러 그룹의 자료를 수집한 경우, 이 가정은 각 그룹에서 결과변수(들)의 분산이 동일해야 한다는 뜻</p>
+</blockquote>
+
+<h3 id="레빈-검정">레빈 검정</h3>
+
+<blockquote>
+  <p>서로 다른 그룹의 분산이 같을 것이라는 귀무가설을 검정<br />
+만일 레빈 검정이 p &lt;= 0.05 에서 유의하다면 귀무가설은 거짓이며, 따라서 분산들이 유의하게 다르다는 뜻<br />
+이런 경우 분산들의 동질성 가정이 성립하지 않는다.</p>
+</blockquote>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">leveneTest</span><span class="p">(</span><span class="n">rexam</span><span class="o">$</span><span class="n">exam</span><span class="p">,</span><span class="w"> </span><span class="n">rexam</span><span class="o">$</span><span class="n">uni</span><span class="p">,</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w"> </span><span class="c1"># F(1, 98) = 2.09, p=0.15 이므로 대학생들의 분산은 그리 다르지 않다.</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">leveneTest</span><span class="p">(</span><span class="n">rexam</span><span class="o">$</span><span class="n">numeracy</span><span class="p">,</span><span class="w"> </span><span class="n">rexam</span><span class="o">$</span><span class="n">uni</span><span class="p">,</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">median</span><span class="p">)</span><span class="w"> </span><span class="c1"># F(1, 98) = 5.37, p=0.02 이므로 분산들이 유의하게 다르며, 분산의 동질성 가정이 깨졌다.</span><span class="w">
+</span></code></pre></div></div>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#discovering-statistics-using-r---005---2024년12월04일">Discovering Statistics Using R - 005 - 2024년12월04일</a></li>
+<li class="toc-entry toc-h1"><a href="#자료에-관한-가정">자료에 관한 가정</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#모수적-자료의-가정들">모수적 자료의 가정들</a></li>
+<li class="toc-entry toc-h2"><a href="#정규성-가정">정규성 가정</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#눈으로-정규성-확인하기">눈으로 정규성 확인하기</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#histogram">histogram</a></li>
+<li class="toc-entry toc-h4"><a href="#q-q-plot">Q-Q plot</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#정규성의-수량화">정규성의 수량화</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#describe">describe()</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#자료-그룹들-살펴보기">자료 그룹들 살펴보기</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#분포의-정규성-검정">분포의 정규성 검정</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#샤피로-윌크-검정shapiro-wilk-test">샤피로-윌크 검정(Shapiro-Wilk test)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#분산의-동질성-검정">분산의 동질성 검정</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#레빈-검정">레빈 검정</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/12/04/Discovering-Statistics-Using-R-005.html">Discovering Statistics Using R - 005 [ 2024년12월04일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/03/Discovering-Statistics-Using-R-004.html">Discovering Statistics Using R - 004 [ 2024년12월03일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/30/Discovering-Statistics-Using-R-003.html">Discovering Statistics Using R - 003 [ 2024년11월30일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/29/Discovering-Statistics-Using-R-002.html">Discovering Statistics Using R - 002 [ 2024년11월29일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/28/Discovering-Statistics-Using-R-001.html">Discovering Statistics Using R - 001 [ 2024년11월28일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
