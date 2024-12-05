@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Discovering Statistics Using R - 006</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="discovering-statistics-using-r---006---2024년12월05일">Discovering Statistics Using R - 006 - 2024년12월05일</h1>
+
+<!-- - tag : Discovering_Statistics_Using_R R  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Discovering_Statistics_Using_R.html" class="btn btn-default navbar-btn cursorNorm" role="button">Discovering_Statistics_Using_R</a>
+|
+<a href="/tags/tag_R.html" class="btn btn-default navbar-btn cursorNorm" role="button">R</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="상관">상관</h1>
+
+<h2 id="관계를-측정하는-방법">관계를 측정하는 방법</h2>
+
+<blockquote>
+  <p>두 변수가 어떤 식으로든 관계가 있는지 파악하는 가장 간단한 방법은 두 변수의 분산에 공통점이 있는지를 보는 것</p>
+</blockquote>
+
+<h3 id="공분산">공분산</h3>
+
+<ul>
+  <li>공분산 : \(cov(x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{N - 1}\)
+    <blockquote>
+      <p>공분산이 양수라는 것은 한 변수가 평균에서 이탈하면 다른 변수도 같은 방향으로 이탈함을 뜻한다.<br />
+측정의 축척에 의존한다는 것 -&gt; 서로 다른 단위로 측정한 자료 집합들의 공분산들이 주어졌을 때 둘 중 어떤 것이 더 큰지 비교하는 것은 무의미</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="표준화">표준화</h3>
+
+<ul>
+  <li>표준화 : 측정 척도 의존성 문제를 극복하려면 공분산을 어떤 표준 단위로 변환하는 과정</li>
+  <li>표준화된 공분사(= 상관계수) : \(r = \frac{COV_{xy}}{S_{x}S_{y}}\) [ = 피어슨 상관계수 ]
+    <blockquote>
+      <p>\(\pm 0.1\) : 작은 효과<br />
+\(\pm 0.3\) : 중간 효과<br />
+\(\pm 0.5\) : 큰 효과</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="상관계수의-유의성">상관계수의 유의성</h3>
+
+<ul>
+  <li>유의성 검정하는 방법 -&gt; z-score 사용</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>기존 z-score는 만일 자료가 정규분포라면 주어진 z 값이 나올 확률과 비교하는 식으로 활용
+그런데 피어슨의 r에는 그것이 정규분포가 아닌 표집분포를 따른다는 문제점이 있다.
+아래의 공식을 사용하면(=피셔) r의 표집분포가 실제로 정규분포가 되게 만들 수 있다.
+</code></pre></div></div>
+
+<blockquote>
+  <p>\(z_r = \frac{1}{2}log_{e}\frac{1+r}{1-r}\)<br />
+\(SE_{z_r} = \frac{1}{\sqrt{N-3}}\)</p>
+</blockquote>
+
+<ul>
+  <li>Ex. r = .87 -&gt; \(z_r\) = 1.33, SE = .71</li>
+</ul>
+
+<blockquote>
+  <p>여기서 우리가 알 고 싶은 것은 상관계수가 0과 다른지를 확인<br />
+\(z = \frac{z_r}{SE_{z_r}}\)</p>
+</blockquote>
+
+<ul>
+  <li>Ex. z = 1.33 / 0.71 = 1.87 -&gt; 이 z 값으로 한쪽꼬리 확률은 0.307 -&gt; 양쪽꼬리 확률 = 0.0307 * 2 = 0.0614</li>
+  <li>따라서 한쪽꼬리에서는 이 상관관계가 유의하고(p &lt; 0.05), 양쪼꼬리에서는 유의하지 않다.</li>
+</ul>
+
+<blockquote>
+  <p>하지만 일반적으로 z-score로 검증하기보다는 자유도가 N - 2인 t통계량을 이용해서 검증하는 것이 일반적이다.<br />
+\(t_r = \frac{r\sqrt{N-2}}{\sqrt{1-r^2}}\)</p>
+</blockquote>
+
+<h3 id="r의-신뢰구간">r의 신뢰구간</h3>
+
+<ul>
+  <li>Ex. 95% 신뢰구간을 구하는 공식
+    <blockquote>
+      <p>신뢰구간의 하계 = \(\bar{X} - (1.96 * SE)\)<br />
+신뢰구간의 상계 = \(\bar{X} + (1.96 * SE)\)</p>
+    </blockquote>
+  </li>
+  <li>변환된 상관계수의 경우
+    <blockquote>
+      <p>\(신뢰구간의 하계 = z_r - (1.96 * SE_{z_{r}})\)<br />
+\(신뢰구간의 상계 = z_r + (1.96 * SE_{z_{r}})\)<br />
+-&gt; 하계 : 1.33 - (1.96 * .71) = -0.062, 상계 : 1.33 + (1.96 * .71) = 2.72<br />
+-&gt; 그런데 이 값들은 z-score의 축척을 따르므로, 원래의 상관계수 단위로 변환할 필요가 있다.<br />
+-&gt; \(r = \frac{e^{2z_r} - 1}{e^{2z_r} + 1}\) -&gt; r의 신뢰구간의 상계는 0.991, 하계는 -0.062</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="해석에-관한-경고">해석에 관한 경고</h3>
+
+<blockquote>
+  <p>상관계수를 해석할 때는, 상관계수가 인과관계의 방향을 말해주지는 않는다는 점을 주의해야 한다.</p>
+</blockquote>
+
+<ol>
+  <li>제 3변수 문제 : 결과에 영향을 미치는 다른 어떤 변수가 있을 수 있으므로 두 변수 사이의 인과관계를 가정할 수 없다.</li>
+  <li>인과관계의 방향 : 상관관계가 A -&gt; B or B - A 쪽으로 방향을 말해주지는 않는다.</li>
+</ol>
+
+<h2 id="상관분석을-위한-r">상관분석을 위한 R</h2>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># cor(x,y, use = "everything", method = "correlation type")</span><span class="w">
+</span><span class="c1"># use : 특정한 결측값 처리 방식을 지정</span><span class="w">
+</span><span class="c1">#  &gt; everything : NA 출력, all.obs : 결측값이 존재하면 오류 메시지 발생,</span><span class="w">
+</span><span class="c1">#  &gt; complete.obs : 모든 변수가 완전히 갖추어진 사례들로만 상관계수를 계산[= 목록별 결측값 제외],</span><span class="w">
+</span><span class="c1">#  &gt; pairwise.complete.obs : 모든 변수 쌍에서 두 변수 모두 관측값이 존재하는 사례들에 대해 두 변수의 상관계수를 계산[= 쌍별 결측값 제외]</span><span class="w">
+</span><span class="c1"># method : 상관계수의 종류에 해당하는 문자열 지정[Ex. pearson, spearman, kendall]</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cor</span><span class="p">(</span><span class="n">examData</span><span class="o">$</span><span class="n">Exam</span><span class="p">,</span><span class="w"> </span><span class="n">examData</span><span class="o">$</span><span class="n">Anxiety</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"complete.obs"</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'pearson'</span><span class="p">)</span><span class="w"> </span><span class="c1"># -0.4409934</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">cor.test</span><span class="p">(</span><span class="n">examData</span><span class="o">$</span><span class="n">Exam</span><span class="p">,</span><span class="w"> </span><span class="n">examData</span><span class="o">$</span><span class="n">Anxiety</span><span class="p">,</span><span class="w"> </span><span class="n">alternative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'less'</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'pearson'</span><span class="p">,</span><span class="w"> </span><span class="n">conf.level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.99</span><span class="p">)</span><span class="w">
+</span><span class="c1"># alternative : two.sided : 양쪽꼬리 검정, 'less' : 음의 상관을 예측, 'greater' : 양의 상관을 예측</span><span class="w">
+</span><span class="c1"># conf.level : 상관계수의 신뢰구간 너비 지정</span><span class="w">
+</span><span class="c1"># --- 결과</span><span class="w">
+</span><span class="c1"># Pearson's product-moment correlation</span><span class="w">
+
+</span><span class="c1"># data:  examData$Exam and examData$Anxiety</span><span class="w">
+</span><span class="c1"># t = -4.938, df = 101, p-value = 0.000001564</span><span class="w">
+</span><span class="c1"># alternative hypothesis: true correlation is less than 0</span><span class="w">
+</span><span class="c1"># 99 percent confidence interval:</span><span class="w">
+</span><span class="c1"># -1.0000000 -0.2362782</span><span class="w">
+</span><span class="c1"># sample estimates:</span><span class="w">
+</span><span class="c1">#      cor</span><span class="w">
+</span><span class="c1"># -0.4409934</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="피어슨-상관계수">피어슨 상관계수</h3>
+
+<ul>
+  <li>피어슨 r 의 가정들
+    <blockquote>
+      <p>피어슨 상관계수의 유일한 요구조건은 자료가 구간자료이어야 한다는 것.<br />
+검정통계량이 유효하려면 표집분포가 정규분포이어야 함</p>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">cor</span><span class="p">(</span><span class="n">examData2</span><span class="p">)</span><span class="w">
+              </span><span class="n">Exam</span><span class="w">    </span><span class="n">Anxiety</span><span class="w">     </span><span class="n">Revise</span><span class="w">
+</span><span class="n">Exam</span><span class="w">     </span><span class="m">1.0000000</span><span class="w"> </span><span class="m">-0.4409934</span><span class="w">  </span><span class="m">0.3967207</span><span class="w">
+</span><span class="n">Anxiety</span><span class="w"> </span><span class="m">-0.4409934</span><span class="w">  </span><span class="m">1.0000000</span><span class="w"> </span><span class="m">-0.7092493</span><span class="w">
+</span><span class="n">Revise</span><span class="w">   </span><span class="m">0.3967207</span><span class="w"> </span><span class="m">-0.7092493</span><span class="w">  </span><span class="m">1.0000000</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="결정계수">결정계수</h3>
+
+<ul>
+  <li>\(R^2\)
+    <blockquote>
+      <p>한 변수의 변이성 또는 변동을 다른 변수가 어느 정도나 공유하는지 말해주는 측도<br />
+EX. 상관계수 값 : -0.4410 -&gt; \(R^2 = 0.194\) -&gt; 두 변수의 변동 관련성은 19.4% 뿐, 나머지 80.6%는 다른 어떤 변수들과 관련되어 있다.</p>
+      <div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cor</span><span class="p">(</span><span class="n">examData2</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="w">
+           </span><span class="n">Exam</span><span class="w">   </span><span class="n">Anxiety</span><span class="w">    </span><span class="n">Revise</span><span class="w">
+</span><span class="n">Exam</span><span class="w">    </span><span class="m">1.0000000</span><span class="w"> </span><span class="m">0.1944752</span><span class="w"> </span><span class="m">0.1573873</span><span class="w">
+</span><span class="n">Anxiety</span><span class="w"> </span><span class="m">0.1944752</span><span class="w"> </span><span class="m">1.0000000</span><span class="w"> </span><span class="m">0.5030345</span><span class="w">
+</span><span class="n">Revise</span><span class="w">  </span><span class="m">0.1573873</span><span class="w"> </span><span class="m">0.5030345</span><span class="w"> </span><span class="m">1.0000000</span><span class="w">
+</span></code></pre></div>      </div>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="스피어먼-상관계수">스피어먼 상관계수</h3>
+
+<blockquote>
+  <p>스피어먼 상관계수는 비모수적 통계량이다.<br />
+따라서 정규분포가 아닌 자료 등 모수적 자료의 가정들을 위반하는 자료에 사용할 수 있다.</p>
+</blockquote>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">cor.test</span><span class="p">(</span><span class="n">liarData</span><span class="o">$</span><span class="n">Position</span><span class="p">,</span><span class="w"> </span><span class="n">liarData</span><span class="o">$</span><span class="n">Creativity</span><span class="p">,</span><span class="w"> </span><span class="n">alternative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"less"</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"spearman"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Spearman's rank correlation rho</span><span class="w">
+
+</span><span class="c1"># data:  liarData$Position and liarData$Creativity</span><span class="w">
+</span><span class="c1"># S = 71948, p-value = 0.0008602</span><span class="w">
+</span><span class="c1"># alternative hypothesis: true rho is less than 0</span><span class="w">
+</span><span class="c1"># sample estimates:</span><span class="w">
+</span><span class="c1">#      rho</span><span class="w">
+</span><span class="c1"># -0.3732184</span><span class="w">
+</span></code></pre></div></div>
+<blockquote>
+  <p>유의확률 &lt; 0.05 , 상관계수의 절댓값이 꽤 크기 때문에 두 변수는 유의한 관계가 존재한다고 결론을 내릴 수 있다.</p>
+</blockquote>
+
+<h3 id="켄달의-타우비모수적-상관계수">켄달의 타우(비모수적 상관계수)</h3>
+
+<blockquote>
+  <p>자료 집합의 크기가 작고 동순위 점수들이 많을 때는 스피어먼 상관계수 대신 이 상관계수를 사용한다.</p>
+</blockquote>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">cor.test</span><span class="p">(</span><span class="n">liarData</span><span class="o">$</span><span class="n">Position</span><span class="p">,</span><span class="w"> </span><span class="n">liarData</span><span class="o">$</span><span class="n">Creativity</span><span class="p">,</span><span class="w"> </span><span class="n">alternative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"less"</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"kendal"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># 	Kendall's rank correlation tau</span><span class="w">
+
+</span><span class="c1"># data:  liarData$Position and liarData$Creativity</span><span class="w">
+</span><span class="c1"># z = -3.2252, p-value = 0.0006294</span><span class="w">
+</span><span class="c1"># alternative hypothesis: true tau is less than 0</span><span class="w">
+</span><span class="c1"># sample estimates:</span><span class="w">
+</span><span class="c1">#        tau</span><span class="w">
+</span><span class="c1"># -0.3002413</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="부트스트랩-방법을-적용한-상관분석">부트스트랩 방법을 적용한 상관분석</h3>
+
+<blockquote>
+  <p>피어슨의 r에 깔린 가정들을 만족하지 않는 자료를 다루는 또 다른 방법</p>
+</blockquote>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">bootTau</span><span class="o">&lt;-</span><span class="k">function</span><span class="p">(</span><span class="n">liarData</span><span class="p">,</span><span class="n">i</span><span class="p">)</span><span class="n">cor</span><span class="p">(</span><span class="n">liarData</span><span class="o">$</span><span class="n">Position</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">liarData</span><span class="o">$</span><span class="n">Creativity</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"complete.obs"</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"kendall"</span><span class="p">)</span><span class="w"> </span><span class="c1"># 함수 작성</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">boot_kendall</span><span class="o">&lt;-</span><span class="n">boot</span><span class="p">(</span><span class="n">liarData</span><span class="p">,</span><span class="w"> </span><span class="n">bootTau</span><span class="p">,</span><span class="w"> </span><span class="m">2000</span><span class="p">)</span><span class="w"> </span><span class="c1"># boot(데이터, 함수, 반복 횟수)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">boot_kendall</span><span class="w">
+
+</span><span class="n">ORDINARY</span><span class="w"> </span><span class="n">NONPARAMETRIC</span><span class="w"> </span><span class="n">BOOTSTRAP</span><span class="w">
+
+
+</span><span class="n">Call</span><span class="o">:</span><span class="w">
+</span><span class="n">boot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">liarData</span><span class="p">,</span><span class="w"> </span><span class="n">statistic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bootTau</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2000</span><span class="p">)</span><span class="w">
+
+
+</span><span class="n">Bootstrap</span><span class="w"> </span><span class="n">Statistics</span><span class="w"> </span><span class="o">:</span><span class="w">
+      </span><span class="n">original</span><span class="w">        </span><span class="n">bias</span><span class="w">    </span><span class="n">std.</span><span class="w"> </span><span class="n">error</span><span class="w">
+</span><span class="n">t1</span><span class="o">*</span><span class="w"> </span><span class="m">-0.3002413</span><span class="w"> </span><span class="m">-0.0004526635</span><span class="w">  </span><span class="m">0.09607203</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>95% 신뢰구간 구하기</li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">boot.ci</span><span class="p">(</span><span class="n">boot_kendall</span><span class="p">,</span><span class="w"> </span><span class="m">0.95</span><span class="p">)</span><span class="w">
+
+</span><span class="n">BOOTSTRAP</span><span class="w"> </span><span class="n">CONFIDENCE</span><span class="w"> </span><span class="n">INTERVAL</span><span class="w"> </span><span class="n">CALCULATIONS</span><span class="w">
+</span><span class="n">Based</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="n">bootstrap</span><span class="w"> </span><span class="n">replicates</span><span class="w">
+
+</span><span class="n">CALL</span><span class="w"> </span><span class="o">:</span><span class="w">
+</span><span class="n">boot.ci</span><span class="p">(</span><span class="n">boot.out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boot_kendall</span><span class="p">)</span><span class="w">
+
+</span><span class="n">Intervals</span><span class="w"> </span><span class="o">:</span><span class="w">
+</span><span class="n">Level</span><span class="w">      </span><span class="n">Normal</span><span class="w">              </span><span class="n">Basic</span><span class="w">         
+</span><span class="m">95</span><span class="o">%   (-0.4881, -0.1115 )   (-0.4940, -0.1153 )  
+
+Level     Percentile            BCa          
+95%</span><span class="w">   </span><span class="p">(</span><span class="m">-0.4852</span><span class="p">,</span><span class="w"> </span><span class="m">-0.1065</span><span class="w"> </span><span class="p">)</span><span class="w">   </span><span class="p">(</span><span class="m">-0.4763</span><span class="p">,</span><span class="w"> </span><span class="m">-0.0927</span><span class="w"> </span><span class="p">)</span><span class="w">  
+</span><span class="n">Calculations</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">Intervals</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">Original</span><span class="w"> </span><span class="n">Scale</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="이연-상관과-점이연-상관">이연 상관과 점이연 상관</h3>
+
+<ul>
+  <li>이연 상관 : 범주들 사이에 연속체가 있는 경우 -&gt; 시험 통과 여부 [ 100점으로 통과, 75점으로 가까스로 통과 ]</li>
+  <li>점이연 상관 : 범주들 사이에 연속체가 전혀 없는 경우 -&gt; 사망 여부</li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">catData</span><span class="w">
+   </span><span class="n">time</span><span class="w"> </span><span class="n">gender</span><span class="w"> </span><span class="n">recode</span><span class="w">
+</span><span class="m">1</span><span class="w">    </span><span class="m">41</span><span class="w">      </span><span class="m">1</span><span class="w">      </span><span class="m">0</span><span class="w">
+</span><span class="m">2</span><span class="w">    </span><span class="m">40</span><span class="w">      </span><span class="m">0</span><span class="w">      </span><span class="m">1</span><span class="w">
+</span><span class="m">3</span><span class="w">    </span><span class="m">40</span><span class="w">      </span><span class="m">1</span><span class="w">      </span><span class="m">0</span><span class="w">
+</span><span class="m">4</span><span class="w">    </span><span class="m">38</span><span class="w">      </span><span class="m">1</span><span class="w">      </span><span class="m">0</span><span class="w">
+
+</span><span class="c1"># 점이연</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cor.test</span><span class="p">(</span><span class="n">catData</span><span class="o">$</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">catData</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># 	Pearson's product-moment correlation</span><span class="w">
+
+</span><span class="c1"># data:  catData$time and catData$gender</span><span class="w">
+</span><span class="c1"># t = 3.1138, df = 58, p-value = 0.002868</span><span class="w">
+</span><span class="c1"># alternative hypothesis: true correlation is not equal to 0</span><span class="w">
+</span><span class="c1"># 95 percent confidence interval:</span><span class="w">
+</span><span class="c1">#  0.137769 0.576936</span><span class="w">
+</span><span class="c1"># sample estimates:</span><span class="w">
+</span><span class="c1">#       cor</span><span class="w">
+</span><span class="c1"># 0.3784542</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>이연, 점이연 상관에서 상관계수의 부호는 전적으로 어떤 범주에 어떤 코드를 배정하는가에 달려 있을 뿐이므로, 상관의 방향에 관한 모든 정보는 무시해야 한다.<br />
+\(R^2 = 0.143\) -&gt; 고양이의 성별이 고양이가 집 밖에서 보낸 시간의 변동의 14.3%를 설명한다는 결론</p>
+</blockquote>
+
+<ul>
+  <li>점이연 -&gt; 이연 상관계수로 변경
+    <blockquote>
+      <p>\(r_b = \frac{r_{pb}\sqrt{pq}}{y}\)<br />
+\(r_b\) : 이연 상관계수<br />
+\(r_{pb}\) : 점이연 상관계수<br />
+p : 가장 큰 범주에 속하는 사례들의 비율<br />
+q : 가장 작은 범주에 속하는 사례들의 비율</p>
+    </blockquote>
+  </li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">catFrequencies</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="n">catData</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">prop.table</span><span class="p">(</span><span class="n">catFrequencies</span><span class="p">)</span><span class="w">
+
+        </span><span class="m">0</span><span class="w">         </span><span class="m">1</span><span class="w">
+</span><span class="m">0.5333333</span><span class="w"> </span><span class="m">0.4666667</span><span class="w">
+</span><span class="c1"># 수고양이(1)의 비율 : 0.467, 암고양이(0)의 비율 : 0.533</span><span class="w">
+</span><span class="c1"># 적은 비율인 수고양이 값을 q, 암고양이 비율을 p</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">polyserial</span><span class="p">(</span><span class="n">catData</span><span class="o">$</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">catData</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span><span class="w"> </span><span class="c1"># 이연 상관계수</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0.4749256</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>이연 상관계수의 유의성을 판정하려면 표준오차를 구해야 함</li>
+</ul>
+
+<blockquote>
+  <p>\(SE_{r_b} = \frac{\sqrt{pq}}{y\sqrt{N}}\)<br />
+Ex. \(SE_{r_b}\) = 0.162 -&gt; \(z_{r_b} = \frac{r_b - \bar{r_b}}{SE_{r_b}}\)<br />
+모집단의 평균이 0이라고 가정(귀무가설)했으므로 -&gt; \(\bar{r_b} = 0\) -&gt; \(z_{r_b} = 2.93\)<br />
+한쪽꼬리 확률 : 0.00169 -&gt; 양쪽꼬리 확률 : 0.00338 &lt; 0.01 이므로 유의</p>
+</blockquote>
+
+<h2 id="편상관">편상관</h2>
+
+<ul>
+  <li>편상관 : 다른 변수의 효과를 고정한 상태에서의 두 변수의 상관</li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">pc</span><span class="o">&lt;-</span><span class="n">pcor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"Exam"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Anxiety"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Revise"</span><span class="p">),</span><span class="w"> </span><span class="n">var</span><span class="p">(</span><span class="n">examData2</span><span class="p">))</span><span class="w"> </span><span class="c1"># pcor(c("변수1", "변수2", "제어 변수1", "제어 변수2", ...), var(데이터프레임))</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pc</span><span class="w"> </span><span class="c1"># Exam 과 Anxiety 두 변수의 편상관계수</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">-0.2466658</span><span class="w">
+</span></code></pre></div></div>
+<blockquote>
+  <p>Exam : 시험 점수, Anxiety : 시험 불안, Revise : 복습 시간</p>
+</blockquote>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">pc</span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="c1"># 결정계수</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0.06084403</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>유의성 판정</li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">pcor.test</span><span class="p">(</span><span class="n">pc</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">103</span><span class="p">)</span><span class="w"> </span><span class="c1"># pcor로 만든 객체, 제어 변수의 개수, 표본 크기</span><span class="w">
+</span><span class="o">$</span><span class="n">tval</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">-2.545307</span><span class="w">
+
+</span><span class="o">$</span><span class="n">df</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">100</span><span class="w">
+
+</span><span class="o">$</span><span class="n">pvalue</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0.01244581</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>P &lt; 0.05 로 유의하지만, \(R^2 = 0.06\)이므로 시험 불안이 시험 성적 변동의 6%만 공유한다는 뜻</p>
+</blockquote>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#discovering-statistics-using-r---006---2024년12월05일">Discovering Statistics Using R - 006 - 2024년12월05일</a></li>
+<li class="toc-entry toc-h1"><a href="#상관">상관</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#관계를-측정하는-방법">관계를 측정하는 방법</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#공분산">공분산</a></li>
+<li class="toc-entry toc-h3"><a href="#표준화">표준화</a></li>
+<li class="toc-entry toc-h3"><a href="#상관계수의-유의성">상관계수의 유의성</a></li>
+<li class="toc-entry toc-h3"><a href="#r의-신뢰구간">r의 신뢰구간</a></li>
+<li class="toc-entry toc-h3"><a href="#해석에-관한-경고">해석에 관한 경고</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#상관분석을-위한-r">상관분석을 위한 R</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#피어슨-상관계수">피어슨 상관계수</a></li>
+<li class="toc-entry toc-h3"><a href="#결정계수">결정계수</a></li>
+<li class="toc-entry toc-h3"><a href="#스피어먼-상관계수">스피어먼 상관계수</a></li>
+<li class="toc-entry toc-h3"><a href="#켄달의-타우비모수적-상관계수">켄달의 타우(비모수적 상관계수)</a></li>
+<li class="toc-entry toc-h3"><a href="#부트스트랩-방법을-적용한-상관분석">부트스트랩 방법을 적용한 상관분석</a></li>
+<li class="toc-entry toc-h3"><a href="#이연-상관과-점이연-상관">이연 상관과 점이연 상관</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#편상관">편상관</a></li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/12/05/Discovering-Statistics-Using-R-006.html">Discovering Statistics Using R - 006 [ 2024년12월05일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/04/Discovering-Statistics-Using-R-005.html">Discovering Statistics Using R - 005 [ 2024년12월04일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/03/Discovering-Statistics-Using-R-004.html">Discovering Statistics Using R - 004 [ 2024년12월03일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/30/Discovering-Statistics-Using-R-003.html">Discovering Statistics Using R - 003 [ 2024년11월30일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/29/Discovering-Statistics-Using-R-002.html">Discovering Statistics Using R - 002 [ 2024년11월29일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/28/Discovering-Statistics-Using-R-001.html">Discovering Statistics Using R - 001 [ 2024년11월28일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
