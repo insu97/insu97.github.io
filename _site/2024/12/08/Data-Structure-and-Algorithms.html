@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Data Structure and Algorithms</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="data-structure-and-algorithms---2024년12월08일">Data Structure and Algorithms - 2024년12월08일</h1>
+
+<!-- - tag : Computer_Science  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Computer_Science.html" class="btn btn-default navbar-btn cursorNorm" role="button">Computer_Science</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="introduction-to-data-structures">Introduction to Data Structures</h1>
+
+<h2 id="data-structures">Data Structures</h2>
+
+<blockquote>
+  <p>데이터를 구성, 저장, 조작하는 방법을 의미함 [ 데이터의 관리 효율성을 조절하기 위한 여러가지 구조에 관한 내용 ]<br />
+대표적으로 Array, List, Stack, Queue, Tree, Graph 가 있다.</p>
+</blockquote>
+
+<h2 id="abstract-data-typeadt">Abstract Data Type(=ADT)</h2>
+
+<blockquote>
+  <p>프로그래밍을 함에 있어 데이터를 추상화하여 논리적인 구조를 정의한 것</p>
+</blockquote>
+
+<ul>
+  <li>장점
+    <ol>
+      <li>데이터에 대한 정보를 이해하고 저장하는 방식을 결정함으로써 최적의 알고리즘을 개발할 수 있음</li>
+      <li>프로그래밍을 효율적으로 구현할 수 있도록 도와줌</li>
+    </ol>
+  </li>
+  <li>Abstract
+    <blockquote>
+      <p>복잡한 데이터나 시스템 등으로부터 핵심적인 개념 또는 기능을 간추려 내는 것<br />
+실제 데이터의 형태를 그대로 다루는 것이 아니라 데이터가 가져야하는 명세(specification)를 기반으로 만듬</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="time-and-space-complexity">Time and space complexity</h2>
+
+<ul>
+  <li>Time complexity : 프로그램이 실행되고, 완료되는데 걸리는 시간
+    <blockquote>
+      <p>Compile Time<br />
+Execution Time [ 주로 이 복잡도 사용 ]</p>
+    </blockquote>
+  </li>
+  <li>Space complexity : 프로그램이 실행되고, 완료되는데 필요한 메모리
+    <blockquote>
+      <p>고정 공간 요구량 : 자료구조가 사용하는 고정된 메모리 공간을 의미[Ex. int, double]<br />
+가변 공간 요구량 : 필요에 따라 동적으로 할당, 해제되는 메모리 공간을 의미[Ex. function call]</p>
+    </blockquote>
+  </li>
+  <li>Big Oh, Big Ω, and Big Θ notation
+    <blockquote>
+      <p>Big oh : 최악의 경우<br />
+Big Ω : 최선의 경우<br />
+Big Θ : 평균</p>
+    </blockquote>
+  </li>
+</ul>
+
+\[f(n) = O(g(n)) \iff \exists C &gt; 0, n_0 \in \mathbb{N} \text{ such that } \forall n \geq n_0, 0 \leq f(n) \leq Cg(n)\]
+
+<h1 id="stacks-and-queues">Stacks and Queues</h1>
+
+<h2 id="stack">Stack</h2>
+
+<blockquote>
+  <p>LIFO(Last-In, First-Out) 구조를 가진 자료구조<br />
+가장 최근에 삽입한 요소를 top이라고 지칭한다.<br />
+Stack의 구조는 컴퓨터 가상메모리의 Stack 영역에서 사용되는데, 함수가 호출되면서 다시 복귀할 주소를 저장하거나, 지역변수, 매개변수 등을 임시로 저장하는데에 쓰인다.</p>
+</blockquote>
+
+<h2 id="queues">Queues</h2>
+
+<blockquote>
+  <p>FIFO(First-In, First-Out) 구조를 가진 자료구조<br />
+front와 rear로 가장 먼저 들어온 요소와 제일 마지막에 들어온 요소에 접근한다.<br />
+Enqueue : queue에 원소를 삽입  | Dequeue : queue에서 원소를 삭제</p>
+</blockquote>
+
+<h1 id="linked-list-and-hash-table">Linked List and Hash Table</h1>
+
+<h2 id="array">Array</h2>
+
+<blockquote>
+  <p>연속된 메모리 공간에 같은 타입의 데이터를 순차적으로 저장하는 자료구조<br />
+크기가 고정되어 있기 때문에 배열을 생성할 때 크기를 지정해줘야함[ 배열이 가득 차는 경우 새로운 데이터를 추가할 수 없거나 기존 데이터를 삭제해야 함 ]</p>
+</blockquote>
+
+<h2 id="linked-list">Linked List</h2>
+
+<blockquote>
+  <p>생성 후에 자유롭게 원소를 추가/삭제할 수 있는 자료구조<br />
+가변적인 길이를 가지고 있기 때문에, 새로운 데이터 추가에 대한 제한이 거의 없다는 장점이 있다.</p>
+</blockquote>
+
+<h2 id="hash-table">Hash Table</h2>
+
+<blockquote>
+  <p>데이터의 key를 hash function 을 통해 hash value으로 변환하고, 이 값을 인덱스로 사용하여 데이터를 저장하거나 검색하는 효율적인 자료 구조<br />
+평균적으로 O(1)의 시간 복잡도로 데이터에 접근할 수 있다.<br />
+Hash Table의 사용 목적은 정해진 메모리에 여러 원소를 효율적으로 저장하여 indexing 성능을 O(1)에 가깝게 만드는 것<br />
+Hash function을 통해 hashing을 하게 되면 다른 원소가 같은 index를 가지는 hash collision이 발생</p>
+</blockquote>
+
+<ul>
+  <li>Hash Collision을 해결하기 위한 방법
+    <ol>
+      <li>Separate Chaining
+        <blockquote>
+          <p>방법 : 해시 테이블의 각 인덱스에 연결 리스트나 다른 자료 구조를 사용하여 여러 개의 key-value pair를 저장<br />
+장점 : 간단하고 동적으로 크기를 조절하기 쉽다.</p>
+        </blockquote>
+      </li>
+      <li>Open Addressing
+        <blockquote>
+          <p>방법 : 충돌이 발생하면 다른 빈 슬롯을 찾아 데이터를 저장</p>
+        </blockquote>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h1 id="trees-and-graphs">Trees and Graphs</h1>
+
+<h1 id="basic-algorithm-design">Basic Algorithm Design</h1>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#data-structure-and-algorithms---2024년12월08일">Data Structure and Algorithms - 2024년12월08일</a></li>
+<li class="toc-entry toc-h1"><a href="#introduction-to-data-structures">Introduction to Data Structures</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#data-structures">Data Structures</a></li>
+<li class="toc-entry toc-h2"><a href="#abstract-data-typeadt">Abstract Data Type(=ADT)</a></li>
+<li class="toc-entry toc-h2"><a href="#time-and-space-complexity">Time and space complexity</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#stacks-and-queues">Stacks and Queues</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#stack">Stack</a></li>
+<li class="toc-entry toc-h2"><a href="#queues">Queues</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#linked-list-and-hash-table">Linked List and Hash Table</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#array">Array</a></li>
+<li class="toc-entry toc-h2"><a href="#linked-list">Linked List</a></li>
+<li class="toc-entry toc-h2"><a href="#hash-table">Hash Table</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#trees-and-graphs">Trees and Graphs</a></li>
+<li class="toc-entry toc-h1"><a href="#basic-algorithm-design">Basic Algorithm Design</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/12/08/Data-Structure-and-Algorithms.html">Data Structure and Algorithms [ 2024년12월08일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/07/Introduction-to-Computer-Science.html">Introdiction to Computer Science [ 2024년12월07일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
