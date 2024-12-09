@@ -4,6 +4,7 @@ title : Machine Learning At Work - 10
 tags : [Machine_Learning_At_Work, Book]
 toc : true
 ---
+
 {% include markdown.html %}
 
 # 업리프트 모델링을 이용한 마케팅 리소스 효율화

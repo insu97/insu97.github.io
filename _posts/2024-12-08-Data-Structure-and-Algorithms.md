@@ -84,4 +84,120 @@ $$f(n) = O(g(n)) \iff \exists C > 0, n_0 \in \mathbb{N} \text{ such that } \fora
 
 # Trees and Graphs
 
+> Tree는 데이터 속 항목을 계층적으로 구조화하는 자료구조
+
+- 용어
+1. Node : 트리 구조의 교점으로 Node는 데이터(value)를 가지고 있고, 자식노드를 가지고 있다.
+2. Root Node : 트리 구조에서 가장 위에 있는 노드, 즉 시작점이 되는 노드
+3. edge(link) : 트리를 구성하기 위해 노드와 노드를 연결하는 선
+4. level : 트리의 특정 깊이를 가지는 노드의 집합
+5. degree : 각 노드가 지닌 가지의 수를 말하며 '차수'라고도 함
+6. Leaf Node(Terminal Node) : 하위에 다른 노드가 연결되어 있지 않은 노드
+7. Internal Node : Leaf노드를 제외한 중간에 위치한 노드들
+8. Depth(=Height) : 트리에 가장 큰 Level의 숫자
+
+![image_01](/assets/images/Computer_Science/img_01.png){: style="width: 30vw; height: 20vw" }
+
+## Type of Trees
+
+### Binary Tree
+
+> 자식 Node가 최대 둘 뿐인 Tree  
+> Decision Tree중에 가장 많이 사용되는 CART(Classification and Regression Tree)가 있다.
+
+### Balanced Tree
+
+> 어느 한쪽으로 데이터가 치우치지 않도록 균형을 지킬 수 있는 규칙을 가지고 있다.  
+> 검색용 tree들은 다 검색 효율성을 위해 balanced tree로 정의[Ex. B-tree, B+ tree]
+
+## Graphs
+
+> 그래프는 관계를 모델링 하기 위한 자료구조  
+
+- 용어
+1. Vertex(=Node) : Tree에서 Node와 같은 개념
+2. Edge(=link) : 정점과 정점을 있는 선
+3. weight : edge의 가중치 값
+4. degree : Vertex에 연결되어 있는 Edge 수
+> out-degree : 방향이 있는 그래프에서 정점에서부터 출발하는 간선의 수
+> in-degree : 방향이 있는 그래프에서 정점으로부터 들어오는 간선의 수
+5. Path : $$V_i$$에서 $$V_j$$까지 간선으로 연결된 정점을 순서대로 나열한 리스트
+> Ex. A -> E : {A, B, D, E}
+6. Path length : 경로를 구성하는 간선의 수
+7. Cycle : 경로 중에서 경로의 시작 정점과 마지막 정점이 같은 경로
+
+### Undirected Graph
+
+> 두 정점을 연결하는 간선에 방향이 없는 그래프, 가장 기본적  [ (A, B) == (B, A) ]
+
+![image_02](/assets/images/Computer_Science/img_02.png)
+
+### Directed Graph
+
+> 간선에 방향이 있어 정해진 방향으로만 이동할 수 있는 그래프 [ <A, B> : A는 출발 정점, B는 도착 정점 ]
+
+![image_03](/assets/images/Computer_Science/img_03.png)
+
+### Weighted Graph
+
+> 정점을 연결하는 간선에 가중치(Weight)를 할당한 그래프
+
+![image_04](/assets/images/Computer_Science/img_04.png)
+
 # Basic Algorithm Design
+
+- Algorithm은 어떠한 문제를 해결하기 위해 정해진 일련의 절차나 방법을 공식화한 형태로 표현한 것
+- Algorithm은 입력, 출력, 명확성, 유한성, 효율성의 조건을 만족해야 한다.
+- 좋은 Algorithm이란 효율성을 고려한 Algorithm -> 공간복잡도와 시간복잡도를 고려해 알고리즘을 짜야함['efficiency']
+
+## Sorting Algorithm
+
+> 주어진 데이터를 정해진 순서대로 재배열하는 알고리즘이다.
+
+```
+-> 데이터 간의 비교가 가능해야 함
+-> 비교를 하려면 기준이 있어야 함
+-> 기준을 정하려면 계산 방법이 있어야 함
+```
+
+### Bubble Sort
+
+- Time complexity : $$ O(N^2) $$
+- 인접한 두 원소를 비교하면서 큰 값을 뒤로 보내며 정렬이 이루어짐
+
+### Selection Sort
+
+- Time complexity : $$ O(N^2) $$
+- 리스트에서 최솟값을 찾아 맨 앞의 요소와 위치를 바꾼다.
+
+### Insertion Sorting
+
+- 리스트의 요소를 하나씩 가져와서 이미 정렬된 앞 부분과 비교하여 적절한 위치에 삽입함.
+
+### Quick Sort
+
+- 분할 정복(divide and conquer)방법을 통해 리스트를 정렬하는 알고리즘
+> 분할 정복이란? 복잡한 전체의 문제를 부분으로 나누어, 부분적인 문제를 해결하고 다시 합쳐 전체를 해결하는 방식
+
+- 구현 방식
+
+![image_05](/assets/images/Computer_Science/img_05.png)
+
+## Searching Algorithm
+
+### Linear Search(순차 탐색)
+
+- Time complexity : $$ O(N) $$
+- 처음부터 끝까지 순서대로 모든 데이터를 탐색하는 방법
+
+### Binary Search(이진 탐색)
+
+- 정렬된 데이터에서 특정 값을 찾을 때 사용하는 방법[Time complexity : $$ O(log_{2}N) $$]
+- IF 정렬이 안되어있을 때, 정렬하는데 O(NlogN)시간을 지불하고 사용 가능!
+
+```
+정렬이 되어있지 않을 때
+- Linear Search : m * O(N)
+- Binary Search : O(NlogN) + m * O(logN)
+> m < logN 이면, Linear Search를 사용, 그렇지 않으면 Binary Search를 사용
+```
