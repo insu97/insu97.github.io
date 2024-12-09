@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Computer Architecture",
+      "category" : "",
+      "tags"     : "Computer_Science",
+      "url"      : "/2024/12/09/Computer-Architecture.html",
+      "date"     : "2024-12-09 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Data Structure and Algorithms",
       "category" : "",
       "tags"     : "Computer_Science",
