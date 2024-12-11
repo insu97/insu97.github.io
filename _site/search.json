@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Operating System Concepts",
+      "category" : "",
+      "tags"     : "Computer_Science",
+      "url"      : "/2024/12/11/Operating-System-Concepts.html",
+      "date"     : "2024-12-11 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Discovering Statistics Using R - 008",
       "category" : "",
       "tags"     : "Discovering_Statistics_Using_R, R",
