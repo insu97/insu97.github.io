@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Discovering Statistics Using R - 009</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="discovering-statistics-using-r---009---2024년12월12일">Discovering Statistics Using R - 009 - 2024년12월12일</h1>
+
+<!-- - tag : Discovering_Statistics_Using_R R  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Discovering_Statistics_Using_R.html" class="btn btn-default navbar-btn cursorNorm" role="button">Discovering_Statistics_Using_R</a>
+|
+<a href="/tags/tag_R.html" class="btn btn-default navbar-btn cursorNorm" role="button">R</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="두-평균의-비교">두 평균의 비교</h1>
+
+<ul>
+  <li>평균을 비교하는 방법
+    <ol>
+      <li>서로 다른 여러 그룹에 각각 다른 실험적 조작을 가하는 것[=그룹간 설계, 독립설계]</li>
+      <li>하나의 그룹에 서로 다른 시점에서 여러 실험적 조작을 가하는 것[=반복측정 설계]</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="차이-살펴보기">차이 살펴보기</h2>
+
+<h3 id="data">Data</h3>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">spiderLong</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+    </span><span class="n">Group</span><span class="w"> </span><span class="n">Anxiety</span><span class="w">
+</span><span class="m">1</span><span class="w"> </span><span class="n">Picture</span><span class="w">      </span><span class="m">30</span><span class="w">
+</span><span class="m">2</span><span class="w"> </span><span class="n">Picture</span><span class="w">      </span><span class="m">35</span><span class="w">
+</span><span class="m">3</span><span class="w"> </span><span class="n">Picture</span><span class="w">      </span><span class="m">45</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+  </span><span class="n">picture</span><span class="w"> </span><span class="n">real</span><span class="w">
+</span><span class="m">1</span><span class="w">      </span><span class="m">30</span><span class="w">   </span><span class="m">40</span><span class="w">
+</span><span class="m">2</span><span class="w">      </span><span class="m">35</span><span class="w">   </span><span class="m">35</span><span class="w">
+</span><span class="m">3</span><span class="w">      </span><span class="m">45</span><span class="w">   </span><span class="m">50</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">stat_summary</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Spider Picture"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">picture</span><span class="p">),</span><span class="w">
+                 </span><span class="n">fun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bar"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">stat_summary</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Spider Picture"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">picture</span><span class="p">),</span><span class="w">
+                 </span><span class="n">fun.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_cl_normal</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pointrange"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">stat_summary</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Spider Real"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">real</span><span class="p">),</span><span class="w">
+                 </span><span class="n">fun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"bar"</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">stat_summary</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Spider Real"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">real</span><span class="p">),</span><span class="w">
+                 </span><span class="n">fun.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean_cl_normal</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pointrange"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Type of Stimulus"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Anxiety"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">theme_minimal</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_033.png" alt="image_01" style="width: 30vw; height: 20vw" /></p>
+
+<h3 id="평균계산">평균계산</h3>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">pMean</span><span class="o">&lt;-</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="w"> </span><span class="c1"># 각 실험 참가자의 평균 계산</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">3</span><span class="p">)</span><span class="w">
+  </span><span class="n">picture</span><span class="w"> </span><span class="n">real</span><span class="w"> </span><span class="n">pMean</span><span class="w">
+</span><span class="m">1</span><span class="w">      </span><span class="m">30</span><span class="w">   </span><span class="m">40</span><span class="w">  </span><span class="m">35.0</span><span class="w">
+</span><span class="m">2</span><span class="w">      </span><span class="m">35</span><span class="w">   </span><span class="m">35</span><span class="w">  </span><span class="m">35.0</span><span class="w">
+</span><span class="m">3</span><span class="w">      </span><span class="m">45</span><span class="w">   </span><span class="m">50</span><span class="w">  </span><span class="m">47.5</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">grandMean</span><span class="o">&lt;-</span><span class="n">mean</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="p">,</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">))</span><span class="w"> </span><span class="c1"># 총 평균 계산</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">grandMean</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">43.5</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="조정인자-계산">조정인자 계산</h3>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">adj</span><span class="o">&lt;-</span><span class="n">grandMean</span><span class="o">-</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">pMean</span><span class="w"> </span><span class="c1"># 조정인자 계산</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">3</span><span class="p">)</span><span class="w">
+  </span><span class="n">picture</span><span class="w"> </span><span class="n">real</span><span class="w"> </span><span class="n">pMean</span><span class="w">  </span><span class="n">adj</span><span class="w">
+</span><span class="m">1</span><span class="w">      </span><span class="m">30</span><span class="w">   </span><span class="m">40</span><span class="w">  </span><span class="m">35.0</span><span class="w">  </span><span class="m">8.5</span><span class="w">
+</span><span class="m">2</span><span class="w">      </span><span class="m">35</span><span class="w">   </span><span class="m">35</span><span class="w">  </span><span class="m">35.0</span><span class="w">  </span><span class="m">8.5</span><span class="w">
+</span><span class="m">3</span><span class="w">      </span><span class="m">45</span><span class="w">   </span><span class="m">50</span><span class="w">  </span><span class="m">47.5</span><span class="w"> </span><span class="m">-4.0</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="조정인자로-각-값을-조정">조정인자로 각 값을 조정</h3>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture_adj</span><span class="o">&lt;-</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">adj</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real_adj</span><span class="o">&lt;-</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">adj</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">3</span><span class="p">)</span><span class="w">
+  </span><span class="n">picture</span><span class="w"> </span><span class="n">real</span><span class="w"> </span><span class="n">pMean</span><span class="w">  </span><span class="n">adj</span><span class="w"> </span><span class="n">picture_adj</span><span class="w"> </span><span class="n">real_adj</span><span class="w">
+</span><span class="m">1</span><span class="w">      </span><span class="m">30</span><span class="w">   </span><span class="m">40</span><span class="w">  </span><span class="m">35.0</span><span class="w">  </span><span class="m">8.5</span><span class="w">        </span><span class="m">38.5</span><span class="w">     </span><span class="m">48.5</span><span class="w">
+</span><span class="m">2</span><span class="w">      </span><span class="m">35</span><span class="w">   </span><span class="m">35</span><span class="w">  </span><span class="m">35.0</span><span class="w">  </span><span class="m">8.5</span><span class="w">        </span><span class="m">43.5</span><span class="w">     </span><span class="m">43.5</span><span class="w">
+</span><span class="m">3</span><span class="w">      </span><span class="m">45</span><span class="w">   </span><span class="m">50</span><span class="w">  </span><span class="m">47.5</span><span class="w"> </span><span class="m">-4.0</span><span class="w">        </span><span class="m">41.0</span><span class="w">     </span><span class="m">46.0</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">pMean2</span><span class="o">&lt;-</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture_adj</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real_adj</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="w"> </span><span class="c1"># pMean2값이 전부 같은데 이는 평균의 개체 간 변동이 사라졌다는 증거</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">3</span><span class="p">)</span><span class="w">
+  </span><span class="n">picture</span><span class="w"> </span><span class="n">real</span><span class="w"> </span><span class="n">pMean</span><span class="w">  </span><span class="n">adj</span><span class="w"> </span><span class="n">picture_adj</span><span class="w"> </span><span class="n">real_adj</span><span class="w"> </span><span class="n">pMean2</span><span class="w">
+</span><span class="m">1</span><span class="w">      </span><span class="m">30</span><span class="w">   </span><span class="m">40</span><span class="w">  </span><span class="m">35.0</span><span class="w">  </span><span class="m">8.5</span><span class="w">        </span><span class="m">38.5</span><span class="w">     </span><span class="m">48.5</span><span class="w">   </span><span class="m">43.5</span><span class="w">
+</span><span class="m">2</span><span class="w">      </span><span class="m">35</span><span class="w">   </span><span class="m">35</span><span class="w">  </span><span class="m">35.0</span><span class="w">  </span><span class="m">8.5</span><span class="w">        </span><span class="m">43.5</span><span class="w">     </span><span class="m">43.5</span><span class="w">   </span><span class="m">43.5</span><span class="w">
+</span><span class="m">3</span><span class="w">      </span><span class="m">45</span><span class="w">   </span><span class="m">50</span><span class="w">  </span><span class="m">47.5</span><span class="w"> </span><span class="m">-4.0</span><span class="w">        </span><span class="m">41.0</span><span class="w">     </span><span class="m">46.0</span><span class="w">   </span><span class="m">43.5</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/assets/images/Book/Discovering_Statistics_Using_R/Rplot_034.png" alt="image_02" style="width: 30vw; height: 20vw" /></p>
+
+<blockquote>
+  <p>맨 처음 그래프와 비교</p>
+  <ol>
+    <li>두 조건의 평균이 바뀌지 않았다.</li>
+    <li>오차 막대들은 이전보다 짧아졌으며, 겹치는 현상이 없어졌다.</li>
+  </ol>
+</blockquote>
+
+<h2 id="t-검정">T 검정</h2>
+
+<h3 id="일반선형모형으로서의-t검정">일반선형모형으로서의 t검정</h3>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">t.test.GLM</span><span class="o">&lt;-</span><span class="n">lm</span><span class="p">(</span><span class="n">Anxiety</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Group</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spiderLong</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">summary</span><span class="p">(</span><span class="n">t.test.GLM</span><span class="p">)</span><span class="w">
+
+</span><span class="n">Call</span><span class="o">:</span><span class="w">
+</span><span class="n">lm</span><span class="p">(</span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Anxiety</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Group</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spiderLong</span><span class="p">)</span><span class="w">
+
+</span><span class="n">Residuals</span><span class="o">:</span><span class="w">
+   </span><span class="n">Min</span><span class="w">     </span><span class="m">1</span><span class="n">Q</span><span class="w"> </span><span class="n">Median</span><span class="w">     </span><span class="m">3</span><span class="n">Q</span><span class="w">    </span><span class="n">Max</span><span class="w">
+ </span><span class="m">-17.0</span><span class="w">   </span><span class="m">-8.5</span><span class="w">    </span><span class="m">1.5</span><span class="w">    </span><span class="m">8.0</span><span class="w">   </span><span class="m">18.0</span><span class="w">
+
+</span><span class="n">Coefficients</span><span class="o">:</span><span class="w">
+                 </span><span class="n">Estimate</span><span class="w"> </span><span class="n">Std.</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">Pr</span><span class="p">(</span><span class="o">&gt;|</span><span class="n">t</span><span class="o">|</span><span class="p">)</span><span class="w">    
+</span><span class="p">(</span><span class="n">Intercept</span><span class="p">)</span><span class="w">        </span><span class="m">40.000</span><span class="w">      </span><span class="m">2.944</span><span class="w">  </span><span class="m">13.587</span><span class="w"> </span><span class="m">3.53e-12</span><span class="w"> </span><span class="o">***</span><span class="w">
+</span><span class="n">GroupReal</span><span class="w"> </span><span class="n">Spider</span><span class="w">    </span><span class="m">7.000</span><span class="w">      </span><span class="m">4.163</span><span class="w">   </span><span class="m">1.681</span><span class="w">    </span><span class="m">0.107</span><span class="w">    
+</span><span class="o">---</span><span class="w">
+</span><span class="n">Signif.</span><span class="w"> </span><span class="n">codes</span><span class="o">:</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="err">‘</span><span class="o">***</span><span class="err">’</span><span class="w"> </span><span class="m">0.001</span><span class="w"> </span><span class="err">‘</span><span class="o">**</span><span class="err">’</span><span class="w"> </span><span class="m">0.01</span><span class="w"> </span><span class="err">‘</span><span class="o">*</span><span class="err">’</span><span class="w"> </span><span class="m">0.05</span><span class="w"> </span><span class="err">‘</span><span class="n">.</span><span class="err">’</span><span class="w"> </span><span class="m">0.1</span><span class="w"> </span><span class="err">‘</span><span class="w"> </span><span class="err">’</span><span class="w"> </span><span class="m">1</span><span class="w">
+
+</span><span class="n">Residual</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">error</span><span class="o">:</span><span class="w"> </span><span class="m">10.2</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="n">degrees</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">freedom</span><span class="w">
+</span><span class="n">Multiple</span><span class="w"> </span><span class="n">R</span><span class="o">-</span><span class="n">squared</span><span class="o">:</span><span class="w">  </span><span class="m">0.1139</span><span class="p">,</span><span class="w">	</span><span class="n">Adjusted</span><span class="w"> </span><span class="n">R</span><span class="o">-</span><span class="n">squared</span><span class="o">:</span><span class="w">  </span><span class="m">0.07359</span><span class="w">
+</span><span class="nb">F</span><span class="o">-</span><span class="n">statistic</span><span class="o">:</span><span class="w"> </span><span class="m">2.827</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="n">DF</span><span class="p">,</span><span class="w">  </span><span class="n">p</span><span class="o">-</span><span class="n">value</span><span class="o">:</span><span class="w"> </span><span class="m">0.1068</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>상수(\(b_0\))값이 평균과 같은 40이라는 점<br />
+회귀계수(\(b_1\))의 값이 두 그룹 평균의 차이(47 - 40 = 7)랑 같다.<br />
+\(b_1\)이 0과 유의하게 다른지를 검사한 결과인 t 통계량을 확인해보면 유의하지 않다.<br />
+따라서, \(b_1\)(두 그룹 평균의 차이)은 0과 유의하게 다르지 않다.</p>
+</blockquote>
+
+<h3 id="독립-t검정">독립 t검정</h3>
+
+<ul>
+  <li>절차
+    <ol>
+      <li>자료를 입력한다.</li>
+      <li>자료를 탐색한다.[그래프 -&gt; 기술통계량 확인 -&gt; 분포의 가정들도 점검]</li>
+      <li>검정통계량을 계산한다.</li>
+      <li>효과크기를 계산한다.</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">by</span><span class="p">(</span><span class="n">spiderLong</span><span class="o">$</span><span class="n">Anxiety</span><span class="p">,</span><span class="w"> </span><span class="n">spiderLong</span><span class="o">$</span><span class="n">Group</span><span class="p">,</span><span class="w"> </span><span class="n">stat.desc</span><span class="p">,</span><span class="w"> </span><span class="n">basic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="c1"># 기술 통계량 확인</span><span class="w">
+</span><span class="n">spiderLong</span><span class="o">$</span><span class="n">Group</span><span class="o">:</span><span class="w"> </span><span class="n">Picture</span><span class="w">
+      </span><span class="n">median</span><span class="w">         </span><span class="n">mean</span><span class="w">      </span><span class="n">SE.mean</span><span class="w"> </span><span class="n">CI.mean.0.95</span><span class="w">          </span><span class="n">var</span><span class="w">      </span><span class="n">std.dev</span><span class="w">     </span><span class="n">coef.var</span><span class="w">     </span><span class="n">skewness</span><span class="w">     </span><span class="n">skew.2SE</span><span class="w">
+  </span><span class="m">40.0000000</span><span class="w">   </span><span class="m">40.0000000</span><span class="w">    </span><span class="m">2.6827168</span><span class="w">    </span><span class="m">5.9046200</span><span class="w">   </span><span class="m">86.3636364</span><span class="w">    </span><span class="m">9.2932038</span><span class="w">    </span><span class="m">0.2323301</span><span class="w">    </span><span class="m">0.0000000</span><span class="w">    </span><span class="m">0.0000000</span><span class="w">
+    </span><span class="n">kurtosis</span><span class="w">     </span><span class="n">kurt.2SE</span><span class="w">   </span><span class="n">normtest.W</span><span class="w">   </span><span class="n">normtest.p</span><span class="w">
+  </span><span class="m">-1.3939289</span><span class="w">   </span><span class="m">-0.5656047</span><span class="w">    </span><span class="m">0.9650165</span><span class="w">    </span><span class="m">0.8522870</span><span class="w">
+</span><span class="o">------------------------------------------------------------------------------------------</span><span class="w">
+</span><span class="n">spiderLong</span><span class="o">$</span><span class="n">Group</span><span class="o">:</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">Spider</span><span class="w">
+       </span><span class="n">median</span><span class="w">          </span><span class="n">mean</span><span class="w">       </span><span class="n">SE.mean</span><span class="w">  </span><span class="n">CI.mean.0.95</span><span class="w">           </span><span class="n">var</span><span class="w">       </span><span class="n">std.dev</span><span class="w">      </span><span class="n">coef.var</span><span class="w">      </span><span class="n">skewness</span><span class="w">
+ </span><span class="m">50.000000000</span><span class="w">  </span><span class="m">47.000000000</span><span class="w">   </span><span class="m">3.183765638</span><span class="w">   </span><span class="m">7.007420922</span><span class="w"> </span><span class="m">121.636363636</span><span class="w">  </span><span class="m">11.028887688</span><span class="w">   </span><span class="m">0.234657185</span><span class="w">  </span><span class="m">-0.005590699</span><span class="w">
+     </span><span class="n">skew.2SE</span><span class="w">      </span><span class="n">kurtosis</span><span class="w">      </span><span class="n">kurt.2SE</span><span class="w">    </span><span class="n">normtest.W</span><span class="w">    </span><span class="n">normtest.p</span><span class="w">
+ </span><span class="m">-0.004386224</span><span class="w">  </span><span class="m">-1.459758279</span><span class="w">  </span><span class="m">-0.592315868</span><span class="w">   </span><span class="m">0.948872904</span><span class="w">   </span><span class="m">0.620569431</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>정규성 결과는 둘 다 유의하지 않다.</p>
+</blockquote>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">ind.t.test</span><span class="o">&lt;-</span><span class="n">t.test</span><span class="p">(</span><span class="n">Anxiety</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Group</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spiderLong</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ind.t.test</span><span class="w">
+
+	</span><span class="n">Welch</span><span class="w"> </span><span class="n">Two</span><span class="w"> </span><span class="n">Sample</span><span class="w"> </span><span class="n">t</span><span class="o">-</span><span class="n">test</span><span class="w">
+
+</span><span class="n">data</span><span class="o">:</span><span class="w">  </span><span class="n">Anxiety</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">Group</span><span class="w">
+</span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1.6813</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">21.385</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">-</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1072</span><span class="w">
+</span><span class="n">alternative</span><span class="w"> </span><span class="n">hypothesis</span><span class="o">:</span><span class="w"> </span><span class="n">true</span><span class="w"> </span><span class="n">difference</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">means</span><span class="w"> </span><span class="n">between</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="n">Picture</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">Spider</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="m">95</span><span class="w"> </span><span class="n">percent</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="n">interval</span><span class="o">:</span><span class="w">
+ </span><span class="m">-15.648641</span><span class="w">   </span><span class="m">1.648641</span><span class="w">
+</span><span class="n">sample</span><span class="w"> </span><span class="n">estimates</span><span class="o">:</span><span class="w">
+    </span><span class="n">mean</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="n">Picture</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="n">Real</span><span class="w"> </span><span class="n">Spider</span><span class="w">
+                       </span><span class="m">40</span><span class="w">                        </span><span class="m">47</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>p값이 0.05보다 크므로 그룹 평균들이 다르지 않다는 귀무가설을 기각할 수 없다.<br />
+신뢰구간의 하계와 상계는 95%의 경우에서 평균들의 진짜 차이가 포함되리라고 기대하는 차이 범위를 정의</p>
+</blockquote>
+
+<h4 id="독립-평균들의-강건한-비교-방법">독립 평균들의 강건한 비교 방법</h4>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">yuen</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="p">,</span><span class="w"> </span><span class="n">tr</span><span class="o">=</span><span class="m">.2</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">.05</span><span class="p">)</span><span class="w"> </span><span class="c1"># tr : 평균을 깎는(절사: trimming) 비율, alpha : 검정의 유의 수준(알파)을 설정</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">yuenbt</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="p">,</span><span class="w"> </span><span class="n">tr</span><span class="o">=</span><span class="m">.2</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">.05</span><span class="p">,</span><span class="w"> </span><span class="n">nboot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2000</span><span class="p">)</span><span class="w"> </span><span class="c1"># nboot : 사용할 부트스트랩 표본들의 개수</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pb2gen</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">.05</span><span class="p">,</span><span class="w"> </span><span class="n">nboot</span><span class="o">=</span><span class="m">2000</span><span class="p">,</span><span class="w"> </span><span class="n">est</span><span class="o">=</span><span class="n">mom</span><span class="p">)</span><span class="w"> </span><span class="c1"># 부트스트랩과 M 추정량(절사평균이 아니라)으로 검정을 수행</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="효과크기-계산">효과크기 계산</h4>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="o">&lt;-</span><span class="n">ind.t.test</span><span class="o">$</span><span class="n">statistic</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w"> </span><span class="c1"># t 검정의 t값</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">1.681346</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">df</span><span class="o">&lt;-</span><span class="n">ind.t.test</span><span class="o">$</span><span class="n">parameter</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w"> </span><span class="c1"># 자유도</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">df</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">21.38502</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">t</span><span class="o">^</span><span class="m">2</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="o">^</span><span class="m">2</span><span class="o">+</span><span class="n">df</span><span class="p">))</span><span class="w"> </span><span class="c1"># 효과크기 계산</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0.342</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>r = 0.342 &gt; 0.3 –&gt; 중간 효과</p>
+</blockquote>
+
+<h4 id="결과">결과</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>평균적으로 참가자들은 거미 사진을 보았을 때 (M = 40, SE = 2.68) 보다 진짜 거미를 보았을 때 더 많이 불안해했다.(M=47, SE=3.18).
+그 차이는 유의하지 않다(t(21.39) = -1.68, p &gt; 0.05).
+그렇긴 하지만, 그 차이는 중간 크기의 효과를 대표한다(r = 0.34)
+</code></pre></div></div>
+
+<h3 id="종속-t검정">종속 t검정</h3>
+
+<ul>
+  <li>통계량 확인</li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">stat.desc</span><span class="p">(</span><span class="n">spiderWide</span><span class="p">,</span><span class="w"> </span><span class="n">basic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="c1"># 기술 통계량 확인</span><span class="w">
+                </span><span class="n">picture</span><span class="w">          </span><span class="n">real</span><span class="w">
+</span><span class="n">median</span><span class="w">       </span><span class="m">40.0000000</span><span class="w">  </span><span class="m">50.000000000</span><span class="w">
+</span><span class="n">mean</span><span class="w">         </span><span class="m">40.0000000</span><span class="w">  </span><span class="m">47.000000000</span><span class="w">
+</span><span class="n">SE.mean</span><span class="w">       </span><span class="m">2.6827168</span><span class="w">   </span><span class="m">3.183765638</span><span class="w">
+</span><span class="n">CI.mean.0.95</span><span class="w">  </span><span class="m">5.9046200</span><span class="w">   </span><span class="m">7.007420922</span><span class="w">
+</span><span class="n">var</span><span class="w">          </span><span class="m">86.3636364</span><span class="w"> </span><span class="m">121.636363636</span><span class="w">
+</span><span class="n">std.dev</span><span class="w">       </span><span class="m">9.2932038</span><span class="w">  </span><span class="m">11.028887688</span><span class="w">
+</span><span class="n">coef.var</span><span class="w">      </span><span class="m">0.2323301</span><span class="w">   </span><span class="m">0.234657185</span><span class="w">
+</span><span class="n">skewness</span><span class="w">      </span><span class="m">0.0000000</span><span class="w">  </span><span class="m">-0.005590699</span><span class="w">
+</span><span class="n">skew.2SE</span><span class="w">      </span><span class="m">0.0000000</span><span class="w">  </span><span class="m">-0.004386224</span><span class="w">
+</span><span class="n">kurtosis</span><span class="w">     </span><span class="m">-1.3939289</span><span class="w">  </span><span class="m">-1.459758279</span><span class="w">
+</span><span class="n">kurt.2SE</span><span class="w">     </span><span class="m">-0.5656047</span><span class="w">  </span><span class="m">-0.592315868</span><span class="w">
+</span><span class="n">normtest.W</span><span class="w">    </span><span class="m">0.9650165</span><span class="w">   </span><span class="m">0.948872904</span><span class="w">
+</span><span class="n">normtest.p</span><span class="w">    </span><span class="m">0.8522870</span><span class="w">   </span><span class="m">0.620569431</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>t 검정</li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">dep.t.test</span><span class="o">&lt;-</span><span class="n">t.test</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="p">,</span><span class="w"> </span><span class="n">paired</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="c1"># paired = TRUE : 주어진 점수들이 종속적</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dep.t.test</span><span class="w">
+
+	</span><span class="n">Paired</span><span class="w"> </span><span class="n">t</span><span class="o">-</span><span class="n">test</span><span class="w">
+
+</span><span class="n">data</span><span class="o">:</span><span class="w">  </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="w">
+</span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2.4725</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">-</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.03098</span><span class="w">
+</span><span class="n">alternative</span><span class="w"> </span><span class="n">hypothesis</span><span class="o">:</span><span class="w"> </span><span class="n">true</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="n">difference</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="m">95</span><span class="w"> </span><span class="n">percent</span><span class="w"> </span><span class="n">confidence</span><span class="w"> </span><span class="n">interval</span><span class="o">:</span><span class="w">
+  </span><span class="m">0.7687815</span><span class="w"> </span><span class="m">13.2312185</span><span class="w">
+</span><span class="n">sample</span><span class="w"> </span><span class="n">estimates</span><span class="o">:</span><span class="w">
+</span><span class="n">mean</span><span class="w"> </span><span class="n">difference</span><span class="w">
+              </span><span class="m">7</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>t = 2.47, df = N - 1 = 11<br />
+거미 공포증 자료의 경우 그 확률은 아주 낮다(p = 0.031) -&gt; 즉, 귀무가설이 참일 때 t가 2.47일 가능성은 3.1%밖에 되지 않는다.<br />
+t값은 유의하며, t값이 양수라는 뜻은 첫 조건(real)의 평균이 둘째 조건(picture)의 평균보다 크다는 뜻<br />
+따라서 거미 사진보다 진짜 거미가 참가자들을 더 불안하게 했다고 말할 수 있다.<br />
+결론 : 사진을 제시했을 때보다 진짜 거미를 제시했을 때 거미 공포증 환자들이 유의하게 더 높은 수준의 불안을 보였다.</p>
+</blockquote>
+
+<ul>
+  <li>종속평균들을 비교하는 강건한 방법</li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">yuend</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="p">,</span><span class="w"> </span><span class="n">tr</span><span class="o">=</span><span class="m">.2</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">.05</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ydbt</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="p">,</span><span class="w"> </span><span class="n">tr</span><span class="o">=</span><span class="m">.2</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="m">.05</span><span class="p">,</span><span class="w"> </span><span class="n">nboot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2000</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bootdpci</span><span class="p">(</span><span class="n">spiderWide</span><span class="o">$</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">spiderWide</span><span class="o">$</span><span class="n">picture</span><span class="p">,</span><span class="w"> </span><span class="n">est</span><span class="o">=</span><span class="n">tmean</span><span class="p">,</span><span class="w"> </span><span class="n">nboot</span><span class="o">=</span><span class="m">2000</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>효과크기 계산</li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="o">&lt;-</span><span class="n">dep.t.test</span><span class="o">$</span><span class="n">statistic</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">2.472533</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">df</span><span class="o">&lt;-</span><span class="n">dep.t.test</span><span class="o">$</span><span class="n">parameter</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">df</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">t</span><span class="o">^</span><span class="m">2</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="o">^</span><span class="m">2</span><span class="o">+</span><span class="n">df</span><span class="p">))</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0.598</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>보고</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; 평균적으로 참가자들은 거미 사진을 보았을 때보다 진짜 거미를 보았을 때 유의하게 더 많이 불안해했다.
+</code></pre></div></div>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#discovering-statistics-using-r---009---2024년12월12일">Discovering Statistics Using R - 009 - 2024년12월12일</a></li>
+<li class="toc-entry toc-h1"><a href="#두-평균의-비교">두 평균의 비교</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#차이-살펴보기">차이 살펴보기</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#data">Data</a></li>
+<li class="toc-entry toc-h3"><a href="#평균계산">평균계산</a></li>
+<li class="toc-entry toc-h3"><a href="#조정인자-계산">조정인자 계산</a></li>
+<li class="toc-entry toc-h3"><a href="#조정인자로-각-값을-조정">조정인자로 각 값을 조정</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#t-검정">T 검정</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#일반선형모형으로서의-t검정">일반선형모형으로서의 t검정</a></li>
+<li class="toc-entry toc-h3"><a href="#독립-t검정">독립 t검정</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#독립-평균들의-강건한-비교-방법">독립 평균들의 강건한 비교 방법</a></li>
+<li class="toc-entry toc-h4"><a href="#효과크기-계산">효과크기 계산</a></li>
+<li class="toc-entry toc-h4"><a href="#결과">결과</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#종속-t검정">종속 t검정</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/12/12/Discovering-Statistics-Using-R-009.html">Discovering Statistics Using R - 009 [ 2024년12월12일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/10/Discovering-Statistics-Using-R-008.html">Discovering Statistics Using R - 008 [ 2024년12월10일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/06/Discovering-Statistics-Using-R-007.html">Discovering Statistics Using R - 007 [ 2024년12월06일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/05/Discovering-Statistics-Using-R-006.html">Discovering Statistics Using R - 006 [ 2024년12월05일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/04/Discovering-Statistics-Using-R-005.html">Discovering Statistics Using R - 005 [ 2024년12월04일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/03/Discovering-Statistics-Using-R-004.html">Discovering Statistics Using R - 004 [ 2024년12월03일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/30/Discovering-Statistics-Using-R-003.html">Discovering Statistics Using R - 003 [ 2024년11월30일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/29/Discovering-Statistics-Using-R-002.html">Discovering Statistics Using R - 002 [ 2024년11월29일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/28/Discovering-Statistics-Using-R-001.html">Discovering Statistics Using R - 001 [ 2024년11월28일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
