@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Github - 001</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="github---001---2024년12월14일">Github - 001 - 2024년12월14일</h1>
+
+<!-- - tag : Github  -->
+<ul>
+  <li>tag : <a href="/tags/tag_Github.html" class="btn btn-default navbar-btn cursorNorm" role="button">Github</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="github">Github</h1>
+
+<blockquote>
+  <p>git bash 에서 아래 나오는 코드 실행하기</p>
+</blockquote>
+
+<h2 id="환경설정">환경설정</h2>
+
+<ul>
+  <li>정보 확인하기</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git config <span class="nt">--list</span>
+</code></pre></div></div>
+
+<ul>
+  <li>위 출력에서 없는 것을 확인한 후 추가</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git config <span class="nt">--global</span> uesr.name <span class="s2">"{username}"</span>
+<span class="nv">$ </span>git config <span class="nt">--global</span> user.email <span class="s2">"{emaliaddr}"</span>
+<span class="nv">$ </span>git config <span class="nt">--global</span> core.editor <span class="s2">"vim"</span>
+<span class="nv">$ </span>git config <span class="nt">--global</span> core.pager <span class="s2">"cat"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Tip</li>
+</ul>
+
+<blockquote>
+  <p>만약 core.editor 값이 vim, notepad 두 개가 있을 경우</p>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vi ~/.gitconfig
+</code></pre></div>  </div>
+  <p>위 명령어 입력 후 notepad부분을 지우고 저장 후 다시 $ git config –list 로 확인하기</p>
+</blockquote>
+
+<h2 id="깃허브-생성">깃허브 생성</h2>
+
+<ul>
+  <li>단계
+    <ol>
+      <li>깃허브 접속</li>
+      <li>create repository -&gt; public 선택, Lisence : MIT 로 선택</li>
+      <li>주소 복사 후[HTML] git bash 에서 다음 명령어 입력
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="s2">"주소"</span>
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="깃허브-상태-확인-후-commit-까지">깃허브 상태 확인 후 commit 까지</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git status <span class="c"># 자주 확인해주는 것이 좋다.</span>
+<span class="nv">$ </span>git add <span class="o">{</span>파일명.확장자<span class="o">}</span>
+<span class="nv">$ </span>git commit
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git remote      <span class="c"># origin</span>
+<span class="nv">$ </span>git remote <span class="nt">-v</span>
+<span class="nv">$ </span>git push origin main <span class="c"># origin[git remote으로 확인한 값]에 main branch로 올린다.</span>
+</code></pre></div></div>
+
+<ul>
+  <li>비밀 키 받기
+    <ol>
+      <li>오른쪽 맨 위 프로필 아이콘 클릭 -&gt; Settings 클릭</li>
+      <li>왼쪽 사이드 바에서 Developer Settings 클릭</li>
+      <li>왼쪽 사이드 바에서 Personal access tokens 아래에 있는 Tokens(Classic) 클릭</li>
+      <li>오른쪽 위에 Generate new token 선택 후 Generate new token(classic) 선택</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="pre-commit">pre-commit</h2>
+
+<blockquote>
+  <p>commit 수행 전 체크해야 할 것들을 자동 수행하도록 도와주는 도구<br />
+<a href="https://pre-commit.com/">참고 사이트</a></p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>pre-commit <span class="o">(</span>or <span class="nv">$ </span>pip3 <span class="nb">install </span>pre-commit<span class="o">)</span> <span class="c"># 설치</span>
+<span class="nv">$ </span>pre-commit <span class="nt">--version</span> <span class="c"># 잘 설치되었는지 확인</span>
+<span class="nv">$ </span>pre-commit sample-config <span class="o">&gt;</span> .pre-commit-config.yaml <span class="c"># .pre-commit-config.yaml 파일 생성</span>
+<span class="nv">$ </span><span class="nb">cat</span> .pre-commit-config.yaml <span class="c"># 내용보기</span>
+</code></pre></div></div>
+
+<ul>
+  <li>사용방법
+    <blockquote>
+      <p>commit 하기 전에 사용</p>
+      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pre-commit run
+<span class="nv">$ </span>pre-commit run <span class="nt">-a</span> <span class="c"># 이것을 주로 사용하는 것 같다.[개인적인 의견]</span>
+</code></pre></div>      </div>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="branch">Branch</h2>
+
+<blockquote>
+  <p>분기점을 생성하여 독립적으로 코드를 변경할 수 있도록 도아주는 모델</p>
+</blockquote>
+
+<ul>
+  <li>branch 확인하기</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git branch
+<span class="nv">$ </span>git branch <span class="nt">-r</span>
+<span class="nv">$ </span>git branch <span class="nt">-a</span>
+</code></pre></div></div>
+
+<ul>
+  <li>branch 생성</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git branch <span class="o">{</span>branch 이름<span class="o">}</span> <span class="c"># branch 생성</span>
+<span class="nv">$ </span>git switch <span class="o">{</span>branch 이름<span class="o">}</span> <span class="c"># branch 전환</span>
+... <span class="o">{</span> 여기서 branch에서 작업 add -&gt; commit <span class="o">}</span>
+<span class="nv">$ </span>git switch main <span class="c"># main branch 로 전환</span>
+<span class="nv">$ </span>git merge <span class="o">{</span>branch 이름<span class="o">}</span> <span class="c"># main이 아닌 다른 branch 에서 작업한 것을 합치기</span>
+<span class="nv">$ </span>git branch <span class="nt">-D</span> <span class="o">{</span>branch 이름<span class="o">}</span> <span class="c"># branch 삭제</span>
+</code></pre></div></div>
+
+<h1 id="그-외">그 외</h1>
+
+<ol>
+  <li>보기좋은 로그 출력하기
+    <pre><code class="language-git">$ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"
+</code></pre>
+  </li>
+  <li>commit 메세지 작성하는 방법
+    <blockquote>
+      <p><a href="https://www.conventionalcommits.org/ko/v1.0.0/">참고사이트</a></p>
+    </blockquote>
+  </li>
+  <li>github repository 생성 사이트
+    <blockquote>
+      <p><a href="https://rahuldkjain.github.io/gh-profile-readme-generator/">참고사이트</a></p>
+    </blockquote>
+  </li>
+  <li>gitignore 파일 만들기
+    <blockquote>
+      <p><a href="https://www.toptal.com/developers/gitignore/">참고사이트1</a><br />
+<a href="https://www.toptal.com/developers/gitignore/api/macos,windows,python,flask,vim,visualstudiocode,jupyternotebooks">참고사이트2</a></p>
+    </blockquote>
+  </li>
+  <li>github에서 jupyter notebook 변경사항을 보고 싶을 때
+    <blockquote>
+      <p>오른쪽 위 프로필 사진 클릭 -&gt; Feature preview 클릭 -&gt; Rich Jupyter Notebook Diffs 활성화</p>
+    </blockquote>
+  </li>
+  <li>git 을 쓰면서 습관들이면 안되는 것
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; $ git add . : 현재 디렉토리 하위의 모든 파일을 staging할 때 사용.
+&gt; but, 현재 commit단위에 들어가면 안되는 파일까지 휩쓸릴 수 있으므로 습관적으로 사용하면 안됩니다.
+&gt; $ git commit -m "Message" : 쉘에서 바로 메시지를 쓰면서 커밋할 때 사용.
+&gt; but, revert commit, merge commit 등의 상황에서 메시지를 덮어쓸 우려가 있으므로 습관적으로 사용하면 안됩니다.
+&gt; 저장소 안에 저장소 clone 하기 : 프로젝트 단위는 항상 독립적으로 존재해야 합니다.
+&gt; 의미없는 commit message 남기기(ex. a, 1, ..) : commit message는 제목만으로 해당 작업단위에 대한 설명이 가능해야 나중에 고생하지 않습니다.
+&gt; Conventional commit 잘 지키기!!
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#github---001---2024년12월14일">Github - 001 - 2024년12월14일</a></li>
+<li class="toc-entry toc-h1"><a href="#github">Github</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#환경설정">환경설정</a></li>
+<li class="toc-entry toc-h2"><a href="#깃허브-생성">깃허브 생성</a></li>
+<li class="toc-entry toc-h2"><a href="#깃허브-상태-확인-후-commit-까지">깃허브 상태 확인 후 commit 까지</a></li>
+<li class="toc-entry toc-h2"><a href="#pre-commit">pre-commit</a></li>
+<li class="toc-entry toc-h2"><a href="#branch">Branch</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#그-외">그 외</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2024/12/14/Github-001.html">Github - 001 [ 2024년12월14일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
