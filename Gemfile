@@ -11,3 +11,6 @@ gem "webrick", "~> 1.8"
 gem 'jekyll-paginate'
 
 gem 'jekyll-toc'
+
+gem 'tzinfo'
+gem 'tzinfo-data'
