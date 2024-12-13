@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "DataBase System",
+      "category" : "",
+      "tags"     : "Computer_Science",
+      "url"      : "/2024/12/13/Database_System.html",
+      "date"     : "2024-12-13 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Discovering Statistics Using R - 009",
       "category" : "",
       "tags"     : "Discovering_Statistics_Using_R, R",
