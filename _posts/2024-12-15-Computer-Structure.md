@@ -1,7 +1,7 @@
 ---
 layout : markdown
 title : Computer Structure
-tags : [Computer_Structure]
+tags : [Computer_Engineering]
 toc : true
 ---
 
