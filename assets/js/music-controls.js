@@ -1,9 +1,14 @@
 
 var audio = new Audio();
 var mp3Urls = [
-  "/assets/music/cafe/cafe-music-01.mp3",
-  "/assets/music/cafe/cafe-music-02.mp3"
-  // Add more URLs as needed
+  "/assets/music/cafe/going-forward-226430.mp3",
+  "/assets/music/cafe/underneath-the-moonx27s-glow-lofi-254607.mp3",
+  "/assets/music/cafe/nhac-jazz-thu-gian-265063.mp3",
+  "/assets/music/cafe/bossa-nova-chillwave-cafe-233024.mp3",
+  "/assets/music/cafe/cafe-of-love-230761.mp3",
+  "/assets/music/cafe/tea-time-on-a-rainy-day-everyday-natural-piano-205092.mp3",
+  "/assets/music/cafe/cafe-music-163375.mp3",
+  "/assets/music/cafe/크리스마스 카페-221167.mp3"
 ];
 var currentTrack = 0;
 
