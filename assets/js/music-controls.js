@@ -71,17 +71,15 @@ function updateButtons() {
 
 // Initialize on page load
 window.onload = function() {
-  updateButtons();
-
-  var volumeSlider = document.getElementById('volumeSlider');
-  volumeSlider.value = audio.volume; // 슬라이더와 오디오 볼륨 초기값 동기화
-
-  volumeSlider.addEventListener('input', function() {
-    var volumeValue = parseFloat(volumeSlider.value);
-    audio.volume = volumeValue;
-    console.log("Volume Slider Value:", volumeValue, "Audio Volume:", audio.volume);
-    saveState();
-  });
+ var volumeSlider = document.getElementById('volumeSlider');
+ if (volumeSlider) {
+   volumeSlider.value = savedVolume;
+   volumeSlider.addEventListener('input', function() {
+     audio.volume = parseFloat(volumeSlider.value);
+     saveState();
+   });
+ }
+ updateButtons();
 };
 
 // Save state on page unload
