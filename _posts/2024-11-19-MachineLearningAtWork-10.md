@@ -1,6 +1,7 @@
 ---
 layout : markdown
-title : Machine Learning At Work - 10
+title: "Machine Learning At Work - 10"
+slug: "machine-learning-at-work-10"
 tags : [Machine_Learning_At_Work, Book]
 toc : true
 ---

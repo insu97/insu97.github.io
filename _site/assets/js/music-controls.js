@@ -69,18 +69,19 @@ function updateButtons() {
   pauseButton.disabled = audio.paused;
 }
 
-// Volume slider functionality
-var volumeSlider = document.getElementById('volumeSlider');
-volumeSlider.value = savedVolume; // Set slider to saved volume
-volumeSlider.addEventListener('input', function() {
-  audio.volume = volumeSlider.value;
-  saveState();
-});
-
 // Initialize on page load
 window.onload = function() {
   updateButtons();
-  volumeSlider.value = audio.volume; // Ensure slider matches current volume
+
+  var volumeSlider = document.getElementById('volumeSlider');
+  volumeSlider.value = audio.volume; // 슬라이더와 오디오 볼륨 초기값 동기화
+
+  volumeSlider.addEventListener('input', function() {
+    var volumeValue = parseFloat(volumeSlider.value);
+    audio.volume = volumeValue;
+    console.log("Volume Slider Value:", volumeValue, "Audio Volume:", audio.volume);
+    saveState();
+  });
 };
 
 // Save state on page unload
