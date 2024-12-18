@@ -96,6 +96,27 @@ body {
   font-family: "Dokdo", system-ui;
 }
 
+.container #music-controls {
+  float: left;
+  width : 100%;
+  display: inline-block;
+  margin-top : 10vw;
+}
+
+.container #music-controls #musicGif{
+  float : left;
+  display: flex;
+  padding : 0;
+  margin : 0;
+}
+
+.container #music-controls .button{
+  float : left;
+  vertical-align: middle;
+  padding : 0.1vw;
+  margin : 0.1vw;
+}
+
 .container .main {
   float : left;
   padding-left : 1vw;
