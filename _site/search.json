@@ -1,18 +1,26 @@
 [
   
     {
-      "title"    : "Operating System-02",
+      "title"    : "Operating System-03",
       "category" : "",
       "tags"     : "Computer_Engineering",
-      "url"      : "/2024/12/18/Operating_System-02.html",
-      "date"     : "2024-12-18 00:00:00 +0900"
+      "url"      : "/2024/12/19/Operating_System-03.html",
+      "date"     : "2024-12-19 00:00:00 +0900"
     } ,
   
     {
       "title"    : "Discovering Statistics Using R - 010",
       "category" : "",
       "tags"     : "Discovering_Statistics_Using_R, R",
-      "url"      : "/2024/12/18/Discovering-Statistics-Using-R-010.html",
+      "url"      : "/2024/12/19/Discovering-Statistics-Using-R-010.html",
+      "date"     : "2024-12-19 00:00:00 +0900"
+    } ,
+  
+    {
+      "title"    : "Operating System-02",
+      "category" : "",
+      "tags"     : "Computer_Engineering",
+      "url"      : "/2024/12/18/Operating_System-02.html",
       "date"     : "2024-12-18 00:00:00 +0900"
     } ,
   
@@ -244,7 +252,7 @@
       "title"    : "Machine Learning At Work - 10",
       "category" : "",
       "tags"     : "Machine_Learning_At_Work, Book",
-      "url"      : "/2024/11/19/machine-learning-at-work-10.html",
+      "url"      : "/2024/11/19/MachineLearningAtWork-10.html",
       "date"     : "2024-11-19 00:00:00 +0900"
     } ,
   

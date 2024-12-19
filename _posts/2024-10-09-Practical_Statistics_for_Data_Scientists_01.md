@@ -1,6 +1,6 @@
 ---
 layout : markdown
-title : 데이터 과학을 위한 통계 - 탐색적 데이터 분석
+title: 데이터 과학을 위한 통계 - 탐색적 데이터 분석
 tags : [Practical_Statistics_for_Data_Scientists, Python, Book]
 toc : true
 ---
