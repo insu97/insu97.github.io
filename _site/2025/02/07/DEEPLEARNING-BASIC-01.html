@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DEEPLEARNING BASIC</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+					<div id="music-controls" style="text-align: center;">
+					    <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF" style="display: inline-block; width: 50px; height: 50px; margin-top: 21px;">
+					    <button id="playButton" onclick="playMusic()" style="font-size: 0.6vw;">Play</button>
+					    <button id="pauseButton" onclick="pauseMusic()" style="font-size: 0.6vw;">Pause</button>
+					    <button id="nextButton" onclick="nextMusic()" style="font-size: 0.6vw;">Next</button>
+							<label for="volumeSlider" style="font-size: 0.6vw; margin-top: 10px;">Volume:</label>
+    					<input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" style="width: 50%; margin-top: 10px;">
+					</div>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="딥러닝">딥러닝</h1>
+
+<h2 id="이론">이론</h2>
+
+<h3 id="딥러닝의-발전-5단계">딥러닝의 발전 5단계</h3>
+
+<ol>
+  <li>Rule based programming
+    <ul>
+      <li>목표 달성에 필요한 연산 방법을 사람이 전부 고안하는 방법</li>
+    </ul>
+  </li>
+  <li>Conventional machine learning
+    <ul>
+      <li>특징값을 뽑는 방식은 기존처럼 하되, 특징값들로 판별하는 로직은 기계가 스스로 고안</li>
+      <li>동작 방법<br />
+-1. 학습 데이터 준비 [ 이미지 수집 -&gt; 특징 정의 -&gt; 학습 데이터 생성 ]<br />
+-2. 모델 학습 [ 예측 및 오차 계산 ]</li>
+    </ul>
+  </li>
+  <li>Deep Learning
+    <ul>
+      <li>출력을 계산 하기 위해 모든 연산들을 기계가 고안</li>
+    </ul>
+  </li>
+  <li>Pre-training &amp; Fine-tuning
+    <ul>
+      <li>기존 문제점[분류 대상 or 태스크가 바뀔 때마다 다른 모델이 필요]</li>
+      <li>이를 해결하기 위해 Pre-training 으로 미리 대량의 데이터를 학습 후 Fine-tuning으로 특정한 Task에 맞게 추가 학습</li>
+    </ul>
+  </li>
+  <li>Big Model &amp; zero/few shot
+    <ul>
+      <li>Multimodal 학습 가능 [ 텍스트, 이미지, 음성, 영상 등 다양한 입력을 동시에 학습하는 방법 ]</li>
+      <li>Zero-shot Learning : 한 번도 본 적 없는 Task나 데이터에 대해 학습 없이 정답을 예측하는 방법</li>
+      <li>Few-shot Learning : 적은 양의 예제 데이터를 제공한 후 학습하는 방법</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="딥러닝의-구성-요소">딥러닝의 구성 요소</h3>
+
+<ol>
+  <li>DATA</li>
+  <li>MODEL
+    <ul>
+      <li>Activation Function : 입력 신호의 총합을 출력신호로 변환하는 함수 [ Ex. Sigmoid, tanh, ReLU, Leaky ReLU, Maxout, ELU ]</li>
+      <li>경사하강법<br />
+-1. 확률적 경사하강법 : 모든 데이터를 사용해서 갱신하는 것 대신, 데이터 일부만을 사용해서 여러 번 갱신하는 방법</li>
+      <li>역전파 [ 밑바닥부터 시작하는 딥러닝1 참고 ]</li>
+    </ul>
+  </li>
+  <li>Loss Function : 실제 값과 예측 값 사이의 차이, 오차를 수치화하는 함수
+    <ul>
+      <li>Mean Squared Error[= L2 Loss] : 실제 값과 모델의 예측 값 사이의 차이를 제곱하여 평균낸 값[보통 회귀문제에서 사용]
+        <ul>
+          <li>단점 : 이상치에 민감</li>
+        </ul>
+      </li>
+      <li>Mean Absolute Error[= L1 Loss] : 실제 값과 모델의 예측 값 사이의 차이에 대한 절대값을 평균낸 값
+        <ul>
+          <li>단점 : 기울기가 일정하여 점핑이 일어날 수 있음 [ 지역 최소점에 도달하지 못 하는 문제]</li>
+        </ul>
+      </li>
+      <li>Huber Loss : 오차가 일정 수준 이하일 때는 MSE, 그렇지 않을 때는 MAE를 사용하여 두 손실 함수의 장점을 결합한 방법</li>
+      <li>Cross Entropy : 주어진 확률 변수 또는 사건 집합에 대한 두 확률 분포 간의 차이를 측정하는 함수[보통 분류문제에서 사용]
+        <ul>
+          <li>
+            <table>
+              <tbody>
+                <tr>
+                  <td>일반적인 경우</td>
+                  <td>\(CE = -\sum{Q(x)*log(P(X))}\)</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li>
+            <table>
+              <tbody>
+                <tr>
+                  <td>이진분류</td>
+                  <td>\(BCE = -\sum{ylog(p) + (1-y)log(1-p)}\)</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </li>
+      <li>Hinge Loss : 모델이 만드는 decision boundary 와 데이터 사이의 margin 을 최대화하는 것을 목표로 하는 함수
+        <ul>
+          <li>
+\[Hinge = max(0, 1-y * \hat{y})\]
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Optimization Algorithm : Loss Function 이 최소값을 가지도록 모델의 파라미터를 최적화하는 알고리즘</li>
+  <li>성능 향상을 위한 기타 알고리즘</li>
+</ol>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#딥러닝">딥러닝</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#이론">이론</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#딥러닝의-발전-5단계">딥러닝의 발전 5단계</a></li>
+<li class="toc-entry toc-h3"><a href="#딥러닝의-구성-요소">딥러닝의 구성 요소</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2025/02/07/DEEPLEARNING-BASIC-01.html">DEEPLEARNING BASIC [ 2025년02월07일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
+<script src="/assets/js/music-controls.js" defer></script>
