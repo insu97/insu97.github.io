@@ -78,9 +78,7 @@
   <div class="md-content">
     <h1 id="딥러닝">딥러닝</h1>
 
-<h2 id="이론">이론</h2>
-
-<h3 id="딥러닝의-발전-5단계">딥러닝의 발전 5단계</h3>
+<h2 id="딥러닝의-발전-5단계">딥러닝의 발전 5단계</h2>
 
 <ol>
   <li>Rule based programming
@@ -116,7 +114,7 @@
   </li>
 </ol>
 
-<h3 id="딥러닝의-구성-요소">딥러닝의 구성 요소</h3>
+<h2 id="딥러닝의-구성-요소">딥러닝의 구성 요소</h2>
 
 <ol>
   <li>DATA</li>
@@ -178,18 +176,261 @@
   <li>성능 향상을 위한 기타 알고리즘</li>
 </ol>
 
+<h2 id="성능-고도화-방법">성능 고도화 방법</h2>
+
+<h3 id="과적합-과소적합">과적합, 과소적합</h3>
+
+<ul>
+  <li>과적합과 과소적합이 아닌 적합한 상태를 ‘Robust’하다 라고 표현한다.</li>
+  <li>Bias 와 Variance 는 반비례 관계 -&gt; 모델은 두 가지를 동시에 최소화하는 방향으로 Trade-off를 고려해야 한다.</li>
+</ul>
+
+<h3 id="지역-최소값-전역-최소값">지역 최소값, 전역 최소값</h3>
+
+<ul>
+  <li>지역 최소값에 빠지지 않도록 조심해야 한다.</li>
+</ul>
+
+<h3 id="네트워크-안정화-기법">네트워크 안정화 기법</h3>
+
+<h4 id="dropout">Dropout</h4>
+
+<ul>
+  <li>모델 학습 시 임의의 가중치 노드를 일정 확률로 비활성화시키는 방법 [ 앙상블 방법 ]</li>
+</ul>
+
+<h4 id="정규화">정규화</h4>
+
+<h5 id="배치-정규화">배치 정규화</h5>
+
+<ul>
+  <li>Batch 단위의 데이터를 기준으로 평균과 분산을 계산하여 활성화 레이어 이후 출력을 정규화하는 방법[활성화 함수를 적용하기 전에 적용하는 것을 추천]</li>
+  <li>
+\[z = \frac{x - \mu}{\sigma}\]
+  </li>
+</ul>
+
+<h5 id="레이어-정규화">레이어 정규화</h5>
+
+<ul>
+  <li>배치 정규화의 단점을 보완하는 방법</li>
+  <li>배치 정규화는 입력 데이터의 단위가 일정해야 사용가능 -&gt; 이 점 보완</li>
+</ul>
+
+<h5 id="인스턴스-정규화">인스턴스 정규화</h5>
+
+<ul>
+  <li>이미지 변환 시 사용하는 정규화</li>
+</ul>
+
+<h5 id="그룹-정규화">그룹 정규화</h5>
+
+<ul>
+  <li>인스턴스 정규화의 확장 버전</li>
+</ul>
+
+<h3 id="가중치-초기화">가중치 초기화</h3>
+
+<ul>
+  <li>왜 가중치 초기화가 필요한가?
+    <blockquote>
+      <p>가중치 초기화를 진행하지 않으면 모델의 층이 깊어질수록 활성화 함수 이후 데이터의 분포가 한 쪽으로 쏠릴 수 있다.</p>
+      <blockquote>
+        <p>Xavier 초기화 방법 : Sigmoid나 tanh 같은 선형 활성화 함수 또는 근사를 사용할 때 효과적이다.<br />
+He 초기화 방법 : Xavier는 ReLU 활성화 함수에서는 여전히 문제점을 해결하지 못함으로 He 초기화 방법 사용</p>
+      </blockquote>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="과적합-방지를-위한-규제화-및-학습률-조정">과적합 방지를 위한 규제화 및 학습률 조정</h3>
+
+<h4 id="가중치-감쇠--큰-가중치에-대한-패널티를-부과">가중치 감쇠 : 큰 가중치에 대한 패널티를 부과</h4>
+
+<h4 id="학습-조기종료">학습 조기종료</h4>
+
+<h4 id="학습-스케줄러">학습 스케줄러</h4>
+
+<ol>
+  <li>Constant : 초기에 설정한 학습률을 학습 과정 전체에 걸쳐 변경하지 않음</li>
+  <li>Step Decay : 일정한 주기 마다 학습률을 일정 비율로 감소</li>
+  <li>Exponential Decay : 학습률을 지수적으로 감소</li>
+  <li>Cosine Anneealing : 코사인 함수를 따라 학습률이 감소하도록 설정
+    <blockquote>
+      <p>학습률이 안정적인 감소를 보이게 하며, 일정 주기로 다시 재시작할 수 있음</p>
+    </blockquote>
+  </li>
+  <li>One-cycle Policy : 학습률이 먼저 증가한 다음 감소하도록 설정
+    <blockquote>
+      <p>빠르게 수렴하고, 끝부분에서는 학습률을 감소시켜 안정적인 학습을 도움</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h3 id="옵티마이저">옵티마이저</h3>
+
+<ol>
+  <li>Momentum
+    <blockquote>
+      <p>\(v \leftarrow \alpha{v} - \eta{\frac{\partial{L}}{\partial{W}}} | v : 속도, \alpha : 일반적으로 0.9, \eta : 학습률\)<br />
+\(W \leftarrow W + v\)</p>
+    </blockquote>
+  </li>
+  <li>Nesterov Accelerated Gradient(NAG)
+    <blockquote>
+      <p>\(v \leftarrow \alpha{v} - \eta{\frac{\partial{L}}{\partial{W}}}(W + \alpha{v})\)<br />
+\(W \leftarrow W + v\)<br />
+다음 위치에서의 기울기를 미리 계산하여 보다 더욱 정확하게 업데이트를 가능하게 한다.</p>
+    </blockquote>
+  </li>
+  <li>AdaGrad
+    <blockquote>
+      <p>\(h \leftarrow h + \frac{\partial{L}}{\partial{W}} \bigodot \frac{\partial{L}}{\partial{W}}\)<br />
+\(W \leftarrow W - \eta{\frac{1}{\sqrt{h}}\frac{\partial{L}}{\partial{W}}}\)</p>
+    </blockquote>
+  </li>
+  <li>RMSProp
+    <blockquote>
+      <p>\(h \leftarrow \beta{h} + (1 - \beta)(\frac{\partial{h}}{\partial{W}} \bigodot \frac{\partial{L}}{\partial{W}})\)<br />
+\(W \leftarrow W - \eta{\frac{1}{\sqrt{h+\varepsilon}} \bigodot \frac{\partial{L}}{\partial{W}}}\)</p>
+    </blockquote>
+  </li>
+  <li>Ada
+    <blockquote>
+      <p>Momentum and RMSProp 의 장점을 모두 결합한 방법<br />
+\(m \leftarrow \beta_{1}{m} + (1 - \beta_{1})\frac{\partial{L}}{\partial{W}}\)<br />
+\(v \leftarrow \beta_{2}{v} + (1 - \beta_{2})(\frac{\partial{L}}{\partial{W}})^2\)<br />
+\(W \leftarrow W - \eta{\frac{m}{\sqrt{v} + \varepsilon}}\)</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h3 id="데이터-증강-기법">데이터 증강 기법</h3>
+
+<ul>
+  <li>이미지
+    <ol>
+      <li>Cutout : 일부 영역 가리기</li>
+      <li>Mixup : 두 이미지의 픽셀 값을 선형적으로 조합</li>
+      <li>CutMix : 하나의 이미지에서 잘라낸 영역을 다른 이미지에 붙여넣는 방식</li>
+    </ol>
+  </li>
+  <li>텍스트
+    <ol>
+      <li>동의어 대체(Synonym Replacement)</li>
+      <li>무작위 삽입(Random Insertion)</li>
+      <li>무작위 교체(유의하면서 사용)</li>
+      <li>무작위 삭제(유의하면서 사용)
+–&gt; 의미 유지 방법 : 능동태에서 수동태로, 직접화에서 간접화로, 역번역, 사전학습된 언어모델 사용</li>
+    </ol>
+  </li>
+  <li>자기지도학습(Self-Supervised Learning) : 레이블이 명시적으로 제공되지 않아도 모델이 스스로 학습할 수 있도록 하는 방식
+    <ul>
+      <li>생성 학습(Generative Laerning)</li>
+      <li>대체 작업 학습(Proxy Task Learning)</li>
+      <li>대조 학습(Contrastive Learning)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="cnn">CNN</h2>
+
+<ul>
+  <li>입력 데이터의 크기가 주로 고정되어 있음</li>
+</ul>
+
+<h3 id="stride">Stride</h3>
+
+<h3 id="padding">Padding</h3>
+
+<h3 id="pooling">Pooling</h3>
+
+<ul>
+  <li>Max Pooling</li>
+  <li>Average Pooling</li>
+</ul>
+
+<h2 id="rnn">RNN</h2>
+
+<ul>
+  <li>길이가 고정되어 있지 않은 데이터를 다룰 때 사용</li>
+  <li>시퀀스가 길어질수록 앞부분의 정보를 잊어버림</li>
+</ul>
+
+<h3 id="lstm">LSTM</h3>
+
+<h3 id="gru">GRU</h3>
+
+<h2 id="딥러닝의-역사">딥러닝의 역사</h2>
+
+<ol>
+  <li>LeNet-5 (1998) - 최초의 CNN 구조 중 하나, Yann LeCun이 개발</li>
+  <li>ImageNet Large Scale Visual Recognition Challenge (2010~2017) - 대규모 이미지 분류 대회, 딥러닝 발전 촉진</li>
+  <li>AlexNet (2012) - ImageNet 대회 우승, 딥러닝 붐을 일으킨 CNN</li>
+  <li>VGG (2014) - 깊은 CNN 구조(VGG-16, VGG-19)로 이미지 분류 성능 향상</li>
+  <li>GoogLeNet (2014) - Inception 모듈 도입으로 연산 효율성 증가</li>
+  <li>Generative Adversarial Networks (2014) - Ian Goodfellow가 제안한 생성 모델 (GAN)</li>
+  <li>ResNet (2015) - 잔차 연결(Residual Connection) 도입, 매우 깊은 네트워크 학습 가능</li>
+  <li>Sequence-to-Sequence (2014) - 기계 번역 등 NLP 작업에 활용된 RNN 기반 모델</li>
+  <li>Transformer (2017) - “Attention is All You Need” 논문에서 제안, NLP 혁신</li>
+  <li>Bidirectional Encoder Representations from Transformers (BERT, 2018) - 사전 학습된 양방향 Transformer 기반 모델</li>
+  <li>Generative Pre-trained Transformer (GPT, 2018~현재) - OpenAI의 GPT 시리즈, 언어 모델 발전 주도</li>
+  <li>EfficientNet (2019) - 모델 크기 조정(scale) 최적화 CNN</li>
+  <li>Vision Transformer (ViT, 2020) - Transformer를 이미지 처리에 적용</li>
+  <li>ChatGPT (2022) - GPT 시리즈 기반 대화형 AI</li>
+</ol>
+
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#딥러닝">딥러닝</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#이론">이론</a>
+<li class="toc-entry toc-h2"><a href="#딥러닝의-발전-5단계">딥러닝의 발전 5단계</a></li>
+<li class="toc-entry toc-h2"><a href="#딥러닝의-구성-요소">딥러닝의 구성 요소</a></li>
+<li class="toc-entry toc-h2"><a href="#성능-고도화-방법">성능 고도화 방법</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#딥러닝의-발전-5단계">딥러닝의 발전 5단계</a></li>
-<li class="toc-entry toc-h3"><a href="#딥러닝의-구성-요소">딥러닝의 구성 요소</a></li>
+<li class="toc-entry toc-h3"><a href="#과적합-과소적합">과적합, 과소적합</a></li>
+<li class="toc-entry toc-h3"><a href="#지역-최소값-전역-최소값">지역 최소값, 전역 최소값</a></li>
+<li class="toc-entry toc-h3"><a href="#네트워크-안정화-기법">네트워크 안정화 기법</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#dropout">Dropout</a></li>
+<li class="toc-entry toc-h4"><a href="#정규화">정규화</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#배치-정규화">배치 정규화</a></li>
+<li class="toc-entry toc-h5"><a href="#레이어-정규화">레이어 정규화</a></li>
+<li class="toc-entry toc-h5"><a href="#인스턴스-정규화">인스턴스 정규화</a></li>
+<li class="toc-entry toc-h5"><a href="#그룹-정규화">그룹 정규화</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#가중치-초기화">가중치 초기화</a></li>
+<li class="toc-entry toc-h3"><a href="#과적합-방지를-위한-규제화-및-학습률-조정">과적합 방지를 위한 규제화 및 학습률 조정</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#가중치-감쇠--큰-가중치에-대한-패널티를-부과">가중치 감쇠 : 큰 가중치에 대한 패널티를 부과</a></li>
+<li class="toc-entry toc-h4"><a href="#학습-조기종료">학습 조기종료</a></li>
+<li class="toc-entry toc-h4"><a href="#학습-스케줄러">학습 스케줄러</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#옵티마이저">옵티마이저</a></li>
+<li class="toc-entry toc-h3"><a href="#데이터-증강-기법">데이터 증강 기법</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#cnn">CNN</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#stride">Stride</a></li>
+<li class="toc-entry toc-h3"><a href="#padding">Padding</a></li>
+<li class="toc-entry toc-h3"><a href="#pooling">Pooling</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#rnn">RNN</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#lstm">LSTM</a></li>
+<li class="toc-entry toc-h3"><a href="#gru">GRU</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#딥러닝의-역사">딥러닝의 역사</a></li>
 </ul>
 </li>
 </ul>
