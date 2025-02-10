@@ -5,6 +5,8 @@ tags : [DL]
 toc : true
 ---
 
+{% include markdown.html %}
+
 # 딥러닝
 
 ## 딥러닝의 발전 5단계

@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Pytorch",
+      "category" : "",
+      "tags"     : "DL, PYTORCH",
+      "url"      : "/2025/02/08/Pytorch.html",
+      "date"     : "2025-02-08 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "DEEPLEARNING BASIC",
       "category" : "",
       "tags"     : "DL",

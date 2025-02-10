@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Pytorch</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+					<div id="music-controls" style="text-align: center;">
+					    <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF" style="display: inline-block; width: 50px; height: 50px; margin-top: 21px;">
+					    <button id="playButton" onclick="playMusic()" style="font-size: 0.6vw;">Play</button>
+					    <button id="pauseButton" onclick="pauseMusic()" style="font-size: 0.6vw;">Pause</button>
+					    <button id="nextButton" onclick="nextMusic()" style="font-size: 0.6vw;">Next</button>
+							<label for="volumeSlider" style="font-size: 0.6vw; margin-top: 10px;">Volume:</label>
+    					<input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" style="width: 50%; margin-top: 10px;">
+					</div>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="pytorch---2025년02월08일">Pytorch - 2025년02월08일</h1>
+
+<!-- - tag : DL PYTORCH  -->
+<ul>
+  <li>tag : <a href="/tags/tag_DL.html" class="btn btn-default navbar-btn cursorNorm" role="button">DL</a>
+|
+<a href="/tags/tag_PYTORCH.html" class="btn btn-default navbar-btn cursorNorm" role="button">PYTORCH</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="pytorch">Pytorch</h1>
+
+<h2 id="텐서">텐서</h2>
+
+<ul>
+  <li>데이터 배열(array)를 의미</li>
+</ul>
+
+<h2 id="broadcasting">Broadcasting</h2>
+
+<ul>
+  <li>차원이 다른 두 텐서 혹은 텐서와 스클라간 연산을 가능하게 해주는 기능</li>
+</ul>
+
+<h3 id="dense-tensor">Dense Tensor</h3>
+
+<ul>
+  <li>배열의 모든 위치에 값을 가지는 텐서</li>
+</ul>
+
+<h3 id="sparse-tensor">Sparse Tensor</h3>
+
+<ul>
+  <li>0이 아닌 원소와 그 위치를 저장하는 텐서</li>
+</ul>
+
+<h2 id="딥러닝에서-pytorch-작동-방식">딥러닝에서 Pytorch 작동 방식</h2>
+
+<ol>
+  <li>Data
+    <ul>
+      <li>DataLoader</li>
+      <li>Dataset</li>
+    </ul>
+  </li>
+  <li>Model
+    <ul>
+      <li>torch.nn.Module</li>
+    </ul>
+  </li>
+  <li>Output</li>
+  <li>Loss
+    <ul>
+      <li>torch.nn</li>
+      <li>torch.nn.functional</li>
+    </ul>
+  </li>
+  <li>Optimization
+    <ul>
+      <li>torch.optim</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="전이학습">전이학습</h2>
+
+<blockquote>
+  <p>사전 학습된 모델의 지식을 다른 task에 활용하는 것</p>
+</blockquote>
+
+<h3 id="fine-tuning">Fine-Tuning</h3>
+
+<blockquote>
+  <p>Pretrained Model 을 그대로 혹은 layers를 추가한 후 새로운 작업에 맞는 데이터로 모델을 추가로 더 훈련시키는 방법</p>
+</blockquote>
+
+<h3 id="domain-adaptation">Domain Adaptation</h3>
+
+<blockquote>
+  <p>A 라는 도메인에서 학습한 모델을 B라는 도메인으로 전이하여 도메인 간의 차이를 극복하는 것이 목적</p>
+</blockquote>
+
+<h3 id="multi-task-learning">Multi-task learning</h3>
+
+<blockquote>
+  <p>하나의 모델을 사용하여 여러 개의 관련된 작업을 동시에 학습하면서 공통으로 사용되는 특징을 공유하는 학습 방식</p>
+</blockquote>
+
+<h3 id="zero-shot-learning">Zero-shot learning</h3>
+
+<blockquote>
+  <p>기존에 학습되지 않은 새로운 클래스나 작업에 대해 예측을 수행하는 기술</p>
+</blockquote>
+
+<h3 id="onefew-shot-learning">One/few-shot learning</h3>
+
+<blockquote>
+  <p>하나 또는 몇 개의 훈련 예시를 기반으로 결과를 예측한느 학습 방식</p>
+</blockquote>
+
+<h2 id="pytorch-lightning">Pytorch Lightning</h2>
+
+<blockquote>
+  <p>Pytorch에 대한 high-level 인터페이스를 제공하는 오픈소스 라이브러리</p>
+</blockquote>
+
+<h2 id="hydra">Hydra</h2>
+
+<blockquote>
+  <p>파라미터가 복잡해지면서 코드를 구조화하거나 관리하기 어려운 문제를 해결하기 위해, 별도의 설정 파일을 작성하여 관리하는데 사용하는 오픈소스 프레임워크</p>
+</blockquote>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#pytorch---2025년02월08일">Pytorch - 2025년02월08일</a></li>
+<li class="toc-entry toc-h1"><a href="#pytorch">Pytorch</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#텐서">텐서</a></li>
+<li class="toc-entry toc-h2"><a href="#broadcasting">Broadcasting</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#dense-tensor">Dense Tensor</a></li>
+<li class="toc-entry toc-h3"><a href="#sparse-tensor">Sparse Tensor</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#딥러닝에서-pytorch-작동-방식">딥러닝에서 Pytorch 작동 방식</a></li>
+<li class="toc-entry toc-h2"><a href="#전이학습">전이학습</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#fine-tuning">Fine-Tuning</a></li>
+<li class="toc-entry toc-h3"><a href="#domain-adaptation">Domain Adaptation</a></li>
+<li class="toc-entry toc-h3"><a href="#multi-task-learning">Multi-task learning</a></li>
+<li class="toc-entry toc-h3"><a href="#zero-shot-learning">Zero-shot learning</a></li>
+<li class="toc-entry toc-h3"><a href="#onefew-shot-learning">One/few-shot learning</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#pytorch-lightning">Pytorch Lightning</a></li>
+<li class="toc-entry toc-h2"><a href="#hydra">Hydra</a></li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2025/02/08/Pytorch.html">Pytorch [ 2025년02월08일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/07/DEEPLEARNING-BASIC-01.html">DEEPLEARNING BASIC [ 2025년02월07일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
+<script src="/assets/js/music-controls.js" defer></script>
