@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Computer Vision",
+      "category" : "",
+      "tags"     : "DL, COMPUTER_VISION",
+      "url"      : "/2025/02/11/Computer-Vision.html",
+      "date"     : "2025-02-11 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "Pytorch",
       "category" : "",
       "tags"     : "DL, PYTORCH",
