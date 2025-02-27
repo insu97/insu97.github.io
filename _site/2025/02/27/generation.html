@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Generation</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+					<div id="music-controls" style="text-align: center;">
+					    <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF" style="display: inline-block; width: 50px; height: 50px; margin-top: 21px;">
+					    <button id="playButton" onclick="playMusic()" style="font-size: 0.6vw;">Play</button>
+					    <button id="pauseButton" onclick="pauseMusic()" style="font-size: 0.6vw;">Pause</button>
+					    <button id="nextButton" onclick="nextMusic()" style="font-size: 0.6vw;">Next</button>
+							<label for="volumeSlider" style="font-size: 0.6vw; margin-top: 10px;">Volume:</label>
+    					<input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" style="width: 50%; margin-top: 10px;">
+					</div>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="generation---2025년02월27일">Generation - 2025년02월27일</h1>
+
+<!-- - tag : DL COMPUTER_VISION  -->
+<ul>
+  <li>tag : <a href="/tags/tag_DL.html" class="btn btn-default navbar-btn cursorNorm" role="button">DL</a>
+|
+<a href="/tags/tag_COMPUTER_VISION.html" class="btn btn-default navbar-btn cursorNorm" role="button">COMPUTER_VISION</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="생성-모델generative-models">생성 모델(Generative models)</h1>
+
+<ul>
+  <li>데이터는 저차원의 필수적인 정보로부터 생성 가능하다는 가정하에 분포를 학습, 새로운 데이터를 생성</li>
+  <li>데이터 X와 특성 Y의 결합(joint) 분포 p(X, Y) or Y가 주어질 때 X의 조건부(conditional) 분포 p(X|Y)를 추정하는 모델</li>
+  <li>주어진 Y가 없는 경우, 데이터의 주변(marginal) 분포 p(X)를 추정하는 모델</li>
+  <li>Ex. 가우시안 혼합 모델(Gaussian Mixture Model, GMM)</li>
+</ul>
+
+<h2 id="어려움">어려움</h2>
+
+<ol>
+  <li>고차원 데이터를 모델링 - 복잡한 모든 특성의 분포를 알아야 함
+    <blockquote>
+      <p>데이터는 저차원의 정보로 표현할 수 있다는 가정을 활용함</p>
+    </blockquote>
+  </li>
+  <li>평가 지표
+    <blockquote>
+      <p>판별 모델과 달리 생성된 데이터에 대한 정량적 평가가 어려움</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h2 id="활용">활용</h2>
+
+<ol>
+  <li>이미지의 품질 개선</li>
+  <li>맥락에 맞게 이미지 빈 공간 자동 완성</li>
+</ol>
+
+<h2 id="최대-가능도-추정법maximum-likelihood-estimation-mle">최대 가능도 추정법(Maximum Likelihood Estimation, MLE)</h2>
+
+<blockquote>
+  <p>가능도를 최대화하는 파라미터 값을 찾는 방법<br />
+일반적으로 가능도 함수의 미분을 통해 계산</p>
+</blockquote>
+
+<h3 id="kullback-leibler-divergence">Kullback-Leibler Divergence</h3>
+
+<blockquote>
+  <p>쿨백-라이블러 발산 최소화 = 로그가능도 최대화</p>
+</blockquote>
+
+<h1 id="판별-모델discriminative-model">판별 모델(Discriminative Model)</h1>
+
+<ul>
+  <li>데이터 X가 주어졌을 때, 특성 Y가 나타날 조건부 확률 p(Y|X)를 직접적으로 반환하는 모델</li>
+  <li>주어진 데이터를 통해 데이터 사이의 경계를 예측</li>
+  <li>Ex. 로지스틱 회귀 분석</li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#generation---2025년02월27일">Generation - 2025년02월27일</a></li>
+<li class="toc-entry toc-h1"><a href="#생성-모델generative-models">생성 모델(Generative models)</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#어려움">어려움</a></li>
+<li class="toc-entry toc-h2"><a href="#활용">활용</a></li>
+<li class="toc-entry toc-h2"><a href="#최대-가능도-추정법maximum-likelihood-estimation-mle">최대 가능도 추정법(Maximum Likelihood Estimation, MLE)</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#kullback-leibler-divergence">Kullback-Leibler Divergence</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#판별-모델discriminative-model">판별 모델(Discriminative Model)</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2025/02/27/generation.html">Generation [ 2025년02월27일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/14/Computer-Vision-02.html">Computer Vision - 02 [ 2025년02월14일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/11/Computer-Vision-01.html">Computer Vision - 01 [ 2025년02월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/08/Pytorch.html">Pytorch [ 2025년02월08일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/07/DEEPLEARNING-BASIC-01.html">DEEPLEARNING BASIC [ 2025년02월07일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
+<script src="/assets/js/music-controls.js" defer></script>
