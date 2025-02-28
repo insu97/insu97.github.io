@@ -144,33 +144,33 @@
 <h1 id="코드로-한번에-보는-정리">코드로 한번에 보는 정리</h1>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">animal</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">voice</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">voice</span> <span class="o">=</span> <span class="n">voice</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">voice</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">voice</span> <span class="o">=</span> <span class="n">voice</span>
 
-    <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">+</span> <span class="sh">"</span><span class="s">(이)가 </span><span class="sh">"</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">voice</span> <span class="o">+</span> <span class="sh">"</span><span class="s">하고 웁니다</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">"(이)가 "</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">voice</span> <span class="o">+</span> <span class="s">"하고 웁니다"</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">cry_01</span><span class="p">(</span><span class="n">animal</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">아직 울지 못해요..</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"아직 울지 못해요.."</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">cry_02</span><span class="p">(</span><span class="n">animal</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="nf">super</span><span class="p">().</span><span class="nf">say</span><span class="p">()</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">신기하네요</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">say</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"신기하네요"</span><span class="p">)</span>
 
-<span class="n">cat</span> <span class="o">=</span> <span class="nf">animal</span><span class="p">(</span><span class="sh">'</span><span class="s">고양이</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">냐옹</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">animal</span><span class="p">(</span><span class="s">'고양이'</span><span class="p">,</span> <span class="s">'냐옹'</span><span class="p">)</span>
 
-<span class="n">cat</span><span class="p">.</span><span class="nf">say</span><span class="p">()</span> <span class="c1"># 고양이(이)가 냐옹하고 웁니다
+<span class="n">cat</span><span class="p">.</span><span class="n">say</span><span class="p">()</span> <span class="c1"># 고양이(이)가 냐옹하고 웁니다
 </span>
-<span class="n">baby_cat</span> <span class="o">=</span> <span class="nf">cry_01</span><span class="p">(</span><span class="sh">'</span><span class="s">고양이</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">냐옹</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">baby_cat</span> <span class="o">=</span> <span class="n">cry_01</span><span class="p">(</span><span class="s">'고양이'</span><span class="p">,</span> <span class="s">'냐옹'</span><span class="p">)</span>
 
-<span class="n">baby_cat</span><span class="p">.</span><span class="nf">say</span><span class="p">()</span> <span class="c1"># 아직 울지 못해요..
+<span class="n">baby_cat</span><span class="p">.</span><span class="n">say</span><span class="p">()</span> <span class="c1"># 아직 울지 못해요..
 </span>
-<span class="n">cat</span> <span class="o">=</span> <span class="nf">cry_02</span><span class="p">(</span><span class="sh">'</span><span class="s">고양이</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">먀</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">cry_02</span><span class="p">(</span><span class="s">'고양이'</span><span class="p">,</span> <span class="s">'먀'</span><span class="p">)</span>
 
-<span class="n">cat</span><span class="p">.</span><span class="nf">say</span><span class="p">()</span>
+<span class="n">cat</span><span class="p">.</span><span class="n">say</span><span class="p">()</span>
 <span class="c1"># 고양이(이)가 먀하고 웁니다
 # 신기하네요
 </span></code></pre></div></div>

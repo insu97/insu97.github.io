@@ -167,11 +167,11 @@ if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
 </span><span class="n">ssd</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># 여러 K 값에 대해 K-Means 모델을 학습시키고 SSD 값 계산
-</span><span class="n">K_range</span> <span class="o">=</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</span><span class="n">K_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">K_range</span><span class="p">:</span>
-    <span class="n">kmeans</span> <span class="o">=</span> <span class="nc">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-    <span class="n">kmeans</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="n">ssd</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">inertia_</span><span class="p">)</span>  <span class="c1"># inertia_는 클러스터 내 분산의 합(SSE 또는 SSD)
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">kmeans</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">ssd</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmeans</span><span class="p">.</span><span class="n">inertia_</span><span class="p">)</span>  <span class="c1"># inertia_는 클러스터 내 분산의 합(SSE 또는 SSD)
 </span></code></pre></div></div>
 
 <style>
@@ -307,12 +307,12 @@ if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># BIC를 저장할 리스트
 </span><span class="n">bic_values</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">n_components_range</span> <span class="o">=</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>  <span class="c1"># 클러스터 개수 1에서 10까지
+<span class="n">n_components_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>  <span class="c1"># 클러스터 개수 1에서 10까지
 </span>
 <span class="k">for</span> <span class="n">n_components</span> <span class="ow">in</span> <span class="n">n_components_range</span><span class="p">:</span>
-    <span class="n">gmm</span> <span class="o">=</span> <span class="nc">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_components</span><span class="p">)</span>
-    <span class="n">gmm</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="n">bic_values</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">gmm</span><span class="p">.</span><span class="nf">bic</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+    <span class="n">gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_components</span><span class="p">)</span>
+    <span class="n">gmm</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">bic_values</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">gmm</span><span class="p">.</span><span class="n">bic</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 </code></pre></div></div>
 
 <style>
