@@ -9,16 +9,15 @@ gem "jekyll"
 # gem "webrick", "~> 1.8"
 
 gem 'jekyll-paginate'
-
 gem 'jekyll-toc'
 
 # gem 'tzinfo'
 gem 'tzinfo', '~> 2.0'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :jruby]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'tzinfo-data'
+# gem 'tzinfo-data'
 
 gem 'jekyll-feed'
 gem 'jekyll-seo-tag'
 
-gem "wdm"
+gem "wdm", platforms: [:mingw, :mswin] # Windows 전용
