@@ -14,7 +14,7 @@ gem 'jekyll-toc'
 
 # gem 'tzinfo'
 gem 'tzinfo', '~> 2.0'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :jruby]
 
 gem 'tzinfo-data'
 
