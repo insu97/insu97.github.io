@@ -294,6 +294,132 @@
 <p>현재 모델이 우리가 가진 현상을 얼마나 잘 설명하는가 = 가능도(Likelihood)<br />
 직접 계산이 어려우니, 간점적으로 계산하여 최대화함</p>
 
+<h1 id="vqvaevector-quantized-variational-autoencoder">VQVAE(Vector Quantized Variational Autoencoder)</h1>
+
+<p>유한한 잠재 표현을 활용하는 변분 오토 인코더</p>
+
+<ul>
+  <li>이산(Discrete) 잠재 변수
+    <ul>
+      <li>범주 : K개의 D차원 임베딩(Embedding) 벡터</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="적대적-생성-신경망-generative-adverarial-networks-gans">적대적 생성 신경망 (Generative Adverarial Networks, GANs)</h1>
+
+<p>적대적으로 학습하는 신경망들로 구성되며, 생성 모댈로써 활용함</p>
+
+<ul>
+  <li>생성된 데이터와 실제 데이터를 판별하고 속이는 과정을 거치며 생성 모델을 개선</li>
+  <li>데이터를 생성하는 생성 모델과 데이터의 진위를 구별하는 판별 모델(Discriminator)로 구성
+    <blockquote>
+      <p>판별 모델 : 생성된 데이터를 입력으로 받아 실제 데이터인지 생성된 데이터인지를 출력</p>
+    </blockquote>
+  </li>
+  <li>훈련 과정
+    <ol>
+      <li>임의의 초기 분포로부터 생성 모델이 데이터를 생성</li>
+      <li>판별 모델이 분류; 판별 모델 갱신</li>
+      <li>갱신된 판별 모델을 고정;생성 모델 갱신</li>
+      <li>반복 과정을 거쳐 생성 모델은 판별 모델이 구별할 수 없는 수준의 데이터를 생성</li>
+    </ol>
+  </li>
+  <li>목적 함수
+    <ol>
+      <li>생성 모델 : 실제와 유사한 데이터를 생성하여 판별자를 속여야 함(다음 목적 함수를 최소화함)</li>
+      <li>판별 모델 : 실제와 생성된 데이터를 정확하게 구별해야 함(다음 목적 함수를 최대화함)</li>
+    </ol>
+  </li>
+</ul>
+
+<h1 id="조건부-생성-모델">조건부 생성 모델</h1>
+
+<ul>
+  <li>필요성 : 다양한 활용을 위해 생성 데이터의 의미 제어 방법이 필요함</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 조건을 입력 받아 원하는 의미를 갖는 데이터를 생성하는 생성 모델
+- 범주(카테고리)부터 영상의 전체 구조(레이아웃)에 이르기까지 다양한 입력을 조건으로 받음
+- 높은 다양성과 품질을 동시에 누릴 수 있으나 수집하기 더 까다로운 데이터를 필요로함
+</code></pre></div></div>
+
+<h3 id="이미지-대-이미지-image-to-image-translation">이미지 대 이미지 (Image-to-Image Translation)</h3>
+
+<ol>
+  <li><strong>Pix2pix</strong>
+    <ul>
+      <li>조건부 GAN (cGAN)을 기반으로 한 모델</li>
+      <li>입력 이미지를 다른 스타일이나 도메인으로 변환</li>
+      <li>지도 학습 방식으로 특정 입력-출력 쌍을 필요로 함</li>
+      <li>예: 스케치를 컬러 이미지로 변환</li>
+    </ul>
+  </li>
+  <li><strong>CycleGAN</strong>
+    <ul>
+      <li>지도 학습 없이 이미지 스타일 변환을 수행</li>
+      <li>두 개의 생성자와 판별자를 사용하여 도메인 간 변환을 학습</li>
+      <li>예: 말 ↔ 얼룩말, 여름 ↔ 겨울</li>
+    </ul>
+  </li>
+  <li><strong>BiCycleGAN</strong>
+    <ul>
+      <li>Pix2pix 모델의 확장</li>
+      <li>하나의 입력에 대해 다양한 출력을 생성할 수 있도록 개선</li>
+      <li>잠재 공간에서 샘플링을 통해 다중 모드 출력 가능</li>
+    </ul>
+  </li>
+  <li><strong>StarGAN</strong>
+    <ul>
+      <li>하나의 모델로 여러 개의 도메인 변환을 가능하게 함</li>
+      <li>도메인 간 이미지 변환을 하나의 네트워크에서 수행</li>
+      <li>예: 얼굴 사진에서 성별, 나이, 감정 변화 적용</li>
+    </ul>
+  </li>
+  <li><strong>InstaGAN</strong>
+    <ul>
+      <li>개별 객체 단위의 변환이 가능한 모델</li>
+      <li>배경과 객체를 분리하여 변환 적용</li>
+      <li>예: 개별적인 얼굴 스타일 변경</li>
+    </ul>
+  </li>
+  <li><strong>LostGAN</strong>
+    <ul>
+      <li>객체 수준의 이미지 변환 및 생성에 특화</li>
+      <li>레이아웃 정보를 사용하여 장면을 구성</li>
+      <li>예: 주어진 레이아웃에 따른 장면 이미지 생성</li>
+    </ul>
+  </li>
+  <li><strong>SPADE (Spatially-Adaptive Denormalization)</strong>
+    <ul>
+      <li>레이아웃 정보를 반영한 고품질 이미지 생성</li>
+      <li>세그먼트 맵을 활용하여 이미지 스타일 변환</li>
+      <li>예: 스케치를 사실적인 장면으로 변환</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="텍스트-대-이미지-text-to-image-generation">텍스트 대 이미지 (Text-to-Image Generation)</h3>
+
+<ol>
+  <li><strong>GAN-CLS (GAN with Conditional Latent Space)</strong>
+    <ul>
+      <li>텍스트 설명을 조건으로 하는 이미지 생성 모델</li>
+      <li>텍스트 임베딩을 GAN에 입력하여 관련된 이미지 생성</li>
+      <li>예: “붉은 꽃이 핀 초록색 들판” → 해당 이미지 생성</li>
+    </ul>
+  </li>
+  <li><strong>GigaGAN</strong>
+    <ul>
+      <li>초고해상도(High-Resolution) 텍스트 기반 이미지 생성 모델</li>
+      <li>기존 GAN 기반 텍스트-이미지 모델보다 더 높은 품질과 해상도 제공</li>
+      <li>예: 텍스트 입력만으로 사실적인 고해상도 이미지 생성</li>
+    </ul>
+  </li>
+</ol>
+
   </div>
   <div class="md-index">
     <h2>목차</h2>
@@ -322,6 +448,14 @@
 <li class="toc-entry toc-h1"><a href="#변분-오토-인코더variation-autoencoder-vae">변분 오토 인코더(Variation Autoencoder, VAE)</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#evidence-of-lower-boundelbo">Evidence of Lower BOund(ELBO)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#vqvaevector-quantized-variational-autoencoder">VQVAE(Vector Quantized Variational Autoencoder)</a></li>
+<li class="toc-entry toc-h1"><a href="#적대적-생성-신경망-generative-adverarial-networks-gans">적대적 생성 신경망 (Generative Adverarial Networks, GANs)</a></li>
+<li class="toc-entry toc-h1"><a href="#조건부-생성-모델">조건부 생성 모델</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#이미지-대-이미지-image-to-image-translation">이미지 대 이미지 (Image-to-Image Translation)</a></li>
+<li class="toc-entry toc-h3"><a href="#텍스트-대-이미지-text-to-image-generation">텍스트 대 이미지 (Text-to-Image Generation)</a></li>
 </ul>
 </li>
 </ul>
