@@ -13,11 +13,10 @@ gem 'jekyll-toc'
 
 # gem 'tzinfo'
 gem 'tzinfo', '~> 2.0'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# gem 'tzinfo-data'
+gem 'tzinfo-data'
+# , platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'jekyll-feed'
 gem 'jekyll-seo-tag'
 
-gem "wdm", platforms: [:mingw, :mswin] # Windows 전용
+gem "wdm"
