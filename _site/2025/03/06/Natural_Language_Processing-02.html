@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Natural Language Processing - 02</title>
+		<link rel="stylesheet" href="/assets/css/default.css">
+		<link rel="stylesheet" href="/assets/css/code.css">
+		<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+
+		<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+		<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	</head>
+  <body>
+      <div class = "header">
+  <div class = "blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class = "main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <!-- 원하는 위치에 시계를 삽입 -->
+  <div id="clock"></div>
+</div>
+
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
+    return i;
+  }
+
+  // 페이지 로드 시 시계 시작
+  document.addEventListener('DOMContentLoaded', startTime);
+</script>
+
+			<div class="container">
+			  <div class="navigation">
+					<ul>
+					  
+					    <li><a href="/index.html">HOME</a></li>
+					  
+					    <li><a href="/posts/index.html">POSTS</a></li>
+					  
+					    <li><a href="/tags.html">TAGS</a></li>
+					  
+					    <li><a href="/books.html">BOOKS</a></li>
+					  
+					    <li><a href="/project.html">PROJECT</a></li>
+					  
+					</ul>
+					<div id="music-controls" style="text-align: center;">
+					    <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF" style="display: inline-block; width: 50px; height: 50px; margin-top: 21px;">
+					    <button id="playButton" onclick="playMusic()" style="font-size: 0.6vw;">Play</button>
+					    <button id="pauseButton" onclick="pauseMusic()" style="font-size: 0.6vw;">Pause</button>
+					    <button id="nextButton" onclick="nextMusic()" style="font-size: 0.6vw;">Next</button>
+							<label for="volumeSlider" style="font-size: 0.6vw; margin-top: 10px;">Volume:</label>
+    					<input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" style="width: 50%; margin-top: 10px;">
+					</div>
+			  </div>
+			  <div class="main">
+					<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="natural-language-processing---02---2025년03월06일">Natural Language Processing - 02 - 2025년03월06일</h1>
+
+<!-- - tag : DL NLP  -->
+<ul>
+  <li>tag : <a href="/tags/tag_DL.html" class="btn btn-default navbar-btn cursorNorm" role="button">DL</a>
+|
+<a href="/tags/tag_NLP.html" class="btn btn-default navbar-btn cursorNorm" role="button">NLP</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="텍스트-전처리">텍스트 전처리</h1>
+
+<ul>
+  <li>방법
+    <blockquote>
+      <p>HTML 태그, 특수문자, 이모티콘<br />
+정규표현식<br />
+불용어 : 분석에 큰 의미가 없는 단어로 코퍼스 내에 빈번하게 등장하나, 실질적으로 의미를 갖고 있지 않은 용어<br />
+어간추출  : 어형이 변형된 단어로부터 접사 등을 제거하고 그 단어의 어간을 분리해내는 것 &lt; 포터 스태머 알고리즘 &gt;<br />
+표제어추출(Lemmatization) : 품사 정보가 보존된 형태의 기본형으로 변환</p>
+    </blockquote>
+  </li>
+  <li>라이브러리 : KoNLPy, NLTK, SentencePiece</li>
+</ul>
+
+<h2 id="토큰화tokenization">토큰화(Tokenization)</h2>
+
+<ol>
+  <li>주어진 데이터를 토큰이라 불리는 단위로 나누는 작업</li>
+  <li>토큰이 되는 기준은 다를 수 있음</li>
+</ol>
+
+<h3 id="문장-토큰화">문장 토큰화</h3>
+
+<p>문장 분리</p>
+
+<h3 id="단어-토큰화">단어 토큰화</h3>
+
+<p>구두점 분리, 단어 분리</p>
+
+<h3 id="편집거리edit-distance">편집거리(Edit distance)</h3>
+
+<ul>
+  <li>Levenshtein distance
+    <ol>
+      <li>한 string s1 을 s2로 변환하는 최소 횟수를 두 string 간의 거리. 거리가 낮을수록 유사한 문자열로 판단함</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="정규표현식regex">정규표현식(Regex)</h3>
+
+<p>특정한 규칙을 가진 문자열의 집합을 표현하는 데 사용하는 형식 언어</p>
+
+<h3 id="고려사항">고려사항</h3>
+
+<ol>
+  <li>구두점이나 특수 문자를 단순 제외</li>
+  <li>줄임말과 단어 내 띄어쓰기</li>
+  <li>문장 토큰화 : 단순 마침표를 기준으로 자를 수 있음</li>
+</ol>
+
+<h2 id="텍스트-정제">텍스트 정제</h2>
+
+<p>코퍼스 내에서 토큰화 작업에 방해가 되거나 의미가 없는 부분의 텍스트, 노이즈를 제거하는 작업</p>
+
+<h1 id="자연어처리의-다양한-응용시스템">자연어처리의 다양한 응용시스템</h1>
+
+<h2 id="자연어이해-기반-하위분야">자연어이해 기반 하위분야</h2>
+
+<ul>
+  <li>형태소 분석
+    <blockquote>
+      <p>어떠한 문자열이 주어졌을 때, 그 문자열을 이루고 있는 형태소를 비롯한 어근, 접두사, 접미사, 품사 등 다양한 언어적 속성의 구조를 파악하는 것</p>
+    </blockquote>
+  </li>
+  <li>품사 태깅
+    <blockquote>
+      <p>형태소 분석을 한 결과의 각 형태소에 품사 태그를 할당하는 과정</p>
+    </blockquote>
+  </li>
+  <li>형태소 분석기
+    <ol>
+      <li>HMM : Hidden Markov Model</li>
+    </ol>
+    <ul>
+      <li>통계적 마르코프 모델의 하나, 어떠한 결과를 야기하는 원인은 은닉 상태인 이전의 여러 연속된 사건들이라고 보는 모델</li>
+      <li>바로 직전의 단계에서만 직접적인 영향을 받고, 이전의 상태들은 연속적이며 내재적으로 담겨있음
+        <ol>
+          <li>CRF : Conditional Random Field</li>
+        </ol>
+      </li>
+      <li>시퀀스 라벨링(어떠한 배열을 입력으로 받으면 그와 같은 길이의 결과 반환)에 많이 사용</li>
+      <li>특징 함수(Feature function)을 정의
+        <ol>
+          <li>Charater-Lavel Bidirectional LSTM-CRF</li>
+        </ol>
+      </li>
+      <li>띄어쓰기 오류 등의 문제로 한국어 형태소를 처리할 때는 음절 단위를 입력으로 받아 형태소를 분석하는 모델이 좋은 성능을 보임</li>
+    </ul>
+  </li>
+  <li>개체명 인식 - 의학분야 개체명 인식 시스템, 태깅 시스템, 한국어 NER 데이터셋</li>
+  <li>정보추출 : 비구조적인 triple를 추출하는 태스크
+    <blockquote>
+      <p>triple이란? 두 개체 간의 관계를 &lt;주어, 관계, 목적어&gt;으로 나타낸 구조</p>
+    </blockquote>
+    <ul>
+      <li>구조
+        <ol>
+          <li>입력된 문서를 문장단위로 <strong>분할</strong></li>
+          <li>각 문장을 <strong>토큰화</strong></li>
+          <li>품사 태깅을 통해 각 단어의 <strong>품사를 파악</strong></li>
+          <li>품사를 기준으로 <strong>엔티티를 추출</strong></li>
+          <li>술어, 주어, 객체에 대한 관계파악을 위해 텍스트에서 서로 가까이 있는 엔티티쌍의 <strong>특정 패턴을 추출</strong></li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>규칙 기반 접근 : 문장에서 문법적 속성에 대한 규칙 세트를 정의한 다음 규칙을 사용하여 정보를 추출</li>
+  <li>기계학습 기반 접근 : 다량의 데이터로부터 기계학습 알고리즘이 직접 패턴을 발견해 학습</li>
+</ul>
+
+<h1 id="자연어생성-기반-하위분야">자연어생성 기반 하위분야</h1>
+
+<ul>
+  <li>기계번역
+    <ol>
+      <li>규칙 기반 기계 번역</li>
+      <li>통계 기반 기계 번역</li>
+      <li>신경망 기반 기계 번역(NMT : Neural Machine Translation) : Sequence to Sequence</li>
+    </ol>
+  </li>
+  <li>질의응답
+    <ol>
+      <li>질문처리 : 질문유형 분류 및 정답 유형 분류</li>
+      <li>문서처리 : 정답을 포함, 관련성이 높은 문서 혹은 문장을 검색</li>
+      <li>정답처리 : 검색된 문서 혹은 문장에서 정답 후보에 해당하는 개체, 어휘, 구 등을 추출
+        <ul>
+          <li>IR + QA [ 정보검색 , 질의응답 ]</li>
+          <li>대화형 질의응답</li>
+          <li>Visual Question Answering</li>
+          <li>Large Vision-Language Model</li>
+          <li>New VQA Task</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>대화 시스템
+    <ol>
+      <li>목적 지향 대화 시스템 : 특정한 목적 또는 작업을 수행하는 것이 목표
+        <ul>
+          <li>파이프라인 방식</li>
+          <li>자연어 이해 : 도메인 확인, 의도 파악, 슬롯 채우기</li>
+          <li>대화 상태 추적(DST, Dialog State Tracking) : 발화자 의도, 목표와 요청을 정확하게 추적 하는 것</li>
+          <li>자연어 생성 : 발화정보로부터 자연어 문장 생성</li>
+          <li>음성 합성 : 자연어 문장의 음성 생성</li>
+          <li>종단 간 학습</li>
+        </ul>
+      </li>
+      <li>일상 대화 시스템
+        <ul>
+          <li>검색 기반 방식</li>
+          <li>생성 기반 방식</li>
+          <li>검색-생성 혼합 방식</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>문서 요약
+    <ol>
+      <li>추출 요약</li>
+      <li>추상적 요약</li>
+      <li>Multi documents summarization : 복수개의 문서를 요약하는 작업</li>
+      <li>Long documents summarization : 길이가 매우 긴 문서를 요약하는 작업으로 다양한 접근 방식</li>
+      <li>Unsupervised summarization : 상대적 중요도를 측정하는 중요도 점수를 기반으로 주어진 문장에서 중요한 부분을 추출</li>
+    </ol>
+  </li>
+</ul>
+
+<h1 id="자연어처리의-특이한-분야">자연어처리의 특이한 분야</h1>
+
+<ul>
+  <li>Hate Speech Detection : 인터넷 상에서 발생하는 혐오 발언 및 공격적 표현을 자동으로 탐지하고 분류하는 기술
+    <ul>
+      <li>대표 데이터셋 : HateXplain</li>
+    </ul>
+  </li>
+  <li>Counter Speech Generation
+    <ul>
+      <li>혐오 및 허위정보가 내제, 외재된 대화 또는 문장들에 대해 모델이 신뢰성 있는 근거가 내포된 문장을 생성함으로써</li>
+      <li>적절하게 대응할 수 있도록 하는 Task</li>
+      <li>대표 방법론 : Author-Reviewer framework, Generate, Prune, Select</li>
+      <li>대표 데이터셋 : CONAN, ProsocialDialog</li>
+    </ul>
+  </li>
+  <li>Sarcasm Detection : 텍스트 또는 음성 데이터에서 풍자적 의미나 반어법적 말을 감지하고 인식하는 Task
+    <ul>
+      <li>대표 데이터셋 : iSarcasm</li>
+    </ul>
+  </li>
+  <li>Fake News Detection
+    <ul>
+      <li>인터넷 상에서 유표되는 정보 중에서, 사실과 다른 정보, 혹은 과장된 정보를 식별하고 분류하는 Task</li>
+      <li>대표 데이터셋 : LIAR</li>
+    </ul>
+  </li>
+  <li>Fact Checking
+    <ul>
+      <li>미디어나 인터넷 상에서 유포되는 정보의 진실성을 확인하는 Task</li>
+      <li>대표 데이터셋 : FEVER</li>
+    </ul>
+  </li>
+  <li>Machine Translation
+    <ul>
+      <li>WMT(Workshop on Machine Translation)</li>
+      <li>Quality Estimation : 기계 번역된 문장이 얼마나 잘 번역을 하고있는지의 품질을 예측하는 Task
+        <ul>
+          <li>대표 데이터셋 : QUAK</li>
+        </ul>
+      </li>
+      <li>Automatic Post Editing : 기계 번역의 출력물에서 번역 오류, 문법적 오류 등을 자동으로 수정하는 Task
+        <ul>
+          <li>대표 데이터셋 : SubEdits</li>
+        </ul>
+      </li>
+      <li>Word-Level AutoCompletion : 소스 문장, 번역 컨텍스트 및 사람이 입력한 문자 시퀀스가 주어지면 대상 단어를 예측하는 Task</li>
+      <li>Chat Translation : 채팅, 일상대화 분야의 구어체에 대해 기계번역을 수행하는 Task</li>
+    </ul>
+  </li>
+  <li>Dialogue
+    <ul>
+      <li>Persona-grounded Dialogue : 개별 사용자가 갖는 여러 개인적 특성을 고려해 personalized 된 대화를 생성하는 Task
+        <ul>
+          <li>대표 데이터셋 : PersonaChat, BSBT, FoCus</li>
+        </ul>
+      </li>
+      <li>Persuasive Dialogue : 상대방을 설득하기 위한 목적의 대화, 모델이 상대방을 설득하고 자신의 주장을 전달하기 위해 응답 발화를 생성하는 Task
+        <ul>
+          <li>대표 데이터셋 : Persuasion for Good</li>
+        </ul>
+      </li>
+      <li>Dialogue Summarization : 대화 기록이나 대화 데이터를 기반으로 중심 정보들을 재구성하여 요약하는 Task
+        <ul>
+          <li>대표 데이터셋 : DialogSum &amp; SAMSum</li>
+        </ul>
+      </li>
+      <li>Knowledge-grounded Dialogue
+        <ul>
+          <li>대화 시 외부정보가 필요한 경우, Pre-train model 외에 외부 지식을 별도로 활용하여</li>
+          <li>자연스럽고 전문적인 정보를 제공할 수 있는 대화를 생성하는 Task</li>
+          <li>대표 데이터셋 : Wizard Of Wikipedia &amp; Wizard Of Internet</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>기타
+    <ol>
+      <li>Question Generation : 주어진 지문으로 부터 도출될 수 있는 질문들을 생성하는 Task
+        <ul>
+          <li>대표 데이터셋 : FairytaleQA</li>
+        </ul>
+      </li>
+      <li>Document-level Relation Extraction : 문서 전체에서 개체에 대한 속성과 관계를 예측하는 Task
+        <ul>
+          <li>대표 데이터셋 : DocRED</li>
+        </ul>
+      </li>
+      <li>Instruction Tuning : 사람이 원하는 방식의 대답을 이끌어내기 위한 instruction을 통해 대규모 언어 모델(LLM)을 미세 조정하는 데 사용되는 방법
+        <ul>
+          <li>대표 데이터셋 : Super Natural Instructions</li>
+          <li>대표 방법론 : InstructGPT, Alpaca</li>
+        </ul>
+      </li>
+      <li>LLM Evaluation : LLM의 유창성, 일관성, 관련성, 정확성 등 모델 성능의 다양한 측면을 평가해 동작에 대한 인사이트를 얻고 개선점을 파악하고자하는 분야</li>
+      <li>Huggingface Open LLM : 사용자가 다양한 작업에서 다양한 대규모 언어 모델의 성능을 평가하고 비교할 수 있도록 해주는 Huggingface Platform
+        <ul>
+          <li>대표 데이터셋 : AI2 Reasoning Challenge, HellaSwag, MMLU, TruthfulQA</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>한국어 관련 Task
+    <ol>
+      <li>고전어 데이터셋</li>
+      <li>케어콜 데이터셋</li>
+      <li>혐오 발언 탐지 데이터셋</li>
+      <li>쓰기 평가 데이터셋</li>
+      <li>문법 교정 데이터셋</li>
+    </ol>
+  </li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#natural-language-processing---02---2025년03월06일">Natural Language Processing - 02 - 2025년03월06일</a></li>
+<li class="toc-entry toc-h1"><a href="#텍스트-전처리">텍스트 전처리</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#토큰화tokenization">토큰화(Tokenization)</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#문장-토큰화">문장 토큰화</a></li>
+<li class="toc-entry toc-h3"><a href="#단어-토큰화">단어 토큰화</a></li>
+<li class="toc-entry toc-h3"><a href="#편집거리edit-distance">편집거리(Edit distance)</a></li>
+<li class="toc-entry toc-h3"><a href="#정규표현식regex">정규표현식(Regex)</a></li>
+<li class="toc-entry toc-h3"><a href="#고려사항">고려사항</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#텍스트-정제">텍스트 정제</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#자연어처리의-다양한-응용시스템">자연어처리의 다양한 응용시스템</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#자연어이해-기반-하위분야">자연어이해 기반 하위분야</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#자연어생성-기반-하위분야">자연어생성 기반 하위분야</a></li>
+<li class="toc-entry toc-h1"><a href="#자연어처리의-특이한-분야">자연어처리의 특이한 분야</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2025/03/06/Natural_Language_Processing-02.html">Natural Language Processing - 02 [ 2025년03월06일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/03/05/Natural_Language_Processing-01.html">Natural Language Processing - 01 [ 2025년03월05일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/27/generation.html">생성 모델과 판별 모델 [ 2025년02월27일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/14/Computer-Vision-02.html">Computer Vision - 02 [ 2025년02월14일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/11/Computer-Vision-01.html">Computer Vision - 01 [ 2025년02월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/08/Pytorch.html">Pytorch [ 2025년02월08일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/07/DEEPLEARNING-BASIC-01.html">DEEPLEARNING BASIC [ 2025년02월07일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+			  </div>
+			</div>
+			<div class="footer">
+  <p>Email : qkrdlstn9701@naver.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+  </body>
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

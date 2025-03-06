@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "Natural Language Processing - 02",
+      "category" : "",
+      "tags"     : "DL, NLP",
+      "url"      : "/2025/03/06/Natural_Language_Processing-02.html",
+      "date"     : "2025-03-06 00:00:00 +0900"
+    } ,
+  
+    {
+      "title"    : "Natural Language Processing - 01",
+      "category" : "",
+      "tags"     : "DL, NLP",
+      "url"      : "/2025/03/05/Natural_Language_Processing-01.html",
+      "date"     : "2025-03-05 00:00:00 +0900"
+    } ,
+  
+    {
       "title"    : "생성 모델과 판별 모델",
       "category" : "",
       "tags"     : "DL, COMPUTER_VISION",
