@@ -96,76 +96,12 @@
     })
   </script>
 </div>
-
-<!-- 원하는 위치에 달력을 삽입 -->
-<div id="calendar"></div>
-<!-- <button id="add-event">이벤트 추가</button>
-<button id="delete-event">이벤트 삭제</button> -->
-
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var events = JSON.parse(localStorage.getItem('events')) || [];
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          editable: true,
-          selectable: true,
-          events: events,
-          dateClick: function(info) {
-            var title = prompt('이벤트 제목을 입력하세요:');
-            if (title) {
-              var newEvent = {
-                title: title,
-                start: info.dateStr,
-                allDay: true
-              };
-              events.push(newEvent);
-              localStorage.setItem('events', JSON.stringify(events));
-              calendar.addEvent(newEvent);
-              alert('이벤트가 추가되었습니다: ' + title);
-            }
-          },
-          eventClick: function(info) {
-            var isConfirmed = confirm('이 이벤트를 삭제하시겠습니까?');
-            if (isConfirmed) {
-              info.event.remove();
-              events = events.filter(function(event) {
-                return event.start !== info.event.startStr || event.title !== info.event.title;
-              });
-              localStorage.setItem('events', JSON.stringify(events));
-              alert('이벤트가 삭제되었습니다.');
-            }
-          }
-        });
-
-        calendar.render();
-
-        document.getElementById('add-event').addEventListener('click', function() {
-          var title = prompt('이벤트 제목을 입력하세요:');
-          var dateStr = prompt('날짜를 입력하세요 (YYYY-MM-DD):');
-          if (title && dateStr) {
-            var newEvent = {
-              title: title,
-              start: dateStr,
-              allDay: true
-            };
-            events.push(newEvent);
-            localStorage.setItem('events', JSON.stringify(events));
-            calendar.addEvent(newEvent);
-            alert('이벤트가 추가되었습니다: ' + title);
-          }
-        });
-      });
-</script>
-
 			  </div>
 			</div>
 			<div class="footer">
-  <p>Email : qkrdlstn9701@naver.com</p>
+  <p>Email : parkinsu9701@gmail.com</p>
   <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
 </div>
-
   </body>
 </html>
 <script src="/assets/js/music-controls.js" defer></script>
