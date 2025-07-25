@@ -8,3 +8,23 @@ timezone: Asia/Seoul
 
 include:
   - .well-known
+
+toc:
+  min_level: 2
+  max_level: 4
+
+# Search JSON 설정
+exclude:
+  - Gemfile
+  - Gemfile.lock
+
+# search.json이 정상적으로 생성되도록 layout 설정
+defaults:
+  - scope:
+      path: ''
+      type: 'posts'
+    values:
+      layout: post
+
+# site.baseurl 예: /myblog (Github Pages라면)
+baseurl: ''

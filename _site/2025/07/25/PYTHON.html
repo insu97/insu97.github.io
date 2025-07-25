@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Python</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="python---2025년07월25일">Python - 2025년07월25일</h1>
+
+<!-- - tag : PYTHON  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_PYTHON.html" class="btn btn-default navbar-btn cursorNorm" role="button">PYTHON</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="error">ERROR</h2>
+
+<h3 id="rag">RAG</h3>
+
+<h4 id="reranker">Reranker</h4>
+
+<ul>
+  <li>코드</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.cross_encoders</span> <span class="kn">import</span> <span class="n">HuggingFaceCrossEncoder</span>
+
+<span class="n">hf_reranker</span> <span class="o">=</span> <span class="n">HuggingFaceCrossEncoder</span><span class="p">(</span>
+    <span class="n">model_name</span><span class="o">=</span><span class="s">"BAAI/bge-reranker-v2-m3"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>error 문구</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Error</span> <span class="n">rendering</span> <span class="n">output</span> <span class="n">item</span> <span class="n">using</span> <span class="s">'jupyter-ipywidget-renderer'</span>
+<span class="n">Cannot</span> <span class="n">read</span> <span class="n">properties</span> <span class="n">of</span> <span class="n">undefined</span> <span class="p">(</span><span class="n">reading</span> <span class="s">'ipywidgetsKernel'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>해결책</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ipywidgets <span class="nt">--upgrade</span>
+jupyter nbextension <span class="nb">enable</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
+jupyter nbextension <span class="nb">install</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
+</code></pre></div></div>
+
+<h2 id="others">Others</h2>
+
+<h3 id="라이브러리-관리">라이브러리 관리</h3>
+
+<ul>
+  <li>방법1</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze <span class="o">&gt;</span> requirements.txt
+pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</code></pre></div></div>
+
+<ul>
+  <li>방법2</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pipreqs
+pipreqs ./ <span class="nt">--force</span>
+
+<span class="c"># 폴더 내에서 환경이 존재하는 경우</span>
+pipreqs <span class="nb">.</span> <span class="nt">--force</span> <span class="nt">--ignore</span> <span class="s2">"{가상환경}/Lib"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>방법3</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 새로운 라이브러리를 설치 후 requirements.txt 에 적용할 때</span>
+<span class="c"># Ex. cohere 설치했을경우</span>
+pip freeze | <span class="nb">grep </span>cohere
+</code></pre></div></div>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#error">ERROR</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#rag">RAG</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#reranker">Reranker</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#others">Others</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#라이브러리-관리">라이브러리 관리</a></li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/07/25/PYTHON.html">Python [ 2025년07월25일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

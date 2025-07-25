@@ -25,16 +25,6 @@
     <h1><a href='/'>In수</a></h1>
   </div>
 
-  <!-- <div id="music-controls" style="text-align: center;">
-    <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
-      style="display: inline-block; width: 50px; height: 50px; margin-top: 21px;">
-    <button id="playButton" onclick="playMusic()" style="font-size: 0.6vw;">Play</button>
-    <button id="pauseButton" onclick="pauseMusic()" style="font-size: 0.6vw;">Pause</button>
-    <button id="nextButton" onclick="nextMusic()" style="font-size: 0.6vw;">Next</button>
-    <label for="volumeSlider" style="font-size: 0.6vw; margin-top: 10px;">Volume:</label>
-    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" style="width: 50%; margin-top: 10px;">
-  </div> -->
-
   <div id="music-controls" style="text-align: center;">
     <!-- 첫 줄: GIF와 버튼 -->
     <div class="top-controls">
@@ -53,31 +43,7 @@
     </div>
   </div>
 
-
-  <!-- 원하는 위치에 시계를 삽입 -->
-  <!-- <div id="clock"></div> -->
 </div>
-
-<script>
-  function startTime() {
-    const today = new Date();
-    let h = today.getHours();
-    let m = today.getMinutes();
-    let s = today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
-    setTimeout(startTime, 1000);
-  }
-
-  function checkTime(i) {
-    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
-    return i;
-  }
-
-  // 페이지 로드 시 시계 시작
-  document.addEventListener('DOMContentLoaded', startTime);
-</script>
 	<div class="container">
 		<div class="navigation">
 			<ul>
@@ -101,9 +67,9 @@
 
 <!-- - tag : DL COMPUTER_VISION  -->
 <ul>
-  <li>tag : <a href="/tags/tag_DL.html" class="btn btn-default navbar-btn cursorNorm" role="button">DL</a>
+  <li>tag : <a href=" /tags/tag_DL.html" class="btn btn-default navbar-btn cursorNorm" role="button">DL</a>
 |
-<a href="/tags/tag_COMPUTER_VISION.html" class="btn btn-default navbar-btn cursorNorm" role="button">COMPUTER_VISION</a>
+<a href=" /tags/tag_COMPUTER_VISION.html" class="btn btn-default navbar-btn cursorNorm" role="button">COMPUTER_VISION</a>
 |</li>
 </ul>
 
@@ -687,9 +653,6 @@
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#생성-모델과-판별-모델---2025년02월27일">생성 모델과 판별 모델 - 2025년02월27일</a></li>
-<li class="toc-entry toc-h1"><a href="#생성-모델과-판별-모델">생성 모델과 판별 모델</a>
-<ul>
 <li class="toc-entry toc-h2"><a href="#생성-모델-generative-models">생성 모델 (Generative Models)</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#특징">특징</a></li>
@@ -699,30 +662,15 @@
 </li>
 <li class="toc-entry toc-h2"><a href="#판별-모델-discriminative-model">판별 모델 (Discriminative Model)</a></li>
 <li class="toc-entry toc-h2"><a href="#생성-모델-vs-판별-모델">생성 모델 vs 판별 모델</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#오토-인코더">오토 인코더</a>
-<ul>
 <li class="toc-entry toc-h2"><a href="#손실함수">손실함수</a></li>
 <li class="toc-entry toc-h2"><a href="#디노이징denoising-오토-인코더">디노이징(Denoising) 오토 인코더</a></li>
 <li class="toc-entry toc-h2"><a href="#활용">활용</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#변분-오토-인코더variation-autoencoder-vae">변분 오토 인코더(Variation Autoencoder, VAE)</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#evidence-of-lower-boundelbo">Evidence of Lower BOund(ELBO)</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#vqvaevector-quantized-variational-autoencoder">VQVAE(Vector Quantized Variational Autoencoder)</a></li>
-<li class="toc-entry toc-h1"><a href="#적대적-생성-신경망-generative-adverarial-networks-gans">적대적 생성 신경망 (Generative Adverarial Networks, GANs)</a></li>
-<li class="toc-entry toc-h1"><a href="#조건부-생성-모델">조건부 생성 모델</a>
+<li class="toc-entry toc-h2"><a href="#evidence-of-lower-boundelbo">Evidence of Lower BOund(ELBO)</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#이미지-대-이미지-image-to-image-translation">이미지 대 이미지 (Image-to-Image Translation)</a></li>
 <li class="toc-entry toc-h3"><a href="#텍스트-대-이미지-text-to-image-generation">텍스트 대 이미지 (Text-to-Image Generation)</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#확산-모델">확산 모델</a>
-<ul>
 <li class="toc-entry toc-h2"><a href="#확산-확률-모델diffusion-probabilistic-model-dpm">확산 확률 모델(Diffusion Probabilistic Model, DPM)</a></li>
 <li class="toc-entry toc-h2"><a href="#디노이징-확산-확률-모델ddpm">디노이징 확산 확률 모델(DDPM)</a></li>
 <li class="toc-entry toc-h2"><a href="#생성-과정-가속화">생성 과정 가속화</a>
@@ -752,10 +700,6 @@
 <li class="toc-entry toc-h3"><a href="#latent-diffusion-modelldm">Latent Diffusion Model(LDM)</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#확산-모델의-개인화">확산 모델의 개인화</a>
-<ul>
 <li class="toc-entry toc-h2"><a href="#텍스트-반전">텍스트 반전</a></li>
 <li class="toc-entry toc-h2"><a href="#dreambooth">DreamBooth</a></li>
 <li class="toc-entry toc-h2"><a href="#lora">LoRA</a></li>
@@ -764,10 +708,16 @@
 <li class="toc-entry toc-h2"><a href="#ip-adapter">IP-Adapter</a></li>
 <li class="toc-entry toc-h2"><a href="#imagic">Imagic</a></li>
 </ul>
-</li>
-</ul>
     <hr>
     <h2>관련 POST</h2>
+    
+      
+        
+      
+    
+      
+        
+      
     
       
         

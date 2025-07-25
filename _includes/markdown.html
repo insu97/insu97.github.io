@@ -1,7 +1,8 @@
 # {{ page.title }} - {{ page.date | date: "%Y년%m월%d일" }}
 
 <!-- - tag : {% for i in page.tags %}{{ i }} {% endfor %} -->
-* tag : {% for tag in page.tags %}<a href="{{ "/tags/tag_" | append: tag | append: ".html" }}" class="btn btn-default navbar-btn cursorNorm" role="button">{{page.tagName}}{{tag}}</a>
+* tag : {% for tag in page.tags %}<a href="{{ " /tags/tag_" | append: tag | append: ".html" }}"
+    class="btn btn-default navbar-btn cursorNorm" role="button">{{page.tagName}}{{tag}}</a>
 |
 {% endfor %}
 

@@ -25,16 +25,6 @@
     <h1><a href='/'>In수</a></h1>
   </div>
 
-  <!-- <div id="music-controls" style="text-align: center;">
-    <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
-      style="display: inline-block; width: 50px; height: 50px; margin-top: 21px;">
-    <button id="playButton" onclick="playMusic()" style="font-size: 0.6vw;">Play</button>
-    <button id="pauseButton" onclick="pauseMusic()" style="font-size: 0.6vw;">Pause</button>
-    <button id="nextButton" onclick="nextMusic()" style="font-size: 0.6vw;">Next</button>
-    <label for="volumeSlider" style="font-size: 0.6vw; margin-top: 10px;">Volume:</label>
-    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" style="width: 50%; margin-top: 10px;">
-  </div> -->
-
   <div id="music-controls" style="text-align: center;">
     <!-- 첫 줄: GIF와 버튼 -->
     <div class="top-controls">
@@ -53,31 +43,7 @@
     </div>
   </div>
 
-
-  <!-- 원하는 위치에 시계를 삽입 -->
-  <!-- <div id="clock"></div> -->
 </div>
-
-<script>
-  function startTime() {
-    const today = new Date();
-    let h = today.getHours();
-    let m = today.getMinutes();
-    let s = today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
-    setTimeout(startTime, 1000);
-  }
-
-  function checkTime(i) {
-    if (i < 10) { i = "0" + i };  // 10보다 작으면 앞에 0을 추가
-    return i;
-  }
-
-  // 페이지 로드 시 시계 시작
-  document.addEventListener('DOMContentLoaded', startTime);
-</script>
 	<div class="container">
 		<div class="navigation">
 			<ul>
@@ -101,7 +67,7 @@
 
 <!-- - tag : Computer_Engineering  -->
 <ul>
-  <li>tag : <a href="/tags/tag_Computer_Engineering.html" class="btn btn-default navbar-btn cursorNorm" role="button">Computer_Engineering</a>
+  <li>tag : <a href=" /tags/tag_Computer_Engineering.html" class="btn btn-default navbar-btn cursorNorm" role="button">Computer_Engineering</a>
 |</li>
 </ul>
 
@@ -240,9 +206,6 @@ offset : 매핑을 시작할 위치</p>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#system-programming---01---2024년12월27일">System Programming - 01 - 2024년12월27일</a></li>
-<li class="toc-entry toc-h1"><a href="#파일-다루기">파일 다루기</a>
-<ul>
 <li class="toc-entry toc-h2"><a href="#파일-디스크립터와-파일-포인터">파일 디스크립터와 파일 포인터</a></li>
 <li class="toc-entry toc-h2"><a href="#파일-입력">파일 입력</a></li>
 <li class="toc-entry toc-h2"><a href="#파일-출력">파일 출력</a></li>
@@ -251,10 +214,16 @@ offset : 매핑을 시작할 위치</p>
 <li class="toc-entry toc-h2"><a href="#파일-속성-다루기">파일 속성 다루기</a></li>
 <li class="toc-entry toc-h2"><a href="#파일-메모리-매핑">파일 메모리 매핑</a></li>
 </ul>
-</li>
-</ul>
     <hr>
     <h2>관련 POST</h2>
+    
+      
+        
+      
+    
+      
+        
+      
     
       
         
