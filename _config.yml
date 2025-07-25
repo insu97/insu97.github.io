@@ -17,6 +17,7 @@ toc:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - vendor
 
 # search.json이 정상적으로 생성되도록 layout 설정
 defaults:
