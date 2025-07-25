@@ -186,7 +186,7 @@ body {
   display: flex;
   justify-content: center; /* 가운데 정렬 (선택사항) */
   gap: 1rem; /* 요소 사이 간격 */
-  margin-top: 1rem;
+  margin: 1rem 0 1rem 0;
   align-items: center;
 }
 
