@@ -13,8 +13,16 @@
       "title": "Python",
       "tags": "PYTHON",
       "desc": "Python - 2025년07월25일  tag : PYTHON|",
-      "content": "Python - 2025년07월25일  tag : PYTHON|ERRORRAGReranker  코드from langchain_community.cross_encoders import HuggingFaceCrossEncoderhf_reranker = HuggingFaceCrossEncoder(    model_name=\"BAAI/bge-reranker-v2-m3\")  error 문구Error rendering output item using 'jupyter-ipywidget-renderer'Cannot read properties of undefined (reading 'ipywidgetsKernel')  해결책pip install ipywidgets --upgradejupyter nbextension enable --py widgetsnbextension --sys-prefixjupyter nbextension install --py widgetsnbextension --sys-prefixOthers라이브러리 관리  방법1pip freeze &gt; requirements.txtpip install -r requirements.txt  방법2pip install pipreqspipreqs ./ --force# 폴더 내에서 환경이 존재하는 경우pipreqs . --force --ignore \"{가상환경}/Lib\"  방법3# 새로운 라이브러리를 설치 후 requirements.txt 에 적용할 때# Ex. cohere 설치했을경우pip freeze | grep cohere",
+      "content": "Python - 2025년07월25일  tag : PYTHON|ERRORRAGReranker  코드from langchain_community.cross_encoders import HuggingFaceCrossEncoderhf_reranker = HuggingFaceCrossEncoder(    model_name=\"BAAI/bge-reranker-v2-m3\")  error 문구Error rendering output item using 'jupyter-ipywidget-renderer'Cannot read properties of undefined (reading 'ipywidgetsKernel')  해결 방법pip install ipywidgets --upgradejupyter nbextension enable --py widgetsnbextension --sys-prefixjupyter nbextension install --py widgetsnbextension --sys-prefixOthers라이브러리 관리  방법1pip freeze &gt; requirements.txtpip install -r requirements.txt  방법2pip install pipreqspipreqs ./ --force# 폴더 내에서 환경이 존재하는 경우pipreqs . --force --ignore \"{가상환경}/Lib\"  방법3# 새로운 라이브러리를 설치 후 requirements.txt 에 적용할 때# Ex. cohere 설치했을경우pip freeze | grep cohere",
       "url": "/2025/07/25/PYTHON.html"
+    },
+  
+    {
+      "title": "Jekyll Blog",
+      "tags": "Jekyll_Blog",
+      "desc": "Jekyll Blog - 2025년07월25일  tag : Jekyll_Blog|",
+      "content": "Jekyll Blog - 2025년07월25일  tag : Jekyll_Blog|ERRORJekyll Build Error  error 코드Invalid date '&lt;%= Time.now.strftime('%Y-%m-%d %H:%M:%S %z') %&gt;': Document '.../0000-00-00-welcome-to-jekyll.markdown.erb' does not have a valid date in the YAML front matter.      해결 방법          GitHub Actions 환경에서 이 에러가 발생한 것이라면, 루트 디렉토리에 있는 _posts/가 아닌 vendor/ 내부에 있는 템플릿 파일이 빌드 과정에 포함되지 않도록 설정해야 함.        # _config.yml 에 아래 작성exclude:- vendor      ",
+      "url": "/2025/07/25/Jekyll_Blog.html"
     },
   
     {

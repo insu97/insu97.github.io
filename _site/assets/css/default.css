@@ -196,6 +196,17 @@ body {
   text-decoration-line: none;
 }
 
+.main .search-result-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* 표시할 줄 수 */
+  -webkit-box-orient: vertical;
+  margin-top: 5px;
+  color: #555;
+}
+
 .main .posts .pagination {
   display: flex;
   justify-content: center; /* 가운데 정렬 (선택사항) */
