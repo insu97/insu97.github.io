@@ -85,6 +85,38 @@ body {
   text-decoration: none;
 }
 
+.header #music-controls {
+  width: 15vw;
+  text-align: center;
+  font-size: 0.6vw;  /* 수정: 더 작은 폰트 */
+  flex-shrink: 0;
+}
+
+.header #music-controls .top-controls button,
+.header #music-controls .volume-controls label,
+.header #music-controls .volume-controls input {
+  font-size: 0.6vw;
+}
+
+.header #music-controls .top-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3vw;
+}
+
+.header #music-controls .volume-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5vw;
+  margin-top: 0.5vw;
+}
+
+#musicGif {
+  vertical-align: middle;
+}
+
 .header #clock {
   width: 10vw;
   text-align: center;
@@ -117,17 +149,6 @@ body {
   border-bottom: 1px solid black;
   font-family: "Dokdo", system-ui;
   padding: 0.5vw 0;
-}
-
-.container #music-controls {
-  margin-top: 13vw;
-}
-
-.container #music-controls .button {
-  vertical-align: middle;
-  padding: 0.1vw;
-  margin: 0.1vw;
-  cursor: pointer;
 }
 
 /* ==========================================================================
