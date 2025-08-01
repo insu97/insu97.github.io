@@ -24,20 +24,20 @@ body {
 .header {
   width: 100vw;
   height: 5vw;
+  border-top: 1px solid black;
   border-bottom: 1px solid black;
   display: flex;
   align-items: center;
 }
 
 .container {
-  width: 100%;
-  min-height: 37vw;
+  width: 100vw;
   display: flex;
 }
 
 .footer {
-  width: 100%;
-  min-height: 5vw;
+  width: 100vw;
+  height: 5vw;
   position: relative;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
@@ -67,6 +67,7 @@ body {
 }
 
 .header .main_text {
+  width: calc(100vw - 11vw - 15vw);
   flex-grow: 1;
   text-align: center;
   position: relative;
@@ -150,6 +151,7 @@ body {
 
 .container .main {
   flex-grow: 1;
+  width: calc(100vw - 11vw);
   min-height: 37vw;
   border-left: 1px solid black;
 }
@@ -207,11 +209,25 @@ body {
   color: #555;
 }
 
+.main .posts {
+  width: 100%;
+}
+
+.main .posts p {
+  margin: 0;
+  padding: 0;
+}
+
+.main .posts a {
+  padding: 1vw 0 1vw 1vw;
+}
+
 .main .posts .pagination {
+  width: 100%;
   display: flex;
   justify-content: center; /* 가운데 정렬 (선택사항) */
-  gap: 1rem; /* 요소 사이 간격 */
-  margin: 1rem 0 1rem 0;
+  gap: 1vw; /* 요소 사이 간격 */
+  padding: 1vw 0 1vw 0;
   align-items: center;
 }
 
