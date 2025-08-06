@@ -626,10 +626,12 @@ body {
 }
 
 .markdown-body blockquote {
-  margin: 0;
-  padding: 0 1em;
-  color: #656d76;
-  border-left: .25em solid #d0d7de;
+  margin: 1.5em 0;
+  padding: 1em;
+  color: #4a5568;
+  background-color: #f7fafc;
+  border-left: .3em solid #4299e1;
+  border-radius: 5px;
 }
 
 .markdown-body ul,
