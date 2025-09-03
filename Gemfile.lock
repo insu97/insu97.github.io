@@ -85,6 +85,7 @@ DEPENDENCIES
   jekyll-seo-tag
   jekyll-toc
   kramdown-parser-gfm
+  nokogiri (~> 1.15.0)
   tzinfo (~> 2.0)
   tzinfo-data
   wdm
