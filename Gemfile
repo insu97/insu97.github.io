@@ -24,5 +24,3 @@ gem 'jekyll-seo-tag'
 
 gem 'wdm'
 gem "kramdown-parser-gfm"
-
-gem 'nokogiri', '~> 1.15.0'
