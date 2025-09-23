@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Network - 01</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="network---01---2024년12월22일">Network - 01 - 2024년12월22일</h1>
+
+<!-- - tag : Computer_Engineering  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Computer_Engineering.html" class="btn btn-default navbar-btn cursorNorm" role="button">Computer_Engineering</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="network">Network</h1>
+
+<ul>
+  <li>인터넷 : 네트워크의 네트워크</li>
+  <li>컴퓨터 네트워크 : 여러 장치들이 서로 정보를 주고받을 수 있는 통신망
+    <blockquote>
+      <p>구성요소 : 노드, 메세지, 간선(통신 링크)</p>
+      <blockquote>
+        <p>노드 : 종단 시스템, 호스트, 메세지를 최초로 송신, 생성하는 대상, 주소를 통해 위치 특정[유니캐스트, 브로드캐스트, 멀티캐스트]</p>
+      </blockquote>
+    </blockquote>
+  </li>
+  <li>클라이언트 : 요청을 보내는 호스트</li>
+  <li>
+    <p>서버 : 응답을 보내는 호스트</p>
+  </li>
+  <li>간선(통신 링크)
+    <blockquote>
+      <p>유선 케이블(트위스티트 페어 케이블, 광케이블)<br />
+무선(와이파이)</p>
+    </blockquote>
+  </li>
+  <li>메세지 : 주고받은 정보</li>
+  <li>WAN : 원거리를 연결한 네트워크</li>
+  <li>LAN : 근거리를 연결한 네트워크</li>
+</ul>
+
+<h2 id="프로토콜과-캡슐화">프로토콜과 캡슐화</h2>
+
+<ul>
+  <li>패킷 교환 네트워크
+    <blockquote>
+      <p>주고받는 정보를 패킷 단위로 주고받는 네트워크<br />
+패킷이란 패킷 교환 네트워크에서 주고받는 데이터 단위</p>
+    </blockquote>
+  </li>
+  <li>회선 교환 네트워크
+    <blockquote>
+      <p>정해진 회선(circuit)으로만 통신하는 네트워크<br />
+사전에 연결 수립 작업, 다른 호스트는 도중에 끼어들 수 없음<br />
+장점 : 전송률 보장<br />
+단점 : 회선 이용률 저하</p>
+    </blockquote>
+  </li>
+  <li>패킷 구성 요소
+    <ol>
+      <li>header : 패킷에 붙일 부가 정보</li>
+      <li>payload : 패킷에 보낼 정보</li>
+      <li>trailer : 패킷 뒤에 붙일 부가정보</li>
+    </ol>
+  </li>
+  <li>프로토콜
+    <blockquote>
+      <p>장비 간 정보를 주고받을 규칙이나 방법<br />
+호스트 간에 합의된 의사소통 규칙</p>
+    </blockquote>
+  </li>
+  <li>OSI 모델
+    <blockquote>
+      <p>계층 : [물리, 데이터링크, 네트워크, 전송, 세션, 표현, 응용 계층]</p>
+    </blockquote>
+  </li>
+  <li>TCP/IP 모델
+    <blockquote>
+      <p>계층 : [네트워크 엑세스, 인터넷, 전송, 응용 계층]</p>
+    </blockquote>
+  </li>
+  <li>캡슐화 : 상위 계층으로부터 내려받은 패킷을 payload로 삼아, 상위 계층으로부터 받은 정보에 프로토콜에 걸맞는 헤더를 덧붙이는 것</li>
+  <li>역캡슐화 : 캡슐화 과정에서 붙인 헤더를 각 계층에서 제거하는 것</li>
+</ul>
+
+<h2 id="네트워크의-성능">네트워크의 성능</h2>
+
+<ul>
+  <li>트래픽 : 특정 시간 동안 네트워크 내 정보 흐름</li>
+  <li>대역폭(bandwidth) : 네트워크 트래픽을 수용할 수 있는 용량, 송수신 가능한 최대 데이터 양</li>
+  <li>패킷 손실 : 얼마나 많은 패킷이 송수신 과정에서 손실되었는가?</li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#프로토콜과-캡슐화">프로토콜과 캡슐화</a></li>
+<li class="toc-entry toc-h2"><a href="#네트워크의-성능">네트워크의 성능</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/31/Database-02.html">Database - 02 [ 2024년12월31일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/30/Database-01.html">Database - 01 [ 2024년12월30일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/29/System_Programming-03.html">System Programming - 03 [ 2024년12월29일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/28/System_Programming-02.html">System Programming - 02 [ 2024년12월28일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/27/System_Programming-01.html">System Programming - 01 [ 2024년12월27일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/26/Network-05.html">Network - 05 [ 2024년12월26일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/25/Network-04.html">Network - 04 [ 2024년12월25일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/24/Network-03.html">Network - 03 [ 2024년12월24일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/23/Network-02.html">Network - 02 [ 2024년12월23일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/22/Network-01.html">Network - 01 [ 2024년12월22일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/21/Operating_System-05.html">Operating System-05 [ 2024년12월21일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/20/Operating_System-04.html">Operating System-04 [ 2024년12월20일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/19/Operating_System-03.html">Operating System-03 [ 2024년12월19일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/18/Operating_System-02.html">Operating System-02 [ 2024년12월18일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/17/Operating_System-01.html">Operating System-01 [ 2024년12월17일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/15/Computer-Structure.html">Computer Structure [ 2024년12월15일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

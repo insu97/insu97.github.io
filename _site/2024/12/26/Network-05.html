@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Network - 05</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="network---05---2024년12월26일">Network - 05 - 2024년12월26일</h1>
+
+<!-- - tag : Computer_Engineering  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Computer_Engineering.html" class="btn btn-default navbar-btn cursorNorm" role="button">Computer_Engineering</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="응용-계층">응용 계층</h1>
+
+<h2 id="dns">DNS</h2>
+
+<blockquote>
+  <p>네트워크 상에서 호스트를 특정 지을 수 있는 주소 : MAC 주소, IP 주소</p>
+</blockquote>
+
+<ul>
+  <li>DNS 레코드(자원 레코드)
+    <ol>
+      <li>A 레코드</li>
+      <li>AAAA 레코드</li>
+      <li>CNAME 레코드</li>
+      <li>NS 레코드</li>
+      <li>SOA 레코드</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="자원과-자원의-식별">자원과 자원의 식별</h2>
+
+<blockquote>
+  <p>네트워크 상에서 자원의 식별자 : Uniform Resource Identifier</p>
+</blockquote>
+
+<ul>
+  <li>URL : 위치 기반 자원 식별(Locator)</li>
+  <li>
+    <p>URN : 이름 기반 자원 식별(Name)</p>
+  </li>
+  <li>URL 구성요소
+    <ol>
+      <li>scheme : 일반적으로 프로토콜 이름 명시</li>
+      <li>authority</li>
+      <li>path : 자원이 있는 경로</li>
+      <li>query : key:value 형태로 서버에 전달할 문자 형태의 파라미터</li>
+      <li>fragment : 자원의 조각(fragment)를 가리키는 데에 사용</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="웹-서버와-웹-어플리케이션-서버">웹 서버와 웹 어플리케이션 서버</h2>
+
+<ul>
+  <li>서버
+    <ol>
+      <li>웹 서버</li>
+      <li>웹 어플리케이션 서버(WAS)</li>
+    </ol>
+  </li>
+  <li>서버가 응답해야 하는 자원
+    <ol>
+      <li>정적인 자원</li>
+      <li>동적인 자원</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="http의-특성">HTTP의 특성</h2>
+
+<ol>
+  <li>요청-응답 기반 클라이언트-서버 구조 프로토콜</li>
+  <li>미디어-독립적 프로토콜 : 어떤 형태의 데이터도 HTTP 메세지로 보낼 수 있음</li>
+  <li>비연결성 프로토콜 : 다수의 클라이언트가 연결을 시도할 경우 연결을 유지하는 동안 서버의 자원소모가 큼</li>
+  <li>스테이트리스 프로토콜 : 서버는 클라이언트의 상태를 기억하지 않는다.</li>
+  <li>지속 연결 프로토콜 : 하나의 연결을 사용해 여러 개의 HTTP 요청/응답 주고받기</li>
+</ol>
+
+<ul>
+  <li>HTTP 버전별 특성
+    <ol>
+      <li>HTTP 0.9 : 단일한 요청 방법(GET 메서드), 비지속 연결, 별다른 기능 X</li>
+      <li>HTTP 1.0 : 다양한 요청 방법과 헤더 추가</li>
+      <li>HTTP 1.1 : 지속 연결 기능 추가</li>
+      <li>HTTP 2.0 : 요청 순서대로 응답을 반환할 필요 없음, 헤더 압축</li>
+      <li>HTTP 3.0 : UDP 기반 프로토콜인 QUIC로 변경</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="http-메세지-개관">HTTP 메세지 개관</h2>
+
+<ul>
+  <li>HTTP 메서드 : 서버에게 요청할 동작
+    <ol>
+      <li>GET : 자원 조회</li>
+      <li>POST : 요청할 데이터 처리</li>
+      <li>PUT : 자원 덮어쓰기</li>
+      <li>PATCH : 자원 부분 변경</li>
+      <li>DELETE : 자원 삭제</li>
+    </ol>
+  </li>
+</ul>
+
+<blockquote>
+  <p>멱등성 : 여러 번 동일한 요청을 보내도 첫 요청 결과와 같은가<br />
+캐시 가능성 : 응답 결과를 캐시해서 사용할 수 있는가</p>
+</blockquote>
+
+<ul>
+  <li>응답 코드
+    <ol>
+      <li>2XX : 성공</li>
+      <li>3XX : 리다이렉션</li>
+      <li>4XX : 클라이언트 오류</li>
+      <li>5XX : 서버 오류</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="http-헤더">HTTP 헤더</h2>
+
+<blockquote>
+  <p>header-field = field name “:” field-value</p>
+</blockquote>
+
+<ul>
+  <li>대표적인 헤더 정보
+    <ol>
+      <li>HOST : 요청 호스트에 대한 호스트명 + 포트 정보</li>
+      <li>Date : 메세지 생성 시간</li>
+      <li>Referer : 직전에 머물렀던 URL</li>
+      <li>User-Agent : 클라이언트 소프트웨어, 브라우저 명칭과 정보</li>
+      <li>Server : 서버 소프트웨어 명칭과 정보</li>
+      <li>Connection : keep-alive 일 경우 킵 얼라이브</li>
+      <li>Location : 리다이렉트시 이동할 경로</li>
+      <li>Content-Type : HTTP 요청 및 응답에서 사용될 컨텐츠의 유형</li>
+      <li>Content-Encoding : 데이터의 인코딩/압축 방식</li>
+      <li>Content-Length : 데이터의 바이트 단위 길이</li>
+      <li>Content-Language : 데이터의 언어</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="캐시">캐시</h2>
+
+<blockquote>
+  <p>서버의 지연을 줄이기 위해 웹 페이지, 이미지 등의 자원 사본을 임시 저장하는 웹 기술</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>Last-Modified : 해당 자원이 언제 마지막으로 변경되었는지를 알려주는 헤더</p>
+  </li>
+  <li>
+    <p>캐시된 자원의 변경</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; 클라이언트는 요청시 if-modified-since 헤더로 특정 시점 이후 자원 변경 여부를 묻는다.  
+&gt; 만일 변경되었다면 다시 다운로드, 아니면 서버는 304 Not Modified 응답을 보낸다.
+
+&gt; Etag를 통해 자원의 변경 여부 감지 기능  
+&gt; 서버는 캐시된 자원이 Etag라는 식별 문자를 붙이고,  
+&gt; 클라이언트는 If-None-Match 헤더를 통해 해당 Etag가 변경되었는지를 물어본다
+</code></pre></div></div>
+
+<h2 id="쿠키">쿠키</h2>
+
+<blockquote>
+  <p>서버로부터 받은 정보를 클라이언트 측(웹 브라우저)에 임시 저장되는 이름=값 형태의 데이터<br />
+유효 기간이 있음<br />
+쿠키를 전송할 도메인과 경로가 정해져 있음</p>
+</blockquote>
+
+<ul>
+  <li>cookie 의 보안기능
+    <ol>
+      <li>Secure : Https인 경우에만 전송</li>
+      <li>HTTPOnly : 자바스크립트에서 접근 불가</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="컨텐츠-협상">컨텐츠 협상</h2>
+
+<blockquote>
+  <p>클라이언트가 원하는 컨텐츠를 받을 수 있도록 서버에게 부탁하는 기능</p>
+</blockquote>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#dns">DNS</a></li>
+<li class="toc-entry toc-h2"><a href="#자원과-자원의-식별">자원과 자원의 식별</a></li>
+<li class="toc-entry toc-h2"><a href="#웹-서버와-웹-어플리케이션-서버">웹 서버와 웹 어플리케이션 서버</a></li>
+<li class="toc-entry toc-h2"><a href="#http의-특성">HTTP의 특성</a></li>
+<li class="toc-entry toc-h2"><a href="#http-메세지-개관">HTTP 메세지 개관</a></li>
+<li class="toc-entry toc-h2"><a href="#http-헤더">HTTP 헤더</a></li>
+<li class="toc-entry toc-h2"><a href="#캐시">캐시</a></li>
+<li class="toc-entry toc-h2"><a href="#쿠키">쿠키</a></li>
+<li class="toc-entry toc-h2"><a href="#컨텐츠-협상">컨텐츠 협상</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/31/Database-02.html">Database - 02 [ 2024년12월31일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/30/Database-01.html">Database - 01 [ 2024년12월30일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/29/System_Programming-03.html">System Programming - 03 [ 2024년12월29일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/28/System_Programming-02.html">System Programming - 02 [ 2024년12월28일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/27/System_Programming-01.html">System Programming - 01 [ 2024년12월27일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/26/Network-05.html">Network - 05 [ 2024년12월26일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/25/Network-04.html">Network - 04 [ 2024년12월25일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/24/Network-03.html">Network - 03 [ 2024년12월24일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/23/Network-02.html">Network - 02 [ 2024년12월23일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/22/Network-01.html">Network - 01 [ 2024년12월22일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/21/Operating_System-05.html">Operating System-05 [ 2024년12월21일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/20/Operating_System-04.html">Operating System-04 [ 2024년12월20일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/19/Operating_System-03.html">Operating System-03 [ 2024년12월19일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/18/Operating_System-02.html">Operating System-02 [ 2024년12월18일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/17/Operating_System-01.html">Operating System-01 [ 2024년12월17일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/15/Computer-Structure.html">Computer Structure [ 2024년12월15일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

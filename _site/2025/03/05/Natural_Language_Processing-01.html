@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Natural Language Processing - 01</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="natural-language-processing---01---2025년03월05일">Natural Language Processing - 01 - 2025년03월05일</h1>
+
+<!-- - tag : DL NLP  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_DL.html" class="btn btn-default navbar-btn cursorNorm" role="button">DL</a>
+|
+<a href=" /tags/tag_NLP.html" class="btn btn-default navbar-btn cursorNorm" role="button">NLP</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="개요">개요</h1>
+
+<ul>
+  <li>자연어
+    <blockquote>
+      <p>사람들이 일상생활에서 자연스럼게 사용하는 언어</p>
+    </blockquote>
+  </li>
+  <li>자연어 처리
+    <blockquote>
+      <p>컴퓨터가 자연어의 의미를 분석하여 이해하고 생성할 수 있도록 만들어주는 기술</p>
+    </blockquote>
+  </li>
+  <li>자연어 처리가 어려운 이유
+    <ol>
+      <li>표현의 중의성</li>
+      <li>고유 명사 처리</li>
+      <li>사전 미등록어 처리</li>
+      <li>문맥에 따른 모호성</li>
+      <li>규칙의 예외성</li>
+    </ol>
+  </li>
+  <li>한국어에서 자연어 처리가 더 어려운 이유
+    <ol>
+      <li>교착어 : 어간에 접사가 붙어 단어를 이루고 의미와 문법적 기능이 정해짐</li>
+      <li>단어 순서 및 주어 생략</li>
+      <li>띄어쓰기</li>
+      <li>평서문과 의문문</li>
+    </ol>
+  </li>
+  <li>활용
+    <ol>
+      <li>문법 교정</li>
+      <li>음성 인식</li>
+      <li>기계 번역</li>
+      <li>Real-Time Translation</li>
+      <li>정보 추출 - 검색</li>
+      <li>질의응답</li>
+      <li>문서 요약</li>
+      <li>AI Chat-Bot</li>
+      <li>AI X Creation</li>
+      <li>자동완성</li>
+      <li>검색엔진</li>
+      <li>정보 요약</li>
+    </ol>
+  </li>
+</ul>
+
+<h1 id="언어학의-하위분야">언어학의 하위분야</h1>
+
+<h2 id="언어의-구성요소">언어의 구성요소</h2>
+
+<ul>
+  <li>언어의 구성요소
+    <ol>
+      <li>형태 : 실체인 의미를 물리적으로 표현할 수 있는 방법</li>
+    </ol>
+    <ul>
+      <li>음운론 : 말소리 연구</li>
+      <li>형태론 : 형태소, 단어 연구</li>
+      <li>통사론 : 문장 연구
+        <ol>
+          <li>내용 : 언어가 의미하는 실제의미</li>
+        </ol>
+      </li>
+      <li>의미론 : 단어, 문장의 의미 연구
+        <ol>
+          <li>사용 : 언어를 사용하는 상황</li>
+        </ol>
+      </li>
+      <li>화용론 : 상황에 따라 달라지는 단어나 문장의 의미 연구</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="형태론">형태론</h2>
+
+<ul>
+  <li>형태론
+    <ol>
+      <li>언어에서 의미를 갖는 가장 기본단위인 형태소를 분석</li>
+      <li>형태소 간의 상관관계를 규명하는 학문</li>
+    </ol>
+  </li>
+  <li>형태소
+    <ol>
+      <li>의미를 갖는 언어 단위 중 가장 작은 단위</li>
+      <li>의미 혹은 문법적 기능의 최소단위</li>
+    </ol>
+  </li>
+  <li>이형태 : 한 형태소에 대한 여러 개의 변이 형태를 가질 수 있음</li>
+</ul>
+
+<h2 id="통사론">통사론</h2>
+
+<p>단어가 결합하여 구와 문장을 형성하는 규칙/방법을 연구하는 학문</p>
+
+<ul>
+  <li>문법 규칙
+    <ol>
+      <li>언어의 올바른 어순을 결정함</li>
+      <li>단어 그룹의 의미와 단어의 배열사이의 관계를 정의함</li>
+      <li>주저와 목적어 같은 문장 내의 문법적 관계를 명시함</li>
+      <li>문장이나 구문이 난해할 때 단어의 결합이 의미와 어떻게 연관되는지를 설명함</li>
+    </ol>
+  </li>
+  <li>심층구조 : 화자가 문장에 대해 갖는 추상적인 정보를 담은 구조</li>
+  <li>
+    <p>표층구조 : 실생활에서 사용하는 단어들의 규칙적인 구조</p>
+  </li>
+  <li>구조적 모호성
+    <ol>
+      <li>두개의 서로 다른 심층 구조</li>
+      <li>구조적 모호성이 있는 표층구조</li>
+    </ol>
+  </li>
+  <li>반복
+    <ol>
+      <li>문법규칙은 반복이라는 중요한 속성을 가짐</li>
+      <li>문장 속으로 다른 문장을 넣을 수 있음</li>
+    </ol>
+  </li>
+  <li>구 구조규칙
+    <blockquote>
+      <p>특정 구의 구조가 하나 또는 특정된 순서로 늘어선 여러 개의 구성요소들로 이루어진다는 점을 표현</p>
+    </blockquote>
+  </li>
+  <li>어휘규칙
+    <ol>
+      <li>구 구조규칙은 구조를 생성함</li>
+      <li>어휘를 구 구조규칙의 기본 단위인 품사기호로 변환하는 규칙이 필요함</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="의미론">의미론</h2>
+
+<p>의미론은 단어, 구, 그리고 문장의 의미를 연구하는 분야</p>
+
+<ul>
+  <li>개념적 의미 : 단어가 사용될 때 전달되는 기본적, 본질적 의미 성분</li>
+  <li>
+    <p>연상적 의미 : 연상 또는 함축</p>
+  </li>
+  <li>의미자질(semantic features)
+    <ol>
+      <li>단어의 의미를 자질들의 나열로 표현하는 방법</li>
+      <li>단어의 의미를 차별화하기 위한 기본적인 구성요소</li>
+      <li>단어 의미의 일부분을 자질의 이름과 (+), (-) 기호를 조합하여 표현</li>
+    </ol>
+  </li>
+  <li>의미역(semantic roles)
+    <blockquote>
+      <p>개별 단어가 가지는 의미자질 분석 이외에, 문장에서 각 단어의 의미적 역할을 분석<br />
+행위자 : 특정 행위를 하는 주체<br />
+대상자 : 특정 행위에 포함되거나 영향을 받는 개체</p>
+    </blockquote>
+  </li>
+  <li>관계
+    <ol>
+      <li>동의 관계 vs 반의 관계</li>
+      <li>상하 관계</li>
+      <li>동음이철어 : 서로 다른 단어가 동일한 발음을 가지는 경우</li>
+      <li>동음이의어 : 동일한 형태(발음)의 단어가 전혀 관련성이 없는 서로 다른 의미를 가지는 경우</li>
+      <li>다의어</li>
+      <li>연어(collocation) : 문장, 문서에서 두 단어가 같이 출현하는 경우가 많은 경우</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="화용론">화용론</h2>
+
+<blockquote>
+  <p>“보이지 않는” 의미 또는 실제로 말하거나 쓰지 않았을지라도 화자가 의미하는 바에 대한 연구</p>
+</blockquote>
+
+<ul>
+  <li>화용 원칙
+    <blockquote>
+      <p>대화할 때 “보이지 않는” 의미를 인식하기 위하여, 화자는 반드시 다수의 가정과 기대에 의지하여야 함</p>
+    </blockquote>
+  </li>
+  <li>문맥
+    <ol>
+      <li>물리적인 문맥 vs 언어적인 문맥</li>
+    </ol>
+  </li>
+  <li>직시 표현 : 화자의 문잭(특히 물리적 문맥)을 알아야 해석할 수 있는 표현</li>
+  <li>지시 : 화자가 청자로 하여금 무언가를 알아채도록 언어를 사용하는 하나의 행위</li>
+  <li>추론 : 발화된 내용과 그것의 의미를 연결시키기 위해 청자가 부가적인 정보를 이용하여 해석하는 과정</li>
+  <li>대용어 : 이미 소개된 실체에 뒤따르는 지시를 대용어라고 함</li>
+  <li>전제 : 화자가 가정하는 것이 진리이거나 청자(또는 독자)가 알고 있는 사실이라는 것을 전제라고 표현</li>
+  <li>화행 : 언어를 통해서 이루어지는 행위, 화자의 발화화 함께 취해지는 행위
+    <ol>
+      <li>직접 화행</li>
+      <li>간접 화행</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="담화론">담화론</h2>
+
+<p>텍스트와 대화 속에 나타난 언어를 연구하는 학문</p>
+
+<ul>
+  <li>결속(Cohesion)</li>
+  <li>일관성(Coherence)</li>
+  <li>대화 분석</li>
+  <li>차례 얻기</li>
+  <li>협조의 원칙
+    <ol>
+      <li>양의 격률</li>
+      <li>질의 격률</li>
+      <li>상관성의 격률</li>
+      <li>방법의 격률</li>
+    </ol>
+  </li>
+  <li>함의</li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#언어의-구성요소">언어의 구성요소</a></li>
+<li class="toc-entry toc-h2"><a href="#형태론">형태론</a></li>
+<li class="toc-entry toc-h2"><a href="#통사론">통사론</a></li>
+<li class="toc-entry toc-h2"><a href="#의미론">의미론</a></li>
+<li class="toc-entry toc-h2"><a href="#화용론">화용론</a></li>
+<li class="toc-entry toc-h2"><a href="#담화론">담화론</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/03/10/Natural_Language_Processing-04.html">Natural Language Processing - 04 [ 2025년03월10일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/03/07/Natural_Language_Processing-03.html">Natural Language Processing - 03 [ 2025년03월07일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/03/06/Natural_Language_Processing-02.html">Natural Language Processing - 02 [ 2025년03월06일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/03/05/Natural_Language_Processing-01.html">Natural Language Processing - 01 [ 2025년03월05일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/27/generation.html">생성 모델과 판별 모델 [ 2025년02월27일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/14/Computer-Vision-02.html">Computer Vision - 02 [ 2025년02월14일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/11/Computer-Vision-01.html">Computer Vision - 01 [ 2025년02월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/08/Pytorch.html">Pytorch [ 2025년02월08일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2025/02/07/DEEPLEARNING-BASIC-01.html">DEEPLEARNING BASIC [ 2025년02월07일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

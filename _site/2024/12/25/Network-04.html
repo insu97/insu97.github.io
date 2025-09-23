@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Network - 04</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="network---04---2024년12월25일">Network - 04 - 2024년12월25일</h1>
+
+<!-- - tag : Computer_Engineering  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Computer_Engineering.html" class="btn btn-default navbar-btn cursorNorm" role="button">Computer_Engineering</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="전송-계층">전송 계층</h1>
+
+<ul>
+  <li>전송 계층의 역할
+    <ol>
+      <li>응용 계층의 어플리케이션 프로세스 식별</li>
+      <li>네트워크 계층의 신뢰성/연결성 확립</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="포트">포트</h2>
+
+<ul>
+  <li>포트 번호는 16비트로 표현 가능</li>
+  <li>
+    <p>포트 범위 : 0번부터 65535번까지</p>
+  </li>
+  <li>서버 : 일반적으로 잘 알려진 포트와 등록된 포트로 동작</li>
+  <li>
+    <p>클라이언트 : 일반적으로 동적 포트로 동작</p>
+  </li>
+  <li>NAT : 공인 IP주소와 사설 IP 주소 간의 변환 가능
+    <blockquote>
+      <p>하나의 공인 IP 주소를 여러 사설 IP 주소가 공유 가능<br />
+IP 주소 부족 문제 해결</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="tcp와-udp">TCP와 UDP</h2>
+
+<ul>
+  <li>
+    <p>MSS : TCP 세그먼트로 보낼 수 있는 최대 크기</p>
+  </li>
+  <li>TCP 세그먼트 구조
+    <ol>
+      <li>출발지 포트</li>
+      <li>목적지 포트</li>
+      <li>순서 번호 : 송수신되는 세그먼트 데이터 첫 바이트에 부여되는 번호</li>
+      <li>확인 응답 번호 : 순서 번호에 대한 응답 (다음으로 수신받길 기대하는 바이트 번호)</li>
+      <li>제어 비트
+        <blockquote>
+          <p>ACK : 세그먼트 승인을 나타내는 비트<br />
+SYN : 연결 수립을 위한 비트<br />
+FIN : 연결을 끝내기 위한 비트<br />
+RST : 연결을 리셋하기 위한 비트</p>
+        </blockquote>
+      </li>
+      <li>윈도우 : 수신지 윈도우 크기. 한 번에 수신 받고자 하는 양(흐름 제어에서 언급)</li>
+    </ol>
+  </li>
+  <li>UDP는 IP 패킷을 감싸는 껍데기일 뿐
+    <blockquote>
+      <p>비연결성/비신뢰성 프로토콜<br />
+TCP의 재전송/흐름 제어/혼잡 제어 등의 기능 없음</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="tcp-연결">TCP 연결</h2>
+
+<ul>
+  <li>TCP는 연결형 프로토콜
+    <ol>
+      <li>연결 설정[ Three-way handshake ]</li>
+      <li>데이터 송수신</li>
+      <li>연결 종료</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="tcp-상태">TCP 상태</h2>
+
+<ul>
+  <li>TCP의 연결형 프로토콜
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; CLOSED : 아무런 연결이 없는 상태
+&gt; LISTEN / SYN-SENT / SYN-RECEIVED : 연결 수립 도중 사용되는 상태
+&gt; ESTABLISHED : 연결되어 있는 상태  
+&gt; FIN-WAIT-1 / FIN-WAIT-2 / CLOSE-WAIT / CLOSING / LAST-ACK / TIME-WAIT : 연결 해제시 사용되는 상태
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="tcp-재전송-기능">TCP 재전송 기능</h2>
+
+<ul>
+  <li>TCP는 신뢰성 프로토콜</li>
+</ul>
+
+<blockquote>
+  <p>무엇인가를 확실히 전송했다는 보장이 있으려면</p>
+  <ol>
+    <li>재전송 기반의 오류 제어 : 잘못 전송된 경우 재전송</li>
+    <li>흐름 제어 : 받을 수 있을 만큼만 받기</li>
+    <li>혼잡 제어 : 보낼 수 있는 상황에서만 보내기</li>
+  </ol>
+</blockquote>
+
+<blockquote>
+  <p>언제 잘못 되었음을 인지할까?</p>
+  <ol>
+    <li>중복된 ACK 세그먼트를 수신했을 때</li>
+    <li>타임아웃이 발생했을 때</li>
+  </ol>
+</blockquote>
+
+<ul>
+  <li>TCP 오류 제어
+    <blockquote>
+      <p>TCP는 재전송 기반의 오류 제어를 수행<br />
+재전송을 기반으로 잘못된 전송을 바로잡는 것 : ARQ(자동 재전송 요구)</p>
+    </blockquote>
+  </li>
+  <li>ARQ
+    <ol>
+      <li>Stop-and-Wait ARQ</li>
+      <li>Go-Back-N ARQ</li>
+      <li>Selective Repeat ARQ</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="tcp의-혼잡-제어와-흐름제어">TCP의 혼잡 제어와 흐름제어</h2>
+
+<ul>
+  <li>송신 버퍼 : 어플리케이션 계층에서 전송할 데이터 임시 저장</li>
+  <li>수신 버퍼 : 네트워크 계층에서 수신할 데이터 임시 저장</li>
+  <li>
+    <p>버퍼 오버플로우 : 일부 데이터가 처리되지 않을 수 있음</p>
+  </li>
+  <li>윈도우 : 파이프라이닝 가능한 순서번호 범위</li>
+  <li>윈도우 크기 : 확인 응답 받지 않고도 한번에 보낼 수 있는 최대 양</li>
+  <li>
+    <p>RTT(Round Trip Time) : 메세지를 전송한 뒤 그에 대한 답변을 받는 시간</p>
+  </li>
+  <li>TCP 혼잡 제어
+    <blockquote>
+      <p>기본 동작 형태 : AIMD(Additive Increase Multicative Decrease)<br />
+느린 시작 : 특정 임계치(sshresh)값과 같아지면 혼잡 회피 수행<br />
+혼잡 회피 : 세 번의 중복 세그먼트가 발생했을 경우 빠른 회복 수행<br />
+빠른 회복 : 세 번의 중복 ACK 세그먼트가 수신되었을 때 느린 시작을 건너뛰고 혼잡 회피를 수행하는 알고리즘</p>
+    </blockquote>
+  </li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#포트">포트</a></li>
+<li class="toc-entry toc-h2"><a href="#tcp와-udp">TCP와 UDP</a></li>
+<li class="toc-entry toc-h2"><a href="#tcp-연결">TCP 연결</a></li>
+<li class="toc-entry toc-h2"><a href="#tcp-상태">TCP 상태</a></li>
+<li class="toc-entry toc-h2"><a href="#tcp-재전송-기능">TCP 재전송 기능</a></li>
+<li class="toc-entry toc-h2"><a href="#tcp의-혼잡-제어와-흐름제어">TCP의 혼잡 제어와 흐름제어</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/31/Database-02.html">Database - 02 [ 2024년12월31일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/30/Database-01.html">Database - 01 [ 2024년12월30일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/29/System_Programming-03.html">System Programming - 03 [ 2024년12월29일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/28/System_Programming-02.html">System Programming - 02 [ 2024년12월28일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/27/System_Programming-01.html">System Programming - 01 [ 2024년12월27일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/26/Network-05.html">Network - 05 [ 2024년12월26일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/25/Network-04.html">Network - 04 [ 2024년12월25일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/24/Network-03.html">Network - 03 [ 2024년12월24일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/23/Network-02.html">Network - 02 [ 2024년12월23일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/22/Network-01.html">Network - 01 [ 2024년12월22일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/21/Operating_System-05.html">Operating System-05 [ 2024년12월21일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/20/Operating_System-04.html">Operating System-04 [ 2024년12월20일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/19/Operating_System-03.html">Operating System-03 [ 2024년12월19일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/18/Operating_System-02.html">Operating System-02 [ 2024년12월18일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/17/Operating_System-01.html">Operating System-01 [ 2024년12월17일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/15/Computer-Structure.html">Computer Structure [ 2024년12월15일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

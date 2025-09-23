@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>GROWTH HACKING 06</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="growth-hacking-06---2024년11월05일">GROWTH HACKING 06 - 2024년11월05일</h1>
+
+<!-- - tag : Growth_Hacking Book  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Growth_Hacking.html" class="btn btn-default navbar-btn cursorNorm" role="button">Growth_Hacking</a>
+|
+<a href=" /tags/tag_Book.html" class="btn btn-default navbar-btn cursorNorm" role="button">Book</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="네트워크-효과와-입소문">네트워크 효과와 입소문</h1>
+
+<h2 id="입소문-마케팅viral-marketing제대로-이해하기">입소문 마케팅(Viral Marketing)제대로 이해하기</h2>
+
+<blockquote>
+  <p>입소문 마케팅 : 소비자들이 자발적으로 메시지를 전달하게 하여 상품에 대한 긍정적인 입소문을 내게 하는 마케팅 기법<br />
+하지만 기술적인 내용들만 언급하고 있어 부정적인 이미지가 생김<br />
+Ex. 블로그 순위를 급상승시키는 OO가지 방법</p>
+</blockquote>
+
+<h2 id="아날로그-시대의-입소문-마케팅-사례---send-a-dime-체인-레터">아날로그 시대의 입소문 마케팅 사례 - “Send-a-Dime” 체인 레터</h2>
+
+<ul>
+  <li>사용법
+    <ol>
+      <li>우편물을 받으면, 자기 이름을 제외한 나머지 다섯 명에서 각각 1 Dime(10센트 = 0.1달러)을 보낸다.</li>
+      <li>가장 위에 있는 이름을 지우고, 제일 아래에 자신의 이름을 추가하여 5명의 친구에게 메일을 보낸다.</li>
+      <li>우편물 연결 고리(Chain)가 끝나지 않는다면 메일을 보낸 사람은 15,625개의 Dime을 받게 되므로 총 1,562.50달러를 받게 된다.</li>
+    </ol>
+  </li>
+</ul>
+
+<blockquote>
+  <p>제안하는 가치(Value Proposition) : 목표가 완수되면 1526.5달러를 받을 수 있음<br />
+행동 유도(Call to Action) : 3일 안에 5명의 사람들에게 우편물 전송<br />
+확장 인수(Branching Factor) : 5<br />
+전환율(Conversion) : X<br />
+입소문 인수(Viral Factor) : 5 * X</p>
+</blockquote>
+
+<h2 id="디지털-시대의-입소문-마케팅-이해하기">디지털 시대의 입소문 마케팅 이해하기</h2>
+
+<ol>
+  <li>네트워크 가치 제안 : 사람들이 다른 사람들에게 우리 제품을 전달해야 하는 가치를 주어야 한다.</li>
+  <li>채널 전달율 : 이메일이나 문자 메시지 등은 스팸 필터나 기업 내부망 정책 등으로 100% 전달되지 않는다.</li>
+  <li>전달 빈도 : 자주 접속하는 제품일수록 바이럴 마케팅이 더 효율적이다.</li>
+  <li>채널 전환율 : 요즘 사람들은 자극에 둔감해졌고 전환율도 초창기에 비해서 크게 떨어졌다.</li>
+  <li>전달 속도 : 콘텐츠 소비 시간이 길어지면 길어질수록 입소문 단계는 ‘정체’되었다고 생각할 수 있다. 당연히 소비가 빠른 콘텐츠가 입소문도 빠르다.</li>
+  <li>최종 전환율(=활성화 비율)</li>
+  <li>복합성</li>
+</ol>
+
+<h2 id="입소문-마케팅-실행-전략과-순환-고리">입소문 마케팅 실행 전략과 순환 고리</h2>
+
+<ol>
+  <li>선형적인 사용자 획득 채널을 순환형 바이럴 채널로 전환</li>
+  <li>도구로 시작해서 네트워크로 확장</li>
+  <li>이미 존재하는 네트워크를 좀 더 쉽게 활용할 수 있는 방법 제공</li>
+</ol>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#입소문-마케팅viral-marketing제대로-이해하기">입소문 마케팅(Viral Marketing)제대로 이해하기</a></li>
+<li class="toc-entry toc-h2"><a href="#아날로그-시대의-입소문-마케팅-사례---send-a-dime-체인-레터">아날로그 시대의 입소문 마케팅 사례 - “Send-a-Dime” 체인 레터</a></li>
+<li class="toc-entry toc-h2"><a href="#디지털-시대의-입소문-마케팅-이해하기">디지털 시대의 입소문 마케팅 이해하기</a></li>
+<li class="toc-entry toc-h2"><a href="#입소문-마케팅-실행-전략과-순환-고리">입소문 마케팅 실행 전략과 순환 고리</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/08/Growth_Hacking_09.html">GROWTH HACKING 09 [ 2024년11월08일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/07/Growth_Hacking_08.html">GROWTH HACKING 08 [ 2024년11월07일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/06/Growth_Hacking_07.html">GROWTH HACKING 07 [ 2024년11월06일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/05/Growth_Hacking_06.html">GROWTH HACKING 06 [ 2024년11월05일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/04/Growth_Hacking_05.html">GROWTH HACKING 05 [ 2024년11월04일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/03/Growth_Hacking_04.html">GROWTH HACKING 04 [ 2024년11월03일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/02/Growth_Hacking_03.html">GROWTH HACKING 03 [ 2024년11월02일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/01/Growth_Hacking_02.html">GROWTH HACKING 02 [ 2024년11월01일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/10/29/Growth_Hacking_01.html">GROWTH HACKING 01 [ 2024년10월29일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

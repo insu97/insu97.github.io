@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Funnel_Analysis</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="funnel_analysis---2024년10월18일">Funnel_Analysis - 2024년10월18일</h1>
+
+<!-- - tag : Funnel_Analysis Blog  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Funnel_Analysis.html" class="btn btn-default navbar-btn cursorNorm" role="button">Funnel_Analysis</a>
+|
+<a href=" /tags/tag_Blog.html" class="btn btn-default navbar-btn cursorNorm" role="button">Blog</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="퍼널-분석">퍼널 분석</h1>
+
+<blockquote>
+  <p>퍼널 분석이란 ?<br />
+고객들이 우리가 설계한 유저 경험 루트를 따라 잘 도착하고 있는지 확인해보기 위해 최초 유입부터 최종 목적지까지 단계를 나누어서 살펴보는 분석 기법</p>
+</blockquote>
+
+<h2 id="장점">장점</h2>
+
+<ol>
+  <li>얼마나 많은 사람들이 최종 단계까지 도착하는지, 또 어디에서 많이 이탈하는지 확인할 수 있다.</li>
+  <li>개선 방향 제시: 이탈률이 높은 단계를 개선함으로써 전체 전환율을 효과적으로 높일 수 있다.</li>
+  <li>데이터 기반 의사결정: 직관이 아닌 실제 데이터를 바탕으로 개선 전략을 수립할 수 있다.</li>
+  <li>비즈니스 목표 달성: 전환율 향상을 통해 매출 증대 등 비즈니스 목표 달성에 기여한다.</li>
+  <li>사용자 경험 개선: 퍼널 분석을 통해 사용자 경험의 문제점을 파악하고 개선할 수 있다.</li>
+</ol>
+
+<h2 id="단점">단점</h2>
+
+<ol>
+  <li>단순화된 시각: 복잡한 사용자 행동을 지나치게 단순화할 수 있다.</li>
+  <li>제한된 인사이트: 이탈 원인에 대한 깊이 있는 이해를 제공하지 않을 수 있다.</li>
+  <li>시간 소요: 정확한 분석을 위해서는 충분한 데이터 수집 기간이 필요하다.</li>
+  <li>기술적 요구사항: 정확한 데이터 추적과 분석을 위한 기술적 인프라가 필요하다.</li>
+  <li>과대추정 가능성: 전반적으로 전환율이 과대추정되는 경향이 있을 수 있다.</li>
+</ol>
+
+<h2 id="용어">용어</h2>
+
+<ol>
+  <li>전환(Conversion) : 각각의 단계를 넘어가는 것</li>
+  <li>전환율(Conversion rate) : 전환의 비율</li>
+</ol>
+
+<h2 id="예시">예시</h2>
+
+<ol>
+  <li>목표 설정</li>
+  <li>
+    <p>퍼널 단계 정의</p>
+
+    <ul>
+      <li>EX
+        <blockquote>
+          <p>웹사이트 방문<br />
+상품 페이지 조회<br />
+장바구니 담기<br />
+결제 페이지 진입<br />
+구매 완료</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>데이터 수집</p>
+
+    <ul>
+      <li>EX
+        <blockquote>
+          <p>웹사이트 방문자 수 : 100,000명<br />
+상품 페이지 조회 : 50,000명<br />
+장바구니 담기: 10,000명<br />
+결제 페이지 진입: 5,000명<br />
+구매 완료: 2,000명</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>퍼널 시각화</li>
+  <li>
+    <p>데이터 분석 : 퍼널 데이터를 분석하여 주요 이탈 지점을 파악</p>
+
+    <ul>
+      <li>EX
+        <blockquote>
+          <p>웹사이트 방문에서 상품 페이지 조회로의 전환율: 50%<br />
+상품 페이지에서 장바구니 담기로의 전환율 : 20%<br />
+장바구니에서 결제 페이지로의 전환율: 50%<br />
+결제 페이지에서 구매 완료로의 전환율: 40%</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>문제점 식별 : 분석 결과를 바탕으로 가장 큰 이탈이 발생하는 지점을 파악
+    <blockquote>
+      <p>예시에서 상품 페이지에서 장바구니로의 전환율(20%)이 가장 낮다</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>원인 분석 : 이탈률이 높은 단계의 원인을 분석</p>
+
+    <ul>
+      <li>EX
+        <blockquote>
+          <p>상품 설명이 불충분한가?<br />
+가격이 경쟁력이 없는가?<br />
+‘장바구니 담기’ 버튼이 눈에 잘 띄지 않는가?</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>개선 전략 수립 : 분석된 원인을 바탕으로 개선 전략을 수립</p>
+
+    <ul>
+      <li>EX
+        <blockquote>
+          <p>상품 설명 개선 및 상세 이미지 추가<br />
+경쟁사 대비 가격 조정<br />
+‘장바구니 담기’ 버튼의 디자인 및 위치 개선</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>A/B 테스트 실행 : 개선 전략을 적용한 새로운 버전(B)과 기존 버전(A)을 비교 테스트</li>
+  <li>결과 분석 및 적용 : A/B 테스트 결과를 분석하여 효과적인 개선사항을 최종 적용
+    <blockquote>
+      <p>EX : ‘장바구니 담기’ 버튼의 디자인을 변경하여 전환율이 20%에서 30%로 상승했다면 이를 전체 사이트에 적용</p>
+    </blockquote>
+  </li>
+  <li>지속적인 모니터링 : 개선 사항 적용 후에도 퍼널을 지속적으로 모니터링하여 전환율의 변화를 관찰하고, 필요시 추가적인 개선을 진행</li>
+</ol>
+
+<hr />
+
+<blockquote>
+  <p><a href="https://datarian.io/blog/funnel-analysis?utm_source=webinar&amp;utm_medium=webinar&amp;utm_campaign=referral&amp;utm_content=datarian-2024-oct#10144ec06244465dba21d87565af8196">참고 site</a></p>
+</blockquote>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#장점">장점</a></li>
+<li class="toc-entry toc-h2"><a href="#단점">단점</a></li>
+<li class="toc-entry toc-h2"><a href="#용어">용어</a></li>
+<li class="toc-entry toc-h2"><a href="#예시">예시</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/10/18/Funnel_Analysis.html">Funnel_Analysis [ 2024년10월18일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Database - 01</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="database---01---2024년12월30일">Database - 01 - 2024년12월30일</h1>
+
+<!-- - tag : Computer_Engineering  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Computer_Engineering.html" class="btn btn-default navbar-btn cursorNorm" role="button">Computer_Engineering</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="database">Database</h1>
+
+<h2 id="기본개념">기본개념</h2>
+
+<blockquote>
+  <p>데이터베이스란 여러 사람이 공유하여 사용할 목적으로 체계화해 통합, 관리하는 데이터의 집합</p>
+</blockquote>
+
+<ul>
+  <li>DBMS(Database Management System)
+    <blockquote>
+      <p>데이터베이스를 관리하는 시스템<br />
+종류 : SQL Server, MongoDB, Maria DB, MySQL, ORACLE, PostgreSQL, SQLite</p>
+    </blockquote>
+  </li>
+  <li>관계형 DBMS
+    <blockquote>
+      <p>데이터를 테이블 형태로 저장<br />
+SQL를 사용해서 관계형 DBMS를 다룬다.</p>
+    </blockquote>
+  </li>
+  <li>SQL의 3종류
+    <ol>
+      <li>DML : Data Manipulation Language
+        <blockquote>
+          <p>SELECT : 데이터 조회<br />
+INSERT : 데이터 삽입<br />
+UPDATE : 데이터 갱신<br />
+DELETE : 데이터 삭제</p>
+        </blockquote>
+      </li>
+      <li>DDL : Data Definition Language
+        <blockquote>
+          <p>CREATE : 테이블 생성<br />
+ALTER : 테이블 변경(구조 변경 등)<br />
+DROP : 테이블 삭제<br />
+RENAME : 테이블 이름 변경<br />
+TRUNCATE : 테이블 구조를 유지한 채 초기화</p>
+        </blockquote>
+      </li>
+      <li>DCL : Data Control Language
+        <blockquote>
+          <p>GRANT : 유저에게 권한 부여<br />
+REVOKE : 유저로부터 권한 회수<br />
+COMMIT : 데이터베이스에 작업 반영<br />
+ROLLBACK : 작업 이전의 상태로 되돌림<br />
+SAVEPOINT : 롤백의 기준점</p>
+        </blockquote>
+      </li>
+    </ol>
+  </li>
+  <li>NoSQL : 비관계형 데이터베이스
+    <blockquote>
+      <p>구조를 정의할 필요 없이 데이터를 저장 및 검색<br />
+확장성, 가용성이 장점</p>
+    </blockquote>
+  </li>
+  <li>Transaction : 데이터베이스 상호작용의 단위
+    <blockquote>
+      <p>지켜야 할 성질 ACID</p>
+      <blockquote>
+        <p>Atomicity(원자성): 트랜잭션은 하나의 논리적인 작업 단위로 간주<br />
+Consistency : 데이터베이스를 일관된 형태로 유지<br />
+Isolation : 동시에 여러 트랜잭션이 실행될 때 각 트랜잭션은 서로 간섭하지 않고 격리되어야 함<br />
+Durability : 트랜잭션이 성공적으로 완료되면 그 결과는 영구적으로 저장되어야 함</p>
+      </blockquote>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="데이터베이스-생성과-관리">데이터베이스 생성과 관리</h2>
+
+<h3 id="기본키와-외래-키">기본키와 외래 키</h3>
+
+<ul>
+  <li>key : 조건에 맞는 데이터를 찾기 위한 식별자
+    <blockquote>
+      <p>기본키(Primary Key) : 행을 특정 지을 수 있는 단 하나의 데이터<br />
+고유키(Unique Key) : 기본키와 유사하나 Null로 지정 가능<br />
+외래키(Foreign Key) : 다른 테이블을 연결(참조)하기 위한 키</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="데이터베이스와-테이블-생성하기">데이터베이스와 테이블 생성하기</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">#</span> <span class="err">데이터</span> <span class="err">베이스</span> <span class="err">생성하기</span>
+<span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">example</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">데이터베이스</span> <span class="err">조회</span>
+<span class="k">SHOW</span> <span class="n">DATABASES</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">데이터베이스</span> <span class="err">사용</span>
+<span class="n">USE</span> <span class="n">example</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">데이터베이스</span> <span class="err">삭제</span>
+<span class="k">DROP</span> <span class="k">DATABASE</span> <span class="n">example</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">테이블</span> <span class="err">생성</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="err">테이블이름</span> <span class="p">(</span>
+  <span class="err">열이름</span><span class="mi">1</span> <span class="err">자료형</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="k">DEFAULT</span> <span class="err">기본값</span><span class="p">]</span> <span class="p">[</span><span class="k">NULL</span> <span class="o">|</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">],</span>
+  <span class="p">...</span>
+<span class="p">)</span>
+
+<span class="o">##</span> <span class="n">EX</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="p">(</span>
+	<span class="n">user_id</span> <span class="nb">INT</span><span class="p">,</span>
+	<span class="n">username</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+    <span class="n">email</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+    <span class="n">birthdate</span> <span class="nb">DATE</span><span class="p">,</span>
+    <span class="n">registration_date</span> <span class="nb">TIMESTAMP</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="p">(</span>
+	<span class="n">user_id</span> <span class="nb">INT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">username</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">email</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">UNIQUE</span><span class="p">,</span>
+    <span class="n">birthdate</span> <span class="nb">DATE</span><span class="p">,</span>
+    <span class="n">registration_date</span> <span class="nb">TIMESTAMP</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">categories</span><span class="p">(</span>
+	<span class="n">id</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">name</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">products</span> <span class="p">(</span>
+ <span class="n">id</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+   <span class="n">name</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="n">category_id</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+   <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">),</span>
+   <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">category_id</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">categories</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="o">#</span> <span class="err">데이터베이스</span> <span class="err">내</span> <span class="err">테이블</span> <span class="err">전부</span> <span class="err">조회</span>
+<span class="k">SHOW</span> <span class="n">TABLES</span><span class="p">;</span>
+<span class="k">SHOW</span> <span class="n">TABLES</span> <span class="k">FROM</span> <span class="n">world</span><span class="p">;</span> <span class="o">#</span> <span class="n">world</span><span class="err">라는</span> <span class="err">데이터베이스</span> <span class="err">내에</span> <span class="err">있는</span> <span class="err">테이블들</span> <span class="err">조회</span>
+
+<span class="o">#</span> <span class="err">테이블</span> <span class="err">상세</span> <span class="err">조회</span>
+<span class="k">DESC</span> <span class="n">users</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">테이블</span> <span class="o">-</span> <span class="err">이름</span> <span class="err">변경</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">old_name</span> <span class="k">TO</span> <span class="n">new_name</span><span class="p">;</span>
+
+<span class="o">#</span> <span class="err">테이블</span> <span class="err">변경</span> <span class="o">-</span> <span class="k">ALTER</span> <span class="k">TABLE</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tbl_name</span> <span class="n">alter_option</span><span class="p">[</span><span class="err">열</span> <span class="err">추가</span><span class="p">,</span> <span class="err">열</span> <span class="err">삭제</span><span class="p">,</span> <span class="err">열</span> <span class="err">변경</span><span class="p">,</span> <span class="err">제약</span> <span class="err">추가</span><span class="o">/</span><span class="err">삭제</span><span class="p">]</span>
+<span class="mi">1</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">ADD</span> <span class="k">COLUMN</span> <span class="n">age</span> <span class="nb">INT</span><span class="p">;</span> <span class="o">#</span> <span class="err">열</span> <span class="err">추가</span>
+<span class="mi">2</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">DROP</span> <span class="k">COLUMN</span> <span class="n">birth_date</span><span class="p">;</span> <span class="o">#</span> <span class="err">열</span> <span class="err">삭제</span>
+<span class="mi">3</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">MODIFY</span> <span class="n">age</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span> <span class="o">#</span> <span class="err">열</span> <span class="err">타입</span><span class="p">,</span> <span class="err">이름</span> <span class="err">변경</span>
+<span class="mi">4</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="n">CHANGE</span> <span class="n">age</span> <span class="n">birth_date</span> <span class="nb">Date</span><span class="p">;</span> <span class="o">#</span> <span class="err">이름</span> <span class="err">바꾸고</span> <span class="err">타입도</span> <span class="err">바꾸기</span>
+<span class="mi">5</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">ADD</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">);</span> <span class="o">#</span> <span class="err">기본</span> <span class="err">키</span> <span class="err">제약</span> <span class="err">추가</span>
+<span class="mi">6</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">order_items</span> <span class="k">ADD</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">product_id</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="n">products</span><span class="p">(</span><span class="n">product_id</span><span class="p">);</span> <span class="o">#</span> <span class="err">외래키</span> <span class="err">추가</span>
+<span class="mi">7</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">MODIFY</span> <span class="n">id</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span> <span class="o">#</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="err">제약</span> <span class="err">추가</span>
+<span class="mi">8</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">MODIFY</span> <span class="n">id</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span> <span class="o">#</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="err">제약</span> <span class="err">삭제</span>
+<span class="mi">9</span><span class="p">.</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">DROP</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">;</span> <span class="o">#</span> <span class="err">기본키</span> <span class="err">제약</span> <span class="err">삭제</span><span class="p">(</span><span class="err">제약</span> <span class="err">이름으로도</span> <span class="err">삭제</span> <span class="err">가능</span><span class="p">)</span>
+
+<span class="o">#</span> <span class="err">테이블</span> <span class="err">삭제</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">TABLENAME</span><span class="p">;</span> <span class="o">#</span> <span class="err">테이블</span> <span class="err">구조까지</span> <span class="err">삭제</span>
+<span class="k">TRUNCATE</span> <span class="k">TABLE</span> <span class="n">TABLENAME</span><span class="p">;</span> <span class="o">#</span> <span class="err">테이블</span> <span class="err">구조는</span> <span class="err">유지</span><span class="p">,</span> <span class="err">행만</span> <span class="err">삭제</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>숫자형
+    <blockquote>
+      <p>TINYINT, SMALLINT, MEDIUMINT, INT, BIGINT, FLOAT, DOUBLE, DECIMAL</p>
+    </blockquote>
+  </li>
+  <li>문자형
+    <blockquote>
+      <p>CHAR : 고정 길이<br />
+VARCHAR : 가변 길이<br />
+BLOB : 바이너리 데이터<br />
+TEXT : 텍스트 데이터</p>
+    </blockquote>
+  </li>
+  <li>날짜/시간형
+    <blockquote>
+      <p>DATE : 날짜<br />
+TIME : 시간<br />
+DATETIME : 날짜와 시간<br />
+TIMESTAMP : 날짜와 시간</p>
+    </blockquote>
+  </li>
+  <li>기타
+    <ol>
+      <li>ENUM : 정해진 값들 중 하나만 저장</li>
+      <li>SET : 정해진 값들 중 여러 개를 저장</li>
+      <li>GEOMETRY : 지리 정보 저장</li>
+      <li>XML : XML 데이터 저장</li>
+      <li>JSON : JSON 데이터 저장</li>
+    </ol>
+  </li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#기본개념">기본개념</a></li>
+<li class="toc-entry toc-h2"><a href="#데이터베이스-생성과-관리">데이터베이스 생성과 관리</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#기본키와-외래-키">기본키와 외래 키</a></li>
+<li class="toc-entry toc-h3"><a href="#데이터베이스와-테이블-생성하기">데이터베이스와 테이블 생성하기</a></li>
+</ul>
+</li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/31/Database-02.html">Database - 02 [ 2024년12월31일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/30/Database-01.html">Database - 01 [ 2024년12월30일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/29/System_Programming-03.html">System Programming - 03 [ 2024년12월29일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/28/System_Programming-02.html">System Programming - 02 [ 2024년12월28일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/27/System_Programming-01.html">System Programming - 01 [ 2024년12월27일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/26/Network-05.html">Network - 05 [ 2024년12월26일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/25/Network-04.html">Network - 04 [ 2024년12월25일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/24/Network-03.html">Network - 03 [ 2024년12월24일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/23/Network-02.html">Network - 02 [ 2024년12월23일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/22/Network-01.html">Network - 01 [ 2024년12월22일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/21/Operating_System-05.html">Operating System-05 [ 2024년12월21일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/20/Operating_System-04.html">Operating System-04 [ 2024년12월20일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/19/Operating_System-03.html">Operating System-03 [ 2024년12월19일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/18/Operating_System-02.html">Operating System-02 [ 2024년12월18일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/17/Operating_System-01.html">Operating System-01 [ 2024년12월17일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/12/15/Computer-Structure.html">Computer Structure [ 2024년12월15일 ]</a>
+          </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>

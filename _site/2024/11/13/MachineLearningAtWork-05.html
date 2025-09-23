@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Machine Learning At Work - 05</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/code.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls" style="margin-top: 0.5vw;">
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="machine-learning-at-work---05---2024년11월13일">Machine Learning At Work - 05 - 2024년11월13일</h1>
+
+<!-- - tag : Machine_Learning_At_Work Book  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Machine_Learning_At_Work.html" class="btn btn-default navbar-btn cursorNorm" role="button">Machine_Learning_At_Work</a>
+|
+<a href=" /tags/tag_Book.html" class="btn btn-default navbar-btn cursorNorm" role="button">Book</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="학습-리소스-수집하기">학습 리소스 수집하기</h1>
+
+<h2 id="학습-리소스-수집-방법">학습 리소스 수집 방법</h2>
+
+<ol>
+  <li>입력 : 엑세스 로그 등에서 추출한 특징량</li>
+  <li>출력 : 분류 레이블 또는 예측값</li>
+</ol>
+
+<ul>
+  <li>공개된 데이터셋이나 모델 활용
+    <ol>
+      <li><a href="https://archive.ics.uci.edu/">UCI 머신러닝 저장소</a></li>
+      <li><a href="https://www.kaggle.com/">Kaggle</a></li>
+      <li><a href="https://www.image-net.org/index.php">ImageNet</a></li>
+    </ol>
+  </li>
+</ul>
+
+<blockquote>
+  <p>주의할 점</p>
+  <ol>
+    <li>모델이나 데이터셋의 라이선스는 상업적으로 사용할 수 있는가?</li>
+    <li>내가 운용하는 시스템이나 서비스에 학습 완료된 모델이나 데이터셋을 적용할 수 있는가?</li>
+  </ol>
+</blockquote>
+
+<ul>
+  <li>개발자가 직접 훈련 데이터 작성
+    <blockquote>
+      <p>기존 데이터를 활용할 수 없을 때는 필요한 훈련 데이터를 개발자가 직접 만든다.</p>
+    </blockquote>
+  </li>
+  <li>동료나 지인에게 데이터 입력 요청
+    <blockquote>
+      <p>EX) 스프레드시트에 대상 데이터를 나열하고 레이블을 부여하는 것<br />
+여러 명에게 작업을 의뢰할 때는 사전에 데이터 내용을 말로 표현할 수 있도록 작업 내용이나 판단 기준을 확실하게 설명해야 한다.</p>
+    </blockquote>
+  </li>
+  <li>크라우드소싱 활용
+    <ol>
+      <li>랜서스 or 크라우드웍스 : 다수의 불특정 사용자가 경쟁하는 방식(공모형)</li>
+      <li>아마존 미캐니컬 터그 or 야후!크라우드소싱 : 단기간에 가능한 단순 작업을 의뢰하는 형태(마이크로 태스크 방식)</li>
+    </ol>
+  </li>
+  <li>서비스에 통합해서 사용자가 입력
+    <blockquote>
+      <p>EX) reCAPTCHA</p>
+    </blockquote>
+  </li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#학습-리소스-수집-방법">학습 리소스 수집 방법</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/21/MachineLearningAtWork-12.html">Machine Learning At Work - 12 [ 2024년11월21일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/20/MachineLearningAtWork-11.html">Machine Learning At Work - 11 [ 2024년11월20일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/19/MachineLearningAtWork-10.html">Machine Learning At Work - 10 [ 2024년11월19일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/18/MachineLearningAtWork-09.html">Machine Learning At Work - 09 [ 2024년11월18일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/16/MachineLearningAtWork-08.html">Machine Learning At Work - 08 [ 2024년11월16일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/15/MachineLearningAtWork-07.html">Machine Learning At Work - 07 [ 2024년11월15일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/14/MachineLearningAtWork-06.html">Machine Learning At Work - 06 [ 2024년11월14일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/13/MachineLearningAtWork-05.html">Machine Learning At Work - 05 [ 2024년11월13일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/12/MachineLearningAtWork-04.html">Machine Learning At Work - 04 [ 2024년11월12일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/11/MachineLearningAtWork-03.html">Machine Learning At Work - 03 [ 2024년11월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/10/MachineLearningAtWork-02.html">Machine Learning At Work - 02 [ 2024년11월10일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2024/11/09/MachineLearningAtWork-01.html">Machine Learning At Work - 01 [ 2024년11월09일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+</body>
+
+</html>
+<script src="/assets/js/music-controls.js" defer></script>
