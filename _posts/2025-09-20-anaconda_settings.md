@@ -1,7 +1,7 @@
 ---
 layout: markdown
-title: Anaconda Settings
-tags: [Settings, Anaconda]
+title: Anaconda
+tags: [Anaconda]
 toc: true
 ---
 
