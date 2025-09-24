@@ -9,6 +9,7 @@ timezone: Asia/Seoul
 include:
   - .well-known
 
+# 목차 설정 [ ## ~ ####]
 toc:
   min_level: 2
   max_level: 4

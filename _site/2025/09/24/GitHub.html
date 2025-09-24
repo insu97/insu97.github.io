@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Jekyll Blog</title>
+	<title>Github</title>
 	<link rel="stylesheet" href="/assets/css/default.css">
 	<link rel="stylesheet" href="/assets/css/code.css">
 	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
@@ -63,54 +63,50 @@
 		<div class="main">
 			<div class="markdown-body">
   <div class="md-content">
-    <h1 id="jekyll-blog---2025년07월25일">Jekyll Blog - 2025년07월25일</h1>
+    <h1 id="github---2025년09월24일">Github - 2025년09월24일</h1>
 
-<!-- - tag : Jekyll_Blog  -->
+<!-- - tag : Github  -->
 <ul>
-  <li>tag : <a href=" /tags/tag_Jekyll_Blog.html" class="btn btn-default navbar-btn cursorNorm" role="button">Jekyll_Blog</a>
+  <li>tag : <a href=" /tags/tag_Github.html" class="btn btn-default navbar-btn cursorNorm" role="button">Github</a>
 |</li>
 </ul>
 
 <hr />
 
-<h2 id="error">ERROR</h2>
+<h2 id="초기-설정">초기 설정</h2>
 
-<h3 id="jekyll-build-error">Jekyll Build Error</h3>
+<h3 id="이름과-이메일-설정">이름과 이메일 설정</h3>
 
-<ul>
-  <li>error 코드</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invalid date '&lt;%= Time.now.strftime('%Y-%m-%d %H:%M:%S %z') %&gt;': Document '.../0000-00-00-welcome-to-jekyll.markdown.erb' does not have a valid date in the YAML front matter.
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.name <span class="s2">"사용자이름"</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"이메일"</span>
 </code></pre></div></div>
 
-<ul>
-  <li>
-    <p>해결 방법</p>
+<h3 id="모든-git-설정-정보-한번에-보기">모든 Git 설정 정보 한번에 보기</h3>
 
-    <blockquote>
-      <p>GitHub Actions 환경에서 이 에러가 발생한 것이라면, 루트 디렉토리에 있는 _posts/가 아닌 vendor/ 내부에 있는 템플릿 파일이 빌드 과정에 포함되지 않도록 설정해야 함.</p>
-    </blockquote>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># _config.yml 에 아래 작성
-exclude:
-- vendor
-</code></pre></div>    </div>
-  </li>
-</ul>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--list</span>
+</code></pre></div></div>
 
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h2"><a href="#error">ERROR</a>
+<li class="toc-entry toc-h2"><a href="#초기-설정">초기 설정</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#jekyll-build-error">Jekyll Build Error</a></li>
+<li class="toc-entry toc-h3"><a href="#이름과-이메일-설정">이름과 이메일 설정</a></li>
+<li class="toc-entry toc-h3"><a href="#모든-git-설정-정보-한번에-보기">모든 Git 설정 정보 한번에 보기</a></li>
 </ul>
 </li>
 </ul>
     <hr>
     <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2025/09/24/GitHub.html">Github [ 2025년09월24일 ]</a>
+          </p>
+        
+      
     
       
         
@@ -131,16 +127,16 @@ exclude:
       
         
           <p>
-            <a href="/2025/07/25/Jekyll_Blog.html">Jekyll Blog [ 2025년07월25일 ]</a>
+            <a href="/2024/12/16/Github-002.html">Github - 002 [ 2024년12월16일 ]</a>
           </p>
         
       
     
       
         
-      
-    
-      
+          <p>
+            <a href="/2024/12/14/Github-001.html">Github - 001 [ 2024년12월14일 ]</a>
+          </p>
         
       
     

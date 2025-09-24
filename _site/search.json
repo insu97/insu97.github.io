@@ -2,6 +2,14 @@
   
   
     {
+      "title": "Github",
+      "tags": "Github",
+      "desc": "Github - 2025년09월24일  tag : Github|",
+      "content": "Github - 2025년09월24일  tag : Github|초기 설정이름과 이메일 설정git config --global user.name \"사용자이름\"git config --global user.email \"이메일\"모든 Git 설정 정보 한번에 보기git config --list",
+      "url": "/2025/09/24/GitHub.html"
+    },
+  
+    {
       "title": "Anaconda",
       "tags": "Anaconda",
       "desc": "Anaconda - 2025년09월20일  tag : Anaconda|",
