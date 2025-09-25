@@ -86,6 +86,70 @@ git config <span class="nt">--global</span> user.email <span class="s2">"이메�
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--list</span>
 </code></pre></div></div>
 
+<h2 id="local-환경에서-작업">Local 환경에서 작업</h2>
+
+<h3 id="git-init">git init</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>디렉터리이름  <span class="c"># 디렉터리 생성</span>
+<span class="nb">cd </span>디렉터리이름     <span class="c"># 디렉터리로 이동</span>
+git init          <span class="c"># Git 저장소 초기화</span>
+</code></pre></div></div>
+
+<h3 id="git-add-git-commit">git add, git commit</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim 파일이름  <span class="c"># 파일 생성 및 편집 [ i : 입력모드, esc : 명령모드, :wq! : 저장 후 종료 ]</span>
+<span class="nb">cat </span>파일이름  <span class="c"># 파일 내용 확인</span>
+git status   <span class="c"># 현재 상태 확인</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 방법 1: 스테이징 + 커밋 분리</span>
+git add <span class="nb">.</span>  <span class="c"># 새 파일은 이 명령어로 스테이징</span>
+git commit <span class="nt">-m</span> <span class="s2">"커밋 메시지"</span>  <span class="c"># or git commit 입력 후 에디터에서 작성</span>
+
+<span class="c"># 방법 2: 수정된 파일 자동 스테이징 + 커밋</span>
+git commit <span class="nt">-am</span> <span class="s2">"커밋 메시지"</span>
+
+<span class="c"># 방법 3: 메시지 없이 (에디터에서 입력)</span>
+git commit <span class="nt">-a</span>
+</code></pre></div></div>
+
+<h3 id="git-branch-git-checkout">git branch, git checkout</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch            <span class="c"># 브랜치 목록 확인</span>
+git branch 브랜치이름    <span class="c"># 새 브랜치 생성</span>
+git checkout 브랜치이름  <span class="c"># 브랜치 전환</span>
+git branch <span class="nt">-d</span> 브랜치이름   <span class="c"># 브랜치 삭제</span>
+</code></pre></div></div>
+
+<h3 id="git-merge">git merge</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master         <span class="c"># 메인 브랜치로 전환</span>
+git merge 브랜치이름        <span class="c"># 브랜치 병합</span>
+</code></pre></div></div>
+
+<h3 id="git-log">git log</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log               <span class="c"># 커밋 로그 확인</span>
+git log <span class="nt">--oneline</span>    <span class="c"># 한 줄 요약 로그 확인</span>
+git log <span class="nt">--graph</span>      <span class="c"># 그래프 형태로 로그 확인</span>
+</code></pre></div></div>
+
+<h3 id="gitignore">.gitignore</h3>
+
+<blockquote>
+  <p>참고 사이트 : <a href="https://www.gitignore.io/">gitignore</a></p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch</span> .gitignore <span class="c"># .gitignore 빈 파일 생성</span>
+</code></pre></div></div>
+
+<h3 id="git-log--기록-보기">git log : 기록 보기</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log              <span class="c"># 커밋 로그 확인</span>
+git log <span class="nt">--oneline</span>    <span class="c"># 한 줄 요약 로그 확인</span>
+git log <span class="nt">--graph</span>      <span class="c"># 브랜치 분기와 병합 내역을 아스키 그래프로 확인</span>
+</code></pre></div></div>
+
   </div>
   <div class="md-index">
     <h2>목차</h2>
@@ -94,6 +158,17 @@ git config <span class="nt">--global</span> user.email <span class="s2">"이메�
 <ul>
 <li class="toc-entry toc-h3"><a href="#이름과-이메일-설정">이름과 이메일 설정</a></li>
 <li class="toc-entry toc-h3"><a href="#모든-git-설정-정보-한번에-보기">모든 Git 설정 정보 한번에 보기</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#local-환경에서-작업">Local 환경에서 작업</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#git-init">git init</a></li>
+<li class="toc-entry toc-h3"><a href="#git-add-git-commit">git add, git commit</a></li>
+<li class="toc-entry toc-h3"><a href="#git-branch-git-checkout">git branch, git checkout</a></li>
+<li class="toc-entry toc-h3"><a href="#git-merge">git merge</a></li>
+<li class="toc-entry toc-h3"><a href="#git-log">git log</a></li>
+<li class="toc-entry toc-h3"><a href="#gitignore">.gitignore</a></li>
+<li class="toc-entry toc-h3"><a href="#git-log--기록-보기">git log : 기록 보기</a></li>
 </ul>
 </li>
 </ul>

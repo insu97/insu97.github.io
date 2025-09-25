@@ -5,7 +5,7 @@
       "title": "Github",
       "tags": "Github",
       "desc": "Github - 2025년09월24일  tag : Github|",
-      "content": "Github - 2025년09월24일  tag : Github|초기 설정이름과 이메일 설정git config --global user.name \"사용자이름\"git config --global user.email \"이메일\"모든 Git 설정 정보 한번에 보기git config --list",
+      "content": "Github - 2025년09월24일  tag : Github|초기 설정이름과 이메일 설정git config --global user.name \"사용자이름\"git config --global user.email \"이메일\"모든 Git 설정 정보 한번에 보기git config --listLocal 환경에서 작업git initmkdir 디렉터리이름  # 디렉터리 생성cd 디렉터리이름     # 디렉터리로 이동git init          # Git 저장소 초기화git add, git commitvim 파일이름  # 파일 생성 및 편집 [ i : 입력모드, esc : 명령모드, :wq! : 저장 후 종료 ]cat 파일이름  # 파일 내용 확인git status   # 현재 상태 확인# 방법 1: 스테이징 + 커밋 분리git add .  # 새 파일은 이 명령어로 스테이징git commit -m \"커밋 메시지\"  # or git commit 입력 후 에디터에서 작성# 방법 2: 수정된 파일 자동 스테이징 + 커밋git commit -am \"커밋 메시지\"# 방법 3: 메시지 없이 (에디터에서 입력)git commit -agit branch, git checkoutgit branch            # 브랜치 목록 확인git branch 브랜치이름    # 새 브랜치 생성git checkout 브랜치이름  # 브랜치 전환git branch -d 브랜치이름   # 브랜치 삭제git mergegit checkout master         # 메인 브랜치로 전환git merge 브랜치이름        # 브랜치 병합git loggit log               # 커밋 로그 확인git log --oneline    # 한 줄 요약 로그 확인git log --graph      # 그래프 형태로 로그 확인.gitignore  참고 사이트 : gitignoretouch .gitignore # .gitignore 빈 파일 생성git log : 기록 보기git log              # 커밋 로그 확인git log --oneline    # 한 줄 요약 로그 확인git log --graph      # 브랜치 분기와 병합 내역을 아스키 그래프로 확인",
       "url": "/2025/09/24/GitHub.html"
     },
   
