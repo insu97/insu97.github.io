@@ -150,6 +150,37 @@ git log <span class="nt">--oneline</span>    <span class="c"># 한 줄 요약 �
 git log <span class="nt">--graph</span>      <span class="c"># 브랜치 분기와 병합 내역을 아스키 그래프로 확인</span>
 </code></pre></div></div>
 
+<h2 id="원격-저장소와-연동">원격 저장소와 연동</h2>
+
+<h3 id="github에-원격-저장소-생성">GitHub에 원격 저장소 생성</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone &lt;원격 저장소 URL&gt;  <span class="c"># 원격 저장소 복제</span>
+</code></pre></div></div>
+
+<h3 id="원격-저장소-추가-및-연동">원격 저장소 추가 및 연동</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add &lt;원격 이름&gt; &lt;원격 저장소 URL&gt; <span class="c"># 로컬 저장소를 특정 원격 저장소와 연결</span>
+git remote <span class="nt">-v</span> <span class="c"># 연결된 원격 저장소 확인</span>
+</code></pre></div></div>
+
+<h3 id="로컬-커밋을-원격-저장소에-업로드">로컬 커밋을 원격 저장소에 업로드</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ex</span>
+<span class="c">## git push origin --all # 모든 브랜치를 원격 저장소에 업로드</span>
+<span class="c">## git push origin master # master 브랜치를 원격 저장소에 업로드</span>
+git push &lt;원격 이름&gt; &lt;브랜치 이름&gt; <span class="c"># 로컬 커밋을 원격 저장소에 업로드</span>
+</code></pre></div></div>
+
+<h3 id="원격-저장소의-변경-사항-가져오기">원격 저장소의 변경 사항 가져오기</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ex</span>
+<span class="c">## git fetch origin # 원격 저장소의 변경 사항을 로컬로 가져오기</span>
+<span class="c">## git pull origin master # 원격 저장소의 master 브랜치 변경 사항을 로컬로 가져오고 병합</span>
+<span class="c">## git log -1 --stat # 가장 최근 커밋 로그 확인</span>
+git fetch &lt;원격 이름&gt; <span class="c"># 원격 저장소의 변경 사항을 로컬로 가져오기</span>
+git pull &lt;원격 이름&gt; &lt;브랜치 이름&gt; <span class="c"># 원격 저장소의 변경 사항을 로컬로 가져오고 병합</span>
+</code></pre></div></div>
+
   </div>
   <div class="md-index">
     <h2>목차</h2>
@@ -169,6 +200,14 @@ git log <span class="nt">--graph</span>      <span class="c"># 브랜치 분기�
 <li class="toc-entry toc-h3"><a href="#git-log">git log</a></li>
 <li class="toc-entry toc-h3"><a href="#gitignore">.gitignore</a></li>
 <li class="toc-entry toc-h3"><a href="#git-log--기록-보기">git log : 기록 보기</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#원격-저장소와-연동">원격 저장소와 연동</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#github에-원격-저장소-생성">GitHub에 원격 저장소 생성</a></li>
+<li class="toc-entry toc-h3"><a href="#원격-저장소-추가-및-연동">원격 저장소 추가 및 연동</a></li>
+<li class="toc-entry toc-h3"><a href="#로컬-커밋을-원격-저장소에-업로드">로컬 커밋을 원격 저장소에 업로드</a></li>
+<li class="toc-entry toc-h3"><a href="#원격-저장소의-변경-사항-가져오기">원격 저장소의 변경 사항 가져오기</a></li>
 </ul>
 </li>
 </ul>
