@@ -181,6 +181,158 @@ git fetch &lt;원격 이름&gt; <span class="c"># 원격 저장소의 변경 사
 git pull &lt;원격 이름&gt; &lt;브랜치 이름&gt; <span class="c"># 원격 저장소의 변경 사항을 로컬로 가져오고 병합</span>
 </code></pre></div></div>
 
+<h2 id="git-고급">Git 고급</h2>
+
+<h3 id="최근-커밋-수정하기-amend">최근 커밋 수정하기 (amend)</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ex</span>
+<span class="c">## git add README.md # README.md 파일을 스테이징</span>
+<span class="c">## git commit -m "Add README" # 스테이징된 파일을 커밋</span>
+<span class="c">## README.md 파일을 수정</span>
+<span class="c">## git add README.md # 수정된 README.md 파일을 스테이징</span>
+<span class="c">## git commit --amend -m "Update README" # 마지막 커밋을 수정하여 새로운 커밋 메시지로 변경</span>
+git commit <span class="nt">--amend</span>    <span class="c"># 같은 브랜치 상에 있는 최종 커밋을 취소하고 새로운 내용을 추가하거나 설명을 덧붙인 커밋을 할 수 있다.</span>
+</code></pre></div></div>
+
+<h3 id="안전하게-커밋-되돌리는-방법-revert">안전하게 커밋 되돌리는 방법 (revert)</h3>
+
+<blockquote>
+  <p>이전 커밋을 남겨두는 방법</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git revert &lt;커밋 해시&gt;            <span class="c"># 이미 푸시된 커밋을 취소하는 방법</span>
+</code></pre></div></div>
+
+<h3 id="이전-작업-결과를-저장한-상태로-되돌리기--reset-">이전 작업 결과를 저장한 상태로 되돌리기 ( reset )</h3>
+
+<blockquote>
+  <p>어떤 특정 커밋을 사용하지 않게 되어 다시 되돌릴 때 사용
+git revert와 다르게 커밋 기록이 남지 않는다.</p>
+</blockquote>
+
+<ul>
+  <li>git reset 명령어의 모드</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>모드</th>
+      <th>의미</th>
+      <th>HEAD 위치</th>
+      <th>인덱스</th>
+      <th>저장소 디렉터리</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hard</td>
+      <td>완전히 되돌림</td>
+      <td>변경</td>
+      <td>변경</td>
+      <td>변경</td>
+    </tr>
+    <tr>
+      <td>mixed</td>
+      <td>인덱스의 상태를 되돌림. 모드를 지정하지 않았을 때의 기본값</td>
+      <td>변경</td>
+      <td>변경</td>
+      <td>유지</td>
+    </tr>
+    <tr>
+      <td>soft</td>
+      <td>커밋만 되돌림</td>
+      <td>변경</td>
+      <td>유지</td>
+      <td>유지</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>git reset 명령어 옵션</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>옵션</th>
+      <th>의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>^혹은 ~</td>
+      <td>~은 커밋 내역 하나를 의미합니다. 표시한 수 만큼 커밋을 되돌립니다.</td>
+    </tr>
+    <tr>
+      <td>ORIG_HEAD</td>
+      <td>git reset 명령을 실행했을 때 지운 커밋 내역을 보관합니다. 해당 명령을 통해 git reset 명령으로 지운 커밋을 되돌릴 수 있습니다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset             <span class="c"># 어떤 커밋을 버리고 이전의 특정 버전으로 다시 되돌릴 때 사용</span>
+</code></pre></div></div>
+
+<h3 id="특정-파일을-최종-커밋-상태로-되돌리기-checkout">특정 파일을 최종 커밋 상태로 되돌리기 (checkout)</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ex</span>
+<span class="c">## git add README.md # README.md 파일을 스테이징 -- 1</span>
+<span class="c">## git checkout HEAD -- README.md # README.md 파일을 마지막 커밋 상태로 되돌림</span>
+<span class="c">## --&gt; 1번에서 스테이징한 README.md 파일이 마지막 커밋 상태로 되돌아감</span>
+git checkout HEAD <span class="nt">--</span> filename
+</code></pre></div></div>
+
+<h3 id="git-rebase--브랜치-이력-정리하기">git rebase : 브랜치 이력 정리하기</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>옵션</th>
+      <th>의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>–continue</td>
+      <td>충돌이 해결된 후 rebase를 계속 진행</td>
+    </tr>
+    <tr>
+      <td>–abort</td>
+      <td>rebase를 중단하고 이전 상태로 되돌림</td>
+    </tr>
+    <tr>
+      <td>–skip</td>
+      <td>충돌이 발생한 커밋을 건너뛰고 rebase를 계속 진행</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ex</span>
+<span class="c">## vi testfile.txt # testfile.txt 파일 생성 및 편집</span>
+<span class="c">## git add testfile.txt # testfile.txt 파일을 스테이징</span>
+<span class="c">## git commit -m "Add testfile.txt in master" # master 브랜치에 커밋 </span>
+
+<span class="c">## git branch hotfix1 # hotfix1 브랜치 생성</span>
+<span class="c">## git checkout hotfix1 # hotfix1 브랜치로 전환</span>
+<span class="c">## vi testfile.txt # testfile.txt 파일 생성 및 편집</span>
+<span class="c">## git add testfile.txt # testfile.txt 파일을 스테이징</span>
+<span class="c">## git commit -m "Add testfile.txt in hotfix1" # hotfix1 브랜치에 커밋</span>
+
+<span class="c">## git rebase master # error 발생 (충돌)</span>
+<span class="c">## vi testfile.txt # 충돌 해결</span>
+<span class="c">## git add testfile.txt # 수정된 testfile.txt 파일을 스테이징</span>
+<span class="c">## git rebase --continue # rebase 계속 진행</span>
+
+<span class="c">## git checkout master # master 브랜치로 전환</span>
+<span class="c">## git merge hotfix1 --no-ff # fast-forward를 방지하고 병합 커밋 생성</span>
+git rebase            <span class="c"># git merge처럼 병합할 때 사용합니다. 하지만 브랜치가 많을 경우 브랜치 이력을 확인하면서 병합합니다.</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> HEAD~~        <span class="c"># 서로 다른 두 개의 커밋 내역을 합칩니다. | ~ : 커밋 내역 하나를 의미합니다.</span>
+</code></pre></div></div>
+
   </div>
   <div class="md-index">
     <h2>목차</h2>
@@ -208,6 +360,15 @@ git pull &lt;원격 이름&gt; &lt;브랜치 이름&gt; <span class="c"># 원격
 <li class="toc-entry toc-h3"><a href="#원격-저장소-추가-및-연동">원격 저장소 추가 및 연동</a></li>
 <li class="toc-entry toc-h3"><a href="#로컬-커밋을-원격-저장소에-업로드">로컬 커밋을 원격 저장소에 업로드</a></li>
 <li class="toc-entry toc-h3"><a href="#원격-저장소의-변경-사항-가져오기">원격 저장소의 변경 사항 가져오기</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#git-고급">Git 고급</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#최근-커밋-수정하기-amend">최근 커밋 수정하기 (amend)</a></li>
+<li class="toc-entry toc-h3"><a href="#안전하게-커밋-되돌리는-방법-revert">안전하게 커밋 되돌리는 방법 (revert)</a></li>
+<li class="toc-entry toc-h3"><a href="#이전-작업-결과를-저장한-상태로-되돌리기--reset-">이전 작업 결과를 저장한 상태로 되돌리기 ( reset )</a></li>
+<li class="toc-entry toc-h3"><a href="#특정-파일을-최종-커밋-상태로-되돌리기-checkout">특정 파일을 최종 커밋 상태로 되돌리기 (checkout)</a></li>
+<li class="toc-entry toc-h3"><a href="#git-rebase--브랜치-이력-정리하기">git rebase : 브랜치 이력 정리하기</a></li>
 </ul>
 </li>
 </ul>
