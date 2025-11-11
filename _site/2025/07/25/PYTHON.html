@@ -73,6 +73,24 @@
 
 <hr />
 
+<h2 id="가상환경-설정">가상환경 설정</h2>
+
+<h3 id="local">Local</h3>
+
+<h4 id="window---command-prompt---anaconda">Window - Command Prompt - anaconda</h4>
+
+<pre><code class="language-cmd"># 가상환경 생성
+# conda create -n {가상환경 폴더 명} python={파이썬 버젼 명}
+## Ex. python 3.11 버젼, venv 폴더 명으로 가상환경 생성 
+conda create -n venv python=3.11
+
+## 가상환경 진입
+conda activate venv
+
+## 가상환경 종료
+conda deactivate
+</code></pre>
+
 <h2 id="error">ERROR</h2>
 
 <h3 id="rag">RAG</h3>
@@ -143,6 +161,15 @@ pip freeze | <span class="nb">grep </span>cohere
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#가상환경-설정">가상환경 설정</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#local">Local</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#window---command-prompt---anaconda">Window - Command Prompt - anaconda</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#error">ERROR</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#rag">RAG</a>
