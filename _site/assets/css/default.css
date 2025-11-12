@@ -111,7 +111,8 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0.5vw;
-  margin-top: 0.5vw;
+  /* margin-top: 0.5vw; */
+  /* margin-bottom: 1vw; */
 }
 
 #musicGif {

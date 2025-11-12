@@ -37,7 +37,7 @@
     </div>
 
     <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
-    <div class="volume-controls" style="margin-top: 0.5vw;">
+    <div class="volume-controls"> <!-- style="margin-top: 0.5vw;" -->
       <label for="volumeSlider">Volume:</label>
       <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
     </div>
@@ -90,6 +90,19 @@ conda activate venv
 ## 가상환경 종료
 conda deactivate
 </code></pre>
+
+<h2 id="typst">typst</h2>
+
+<h3 id="image-변환">Image 변환</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="c1"># 원본 파일 열기
+</span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
+
+<span class="c1"># PNG로 저장
+</span><span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
+</code></pre></div></div>
 
 <h2 id="error">ERROR</h2>
 
@@ -168,6 +181,11 @@ pip freeze | <span class="nb">grep </span>cohere
 <li class="toc-entry toc-h4"><a href="#window---command-prompt---anaconda">Window - Command Prompt - anaconda</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#typst">typst</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#image-변환">Image 변환</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#error">ERROR</a>
