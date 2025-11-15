@@ -73,7 +73,88 @@
 
 <hr />
 
+<h2 id="settings">Settings</h2>
+
+<h3 id="새로운-환경에서-설정">새로운 환경에서 설정</h3>
+
+<blockquote>
+  <p>참고 사이트 : <a href="https://jekyllrb-ko.github.io/tutorials/using-jekyll-with-bundler/">jekyll document</a></p>
+</blockquote>
+
+<ol>
+  <li>RUBY 설치</li>
+</ol>
+
+<blockquote>
+  <p>참고 사이트 : <a href="https://rubyinstaller.org/">Ruby</a></p>
+</blockquote>
+
+<p>** 내 ruby version : 3.2.9</p>
+
+<ol>
+  <li>bundler 설치</li>
+</ol>
+
+<blockquote>
+  <p>참고 사이트 : <a href="https://bundler.io/">Bundler</a></p>
+</blockquote>
+
+<p>2-1. gemfile 이 존재할 때</p>
+
+<pre><code class="language-cmd">bundle install
+</code></pre>
+
+<p>2-2. gemfile 이 없을 때</p>
+
+<p>Gemfile 작성</p>
+
+<pre><code class="language-gemfile">source 'https://rubygems.org'
+gem 'nokogiri'
+gem 'rack', '~&gt; 2.2.4'
+gem 'rspec'
+</code></pre>
+
+<p>명령어 입력</p>
+
+<pre><code class="language-cmd">bundle install
+</code></pre>
+
 <h2 id="error">ERROR</h2>
+
+<h3 id="ruby와-bundler-호환성-문제">Ruby와 bundler 호환성 문제</h3>
+
+<ul>
+  <li>error 코드</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor/error.rb:105:in '&lt;class:Thor&gt;': uninitialized constant DidYouMean::SPELL_CHECKERS (NameError)
+
+    DidYouMean::SPELL_CHECKERS.merge!(
+              ^^^^^^^^^^^^^^^^
+Did you mean?  DidYouMean::SpellChecker
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor/error.rb:1:in '&lt;top (required)&gt;'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor/base.rb:3:in 'Kernel#require_relative'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor/base.rb:3:in '&lt;top (required)&gt;'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor.rb:2:in 'Kernel#require_relative'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor.rb:2:in '&lt;top (required)&gt;'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendored_thor.rb:8:in 'Kernel#require_relative'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendored_thor.rb:8:in '&lt;top (required)&gt;'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/friendly_errors.rb:3:in 'Kernel#require_relative'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/friendly_errors.rb:3:in '&lt;top (required)&gt;'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/exe/bundle:29:in 'Kernel#require_relative'
+        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/exe/bundle:29:in '&lt;top (required)&gt;'
+        from C:/Ruby34-x64/bin/bundle:25:in 'Kernel#load'
+        from C:/Ruby34-x64/bin/bundle:25:in '&lt;main&gt;'
+</code></pre></div></div>
+
+<ul>
+  <li>해결 방법</li>
+</ul>
+
+<ol>
+  <li>Ruby 버젼을 낮추기</li>
+  <li>다시 설치과정을 거쳐서 확인</li>
+</ol>
 
 <h3 id="jekyll-build-error">Jekyll Build Error</h3>
 
@@ -103,8 +184,14 @@ exclude:
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#settings">Settings</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#새로운-환경에서-설정">새로운 환경에서 설정</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#error">ERROR</a>
 <ul>
+<li class="toc-entry toc-h3"><a href="#ruby와-bundler-호환성-문제">Ruby와 bundler 호환성 문제</a></li>
 <li class="toc-entry toc-h3"><a href="#jekyll-build-error">Jekyll Build Error</a></li>
 </ul>
 </li>
