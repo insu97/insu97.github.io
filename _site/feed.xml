@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-14T00:08:12+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">SQL</title><link href="http://localhost:4000/2025/12/13/SQL.html" rel="alternate" type="text/html" title="SQL" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/SQL</id><content type="html" xml:base="http://localhost:4000/2025/12/13/SQL.html"><![CDATA[<h1 id="sql---2025년12월13일">SQL - 2025년12월13일</h1>
+
+<!-- - tag : SQL  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_SQL.html" class="btn btn-default navbar-btn cursorNorm" role="button">SQL</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="sql">SQL</h2>
+
+<h3 id="sql-injection">SQL Injection</h3>
+
+<h4 id="개념-및-정의">개념 및 정의</h4>
+
+<p>SQL Injection은 악의적인 사용자가 SQL 쿼리문에 비정상적인 SQL 코드를 삽입하여 데이터베이스를 공격하는 보안 취약점입니다. 웹 애플리케이션의 입력 필드나 URL 매개변수 등을 통해 악의적인 SQL 명령어를 주입하고, 이를 데이터베이스에서 실행하게 함으로써 권한 없이 데이터에 접근하거나 조작할 수 있습니다.</p>
+
+<h4 id="문제점">문제점</h4>
+
+<ul>
+  <li><strong>데이터 유출</strong>: 데이터베이스의 민감한 정보(사용자 계정, 개인정보 등)가 노출될 수 있습니다.</li>
+  <li><strong>데이터 손상</strong>: 악의적으로 데이터를 삭제하거나 수정할 수 있습니다.</li>
+  <li><strong>인증 우회</strong>: 로그인 인증을 우회하여 관리자 권한으로 접근할 수 있습니다.</li>
+  <li><strong>시스템 제어</strong>: 데이터베이스 서버에 대한 제어권을 얻을 수 있습니다.</li>
+</ul>
+
+<p><strong>SQL Injection 예시:</strong></p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 정상적인 쿼리</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="s1">'user_input'</span> <span class="k">AND</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'password_input'</span>
+
+<span class="c1">-- 악의적인 입력 (id: ' OR '1'='1)</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="s1">''</span> <span class="k">OR</span> <span class="s1">'1'</span><span class="o">=</span><span class="s1">'1'</span> <span class="k">AND</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'password_input'</span>
+<span class="c1">-- 결과: 모든 사용자 정보가 반환됨</span>
+</code></pre></div></div>
+
+<h4 id="예방-방법">예방 방법</h4>
+
+<ol>
+  <li><strong>Prepared Statement 사용</strong>
+    <ul>
+      <li>쿼리의 구조와 데이터를 분리하여 입력값을 매개변수로 처리합니다.
+        <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 안전한 방법 (Prepared Statement)</span>
+<span class="k">PREPARE</span> <span class="n">stmt</span> <span class="k">FROM</span> <span class="s1">'SELECT * FROM users WHERE id = ? AND password = ?'</span>
+<span class="k">EXECUTE</span> <span class="n">stmt</span> <span class="k">USING</span> <span class="n">user_input</span><span class="p">,</span> <span class="n">password_input</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><strong>입력값 검증 및 필터링</strong>
+    <ul>
+      <li>사용자 입력값의 길이, 형식, 타입을 검증합니다.</li>
+      <li>특수문자(‘ “ ; – /* */ 등)를 제거하거나 이스케이프 처리합니다.</li>
+    </ul>
+  </li>
+  <li><strong>이스케이프 처리</strong>
+    <ul>
+      <li>쿼리에 포함되는 모든 문자열을 적절히 이스케이프 처리합니다.
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python 예시
+</span><span class="n">escaped_input</span> <span class="o">=</span> <span class="n">input_value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"'"</span><span class="p">,</span> <span class="s">"''"</span><span class="p">)</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><strong>최소 권한 원칙 (Least Privilege)</strong>
+    <ul>
+      <li>데이터베이스 계정에 필요한 최소한의 권한만 부여합니다.</li>
+      <li>읽기 전용 계정, 특정 테이블만 접근 가능한 계정 등으로 제한합니다.</li>
+    </ul>
+  </li>
+  <li><strong>에러 메시지 제한</strong>
+    <ul>
+      <li>데이터베이스 에러 메시지를 사용자에게 노출하지 않습니다.</li>
+      <li>일반적인 에러 메시지만 반환하도록 처리합니다.</li>
+    </ul>
+  </li>
+  <li><strong>웹 애플리케이션 방화벽 (WAF)</strong>
+    <ul>
+      <li>SQL Injection 패턴을 탐지하고 차단하는 WAF 솔루션을 사용합니다.</li>
+    </ul>
+  </li>
+  <li><strong>정기적인 보안 감시 및 로깅</strong>
+    <ul>
+      <li>의심스러운 SQL 쿼리를 모니터링하고 로깅합니다.</li>
+      <li>정기적인 보안 감사를 수행합니다.</li>
+    </ul>
+  </li>
+</ol>]]></content><author><name>INSU</name></author><category term="SQL" /><summary type="html"><![CDATA[SQL - 2025년12월13일 tag : SQL |]]></summary></entry><entry><title type="html">Github</title><link href="http://localhost:4000/2025/12/13/Github.html" rel="alternate" type="text/html" title="Github" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/Github</id><content type="html" xml:base="http://localhost:4000/2025/12/13/Github.html"><![CDATA[<h1 id="github---2025년12월13일">Github - 2025년12월13일</h1>
+
+<!-- - tag : Github  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Github.html" class="btn btn-default navbar-btn cursorNorm" role="button">Github</a>
+|</li>
+</ul>
+
+<hr />
+
+<h1 id="github">Github</h1>
+
+<h2 id="초기-설정">초기 설정</h2>
+
+<h3 id="환경설정">환경설정</h3>
+
+<p><strong>정보 확인하기</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--list</span>
+</code></pre></div></div>
+
+<p><strong>이름과 이메일 설정</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.name <span class="s2">"사용자이름"</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"이메일주소"</span>
+git config <span class="nt">--global</span> core.editor <span class="s2">"vim"</span>
+git config <span class="nt">--global</span> core.pager <span class="s2">"cat"</span>
+</code></pre></div></div>
+
+<p><strong>Tip</strong></p>
+
+<p>만약 <code class="language-plaintext highlighter-rouge">core.editor</code> 값이 vim, notepad 두 개가 있을 경우:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi ~/.gitconfig
+</code></pre></div></div>
+
+<p>위 명령어 입력 후 notepad 부분을 지우고 저장 후 다시 <code class="language-plaintext highlighter-rouge">git config --list</code>로 확인하기</p>
+
+<h2 id="local-환경에서-작업">Local 환경에서 작업</h2>
+
+<h3 id="git-init">git init</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>디렉터리이름  <span class="c"># 디렉터리 생성</span>
+<span class="nb">cd </span>디렉터리이름     <span class="c"># 디렉터리로 이동</span>
+git init          <span class="c"># Git 저장소 초기화</span>
+</code></pre></div></div>
+
+<h3 id="git-add-git-commit">git add, git commit</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim 파일이름  <span class="c"># 파일 생성 및 편집 [ i : 입력모드, esc : 명령모드, :wq! : 저장 후 종료 ]</span>
+<span class="nb">cat </span>파일이름  <span class="c"># 파일 내용 확인</span>
+git status   <span class="c"># 현재 상태 확인 (자주 확인해주는 것이 좋다)</span>
+</code></pre></div></div>
+
+<p><strong>커밋하기</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 방법 1: 스테이징 + 커밋 분리</span>
+git add 파일명.확장자  <span class="c"># 특정 파일 스테이징</span>
+git add <span class="nb">.</span>             <span class="c"># 모든 변경사항 스테이징</span>
+git commit            <span class="c"># 에디터에서 커밋 메시지 작성</span>
+git commit <span class="nt">-m</span> <span class="s2">"커밋 메시지"</span>  <span class="c"># 인라인으로 커밋 메시지 작성</span>
+
+<span class="c"># 방법 2: 수정된 파일 자동 스테이징 + 커밋</span>
+git commit <span class="nt">-am</span> <span class="s2">"커밋 메시지"</span>
+
+<span class="c"># 방법 3: 메시지 없이 (에디터에서 입력)</span>
+git commit <span class="nt">-a</span>
+</code></pre></div></div>
+
+<h3 id="git-branch-git-checkout">git branch, git checkout</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch              <span class="c"># 브랜치 목록 확인</span>
+git branch <span class="nt">-r</span>           <span class="c"># 원격 브랜치 목록 확인</span>
+git branch <span class="nt">-a</span>           <span class="c"># 모든 브랜치 목록 확인</span>
+git branch 브랜치이름     <span class="c"># 새 브랜치 생성</span>
+git checkout 브랜치이름   <span class="c"># 브랜치 전환</span>
+git switch 브랜치이름     <span class="c"># 브랜치 전환 (최신 방식)</span>
+git branch <span class="nt">-d</span> 브랜치이름  <span class="c"># 브랜치 삭제</span>
+git branch <span class="nt">-D</span> 브랜치이름  <span class="c"># 브랜치 강제 삭제</span>
+</code></pre></div></div>
+
+<h3 id="git-merge">git merge</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master         <span class="c"># 메인 브랜치로 전환</span>
+git merge 브랜치이름         <span class="c"># 브랜치 병합</span>
+git merge 브랜치이름 <span class="nt">--no-ff</span> <span class="c"># fast-forward를 방지하고 병합 커밋 생성</span>
+</code></pre></div></div>
+
+<h3 id="git-log">git log</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log               <span class="c"># 커밋 로그 확인</span>
+git log <span class="nt">--oneline</span>     <span class="c"># 한 줄 요약 로그 확인</span>
+git log <span class="nt">--graph</span>       <span class="c"># 그래프 형태로 로그 확인</span>
+git log <span class="nt">-1</span> <span class="nt">--stat</span>     <span class="c"># 가장 최근 커밋 로그 확인</span>
+</code></pre></div></div>
+
+<p><strong>보기 좋은 로그 출력 설정</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> alias.lg <span class="s2">"log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span>
+</code></pre></div></div>
+
+<h3 id="gitignore">.gitignore</h3>
+
+<p>특정 파일이나 디렉터리를 Git에서 추적하지 않도록 설정</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch</span> .gitignore  <span class="c"># .gitignore 빈 파일 생성</span>
+</code></pre></div></div>
+
+<p><strong>참고 사이트</strong></p>
+<ul>
+  <li><a href="https://www.toptal.com/developers/gitignore/">gitignore.io</a></li>
+  <li><a href="https://www.toptal.com/developers/gitignore/api/macos,windows,python,flask,vim,visualstudiocode,jupyternotebooks">gitignore API 예시</a></li>
+</ul>
+
+<h2 id="원격-저장소-연동">원격 저장소 연동</h2>
+
+<h3 id="깃허브-저장소-생성-및-clone">깃허브 저장소 생성 및 Clone</h3>
+
+<p><strong>저장소 생성 단계:</strong></p>
+<ol>
+  <li>깃허브 접속</li>
+  <li>Create repository → Public 선택, License: MIT 선택</li>
+  <li>주소 복사 후 Git Bash에서 다음 명령어 입력:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="s2">"저장소 주소"</span>  <span class="c"># 원격 저장소 복제</span>
+</code></pre></div></div>
+
+<h3 id="원격-저장소-추가-및-연동">원격 저장소 추가 및 연동</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote                              <span class="c"># 원격 저장소 확인 (origin)</span>
+git remote <span class="nt">-v</span>                           <span class="c"># 연결된 원격 저장소 상세 확인</span>
+git remote add origin 원격저장소URL      <span class="c"># 로컬 저장소를 원격 저장소와 연결</span>
+</code></pre></div></div>
+
+<h3 id="push--pull">Push &amp; Pull</h3>
+
+<p><strong>로컬 커밋을 원격 저장소에 업로드</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin main              <span class="c"># origin의 main 브랜치로 업로드</span>
+git push origin <span class="nt">--all</span>             <span class="c"># 모든 브랜치를 원격 저장소에 업로드</span>
+git push <span class="nt">-u</span> origin feature/이름   <span class="c"># 새로운 브랜치 최초 push (-u는 한 번만 사용)</span>
+</code></pre></div></div>
+
+<p><strong>원격 저장소의 변경 사항 가져오기</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch origin              <span class="c"># 원격 저장소의 변경 사항을 로컬로 가져오기</span>
+git pull origin main          <span class="c"># 원격 저장소의 main 브랜치 변경 사항을 가져오고 병합</span>
+git merge FETCH_HEAD          <span class="c"># fetch한 내용 병합</span>
+</code></pre></div></div>
+
+<h3 id="github-personal-access-token">GitHub Personal Access Token</h3>
+
+<p><strong>비밀 키 받기:</strong></p>
+<ol>
+  <li>오른쪽 맨 위 프로필 아이콘 클릭 → Settings 클릭</li>
+  <li>왼쪽 사이드 바에서 Developer Settings 클릭</li>
+  <li>Personal access tokens → Tokens (Classic) 클릭</li>
+  <li>Generate new token → Generate new token (classic) 선택</li>
+</ol>
+
+<h2 id="git-고급-기능">Git 고급 기능</h2>
+
+<h3 id="stash">stash</h3>
+
+<p>작업 중인 변경사항을 임시로 저장</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git stash              <span class="c"># 현재 변경사항 임시 저장</span>
+git stash list         <span class="c"># stash 목록 보기</span>
+git stash pop          <span class="c"># 가장 최근 stash 불러오기</span>
+git stash pop stash@<span class="o">{</span>번호<span class="o">}</span>  <span class="c"># 특정 stash 불러오기</span>
+</code></pre></div></div>
+
+<h3 id="undo--restore">undo &amp; restore</h3>
+
+<p>변경사항 취소하기</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git restore 파일명.파일확장자  <span class="c"># 파일을 최종 커밋 상태로 되돌리기</span>
+git checkout HEAD <span class="nt">--</span> 파일명    <span class="c"># 파일을 마지막 커밋 상태로 되돌림</span>
+</code></pre></div></div>
+
+<h3 id="unstaging">Unstaging</h3>
+
+<p>Stage의 변경사항을 Working Directory로 내리기</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add 파일명.파일확장자
+git reset HEAD 파일명.파일확장자  <span class="c"># HEAD: 마지막의, 최신의</span>
+</code></pre></div></div>
+
+<h3 id="커밋-수정하기-amend">커밋 수정하기 (amend)</h3>
+
+<p>최근 커밋 메시지 수정하기</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">--amend</span>                <span class="c"># 에디터에서 메시지 수정</span>
+git commit <span class="nt">--amend</span> <span class="nt">-m</span> <span class="s2">"새 메시지"</span>  <span class="c"># 인라인으로 메시지 수정</span>
+</code></pre></div></div>
+
+<p>같은 브랜치 상에 있는 최종 커밋을 취소하고 새로운 내용을 추가하거나 설명을 덧붙인 커밋을 할 수 있습니다.</p>
+
+<h3 id="revert-commit">Revert commit</h3>
+
+<p>잘못을 인정하고 특정 시점으로 되돌리기 (이미 push된 커밋을 안전하게 취소)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git revert <span class="nt">--no-commit</span> HEAD~되돌리고싶은커밋숫자..
+git status    <span class="c"># 삭제 이력 확인</span>
+git commit    <span class="c"># 왜 revert했는지 이유를 적어야 함</span>
+</code></pre></div></div>
+
+<p>또는</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git revert 커밋해시  <span class="c"># 특정 커밋을 취소하는 새로운 커밋 생성</span>
+</code></pre></div></div>
+
+<h3 id="reset">Reset</h3>
+
+<p>어떤 특정 커밋을 사용하지 않게 되어 다시 되돌릴 때 사용<br />
+<code class="language-plaintext highlighter-rouge">git revert</code>와 다르게 커밋 기록이 남지 않습니다.</p>
+
+<p><strong>git reset 모드:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>모드</th>
+      <th>의미</th>
+      <th>HEAD 위치</th>
+      <th>인덱스</th>
+      <th>작업 디렉터리</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hard</td>
+      <td>완전히 되돌림</td>
+      <td>변경</td>
+      <td>변경</td>
+      <td>변경</td>
+    </tr>
+    <tr>
+      <td>mixed</td>
+      <td>인덱스의 상태를 되돌림 (기본값)</td>
+      <td>변경</td>
+      <td>변경</td>
+      <td>유지</td>
+    </tr>
+    <tr>
+      <td>soft</td>
+      <td>커밋만 되돌림</td>
+      <td>변경</td>
+      <td>유지</td>
+      <td>유지</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>git reset 옵션:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>옵션</th>
+      <th>의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>^ 혹은 ~</td>
+      <td>~은 커밋 내역 하나를 의미. 표시한 수만큼 커밋을 되돌림</td>
+    </tr>
+    <tr>
+      <td>ORIG_HEAD</td>
+      <td>git reset 명령으로 지운 커밋 내역을 보관. 이를 통해 reset한 커밋을 되돌릴 수 있음</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="git-rebase">git rebase</h3>
+
+<p>브랜치 이력을 정리하고 깔끔하게 병합</p>
+
+<p><strong>기본 rebase:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout hotfix1
+git rebase master     <span class="c"># master를 기준으로 hotfix1을 재배치</span>
+<span class="c"># 충돌 발생 시:</span>
+<span class="c"># 1. 충돌 해결</span>
+<span class="c"># 2. git add 파일명</span>
+<span class="c"># 3. git rebase --continue</span>
+
+git checkout master
+git merge hotfix1 <span class="nt">--no-ff</span>  <span class="c"># master로 병합</span>
+</code></pre></div></div>
+
+<p><strong>rebase 옵션:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>옵션</th>
+      <th>의미</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>–continue</td>
+      <td>충돌이 해결된 후 rebase를 계속 진행</td>
+    </tr>
+    <tr>
+      <td>–abort</td>
+      <td>rebase를 중단하고 이전 상태로 되돌림</td>
+    </tr>
+    <tr>
+      <td>–skip</td>
+      <td>충돌이 발생한 커밋을 건너뛰고 rebase를 계속 진행</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>인터랙티브 rebase (커밋 합치기):</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> HEAD~~  <span class="c"># 서로 다른 두 개의 커밋 내역을 합침 (~ : 커밋 내역 하나)</span>
+</code></pre></div></div>
+
+<h2 id="merge-conflict-해결">Merge Conflict 해결</h2>
+
+<h3 id="1-일반적인-상황-merge">1. 일반적인 상황 (Merge)</h3>
+
+<p>Merge 상황에서 충돌 해결</p>
+
+<h3 id="2-특수한-상황-rebase">2. 특수한 상황 (Rebase)</h3>
+
+<p>rebase 방법으로 충돌 해결</p>
+
+<h2 id="branch-models">Branch Models</h2>
+
+<h3 id="git-flow">git flow</h3>
+
+<ul>
+  <li>가장 전통적이고 많이 쓰이는 모델</li>
+  <li>각 단계가 명확히 구분되어 배포 주기가 주기적인 서비스에 유리</li>
+  <li>단점: 복잡함</li>
+</ul>
+
+<h3 id="github-flow">github flow</h3>
+
+<ul>
+  <li>브랜치 모델의 단순화</li>
+  <li>CI 의존성이 높고, pull request가 없으면 실수에 대처가 힘듦</li>
+</ul>
+
+<p><strong>GitHub Flow 작업 순서:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 1. 새 브랜치 생성 및 전환</span>
+git branch feature/기능이름
+git switch feature/기능이름
+
+<span class="c"># 2. 작업 및 커밋</span>
+vi 파일명.확장자  <span class="c"># main branch와 다르게 수정</span>
+git add 파일명.확장자
+git commit
+
+<span class="c"># 3. 원격에 push</span>
+git push <span class="nt">-u</span> origin feature/기능이름  <span class="c"># -u는 한 번만</span>
+
+<span class="c"># 4. GitHub에서 Pull Request 생성</span>
+<span class="c"># - Pull requests → Create pull request</span>
+<span class="c"># - feature/기능이름 선택</span>
+<span class="c"># - Title, description 작성 + Assignees(담당자) 선택</span>
+<span class="c"># - Create pull request → Merge pull request → Confirm merge</span>
+
+<span class="c"># 5. 브랜치 삭제 (GitHub 웹에서)</span>
+<span class="c"># - main 클릭 → View all branches → feature/기능이름 삭제</span>
+
+<span class="c"># 6. 로컬 브랜치 삭제</span>
+git branch <span class="nt">-D</span> feature/기능이름
+
+<span class="c"># 7. 최종 데이터 pull</span>
+git pull origin main
+</code></pre></div></div>
+
+<h3 id="gitlab-flow">gitlab flow</h3>
+
+<p>Deploy, issue에 대응하기 쉽도록 한 모델</p>
+
+<h2 id="github-협업-도구">GitHub 협업 도구</h2>
+
+<h3 id="pre-commit">pre-commit</h3>
+
+<p>commit 수행 전 체크해야 할 것들을 자동 수행하도록 도와주는 도구</p>
+
+<p><strong>설치 및 설정:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pre-commit              <span class="c"># 설치</span>
+pre-commit <span class="nt">--version</span>                <span class="c"># 설치 확인</span>
+pre-commit sample-config <span class="o">&gt;</span> .pre-commit-config.yaml  <span class="c"># 설정 파일 생성</span>
+<span class="nb">cat</span> .pre-commit-config.yaml         <span class="c"># 내용 보기</span>
+</code></pre></div></div>
+
+<p><strong>사용 방법 (commit 하기 전):</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pre-commit run      <span class="c"># 스테이징된 파일 체크</span>
+pre-commit run <span class="nt">-a</span>   <span class="c"># 모든 파일 체크 (주로 사용)</span>
+</code></pre></div></div>
+
+<p><strong>참고 사이트:</strong> <a href="https://pre-commit.com/">pre-commit.com</a></p>
+
+<h3 id="issue">Issue</h3>
+
+<p>GitHub 프로젝트의 다양한 이슈를 관리하기 위한 기능</p>
+
+<ul>
+  <li><strong>용도:</strong> 할 일, 버그, 질문 등을 관리</li>
+  <li><strong>중요:</strong> Label, 상태 관리 등의 업데이트가 잘 이루어져야 원활한 작업 가능</li>
+  <li><strong>Template:</strong> GitHub repository → Settings → Issue template에서 설정</li>
+  <li><strong>Issue Labels:</strong> 상태와 종류, 긴급도 등을 표시 (<a href="https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63">참고</a>)</li>
+  <li><strong>Milestone:</strong> Issue가 프로젝트의 어떤 주기에서 해결되어야 하는지 표기. Sprint의 달성률과 남은 Issue 파악이 쉬워짐</li>
+</ul>
+
+<h3 id="projects">Projects</h3>
+
+<p>GitHub에서 repository issue 기반의 task management</p>
+
+<ul>
+  <li>Scrum board와 table 방식 존재</li>
+  <li>팀의 Admin만 관리 가능</li>
+  <li>commit, pull request 등을 통해 자동으로 움직이도록 관리 가능</li>
+</ul>
+
+<h3 id="wiki">Wiki</h3>
+
+<p>Repository에서 README.md보다 더 자세한 설명이 필요할 때 작성</p>
+
+<ul>
+  <li>별도 사이트 없이도 FAQ, Docs 처리 가능</li>
+  <li>프로젝트 중 문서화가 필요한 모든 것들을 담아놓는 공간</li>
+  <li><strong>포함 내용:</strong> Daily Scrum, Sprint Retrospection (Liked, Learned, Lacked), Code Convention, Technical Issues</li>
+</ul>
+
+<h3 id="pull-request">Pull Request</h3>
+
+<p><strong>명령어 지원:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">close</code>, <code class="language-plaintext highlighter-rouge">resolve</code>, <code class="language-plaintext highlighter-rouge">fix</code> (복수형, 과거형)</li>
+  <li>예: <code class="language-plaintext highlighter-rouge">resolve #1</code></li>
+</ul>
+
+<h2 id="팀-프로젝트-협업">팀 프로젝트 협업</h2>
+
+<h3 id="팀-project-remote-과정-main-branch에서-실행">팀 Project REMOTE 과정 (main branch에서 실행)</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote <span class="nt">-v</span>                              <span class="c"># remote 확인</span>
+git remote add upstream 팀리포지토리주소     <span class="c"># 관습적으로 팀 이름은 upstream</span>
+git fetch upstream main                    <span class="c"># FETCH_HEAD 공간에 쌓임</span>
+git merge FETCH_HEAD
+git push origin main
+</code></pre></div></div>
+
+<h2 id="커밋-메시지-작성-규칙">커밋 메시지 작성 규칙</h2>
+
+<p><strong>Conventional Commits 지키기!</strong></p>
+
+<p>참고 사이트: <a href="https://www.conventionalcommits.org/ko/v1.0.0/">conventionalcommits.org</a></p>
+
+<h2 id="유용한-리소스">유용한 리소스</h2>
+
+<ol>
+  <li>
+    <p><strong>GitHub Repository 생성 사이트</strong><br />
+<a href="https://rahuldkjain.github.io/gh-profile-readme-generator/">gh-profile-readme-generator</a></p>
+  </li>
+  <li><strong>gitignore 파일 만들기</strong>
+    <ul>
+      <li><a href="https://www.toptal.com/developers/gitignore/">gitignore.io</a></li>
+      <li><a href="https://www.toptal.com/developers/gitignore/api/macos,windows,python,flask,vim,visualstudiocode,jupyternotebooks">API 예시</a></li>
+    </ul>
+  </li>
+  <li><strong>GitHub에서 Jupyter Notebook 변경사항 보기</strong><br />
+오른쪽 위 프로필 사진 클릭 → Feature preview → Rich Jupyter Notebook Diffs 활성화</li>
+</ol>
+
+<h2 id="git-사용-시-주의사항">Git 사용 시 주의사항</h2>
+
+<h3 id="습관들이면-안-되는-것들">습관들이면 안 되는 것들</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ❌ git add .</span>
+<span class="c"># 현재 디렉토리 하위의 모든 파일을 staging할 때 사용</span>
+<span class="c"># 문제: 현재 commit 단위에 들어가면 안 되는 파일까지 휩쓸릴 수 있음</span>
+
+<span class="c"># ❌ git commit -m "Message"</span>
+<span class="c"># 셸에서 바로 메시지를 쓰면서 커밋</span>
+<span class="c"># 문제: revert commit, merge commit 등의 상황에서 메시지를 덮어쓸 우려</span>
+
+<span class="c"># ❌ 저장소 안에 저장소 clone 하기</span>
+<span class="c"># 프로젝트 단위는 항상 독립적으로 존재해야 함</span>
+
+<span class="c"># ❌ 의미없는 commit message 남기기 (예: a, 1, ..)</span>
+<span class="c"># commit message는 제목만으로 해당 작업 단위에 대한 설명이 가능해야 함</span>
+</code></pre></div></div>
+
+<h3 id="반드시-지켜야-할-것">반드시 지켜야 할 것</h3>
+
+<ul>
+  <li><strong>Conventional Commit 잘 지키기!</strong></li>
+  <li>의미 있는 commit 단위로 작업하기</li>
+  <li>커밋 메시지는 명확하고 구체적으로 작성하기</li>
+</ul>
+
+<h2 id="실습-과제">실습 과제</h2>
+
+<p>직접 프로젝트를 생성하고 협업하는 과정을 처음부터 끝까지 해보기!</p>]]></content><author><name>INSU</name></author><category term="Github" /><summary type="html"><![CDATA[Github - 2025년12월13일 tag : Github |]]></summary></entry><entry><title type="html">Anaconda</title><link href="http://localhost:4000/2025/09/20/anaconda_settings.html" rel="alternate" type="text/html" title="Anaconda" /><published>2025-09-20T00:00:00+09:00</published><updated>2025-09-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/20/anaconda_settings</id><content type="html" xml:base="http://localhost:4000/2025/09/20/anaconda_settings.html"><![CDATA[<h1 id="anaconda---2025년09월20일">Anaconda - 2025년09월20일</h1>
+
+<!-- - tag : Anaconda  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Anaconda.html" class="btn btn-default navbar-btn cursorNorm" role="button">Anaconda</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="anaconda-설치-후-환경-변수-설정">Anaconda 설치 후 환경 변수 설정</h2>
+
+<ol>
+  <li>환경 변수 진입</li>
+  <li>Path 클릭</li>
+  <li>경로 추가
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    anaconda3
+    anaconda3\Library
+    anaconda3\Scripts
+</code></pre></div>    </div>
+  </li>
+</ol>]]></content><author><name>INSU</name></author><category term="Anaconda" /><summary type="html"><![CDATA[Anaconda - 2025년09월20일 tag : Anaconda |]]></summary></entry><entry><title type="html">Jekyll Blog</title><link href="http://localhost:4000/2025/07/25/Jekyll_Blog.html" rel="alternate" type="text/html" title="Jekyll Blog" /><published>2025-07-25T00:00:00+09:00</published><updated>2025-07-25T00:00:00+09:00</updated><id>http://localhost:4000/2025/07/25/Jekyll_Blog</id><content type="html" xml:base="http://localhost:4000/2025/07/25/Jekyll_Blog.html"><![CDATA[<h1 id="jekyll-blog---2025년07월25일">Jekyll Blog - 2025년07월25일</h1>
+
+<!-- - tag : Jekyll_Blog  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Jekyll_Blog.html" class="btn btn-default navbar-btn cursorNorm" role="button">Jekyll_Blog</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="settings">Settings</h2>
+
+<h3 id="새로운-환경-설정">새로운 환경 설정</h3>
+<ul>
+  <li>참고: <a href="https://jekyllrb-ko.github.io/tutorials/using-jekyll-with-bundler/">Jekyll with Bundler</a></li>
+</ul>
+
+<h4 id="1-ruby-설치">1) Ruby 설치</h4>
+<ul>
+  <li>참고: <a href="https://rubyinstaller.org/">Ruby Installer</a></li>
+  <li>현재 사용 버전: 3.2.9</li>
+</ul>
+
+<h4 id="2-bundler-설치-및-사용">2) Bundler 설치 및 사용</h4>
+<ul>
+  <li>
+    <p>참고: <a href="https://bundler.io/">Bundler</a></p>
+  </li>
+  <li>Gemfile이 있는 경우:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Gemfile이 없는 경우:</p>
+
+    <p>1) Gemfile 작성</p>
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
+<span class="n">gem</span> <span class="s1">'nokogiri'</span>
+<span class="n">gem</span> <span class="s1">'rack'</span><span class="p">,</span> <span class="s1">'~&gt; 2.2.4'</span>
+<span class="n">gem</span> <span class="s1">'rspec'</span>
+</code></pre></div>    </div>
+    <p>2) 설치 실행</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="error">ERROR</h2>
+
+<h3 id="ruby--bundler-호환성-문제">Ruby ↔ Bundler 호환성 문제</h3>
+<p>에러 예시:</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:/Ruby34-x64/... NameError: uninitialized constant DidYouMean::SPELL_CHECKERS
+</code></pre></div></div>
+<p>해결:</p>
+<ul>
+  <li>Ruby 버전을 호환되는 버전으로 조정</li>
+  <li>Bundler 재설치 및 다시 시도</li>
+</ul>
+
+<h3 id="jekyll-build-error">Jekyll Build Error</h3>
+<p>에러 예시:</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invalid date '&lt;%= Time.now.strftime('%Y-%m-%d %H:%M:%S %z') %&gt;': ... does not have a valid date in the YAML front matter.
+</code></pre></div></div>
+<p>해결:</p>
+<ul>
+  <li>GitHub Actions 환경에서 <code class="language-plaintext highlighter-rouge">vendor/</code> 내부 템플릿이 빌드에 포함되지 않도록 설정
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml</span>
+<span class="na">exclude</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">vendor</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="seo-sitemapxml-설정-가이드">SEO: Sitemap.xml 설정 가이드</h2>
+
+<h3 id="개요">개요</h3>
+<ul>
+  <li>검색 엔진이 사이트 구조를 빠르게 파악하고 색인하는 데 사용하는 XML 파일입니다.</li>
+</ul>
+
+<h3 id="설정-절차-3단계">설정 절차 (3단계)</h3>
+<ol>
+  <li>Gem 추가
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Gemfile</span>
+<span class="n">gem</span> <span class="s1">'jekyll-sitemap'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Jekyll 설정 업데이트
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://insu97.github.io"</span>   <span class="c1"># 자신의 GitHub Pages 도메인</span>
+<span class="na">plugins</span><span class="pi">:</span>
+     <span class="pi">-</span> <span class="s">jekyll-sitemap</span>
+</code></pre></div>    </div>
+  </li>
+  <li>robots.txt 추가(권장)
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># robots.txt (루트에 생성)
+User-agent: *
+Allow: /
+Sitemap: https://insu97.github.io/sitemap.xml
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="확인-방법">확인 방법</h3>
+<ul>
+  <li>로컬
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install
+</span>bundle <span class="nb">exec </span>jekyll serve
+<span class="c"># http://localhost:4000/sitemap.xml 에서 확인</span>
+</code></pre></div>    </div>
+  </li>
+  <li>배포 후
+      - <code class="language-plaintext highlighter-rouge">https://insu97.github.io/sitemap.xml</code> 접속
+      - Google Search Console → Sitemaps에 제출</li>
+</ul>
+
+<h3 id="주의사항">주의사항</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_config.yml</code>의 <code class="language-plaintext highlighter-rouge">url</code>은 실제 도메인으로 정확히 설정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">plugins</code>에 <code class="language-plaintext highlighter-rouge">jekyll-sitemap</code>이 포함되어 있어야 자동 생성됩니다.</li>
+</ul>]]></content><author><name>INSU</name></author><category term="Jekyll_Blog" /><summary type="html"><![CDATA[Jekyll Blog - 2025년07월25일 tag : Jekyll_Blog |]]></summary></entry><entry><title type="html">Runpod</title><link href="http://localhost:4000/2025/07/25/RUNPOD.html" rel="alternate" type="text/html" title="Runpod" /><published>2025-07-25T00:00:00+09:00</published><updated>2025-07-25T00:00:00+09:00</updated><id>http://localhost:4000/2025/07/25/RUNPOD</id><content type="html" xml:base="http://localhost:4000/2025/07/25/RUNPOD.html"><![CDATA[<h1 id="runpod---2025년07월25일">Runpod - 2025년07월25일</h1>
+
+<!-- - tag : RUNPOD  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_RUNPOD.html" class="btn btn-default navbar-btn cursorNorm" role="button">RUNPOD</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="error">ERROR</h2>
+
+<h3 id="runpod에-vscode로-접속-시">runpod에 vscode로 접속 시</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">install </span>terminal quit with output: 프로세스에서 없는 파이프에 쓰려고 했습니다.
+</code></pre></div></div>
+
+<blockquote>
+  <p>해결책 : C:\Users\{사용자이름}\.ssh 접속 후 known_hosts 파일 열어서 전부 삭제</p>
+</blockquote>
+
+<h2 id="others">Others</h2>
+
+<h3 id="runpod-files--local-downloads">RUNPOD files → Local Downloads</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># powershell</span><span class="w">
+</span><span class="n">scp</span><span class="w"> </span><span class="nt">-r</span><span class="w"> </span><span class="nt">-P</span><span class="w"> </span><span class="p">{</span><span class="err">포트번호</span><span class="p">}</span><span class="w"> </span><span class="err">`</span><span class="w">
+  </span><span class="nt">-i</span><span class="w"> </span><span class="s2">"C:\Users\YourUser\.ssh\id_ed25519"</span><span class="w"> </span><span class="err">`</span><span class="w">
+  </span><span class="s2">"root@{서버주소}:{원격폴더경로}"</span><span class="w"> </span><span class="err">`</span><span class="w">
+  </span><span class="s2">"{로컬 저장 경로}"</span><span class="w">
+</span></code></pre></div></div>]]></content><author><name>INSU</name></author><category term="RUNPOD" /><summary type="html"><![CDATA[Runpod - 2025년07월25일 tag : RUNPOD |]]></summary></entry><entry><title type="html">Python</title><link href="http://localhost:4000/2025/07/25/PYTHON.html" rel="alternate" type="text/html" title="Python" /><published>2025-07-25T00:00:00+09:00</published><updated>2025-07-25T00:00:00+09:00</updated><id>http://localhost:4000/2025/07/25/PYTHON</id><content type="html" xml:base="http://localhost:4000/2025/07/25/PYTHON.html"><![CDATA[<h1 id="python---2025년07월25일">Python - 2025년07월25일</h1>
+
+<!-- - tag : PYTHON  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_PYTHON.html" class="btn btn-default navbar-btn cursorNorm" role="button">PYTHON</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="가상환경-설정">가상환경 설정</h2>
+
+<h3 id="local">Local</h3>
+
+<h4 id="window---command-prompt---anaconda">Window - Command Prompt - anaconda</h4>
+
+<pre><code class="language-cmd"># 가상환경 생성
+# conda create -n {가상환경 폴더 명} python={파이썬 버젼 명}
+## Ex. python 3.11 버젼, venv 폴더 명으로 가상환경 생성 
+conda create -n venv python=3.11
+
+## 가상환경 진입
+conda activate venv
+
+## 가상환경 종료
+conda deactivate
+</code></pre>
+
+<h2 id="typst">typst</h2>
+
+<h3 id="image-변환">Image 변환</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="c1"># 원본 파일 열기
+</span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
+
+<span class="c1"># PNG로 저장
+</span><span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="error">ERROR</h2>
+
+<h3 id="rag">RAG</h3>
+
+<h4 id="reranker">Reranker</h4>
+
+<ul>
+  <li>코드</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.cross_encoders</span> <span class="kn">import</span> <span class="n">HuggingFaceCrossEncoder</span>
+
+<span class="n">hf_reranker</span> <span class="o">=</span> <span class="n">HuggingFaceCrossEncoder</span><span class="p">(</span>
+    <span class="n">model_name</span><span class="o">=</span><span class="s">"BAAI/bge-reranker-v2-m3"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>error 문구</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Error</span> <span class="n">rendering</span> <span class="n">output</span> <span class="n">item</span> <span class="n">using</span> <span class="s">'jupyter-ipywidget-renderer'</span>
+<span class="n">Cannot</span> <span class="n">read</span> <span class="n">properties</span> <span class="n">of</span> <span class="n">undefined</span> <span class="p">(</span><span class="n">reading</span> <span class="s">'ipywidgetsKernel'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>해결 방법</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ipywidgets <span class="nt">--upgrade</span>
+jupyter nbextension <span class="nb">enable</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
+jupyter nbextension <span class="nb">install</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
+</code></pre></div></div>
+
+<h2 id="others">Others</h2>
+
+<h3 id="라이브러리-관리">라이브러리 관리</h3>
+
+<ul>
+  <li>방법1</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze <span class="o">&gt;</span> requirements.txt
+pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</code></pre></div></div>
+
+<ul>
+  <li>방법2</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pipreqs
+pipreqs ./ <span class="nt">--force</span>
+
+<span class="c"># 폴더 내에서 환경이 존재하는 경우</span>
+pipreqs <span class="nb">.</span> <span class="nt">--force</span> <span class="nt">--ignore</span> <span class="s2">"{가상환경}/Lib"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>방법3</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 새로운 라이브러리를 설치 후 requirements.txt 에 적용할 때</span>
+<span class="c"># Ex. cohere 설치했을경우</span>
+pip freeze | <span class="nb">grep </span>cohere
+</code></pre></div></div>]]></content><author><name>INSU</name></author><category term="PYTHON" /><summary type="html"><![CDATA[Python - 2025년07월25일 tag : PYTHON |]]></summary></entry><entry><title type="html">A/B TEST</title><link href="http://localhost:4000/2024/10/28/AB_test.html" rel="alternate" type="text/html" title="A/B TEST" /><published>2024-10-28T00:00:00+09:00</published><updated>2024-10-28T00:00:00+09:00</updated><id>http://localhost:4000/2024/10/28/AB_test</id><content type="html" xml:base="http://localhost:4000/2024/10/28/AB_test.html"><![CDATA[<h1 id="ab-test---2024년10월28일">A/B TEST - 2024년10월28일</h1>
+
+<!-- - tag : AB_TEST  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_AB_TEST.html" class="btn btn-default navbar-btn cursorNorm" role="button">AB_TEST</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="정의">정의</h2>
+
+<blockquote>
+  <p>A/B TEST : 두 가지 이상의 버전을 비교하여 어떤 것이 더 나은 성과를 내는지 판단하는 실험 방법</p>
+</blockquote>
+
+<h2 id="ab-test-하는-이유">A/B TEST 하는 이유</h2>
+
+<blockquote>
+  <p>상관관계로부터 인과관계[ 정확히 말하면 인과관계일 가능성이 높은 것 ]를 찾아내기 위함이다.</p>
+</blockquote>
+
+<h2 id="ab-test-절차">A/B TEST 절차</h2>
+
+<ol>
+  <li>목표 설정 : 테스트의 목적과 개선하고자 하는 지표를 명확히 정의</li>
+  <li>가설 수립 : 어떤 변경이 목표 달성에 도움이 될 것인지 가설을 세우기</li>
+  <li>테스트 설계 : A안(기존안)과 B안(변경안)을 구체화하기 -&gt; 테스트 기간, 샘플 크기, 분석 방법 등을 결정</li>
+  <li>테스트 실행 : 사용자를 무작위로 A그룹과 B그룹으로 나누고, 각 그룹에 해당 버전을 노출시키기</li>
+  <li>데이터 수집 : 설정한 기간 동안 각 그룹의 성과 데이터를 수집</li>
+  <li>결과 분석 : 통계적 유의성을 검증하여 A안과 B안의 성과 차이를 분석</li>
+  <li>결론 도출 및 적용 : 분석 결과를 바탕으로 더 나은 버전을 선택 -&gt; 선택한 버전을 전체 사용자에게 적용</li>
+  <li>지속적 개선 : 테스트 결과를 바탕으로 새로운 가설을 수립하고 추가 테스트를 진행</li>
+</ol>
+
+<h2 id="주의해야-할-점">주의해야 할 점</h2>
+
+<ol>
+  <li>
+    <p>Correlation does not imply causation : 상관관계는 인과관계를 뜻하지 않는다.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- A/B TEST를 통해 인과관계를 알아내려면 두 집단을 나눠야 한다 =&gt; 임의적 할당(random assignment)
+&gt; EX ] 남성 VS 여성, 이번주 사용자 VS 다음주 사용자
+- A/B TEST를 통해 찾아낸 결과가 범용성을 지니려면 애초에 실험에 참가한 집단이 모집단을 대표할 수 있어야 한다.
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>테스트를 많이/자주하면 단기적으로 손해가 발생할 수 있다.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; A/B 테스트 결과는 해당 테스트에만 국한되며, 새로운 테스트마다 새로운 기준선이 필요
+&gt; 이는 끊임없는 테스트 사이클로 이어질 수 있으며, 장기적인 전략 수립을 방해할 수 있다.
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>A/B 테스팅의 결과는 계절 변화나 취향 변화 등 시간의 흐름에 따라 바뀔 수 있다.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; EX ] 작년 겨울에 진행한 테스트는 언제까지 유효할까?
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>사용자 행동의 완전한 이해 부족</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; A/B 테스트는 어떤 버전이 더 나은 성과를 보이는지는 알려주지만, 왜 그런지에 대한 깊이 있는 이해를 제공하지 않는다.
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr />
+
+<blockquote>
+  <p><a href="https://datarian.io/blog/a-b-testing?utm_source=webinar&amp;utm_medium=webinar&amp;utm_campaign=referral&amp;utm_content=datarian-2024-oct">참고 사이트</a></p>
+</blockquote>]]></content><author><name>INSU</name></author><category term="AB_TEST" /><summary type="html"><![CDATA[A/B TEST - 2024년10월28일 tag : AB_TEST |]]></summary></entry></feed>

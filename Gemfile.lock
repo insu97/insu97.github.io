@@ -39,6 +39,8 @@ GEM
       sass (~> 3.4)
     jekyll-seo-tag (2.8.0)
       jekyll (>= 3.8, < 5.0)
+    jekyll-sitemap (1.4.0)
+      jekyll (>= 3.7, < 5.0)
     jekyll-toc (0.19.0)
       jekyll (>= 3.9)
       nokogiri (~> 1.12)
@@ -90,6 +92,7 @@ DEPENDENCIES
   jekyll-feed
   jekyll-paginate
   jekyll-seo-tag
+  jekyll-sitemap
   jekyll-toc
   kramdown-parser-gfm
   tzinfo (~> 2.0)

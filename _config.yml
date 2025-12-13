@@ -1,8 +1,17 @@
+# Site Settings
+title: "INSU's Blog"
+description: "데이터 사이언스와 머신러닝에 관한 블로그"
+author: "INSU"
+url: "https://insu97.github.io"
+
 paginate: 10
 paginate_path: '/posts/page:num/'
 plugins:
   - jekyll-paginate
   - jekyll-toc
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
 
 timezone: Asia/Seoul
 

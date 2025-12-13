@@ -21,6 +21,7 @@ gem 'tzinfo-data'
 
 gem 'jekyll-feed'
 gem 'jekyll-seo-tag'
+gem 'jekyll-sitemap'
 
 gem 'wdm'
 gem "kramdown-parser-gfm"

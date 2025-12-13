@@ -75,109 +75,114 @@
 
 <h2 id="settings">Settings</h2>
 
-<h3 id="새로운-환경에서-설정">새로운 환경에서 설정</h3>
+<h3 id="새로운-환경-설정">새로운 환경 설정</h3>
+<ul>
+  <li>참고: <a href="https://jekyllrb-ko.github.io/tutorials/using-jekyll-with-bundler/">Jekyll with Bundler</a></li>
+</ul>
 
-<blockquote>
-  <p>참고 사이트 : <a href="https://jekyllrb-ko.github.io/tutorials/using-jekyll-with-bundler/">jekyll document</a></p>
-</blockquote>
+<h4 id="1-ruby-설치">1) Ruby 설치</h4>
+<ul>
+  <li>참고: <a href="https://rubyinstaller.org/">Ruby Installer</a></li>
+  <li>현재 사용 버전: 3.2.9</li>
+</ul>
 
-<ol>
-  <li>RUBY 설치</li>
-</ol>
+<h4 id="2-bundler-설치-및-사용">2) Bundler 설치 및 사용</h4>
+<ul>
+  <li>
+    <p>참고: <a href="https://bundler.io/">Bundler</a></p>
+  </li>
+  <li>Gemfile이 있는 경우:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Gemfile이 없는 경우:</p>
 
-<blockquote>
-  <p>참고 사이트 : <a href="https://rubyinstaller.org/">Ruby</a></p>
-</blockquote>
-
-<p>** 내 ruby version : 3.2.9</p>
-
-<ol>
-  <li>bundler 설치</li>
-</ol>
-
-<blockquote>
-  <p>참고 사이트 : <a href="https://bundler.io/">Bundler</a></p>
-</blockquote>
-
-<p>2-1. gemfile 이 존재할 때</p>
-
-<pre><code class="language-cmd">bundle install
-</code></pre>
-
-<p>2-2. gemfile 이 없을 때</p>
-
-<p>Gemfile 작성</p>
-
-<pre><code class="language-gemfile">source 'https://rubygems.org'
-gem 'nokogiri'
-gem 'rack', '~&gt; 2.2.4'
-gem 'rspec'
-</code></pre>
-
-<p>명령어 입력</p>
-
-<pre><code class="language-cmd">bundle install
-</code></pre>
+    <p>1) Gemfile 작성</p>
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
+<span class="n">gem</span> <span class="s1">'nokogiri'</span>
+<span class="n">gem</span> <span class="s1">'rack'</span><span class="p">,</span> <span class="s1">'~&gt; 2.2.4'</span>
+<span class="n">gem</span> <span class="s1">'rspec'</span>
+</code></pre></div>    </div>
+    <p>2) 설치 실행</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
 
 <h2 id="error">ERROR</h2>
 
-<h3 id="ruby와-bundler-호환성-문제">Ruby와 bundler 호환성 문제</h3>
-
-<ul>
-  <li>error 코드</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor/error.rb:105:in '&lt;class:Thor&gt;': uninitialized constant DidYouMean::SPELL_CHECKERS (NameError)
-
-    DidYouMean::SPELL_CHECKERS.merge!(
-              ^^^^^^^^^^^^^^^^
-Did you mean?  DidYouMean::SpellChecker
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor/error.rb:1:in '&lt;top (required)&gt;'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor/base.rb:3:in 'Kernel#require_relative'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor/base.rb:3:in '&lt;top (required)&gt;'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor.rb:2:in 'Kernel#require_relative'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendor/thor/lib/thor.rb:2:in '&lt;top (required)&gt;'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendored_thor.rb:8:in 'Kernel#require_relative'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/vendored_thor.rb:8:in '&lt;top (required)&gt;'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/friendly_errors.rb:3:in 'Kernel#require_relative'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/lib/bundler/friendly_errors.rb:3:in '&lt;top (required)&gt;'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/exe/bundle:29:in 'Kernel#require_relative'
-        from C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/bundler-2.1.4/exe/bundle:29:in '&lt;top (required)&gt;'
-        from C:/Ruby34-x64/bin/bundle:25:in 'Kernel#load'
-        from C:/Ruby34-x64/bin/bundle:25:in '&lt;main&gt;'
+<h3 id="ruby--bundler-호환성-문제">Ruby ↔ Bundler 호환성 문제</h3>
+<p>에러 예시:</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:/Ruby34-x64/... NameError: uninitialized constant DidYouMean::SPELL_CHECKERS
 </code></pre></div></div>
-
+<p>해결:</p>
 <ul>
-  <li>해결 방법</li>
+  <li>Ruby 버전을 호환되는 버전으로 조정</li>
+  <li>Bundler 재설치 및 다시 시도</li>
 </ul>
-
-<ol>
-  <li>Ruby 버젼을 낮추기</li>
-  <li>다시 설치과정을 거쳐서 확인</li>
-</ol>
 
 <h3 id="jekyll-build-error">Jekyll Build Error</h3>
-
-<ul>
-  <li>error 코드</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invalid date '&lt;%= Time.now.strftime('%Y-%m-%d %H:%M:%S %z') %&gt;': Document '.../0000-00-00-welcome-to-jekyll.markdown.erb' does not have a valid date in the YAML front matter.
+<p>에러 예시:</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Invalid date '&lt;%= Time.now.strftime('%Y-%m-%d %H:%M:%S %z') %&gt;': ... does not have a valid date in the YAML front matter.
 </code></pre></div></div>
-
+<p>해결:</p>
 <ul>
-  <li>
-    <p>해결 방법</p>
-
-    <blockquote>
-      <p>GitHub Actions 환경에서 이 에러가 발생한 것이라면, 루트 디렉토리에 있는 _posts/가 아닌 vendor/ 내부에 있는 템플릿 파일이 빌드 과정에 포함되지 않도록 설정해야 함.</p>
-    </blockquote>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># _config.yml 에 아래 작성
-exclude:
-- vendor
+  <li>GitHub Actions 환경에서 <code class="language-plaintext highlighter-rouge">vendor/</code> 내부 템플릿이 빌드에 포함되지 않도록 설정
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml</span>
+<span class="na">exclude</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">vendor</span>
 </code></pre></div>    </div>
   </li>
+</ul>
+
+<h2 id="seo-sitemapxml-설정-가이드">SEO: Sitemap.xml 설정 가이드</h2>
+
+<h3 id="개요">개요</h3>
+<ul>
+  <li>검색 엔진이 사이트 구조를 빠르게 파악하고 색인하는 데 사용하는 XML 파일입니다.</li>
+</ul>
+
+<h3 id="설정-절차-3단계">설정 절차 (3단계)</h3>
+<ol>
+  <li>Gem 추가
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Gemfile</span>
+<span class="n">gem</span> <span class="s1">'jekyll-sitemap'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Jekyll 설정 업데이트
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://insu97.github.io"</span>   <span class="c1"># 자신의 GitHub Pages 도메인</span>
+<span class="na">plugins</span><span class="pi">:</span>
+     <span class="pi">-</span> <span class="s">jekyll-sitemap</span>
+</code></pre></div>    </div>
+  </li>
+  <li>robots.txt 추가(권장)
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># robots.txt (루트에 생성)
+User-agent: *
+Allow: /
+Sitemap: https://insu97.github.io/sitemap.xml
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="확인-방법">확인 방법</h3>
+<ul>
+  <li>로컬
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install
+</span>bundle <span class="nb">exec </span>jekyll serve
+<span class="c"># http://localhost:4000/sitemap.xml 에서 확인</span>
+</code></pre></div>    </div>
+  </li>
+  <li>배포 후
+      - <code class="language-plaintext highlighter-rouge">https://insu97.github.io/sitemap.xml</code> 접속
+      - Google Search Console → Sitemaps에 제출</li>
+</ul>
+
+<h3 id="주의사항">주의사항</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_config.yml</code>의 <code class="language-plaintext highlighter-rouge">url</code>은 실제 도메인으로 정확히 설정합니다.</li>
+  <li><code class="language-plaintext highlighter-rouge">plugins</code>에 <code class="language-plaintext highlighter-rouge">jekyll-sitemap</code>이 포함되어 있어야 자동 생성됩니다.</li>
 </ul>
 
   </div>
@@ -186,13 +191,26 @@ exclude:
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#settings">Settings</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#새로운-환경에서-설정">새로운 환경에서 설정</a></li>
+<li class="toc-entry toc-h3"><a href="#새로운-환경-설정">새로운 환경 설정</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#1-ruby-설치">1) Ruby 설치</a></li>
+<li class="toc-entry toc-h4"><a href="#2-bundler-설치-및-사용">2) Bundler 설치 및 사용</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#error">ERROR</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#ruby와-bundler-호환성-문제">Ruby와 bundler 호환성 문제</a></li>
+<li class="toc-entry toc-h3"><a href="#ruby--bundler-호환성-문제">Ruby ↔ Bundler 호환성 문제</a></li>
 <li class="toc-entry toc-h3"><a href="#jekyll-build-error">Jekyll Build Error</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#seo-sitemapxml-설정-가이드">SEO: Sitemap.xml 설정 가이드</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#개요">개요</a></li>
+<li class="toc-entry toc-h3"><a href="#설정-절차-3단계">설정 절차 (3단계)</a></li>
+<li class="toc-entry toc-h3"><a href="#확인-방법">확인 방법</a></li>
+<li class="toc-entry toc-h3"><a href="#주의사항">주의사항</a></li>
 </ul>
 </li>
 </ul>
