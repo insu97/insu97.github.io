@@ -7,7 +7,7 @@ toc: true
 
 {% include markdown.html %}
 
-# Anaconda 설치 후 환경 변수 설정
+## Anaconda 설치 후 환경 변수 설정
 
 1. 환경 변수 진입
 2. Path 클릭
