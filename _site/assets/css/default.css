@@ -1432,16 +1432,33 @@ body {
   }
   
   .header #music-controls {
-    width: 200px;
-    font-size: 10px;
-    min-width: 110px;
-    padding: 0 10px;
+    width: 180px;
+    font-size: 8px;
+    min-width: 90px;
+    padding: 0 6px;
+  }
+  
+  .header #music-controls .top-controls {
+    gap: 0.15vw;
+  }
+  
+  .header #music-controls .volume-controls {
+    gap: 0.25vw;
   }
   
   .header #music-controls .top-controls button,
   .header #music-controls .volume-controls label,
   .header #music-controls .volume-controls input {
-    font-size: 10px;
+    font-size: 8px;
+  }
+  
+  .header #music-controls .volume-controls input[type="range"] {
+    width: 50px;
+  }
+  
+  #musicGif {
+    width: 16px;
+    height: 16px;
   }
   
   .container .navigation {
@@ -1573,7 +1590,6 @@ body {
   .header #music-controls {
     width: 100%;
     border-left: none;
-    border-top: var(--border-width) solid var(--color-border);
     padding: calc(var(--spacing-sm) + 4px) 0;
     font-size: 12px;
   }
