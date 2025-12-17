@@ -1774,6 +1774,18 @@ body {
 .book_list a {
   padding-right: 1vw;
 }
+/* Books page layout tweaks */
+.books-page h1 {
+  margin-left: 1vw;
+  padding-top: var(--spacing-sm);
+}
+
+.books-page .book_list {
+  display: flex;
+  gap: 1vw;
+  padding: 0 1vw 1.5vw;
+  align-items: flex-start;
+}
 /* ========================================================================== 
    Projects Page Styles
    ========================================================================== */
