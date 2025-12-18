@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-17T16:55:35+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">SQL</title><link href="http://localhost:4000/2025/12/13/SQL.html" rel="alternate" type="text/html" title="SQL" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/SQL</id><content type="html" xml:base="http://localhost:4000/2025/12/13/SQL.html"><![CDATA[<h1 id="sql---2025년12월13일">SQL - 2025년12월13일</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-19T01:24:20+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">Project RAG</title><link href="http://localhost:4000/2025/12/18/project_rag.html" rel="alternate" type="text/html" title="Project RAG" /><published>2025-12-18T00:00:00+09:00</published><updated>2025-12-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/18/project_rag</id><content type="html" xml:base="http://localhost:4000/2025/12/18/project_rag.html"><![CDATA[<h1 id="project-rag---2025년12월18일">Project RAG - 2025년12월18일</h1>
+
+<!-- - tag : Project RAG  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Project.html" class="btn btn-default navbar-btn cursorNorm" role="button">Project</a>
+|
+<a href=" /tags/tag_RAG.html" class="btn btn-default navbar-btn cursorNorm" role="button">RAG</a>
+|</li>
+</ul>
+
+<hr />
+
+<ul>
+  <li>학습 사이트: <a href="https://nextjs.org/docs" target="_blank">nextjs 공식 페이지</a></li>
+</ul>
+<details>
+    <summary><h2>2025-12-18</h2></summary>
+    <div class="post-content">
+        <ul class="content-list">
+            <li>
+                <article class="content-card">
+                    <header class="card-header">
+                        <h3 class="card-title">프로젝트 기획 및 설치</h3>
+                    </header>
+                    
+                    <h4>프로젝트 기획</h4>
+                    <ul class="info-list">
+                        <li><strong>프론트엔드:</strong> Next.js</li>
+                        <li><strong>백엔드:</strong> FastAPI</li>
+                        <li><strong>데이터베이스:</strong> Supabase</li>
+                    </ul>
+
+                    <h4>설치 과정</h4>
+                    <ol>
+                        <li>
+                            <strong>
+                                패키지 관리자 설치
+                            </strong>
+                            <pre><code class="language-powershell">npm install -g pnpm</code></pre>
+                        </li>
+                        <li>
+                            <strong>
+                                Next.js 프로젝트 생성
+                            </strong>
+                            <p>!!!(주의) 빈 디렉터리에서 실행하세요.</p>
+                            <pre><code class="language-powershell">pnpm create next-app@latest .</code></pre>
+                        </li>
+                        <li>
+                            <strong>
+                                exFAT 드라이브 오류 해결
+                            </strong>
+                            <p>원인: 작업 환경이 exFAT 드라이브일 때 발생합니다.</p>
+                            <p>오류 메시지:</p>
+                                <pre><code>The "D:" drive is exFAT, which does not support symlinks. This will cause installation to fail. You can set the node-linker to "hoisted" to avoid this issue.</code></pre>
+                            <p>해결 방법:</p>
+                            <ul>
+                                <li>프로젝트 루트에 <code>.npmrc</code> 파일을 생성합니다:
+                                    <pre><code>node-linker=hoisted</code></pre>
+                                </li>
+                                <li>패키지를 설치합니다:
+                                    <pre><code class="language-powershell">pnpm install</code></pre>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>
+                                개발 서버 실행
+                            </strong>
+                            <pre><code class="language-powershell">pnpm dev</code></pre>
+                        </li>
+                    </ol>                    
+                </article>
+            </li>
+        </ul>
+    </div>
+</details>]]></content><author><name>INSU</name></author><category term="Project" /><category term="RAG" /><summary type="html"><![CDATA[Project RAG - 2025년12월18일 tag : Project | RAG |]]></summary></entry><entry><title type="html">SQL</title><link href="http://localhost:4000/2025/12/13/SQL.html" rel="alternate" type="text/html" title="SQL" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/SQL</id><content type="html" xml:base="http://localhost:4000/2025/12/13/SQL.html"><![CDATA[<h1 id="sql---2025년12월13일">SQL - 2025년12월13일</h1>
 
 <!-- - tag : SQL  -->
 <ul>

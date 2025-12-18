@@ -21,7 +21,7 @@ include:
 # 목차 설정 [ ## ~ ####]
 toc:
   min_level: 2
-  max_level: 4
+  max_level: 3
 
 # Search JSON 설정
 exclude:

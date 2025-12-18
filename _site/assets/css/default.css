@@ -256,6 +256,10 @@ body {
   line-height: 1.6;
 }
 
+.main .tag_ p {
+  margin-top: 0;
+}
+
 .main .posts a:hover,
 .main .tag_ a:hover {
   background-color: var(--color-bg-secondary);
@@ -1906,3 +1910,230 @@ body {
   color: var(--color-primary);
   line-height: 1.2;
 }
+
+/* ==========================================================================
+   Post Content Card Styles (for markdown posts)
+   ========================================================================== */
+
+.post-content {
+  min-height: 37vw;
+}
+
+.post-content details {
+  padding: var(--spacing-md) 0;
+  cursor: pointer;
+}
+
+.post-content a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.post-content a:hover {
+  opacity: 0.7;
+}
+
+.content-list {
+  list-style: none;
+  padding: 0 var(--spacing-sm) var(--spacing-lg);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.content-card {
+  border: var(--border-width) solid var(--color-gray-200);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: var(--color-background);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.content-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.content-card h4 { margin: 24px 0 12px; }
+.content-card p  { margin: 0 0 12px; }
+.content-card ol { margin: 0 0 16px 20px; }
+
+.card-header {
+  margin: 0 0 var(--spacing-md) 0;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--color-gray-300);
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  line-height: 1.4;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-md) 0;
+  color: var(--color-text-secondary);
+}
+
+.info-list li {
+  margin: 0 0 var(--spacing-sm) 0;
+  padding: 0 0 0 var(--spacing-md);
+  border-left: 3px solid var(--color-link);
+  padding-left: var(--spacing-md);
+}
+
+.info-list strong {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Code Label Badges – Unified Style (Rouge wrapper based)
+   ========================================================================== */
+
+/* Base: Reserve space and setup pseudo-element for all code blocks */
+.highlight pre,
+pre {
+  position: relative;
+  padding-top: 32px !important;
+}
+
+.highlight pre::before,
+pre code::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 12px;
+  background: var(--color-bg-secondary);
+  color: var(--color-primary);
+  z-index: 1;
+  pointer-events: none;
+  display: inline-block;
+}
+
+/* Rouge wrapper language labels (primary - for markdown fence blocks) */
+.language-bash.highlighter-rouge        .highlight pre::before { content: "Bash" !important;       background: #2f6f4e; color: #fff; }
+.language-powershell.highlighter-rouge  .highlight pre::before { content: "PowerShell" !important; background: #0b3b7e; color: #fff; }
+.language-cmd.highlighter-rouge         .highlight pre::before,
+.language-bat.highlighter-rouge         .highlight pre::before { content: "CMD" !important;        background: #444;    color: #fff; }
+.language-python.highlighter-rouge      .highlight pre::before { content: "Python" !important;     background: #3572A5; color: #fff; }
+.language-sql.highlighter-rouge         .highlight pre::before { content: "SQL" !important;        background: #336791; color: #fff; }
+.language-ruby.highlighter-rouge        .highlight pre::before { content: "Ruby" !important;       background: #cc342d; color: #fff; }
+.language-yaml.highlighter-rouge        .highlight pre::before,
+.language-yml.highlighter-rouge         .highlight pre::before { content: "YAML" !important;       background: #cb9b1d; color: #fff; }
+.language-text.highlighter-rouge        .highlight pre::before { content: "Log" !important;        background: #555;    color: #fff; }
+.language-plaintext.highlighter-rouge   .highlight pre::before { content: "Text" !important;       background: #555;    color: #fff; }
+
+/* Direct HTML language labels (secondary - for manual <pre><code> blocks) */
+pre code.language-bash::before       { content: "Bash";       background: #2f6f4e; color: #fff; }
+pre code.language-powershell::before { content: "PowerShell"; background: #0b3b7e; color: #fff; }
+pre code.language-cmd::before,
+pre code.language-bat::before        { content: "CMD";        background: #444;    color: #fff; }
+pre code.language-python::before     { content: "Python";     background: #3572A5; color: #fff; }
+pre code.language-sql::before        { content: "SQL";        background: #336791; color: #fff; }
+pre code.language-ruby::before       { content: "Ruby";       background: #cc342d; color: #fff; }
+pre code.language-yaml::before,
+pre code.language-yml::before        { content: "YAML";       background: #cb9b1d; color: #fff; }
+pre code.language-text::before       { content: "Log";        background: #555;    color: #fff; }
+pre code:not([class])::before        { content: "Text";       background: #555;    color: #fff; }
+
+/* Prevent duplicate badges in Rouge wrapper */
+.highlighter-rouge pre code::before { content: none !important; }
+
+/* ==========================================================================
+   Merged from assets/css/code.css (syntax highlight colors)
+   ========================================================================== */
+.highlight {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+
+.highlight .w,
+.highlight .ni,
+.highlight .si,
+.highlight .ge,
+.highlight .gs {
+  color: #24292f;
+}
+
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .kv {
+  color: #cf222e;
+}
+
+.highlight .gr { color: #f6f8fa; }
+
+.highlight .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+
+.highlight .nb, .highlight .nc, .highlight .no, .highlight .nn {
+  color: #953800;
+}
+
+.highlight .sr, .highlight .na, .highlight .nt {
+  color: #116329;
+}
+
+.highlight .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+
+.highlight .kc,
+.highlight .l, .highlight .ld, .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx,
+.highlight .sb,
+.highlight .bp,
+.highlight .ne,
+.highlight .nl,
+.highlight .py,
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm,
+.highlight .o, .highlight .ow {
+  color: #0550ae;
+}
+
+.highlight .gh, .highlight .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+
+.highlight .s, .highlight .sa, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .sx, .highlight .s1, .highlight .ss {
+  color: #0a3069;
+}
+
+.highlight .nd,
+.highlight .nf, .highlight .fm {
+  color: #8250df;
+}
+
+.highlight .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cp, .highlight .cpf, .highlight .c1, .highlight .cs,
+.highlight .gl,
+.highlight .gt {
+  color: #6e7781;
+}
+
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.highlight .ge { font-style: italic; }
+.highlight .gs { font-weight: bold; }
+
+.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
