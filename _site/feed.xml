@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-19T01:24:20+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">Project RAG</title><link href="http://localhost:4000/2025/12/18/project_rag.html" rel="alternate" type="text/html" title="Project RAG" /><published>2025-12-18T00:00:00+09:00</published><updated>2025-12-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/18/project_rag</id><content type="html" xml:base="http://localhost:4000/2025/12/18/project_rag.html"><![CDATA[<h1 id="project-rag---2025년12월18일">Project RAG - 2025년12월18일</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-19T22:23:57+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">Project RAG</title><link href="http://localhost:4000/2025/12/18/project_rag.html" rel="alternate" type="text/html" title="Project RAG" /><published>2025-12-18T00:00:00+09:00</published><updated>2025-12-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/18/project_rag</id><content type="html" xml:base="http://localhost:4000/2025/12/18/project_rag.html"><![CDATA[<h1 id="project-rag---2025년12월18일">Project RAG - 2025년12월18일</h1>
 
 <!-- - tag : Project RAG  -->
 <ul>
@@ -10,9 +10,6 @@
 
 <hr />
 
-<ul>
-  <li>학습 사이트: <a href="https://nextjs.org/docs" target="_blank">nextjs 공식 페이지</a></li>
-</ul>
 <details>
     <summary><h2>2025-12-18</h2></summary>
     <div class="post-content">
@@ -69,6 +66,32 @@
                             <pre><code class="language-powershell">pnpm dev</code></pre>
                         </li>
                     </ol>                    
+                </article>
+            </li>
+        </ul>
+    </div>
+</details>
+
+<details>
+    <summary><h2>2025-12-19</h2></summary>
+    <div class="post-content">
+        <ul class="content-list">
+            <li>
+                <article class="content-card">
+                    <header class="card-header">
+                        <h3 class="card-title">프로젝트 구조 확인 및 부족한점</h3>
+                    </header>
+
+                    <h4>프로젝트 구조</h4>
+                    <ol>
+                        <li>/app/page.tsx : 메인 페이지(/)</li>
+                        <li>/app/layout.tsx : 전체 레이아웃(Ex. 공통 스타일, 해더 등)</li>
+                        <li>/app/global.css : 전역 스타일</li>
+                    </ol>
+
+                    <h4>부족한점</h4>
+                    <p>AI 도움을 받고 전 프로젝트를 진행했었기 때문에 이번엔 JavaScript 와 React 및 TypeScript 를 학습하고 진행해보기</p>
+
                 </article>
             </li>
         </ul>

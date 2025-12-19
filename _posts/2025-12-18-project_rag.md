@@ -7,7 +7,6 @@ toc : true
 
 {% include markdown.html %}
 
-- 학습 사이트: [nextjs 공식 페이지](https://nextjs.org/docs){:target="_blank"}
 <details>
     <summary><h2>2025-12-18</h2></summary>
     <div class="post-content">
@@ -64,6 +63,32 @@ toc : true
                             <pre><code class="language-powershell">pnpm dev</code></pre>
                         </li>
                     </ol>                    
+                </article>
+            </li>
+        </ul>
+    </div>
+</details>
+
+<details>
+    <summary><h2>2025-12-19</h2></summary>
+    <div class="post-content">
+        <ul class="content-list">
+            <li>
+                <article class="content-card">
+                    <header class="card-header">
+                        <h3 class="card-title">프로젝트 구조 확인 및 부족한점</h3>
+                    </header>
+
+                    <h4>프로젝트 구조</h4>
+                    <ol>
+                        <li>/app/page.tsx : 메인 페이지(/)</li>
+                        <li>/app/layout.tsx : 전체 레이아웃(Ex. 공통 스타일, 해더 등)</li>
+                        <li>/app/global.css : 전역 스타일</li>
+                    </ol>
+
+                    <h4>부족한점</h4>
+                    <p>AI 도움을 받고 전 프로젝트를 진행했었기 때문에 이번엔 JavaScript 와 React 및 TypeScript 를 학습하고 진행해보기</p>
+
                 </article>
             </li>
         </ul>
