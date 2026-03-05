@@ -1,102 +1,212 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-19T22:23:57+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">Project RAG</title><link href="http://localhost:4000/2025/12/18/project_rag.html" rel="alternate" type="text/html" title="Project RAG" /><published>2025-12-18T00:00:00+09:00</published><updated>2025-12-18T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/18/project_rag</id><content type="html" xml:base="http://localhost:4000/2025/12/18/project_rag.html"><![CDATA[<h1 id="project-rag---2025년12월18일">Project RAG - 2025년12월18일</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-03-05T22:01:11+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드</title><link href="http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot.html" rel="alternate" type="text/html" title="배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드" /><published>2026-03-05T00:00:00+09:00</published><updated>2026-03-05T00:00:00+09:00</updated><id>http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot</id><content type="html" xml:base="http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot.html"><![CDATA[<h2 id="프로젝트-개요">프로젝트 개요</h2>
 
-<!-- - tag : Project RAG  -->
+<p>배드민턴 동호회 경기 기록을 자연어로 조회할 수 있는 AI 챗봇을 개발했습니다.</p>
+
 <ul>
-  <li>tag : <a href=" /tags/tag_Project.html" class="btn btn-default navbar-btn cursorNorm" role="button">Project</a>
-|
-<a href=" /tags/tag_RAG.html" class="btn btn-default navbar-btn cursorNorm" role="button">RAG</a>
-|</li>
+  <li><strong>기간</strong>: 2026.02 ~ 2026.03 (개인 프로젝트)</li>
+  <li><strong>배포</strong>: <a href="https://bm-stats-chatbot.streamlit.app">https://bm-stats-chatbot.streamlit.app</a></li>
+  <li><strong>GitHub</strong>: <a href="https://github.com/insu97/badminton-stats-chatbot">https://github.com/insu97/badminton-stats-chatbot</a></li>
 </ul>
 
 <hr />
 
-<details>
-    <summary><h2>2025-12-18</h2></summary>
-    <div class="post-content">
-        <ul class="content-list">
-            <li>
-                <article class="content-card">
-                    <header class="card-header">
-                        <h3 class="card-title">프로젝트 기획 및 설치</h3>
-                    </header>
-                    
-                    <h4>프로젝트 기획</h4>
-                    <ul class="info-list">
-                        <li><strong>프론트엔드:</strong> Next.js</li>
-                        <li><strong>백엔드:</strong> FastAPI</li>
-                        <li><strong>데이터베이스:</strong> Supabase</li>
-                    </ul>
+<h2 id="배경-및-문제-정의">배경 및 문제 정의</h2>
 
-                    <h4>설치 과정</h4>
-                    <ol>
-                        <li>
-                            <strong>
-                                패키지 관리자 설치
-                            </strong>
-                            <pre><code class="language-powershell">npm install -g pnpm</code></pre>
-                        </li>
-                        <li>
-                            <strong>
-                                Next.js 프로젝트 생성
-                            </strong>
-                            <p>!!!(주의) 빈 디렉터리에서 실행하세요.</p>
-                            <pre><code class="language-powershell">pnpm create next-app@latest .</code></pre>
-                        </li>
-                        <li>
-                            <strong>
-                                exFAT 드라이브 오류 해결
-                            </strong>
-                            <p>원인: 작업 환경이 exFAT 드라이브일 때 발생합니다.</p>
-                            <p>오류 메시지:</p>
-                                <pre><code>The "D:" drive is exFAT, which does not support symlinks. This will cause installation to fail. You can set the node-linker to "hoisted" to avoid this issue.</code></pre>
-                            <p>해결 방법:</p>
-                            <ul>
-                                <li>프로젝트 루트에 <code>.npmrc</code> 파일을 생성합니다:
-                                    <pre><code>node-linker=hoisted</code></pre>
-                                </li>
-                                <li>패키지를 설치합니다:
-                                    <pre><code class="language-powershell">pnpm install</code></pre>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>
-                                개발 서버 실행
-                            </strong>
-                            <pre><code class="language-powershell">pnpm dev</code></pre>
-                        </li>
-                    </ol>                    
-                </article>
-            </li>
-        </ul>
-    </div>
-</details>
+<p>배드민턴 동호회를 운영하면서 경기 기록을 Google Sheets로 관리하고 있었습니다.<br />
+매번 승률을 확인하려면 스프레드시트를 직접 열고 필터링해야 했고,<br />
+경기 후기 같은 정성적인 데이터는 별도 텍스트 파일로 흩어져 있었습니다.</p>
 
-<details>
-    <summary><h2>2025-12-19</h2></summary>
-    <div class="post-content">
-        <ul class="content-list">
-            <li>
-                <article class="content-card">
-                    <header class="card-header">
-                        <h3 class="card-title">프로젝트 구조 확인 및 부족한점</h3>
-                    </header>
+<p><strong>핵심 문제:</strong></p>
+<ul>
+  <li>통계 조회가 불편 (매번 수작업)</li>
+  <li>정량 데이터(승률, 득실점)와 정성 데이터(후기)가 분리되어 있음</li>
+  <li>자연어로 “내 승률이 어때?” 같은 질문에 바로 답할 수 없음</li>
+</ul>
 
-                    <h4>프로젝트 구조</h4>
-                    <ol>
-                        <li>/app/page.tsx : 메인 페이지(/)</li>
-                        <li>/app/layout.tsx : 전체 레이아웃(Ex. 공통 스타일, 해더 등)</li>
-                        <li>/app/global.css : 전역 스타일</li>
-                    </ol>
+<hr />
 
-                    <h4>부족한점</h4>
-                    <p>AI 도움을 받고 전 프로젝트를 진행했었기 때문에 이번엔 JavaScript 와 React 및 TypeScript 를 학습하고 진행해보기</p>
+<h2 id="해결-아키텍처">해결 아키텍처</h2>
 
-                </article>
-            </li>
-        </ul>
-    </div>
-</details>]]></content><author><name>INSU</name></author><category term="Project" /><category term="RAG" /><summary type="html"><![CDATA[Project RAG - 2025년12월18일 tag : Project | RAG |]]></summary></entry><entry><title type="html">SQL</title><link href="http://localhost:4000/2025/12/13/SQL.html" rel="alternate" type="text/html" title="SQL" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/SQL</id><content type="html" xml:base="http://localhost:4000/2025/12/13/SQL.html"><![CDATA[<h1 id="sql---2025년12월13일">SQL - 2025년12월13일</h1>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User Prompt
+    │
+    ▼
+Hybrid Router (LLM)
+    ├── 통계 질문 → Text-to-SQL → SQLite → 결과 반환
+    └── 후기 질문 → RAG → FAISS Vector DB → 결과 반환
+    │
+    ▼
+LLM Response (GPT-4o-mini)
+</code></pre></div></div>
+
+<p>질문 의도를 LLM이 분석해서 <strong>정량 분석(SQL)</strong> 과 <strong>정성 분석(RAG)</strong> 중 적합한 방식으로 자동 라우팅합니다.</p>
+
+<hr />
+
+<h2 id="기술-스택">기술 스택</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>기술</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Language</td>
+      <td>Python 3.13</td>
+    </tr>
+    <tr>
+      <td>Framework</td>
+      <td>LangChain, Streamlit</td>
+    </tr>
+    <tr>
+      <td>LLM</td>
+      <td>OpenAI GPT-4o-mini</td>
+    </tr>
+    <tr>
+      <td>DB (정형)</td>
+      <td>SQLite</td>
+    </tr>
+    <tr>
+      <td>DB (비정형)</td>
+      <td>FAISS (Vector DB)</td>
+    </tr>
+    <tr>
+      <td>데이터 소스</td>
+      <td>Google Sheets API</td>
+    </tr>
+    <tr>
+      <td>배포</td>
+      <td>Streamlit Cloud</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="주요-구현">주요 구현</h2>
+
+<h3 id="1-db-자동-생성-db_loaderpy">1. DB 자동 생성 (db_loader.py)</h3>
+
+<p>Google Sheets에서 경기 기록을 불러와 SQLite DB를 자동 생성합니다.<br />
+통계는 직접 입력받지 않고, 경기 기록에서 <strong>자동 계산</strong>합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calc_player_stats</span><span class="p">(</span><span class="n">matches_df</span><span class="p">):</span>
+    <span class="s">"""경기 기록에서 개인 통계 자동 계산"""</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">matches_df</span><span class="p">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="c1"># 승자/패자 분류 후 승률, 득실점 계산
+</span>        <span class="p">...</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stats</span><span class="p">).</span><span class="n">T</span>
+</code></pre></div></div>
+
+<p>시즌 컬럼을 자동 감지해서 전체 통계와 시즌별 통계를 모두 생성합니다.</p>
+
+<h3 id="2-rag-파이프라인-rag_loaderpy">2. RAG 파이프라인 (rag_loader.py)</h3>
+
+<p>경기 후기 텍스트 파일을 벡터화해서 FAISS에 저장합니다.<br />
+파일명에서 날짜를 추출해 메타데이터로 추가, 최신 경기 후기 검색 정확도를 높였습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">load_reviews</span><span class="p">():</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s">"data/reviews/[!sample]*.txt"</span><span class="p">):</span>
+        <span class="c1"># 파일명에서 날짜 추출
+</span>        <span class="n">date</span> <span class="o">=</span> <span class="n">extract_date_from_filename</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">).</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">docs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">Document</span><span class="p">(</span>
+            <span class="n">page_content</span><span class="o">=</span><span class="sa">f</span><span class="s">"[날짜: </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s">]</span><span class="se">\n</span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s">"date"</span><span class="p">:</span> <span class="n">date</span><span class="p">}</span>
+        <span class="p">))</span>
+    <span class="k">return</span> <span class="n">docs</span>
+</code></pre></div></div>
+
+<h3 id="3-하이브리드-라우터-chainpy">3. 하이브리드 라우터 (chain.py)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">route_question</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
+    <span class="s">"""질문 의도에 따라 SQL 또는 RAG 선택"""</span>
+    <span class="n">router_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"""
+    다음 질문이 통계/수치 관련이면 'sql',
+    경기 후기/느낌 관련이면 'rag'로만 답하세요.
+    질문: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s">
+    """</span>
+    <span class="n">intent</span> <span class="o">=</span> <span class="n">llm</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">router_prompt</span><span class="p">).</span><span class="n">content</span><span class="p">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">intent</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="트러블슈팅">트러블슈팅</h2>
+
+<h3 id="하이픈-포함-컬럼명-sql-오류">하이픈 포함 컬럼명 SQL 오류</h3>
+
+<p><code class="language-plaintext highlighter-rouge">팀A-1</code>, <code class="language-plaintext highlighter-rouge">팀B-1</code> 같은 컬럼명을 SQLite가 빼기 연산자로 인식하는 문제가 있었습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 오류
+SELECT 팀A-1 FROM matches  →  팀A 마이너스 1로 해석
+
+# 해결: 프롬프트에 규칙 추가
+"하이픈 포함 컬럼명은 큰따옴표로 감싸세요"
+SELECT "팀A-1" FROM matches  →  정상 동작
+</code></pre></div></div>
+
+<h3 id="rag-날짜-컨텍스트-문제">RAG 날짜 컨텍스트 문제</h3>
+
+<p>“가장 마지막 경기 후기” 질문 시 최신 파일이 아닌 오래된 파일이 검색되는 문제가 있었습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 해결: 검색 쿼리에 날짜 명시적 추가
+</span><span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">latest_date</span><span class="si">}</span><span class="s"> 날짜 경기 </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s">"</span>
+</code></pre></div></div>
+
+<h3 id="괄호-불균형-sql-생성">괄호 불균형 SQL 생성</h3>
+
+<p>LLM이 가끔 <code class="language-plaintext highlighter-rouge">WHERE (조건;</code> 처럼 닫는 괄호가 없는 SQL을 생성했습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">clean_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">):</span>
+    <span class="c1"># 괄호 균형 보정
+</span>    <span class="n">open_count</span> <span class="o">=</span> <span class="n">sql</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">'('</span><span class="p">)</span>
+    <span class="n">close_count</span> <span class="o">=</span> <span class="n">sql</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">')'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">open_count</span> <span class="o">&gt;</span> <span class="n">close_count</span><span class="p">:</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="n">sql</span><span class="p">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">';'</span><span class="p">)</span> <span class="o">+</span> <span class="s">')'</span> <span class="o">*</span> <span class="p">(</span><span class="n">open_count</span> <span class="o">-</span> <span class="n">close_count</span><span class="p">)</span> <span class="o">+</span> <span class="s">';'</span>
+    <span class="k">return</span> <span class="n">sql</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="결과">결과</h2>
+
+<ul>
+  <li>Streamlit Cloud 배포 및 실제 서비스 운영 중</li>
+  <li>자연어로 통계 질문과 후기 질문을 모두 처리</li>
+  <li>시즌별 통계 자동 계산으로 Google Sheets 구조 단순화</li>
+</ul>
+
+<hr />
+
+<h2 id="회고">회고</h2>
+
+<p><strong>잘한 점</strong></p>
+<ul>
+  <li>기획부터 배포까지 end-to-end 단독 수행</li>
+  <li>실제 사용하는 데이터로 실용적인 서비스 구축</li>
+  <li>버그를 만날 때마다 프롬프트 규칙과 코드 방어 로직 양쪽에서 접근</li>
+</ul>
+
+<p><strong>아쉬운 점 / 개선 계획</strong></p>
+<ul>
+  <li>LangSmith 연동으로 응답 품질 모니터링 추가 예정</li>
+  <li>Airflow DAGs로 DB 자동 동기화 파이프라인 구축 예정 (LLMOps)</li>
+  <li>GraphRAG 도입으로 선수 간 관계 분석 고도화 검토 중</li>
+</ul>
+
+<hr />
+
+<h2 id="링크">링크</h2>
+
+<ul>
+  <li><strong>Live Demo</strong>: <a href="https://bm-stats-chatbot.streamlit.app">https://bm-stats-chatbot.streamlit.app</a></li>
+  <li><strong>GitHub</strong>: <a href="https://github.com/insu97/badminton-stats-chatbot">https://github.com/insu97/badminton-stats-chatbot</a></li>
+</ul>]]></content><author><name>INSU</name></author><category term="Project" /><category term="AI" /><category term="RAG" /><summary type="html"><![CDATA[프로젝트 개요]]></summary></entry><entry><title type="html">SQL</title><link href="http://localhost:4000/2025/12/13/SQL.html" rel="alternate" type="text/html" title="SQL" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/SQL</id><content type="html" xml:base="http://localhost:4000/2025/12/13/SQL.html"><![CDATA[<h1 id="sql---2025년12월13일">SQL - 2025년12월13일</h1>
 
 <!-- - tag : SQL  -->
 <ul>
