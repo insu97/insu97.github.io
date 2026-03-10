@@ -2,6 +2,14 @@
   
   
     {
+      "title": "Python",
+      "tags": "PYTHON",
+      "desc": "Python - 2026년03월11일  tag : PYTHON|",
+      "content": "Python - 2026년03월11일  tag : PYTHON|가상환경 설정Windows - Anaconda명령어 형식conda create -n {가상환경명} python={파이썬버전}conda activate {가상환경명}conda deactivate예시conda create -n venv python=3.11conda activate venvconda deactivateWindows - uvpip install uvuv venv --python 3.11.venv\\Scripts\\activateTypst이미지 변환 (webp -&gt; png)from PIL import Imageimg = Image.open(\"image.webp\")img.save(\"image.png\", \"PNG\")오류 해결RAG - Reranker재현 코드from langchain_community.cross_encoders import HuggingFaceCrossEncoderhf_reranker = HuggingFaceCrossEncoder(    model_name=\"BAAI/bge-reranker-v2-m3\")증상 (오류 메시지)Error rendering output item using 'jupyter-ipywidget-renderer'Cannot read properties of undefined (reading 'ipywidgetsKernel')원인  ipywidgets 렌더러/확장 모듈 미설치 또는 버전 불일치해결 방법pip install ipywidgets --upgradejupyter nbextension enable --py widgetsnbextension --sys-prefixjupyter nbextension install --py widgetsnbextension --sys-prefix기타라이브러리 관리방법 1: pip freeze 기반pip freeze &gt; requirements.txtpip install -r requirements.txt방법 2: pipreqs 기반pip install pipreqspipreqs ./ --force# 폴더 내에 가상환경이 있는 경우pipreqs . --force --ignore \"{가상환경}/Lib\"방법 3: 특정 패키지 점검pip freeze | grep cohere",
+      "url": "/2026/03/11/PYTHON.html"
+    },
+  
+    {
       "title": "배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드",
       "tags": "RAG",
       "desc": "프로젝트 개요",
@@ -39,14 +47,6 @@
       "desc": "Runpod - 2025년07월25일  tag : RUNPOD|",
       "content": "Runpod - 2025년07월25일  tag : RUNPOD|ERRORrunpod에 vscode로 접속 시install terminal quit with output: 프로세스에서 없는 파이프에 쓰려고 했습니다.  해결책 : C:\\Users\\{사용자이름}\\.ssh 접속 후 known_hosts 파일 열어서 전부 삭제OthersRUNPOD files → Local Downloads# powershellscp -r -P {포트번호} `  -i \"C:\\Users\\YourUser\\.ssh\\id_ed25519\" `  \"root@{서버주소}:{원격폴더경로}\" `  \"{로컬 저장 경로}\"",
       "url": "/2025/07/25/RUNPOD.html"
-    },
-  
-    {
-      "title": "Python",
-      "tags": "PYTHON",
-      "desc": "Python - 2025년07월25일  tag : PYTHON|",
-      "content": "Python - 2025년07월25일  tag : PYTHON|가상환경 설정LocalWindow - Command Prompt - anaconda# 가상환경 생성# conda create -n {가상환경 폴더 명} python={파이썬 버젼 명}## Ex. python 3.11 버젼, venv 폴더 명으로 가상환경 생성 conda create -n venv python=3.11## 가상환경 진입conda activate venv## 가상환경 종료conda deactivatetypstImage 변환from PIL import Image# 원본 파일 열기img = Image.open(\"image.webp\")# PNG로 저장img.save(\"image.png\", \"PNG\")ERRORRAGReranker  코드from langchain_community.cross_encoders import HuggingFaceCrossEncoderhf_reranker = HuggingFaceCrossEncoder(    model_name=\"BAAI/bge-reranker-v2-m3\")  error 문구Error rendering output item using 'jupyter-ipywidget-renderer'Cannot read properties of undefined (reading 'ipywidgetsKernel')  해결 방법pip install ipywidgets --upgradejupyter nbextension enable --py widgetsnbextension --sys-prefixjupyter nbextension install --py widgetsnbextension --sys-prefixOthers라이브러리 관리  방법1pip freeze &gt; requirements.txtpip install -r requirements.txt  방법2pip install pipreqspipreqs ./ --force# 폴더 내에서 환경이 존재하는 경우pipreqs . --force --ignore \"{가상환경}/Lib\"  방법3# 새로운 라이브러리를 설치 후 requirements.txt 에 적용할 때# Ex. cohere 설치했을경우pip freeze | grep cohere",
-      "url": "/2025/07/25/PYTHON.html"
     },
   
     {

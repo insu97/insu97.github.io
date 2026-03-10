@@ -61,7 +61,7 @@
 		<div class="main">
 			<div class="markdown-body">
   <div class="md-content">
-    <h1 id="python---2025년07월25일">Python - 2025년07월25일</h1>
+    <h1 id="python---2026년03월11일">Python - 2026년03월11일</h1>
 
 <!-- - tag : PYTHON  -->
 <ul>
@@ -73,44 +73,48 @@
 
 <h2 id="가상환경-설정">가상환경 설정</h2>
 
-<h3 id="local">Local</h3>
+<h3 id="windows---anaconda">Windows - Anaconda</h3>
 
-<h4 id="window---command-prompt---anaconda">Window - Command Prompt - anaconda</h4>
+<p><strong>명령어 형식</strong></p>
 
-<pre><code class="language-cmd"># 가상환경 생성
-# conda create -n {가상환경 폴더 명} python={파이썬 버젼 명}
-## Ex. python 3.11 버젼, venv 폴더 명으로 가상환경 생성 
-conda create -n venv python=3.11
-
-## 가상환경 진입
-conda activate venv
-
-## 가상환경 종료
+<pre><code class="language-cmd">conda create -n {가상환경명} python={파이썬버전}
+conda activate {가상환경명}
 conda deactivate
 </code></pre>
 
-<h2 id="typst">typst</h2>
+<p><strong>예시</strong></p>
 
-<h3 id="image-변환">Image 변환</h3>
+<pre><code class="language-cmd">conda create -n venv python=3.11
+conda activate venv
+conda deactivate
+</code></pre>
+
+<h3 id="windows---uv">Windows - uv</h3>
+
+<pre><code class="language-cmd">pip install uv
+uv venv --python 3.11
+.venv\Scripts\activate
+</code></pre>
+
+<hr />
+
+<h2 id="typst">Typst</h2>
+
+<h3 id="이미지-변환-webp---png">이미지 변환 (webp -&gt; png)</h3>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
-<span class="c1"># 원본 파일 열기
-</span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
-
-<span class="c1"># PNG로 저장
-</span><span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
+<span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h2 id="error">ERROR</h2>
+<hr />
 
-<h3 id="rag">RAG</h3>
+<h2 id="오류-해결">오류 해결</h2>
 
-<h4 id="reranker">Reranker</h4>
+<h3 id="rag---reranker">RAG - Reranker</h3>
 
-<ul>
-  <li>코드</li>
-</ul>
+<p><strong>재현 코드</strong></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.cross_encoders</span> <span class="kn">import</span> <span class="n">HuggingFaceCrossEncoder</span>
 
@@ -119,53 +123,49 @@ conda deactivate
 <span class="p">)</span>
 </code></pre></div></div>
 
-<ul>
-  <li>error 문구</li>
-</ul>
+<p><strong>증상 (오류 메시지)</strong></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Error</span> <span class="n">rendering</span> <span class="n">output</span> <span class="n">item</span> <span class="n">using</span> <span class="s">'jupyter-ipywidget-renderer'</span>
-<span class="n">Cannot</span> <span class="n">read</span> <span class="n">properties</span> <span class="n">of</span> <span class="n">undefined</span> <span class="p">(</span><span class="n">reading</span> <span class="s">'ipywidgetsKernel'</span><span class="p">)</span>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error rendering output item using 'jupyter-ipywidget-renderer'
+Cannot read properties of undefined (reading 'ipywidgetsKernel')
 </code></pre></div></div>
 
+<p><strong>원인</strong></p>
+
 <ul>
-  <li>해결 방법</li>
+  <li><code class="language-plaintext highlighter-rouge">ipywidgets</code> 렌더러/확장 모듈 미설치 또는 버전 불일치</li>
 </ul>
+
+<p><strong>해결 방법</strong></p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ipywidgets <span class="nt">--upgrade</span>
 jupyter nbextension <span class="nb">enable</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
 jupyter nbextension <span class="nb">install</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
 </code></pre></div></div>
 
-<h2 id="others">Others</h2>
+<hr />
+
+<h2 id="기타">기타</h2>
 
 <h3 id="라이브러리-관리">라이브러리 관리</h3>
 
-<ul>
-  <li>방법1</li>
-</ul>
+<p><strong>방법 1: <code class="language-plaintext highlighter-rouge">pip freeze</code> 기반</strong></p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze <span class="o">&gt;</span> requirements.txt
 pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
 </code></pre></div></div>
 
-<ul>
-  <li>방법2</li>
-</ul>
+<p><strong>방법 2: <code class="language-plaintext highlighter-rouge">pipreqs</code> 기반</strong></p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pipreqs
 pipreqs ./ <span class="nt">--force</span>
 
-<span class="c"># 폴더 내에서 환경이 존재하는 경우</span>
+<span class="c"># 폴더 내에 가상환경이 있는 경우</span>
 pipreqs <span class="nb">.</span> <span class="nt">--force</span> <span class="nt">--ignore</span> <span class="s2">"{가상환경}/Lib"</span>
 </code></pre></div></div>
 
-<ul>
-  <li>방법3</li>
-</ul>
+<p><strong>방법 3: 특정 패키지 점검</strong></p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 새로운 라이브러리를 설치 후 requirements.txt 에 적용할 때</span>
-<span class="c"># Ex. cohere 설치했을경우</span>
-pip freeze | <span class="nb">grep </span>cohere
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze | <span class="nb">grep </span>cohere
 </code></pre></div></div>
 
   </div>
@@ -174,20 +174,21 @@ pip freeze | <span class="nb">grep </span>cohere
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#가상환경-설정">가상환경 설정</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#local">Local</a></li>
+<li class="toc-entry toc-h3"><a href="#windows---anaconda">Windows - Anaconda</a></li>
+<li class="toc-entry toc-h3"><a href="#windows---uv">Windows - uv</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#typst">typst</a>
+<li class="toc-entry toc-h2"><a href="#typst">Typst</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#image-변환">Image 변환</a></li>
+<li class="toc-entry toc-h3"><a href="#이미지-변환-webp---png">이미지 변환 (webp -&gt; png)</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#error">ERROR</a>
+<li class="toc-entry toc-h2"><a href="#오류-해결">오류 해결</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#rag">RAG</a></li>
+<li class="toc-entry toc-h3"><a href="#rag---reranker">RAG - Reranker</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#others">Others</a>
+<li class="toc-entry toc-h2"><a href="#기타">기타</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#라이브러리-관리">라이브러리 관리</a></li>
 </ul>
@@ -198,29 +199,29 @@ pip freeze | <span class="nb">grep </span>cohere
     
       
         
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
           <p>
-            <a href="/2025/07/25/PYTHON.html">Python [ 2025년07월25일 ]</a>
+            <a href="/2026/03/11/PYTHON.html">Python [ 2026년03월11일 ]</a>
           </p>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
         
       
     

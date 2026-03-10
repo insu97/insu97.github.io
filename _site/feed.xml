@@ -1,4 +1,109 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-03-05T22:01:11+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드</title><link href="http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot.html" rel="alternate" type="text/html" title="배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드" /><published>2026-03-05T00:00:00+09:00</published><updated>2026-03-05T00:00:00+09:00</updated><id>http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot</id><content type="html" xml:base="http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot.html"><![CDATA[<h2 id="프로젝트-개요">프로젝트 개요</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-03-11T01:57:20+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">Python</title><link href="http://localhost:4000/2026/03/11/PYTHON.html" rel="alternate" type="text/html" title="Python" /><published>2026-03-11T00:00:00+09:00</published><updated>2026-03-11T00:00:00+09:00</updated><id>http://localhost:4000/2026/03/11/PYTHON</id><content type="html" xml:base="http://localhost:4000/2026/03/11/PYTHON.html"><![CDATA[<h1 id="python---2026년03월11일">Python - 2026년03월11일</h1>
+
+<!-- - tag : PYTHON  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_PYTHON.html" class="btn btn-default navbar-btn cursorNorm" role="button">PYTHON</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="가상환경-설정">가상환경 설정</h2>
+
+<h3 id="windows---anaconda">Windows - Anaconda</h3>
+
+<p><strong>명령어 형식</strong></p>
+
+<pre><code class="language-cmd">conda create -n {가상환경명} python={파이썬버전}
+conda activate {가상환경명}
+conda deactivate
+</code></pre>
+
+<p><strong>예시</strong></p>
+
+<pre><code class="language-cmd">conda create -n venv python=3.11
+conda activate venv
+conda deactivate
+</code></pre>
+
+<h3 id="windows---uv">Windows - uv</h3>
+
+<pre><code class="language-cmd">pip install uv
+uv venv --python 3.11
+.venv\Scripts\activate
+</code></pre>
+
+<hr />
+
+<h2 id="typst">Typst</h2>
+
+<h3 id="이미지-변환-webp---png">이미지 변환 (webp -&gt; png)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
+<span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="오류-해결">오류 해결</h2>
+
+<h3 id="rag---reranker">RAG - Reranker</h3>
+
+<p><strong>재현 코드</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.cross_encoders</span> <span class="kn">import</span> <span class="n">HuggingFaceCrossEncoder</span>
+
+<span class="n">hf_reranker</span> <span class="o">=</span> <span class="n">HuggingFaceCrossEncoder</span><span class="p">(</span>
+    <span class="n">model_name</span><span class="o">=</span><span class="s">"BAAI/bge-reranker-v2-m3"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>증상 (오류 메시지)</strong></p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error rendering output item using 'jupyter-ipywidget-renderer'
+Cannot read properties of undefined (reading 'ipywidgetsKernel')
+</code></pre></div></div>
+
+<p><strong>원인</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ipywidgets</code> 렌더러/확장 모듈 미설치 또는 버전 불일치</li>
+</ul>
+
+<p><strong>해결 방법</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ipywidgets <span class="nt">--upgrade</span>
+jupyter nbextension <span class="nb">enable</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
+jupyter nbextension <span class="nb">install</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="기타">기타</h2>
+
+<h3 id="라이브러리-관리">라이브러리 관리</h3>
+
+<p><strong>방법 1: <code class="language-plaintext highlighter-rouge">pip freeze</code> 기반</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze <span class="o">&gt;</span> requirements.txt
+pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</code></pre></div></div>
+
+<p><strong>방법 2: <code class="language-plaintext highlighter-rouge">pipreqs</code> 기반</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pipreqs
+pipreqs ./ <span class="nt">--force</span>
+
+<span class="c"># 폴더 내에 가상환경이 있는 경우</span>
+pipreqs <span class="nb">.</span> <span class="nt">--force</span> <span class="nt">--ignore</span> <span class="s2">"{가상환경}/Lib"</span>
+</code></pre></div></div>
+
+<p><strong>방법 3: 특정 패키지 점검</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze | <span class="nb">grep </span>cohere
+</code></pre></div></div>]]></content><author><name>INSU</name></author><category term="PYTHON" /><summary type="html"><![CDATA[Python - 2026년03월11일 tag : PYTHON |]]></summary></entry><entry><title type="html">배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드</title><link href="http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot.html" rel="alternate" type="text/html" title="배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드" /><published>2026-03-05T00:00:00+09:00</published><updated>2026-03-05T00:00:00+09:00</updated><id>http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot</id><content type="html" xml:base="http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot.html"><![CDATA[<h2 id="프로젝트-개요">프로젝트 개요</h2>
 
 <p>배드민턴 동호회 경기 기록을 자연어로 조회할 수 있는 AI 챗봇을 개발했습니다.</p>
 
@@ -973,112 +1078,7 @@ Sitemap: https://insu97.github.io/sitemap.xml
   </span><span class="nt">-i</span><span class="w"> </span><span class="s2">"C:\Users\YourUser\.ssh\id_ed25519"</span><span class="w"> </span><span class="err">`</span><span class="w">
   </span><span class="s2">"root@{서버주소}:{원격폴더경로}"</span><span class="w"> </span><span class="err">`</span><span class="w">
   </span><span class="s2">"{로컬 저장 경로}"</span><span class="w">
-</span></code></pre></div></div>]]></content><author><name>INSU</name></author><category term="RUNPOD" /><summary type="html"><![CDATA[Runpod - 2025년07월25일 tag : RUNPOD |]]></summary></entry><entry><title type="html">Python</title><link href="http://localhost:4000/2025/07/25/PYTHON.html" rel="alternate" type="text/html" title="Python" /><published>2025-07-25T00:00:00+09:00</published><updated>2025-07-25T00:00:00+09:00</updated><id>http://localhost:4000/2025/07/25/PYTHON</id><content type="html" xml:base="http://localhost:4000/2025/07/25/PYTHON.html"><![CDATA[<h1 id="python---2025년07월25일">Python - 2025년07월25일</h1>
-
-<!-- - tag : PYTHON  -->
-<ul>
-  <li>tag : <a href=" /tags/tag_PYTHON.html" class="btn btn-default navbar-btn cursorNorm" role="button">PYTHON</a>
-|</li>
-</ul>
-
-<hr />
-
-<h2 id="가상환경-설정">가상환경 설정</h2>
-
-<h3 id="local">Local</h3>
-
-<h4 id="window---command-prompt---anaconda">Window - Command Prompt - anaconda</h4>
-
-<pre><code class="language-cmd"># 가상환경 생성
-# conda create -n {가상환경 폴더 명} python={파이썬 버젼 명}
-## Ex. python 3.11 버젼, venv 폴더 명으로 가상환경 생성 
-conda create -n venv python=3.11
-
-## 가상환경 진입
-conda activate venv
-
-## 가상환경 종료
-conda deactivate
-</code></pre>
-
-<h2 id="typst">typst</h2>
-
-<h3 id="image-변환">Image 변환</h3>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-
-<span class="c1"># 원본 파일 열기
-</span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
-
-<span class="c1"># PNG로 저장
-</span><span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h2 id="error">ERROR</h2>
-
-<h3 id="rag">RAG</h3>
-
-<h4 id="reranker">Reranker</h4>
-
-<ul>
-  <li>코드</li>
-</ul>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.cross_encoders</span> <span class="kn">import</span> <span class="n">HuggingFaceCrossEncoder</span>
-
-<span class="n">hf_reranker</span> <span class="o">=</span> <span class="n">HuggingFaceCrossEncoder</span><span class="p">(</span>
-    <span class="n">model_name</span><span class="o">=</span><span class="s">"BAAI/bge-reranker-v2-m3"</span>
-<span class="p">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>error 문구</li>
-</ul>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Error</span> <span class="n">rendering</span> <span class="n">output</span> <span class="n">item</span> <span class="n">using</span> <span class="s">'jupyter-ipywidget-renderer'</span>
-<span class="n">Cannot</span> <span class="n">read</span> <span class="n">properties</span> <span class="n">of</span> <span class="n">undefined</span> <span class="p">(</span><span class="n">reading</span> <span class="s">'ipywidgetsKernel'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<ul>
-  <li>해결 방법</li>
-</ul>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ipywidgets <span class="nt">--upgrade</span>
-jupyter nbextension <span class="nb">enable</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
-jupyter nbextension <span class="nb">install</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
-</code></pre></div></div>
-
-<h2 id="others">Others</h2>
-
-<h3 id="라이브러리-관리">라이브러리 관리</h3>
-
-<ul>
-  <li>방법1</li>
-</ul>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze <span class="o">&gt;</span> requirements.txt
-pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
-</code></pre></div></div>
-
-<ul>
-  <li>방법2</li>
-</ul>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pipreqs
-pipreqs ./ <span class="nt">--force</span>
-
-<span class="c"># 폴더 내에서 환경이 존재하는 경우</span>
-pipreqs <span class="nb">.</span> <span class="nt">--force</span> <span class="nt">--ignore</span> <span class="s2">"{가상환경}/Lib"</span>
-</code></pre></div></div>
-
-<ul>
-  <li>방법3</li>
-</ul>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 새로운 라이브러리를 설치 후 requirements.txt 에 적용할 때</span>
-<span class="c"># Ex. cohere 설치했을경우</span>
-pip freeze | <span class="nb">grep </span>cohere
-</code></pre></div></div>]]></content><author><name>INSU</name></author><category term="PYTHON" /><summary type="html"><![CDATA[Python - 2025년07월25일 tag : PYTHON |]]></summary></entry><entry><title type="html">A/B TEST</title><link href="http://localhost:4000/2024/10/28/AB_test.html" rel="alternate" type="text/html" title="A/B TEST" /><published>2024-10-28T00:00:00+09:00</published><updated>2024-10-28T00:00:00+09:00</updated><id>http://localhost:4000/2024/10/28/AB_test</id><content type="html" xml:base="http://localhost:4000/2024/10/28/AB_test.html"><![CDATA[<h1 id="ab-test---2024년10월28일">A/B TEST - 2024년10월28일</h1>
+</span></code></pre></div></div>]]></content><author><name>INSU</name></author><category term="RUNPOD" /><summary type="html"><![CDATA[Runpod - 2025년07월25일 tag : RUNPOD |]]></summary></entry><entry><title type="html">A/B TEST</title><link href="http://localhost:4000/2024/10/28/AB_test.html" rel="alternate" type="text/html" title="A/B TEST" /><published>2024-10-28T00:00:00+09:00</published><updated>2024-10-28T00:00:00+09:00</updated><id>http://localhost:4000/2024/10/28/AB_test</id><content type="html" xml:base="http://localhost:4000/2024/10/28/AB_test.html"><![CDATA[<h1 id="ab-test---2024년10월28일">A/B TEST - 2024년10월28일</h1>
 
 <!-- - tag : AB_TEST  -->
 <ul>
