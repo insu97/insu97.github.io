@@ -5,54 +5,33 @@ layout : default
 
 <div class="project">
 	<h1>Projects</h1>
-
-	<!-- <details open>
-		<summary>대회 · 공모전</summary>
-		<ol class="project-list">
-			<li>
-				<article class="project-item">
-					<h3>프로젝트 제목</h3>
-					<p>간단 설명 (목표, 성과, 역할).</p>
-					<ul class="meta">
-						<li><strong>기간:</strong> YYYY.MM - YYYY.MM</li>
-						<li><strong>스택:</strong> Python, PyTorch, Scikit-learn</li>
-					</ul>
-					<p class="links">
-						<a href="#" rel="noopener">Repo</a>
-						<span>·</span>
-						<a href="#" rel="noopener">포스트</a>
-						<span>·</span>
-						<a href="#" rel="noopener">데모</a>
-					</p>
-				</article>
-			</li>
-		</ol>
-	</details>
-
-	<details>
-		<summary>연구 · 논문</summary>
-		<ol class="project-list">
-			<li>
-				<article class="project-item">
-					<h3>프로젝트 제목</h3>
-					<p>간단 설명.</p>
-					<ul class="meta">
-						<li><strong>기간:</strong> YYYY.MM - YYYY.MM</li>
-						<li><strong>키워드:</strong> LLM, RAG, 평가</li>
-					</ul>
-					<p class="links">
-						<a href="#" rel="noopener">Paper</a>
-						<span>·</span>
-						<a href="#" rel="noopener">포스트</a>
-					</p>
-				</article>
-			</li>
-		</ol>
-	</details> -->
-
 	<details>
 		<summary>개인 · 오픈소스</summary>
 		<ol class="project-grid" aria-label="개인 · 오픈소스 프로젝트 목록">
+			<li>
+				<article class="project-item" aria-label="배드민턴 통계 챗봇">
+					<header class="project-header">
+						<h3 class="project-title">배드민턴 통계 챗봇</h3>
+					</header>
+					<p class="project-desc">배드민턴 동호회 경기 기록을 자연어로 조회하는 AI 챗봇. 통계 질문은 Text-to-SQL, 경기 후기 질문은 RAG로 자동 라우팅합니다.</p>
+					<ul class="meta" aria-label="프로젝트 메타정보">
+						<li><strong>기간:</strong> 2026.02 ~ 2026.03</li>
+						<li><strong>AI Model:</strong> GPT-4o-mini</li>
+						<li><strong>성과:</strong> Streamlit Cloud 배포 및 실제 서비스 운영 중, 하이브리드(SQL + RAG) 라우팅 구현</li>
+					</ul>
+					<ul class="badges" aria-label="태그">
+						<li><span class="badge">Python</span></li>
+						<li><span class="badge">LangChain</span></li>
+						<li><span class="badge">Streamlit</span></li>
+						<li><span class="badge">FAISS</span></li>
+						<li><span class="badge">SQLite</span></li>
+					</ul>
+					<p class="links">
+						<a class="button" href="https://bm-stats-chatbot.streamlit.app" target="_blank" rel="noopener noreferrer">웹사이트 접속</a>
+						<a class="button" href="https://github.com/insu97/badminton-stats-chatbot" target="_blank" rel="noopener noreferrer">GitHub</a>
+					</p>
+				</article>
+			</li>
 			<li>
 				<article class="project-item" aria-label="AI Todo Manager">
 					<header class="project-header">

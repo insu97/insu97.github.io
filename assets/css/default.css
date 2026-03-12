@@ -1849,6 +1849,68 @@ body {
   line-height: 1.6;
 }
 
+/* ==========================================================================
+   Tags Page - Compact Chip Layout
+   ========================================================================== */
+
+.main .tags.tags-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 6px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+.main .tags.tags-compact a.tag-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 0.82rem;
+  border-radius: 999px;
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-bg-secondary);
+  color: inherit;
+  text-decoration: none;
+  min-height: unset;
+  margin: 0;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  overflow: hidden;
+}
+
+.main .tags.tags-compact a.tag-chip:hover {
+  background: var(--color-gray-200);
+  border-color: var(--color-primary);
+  color: inherit;
+}
+
+.main .tags.tags-compact a.tag-chip .tag-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.main .tags.tags-compact a.tag-chip .tag-count {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .main .tags.tags-compact {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 4px;
+  }
+
+  .main .tags.tags-compact a.tag-chip {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+}
+
 .project .meta {
   list-style: none;
   padding: 0;

@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-03-11T01:57:20+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">Python</title><link href="http://localhost:4000/2026/03/11/PYTHON.html" rel="alternate" type="text/html" title="Python" /><published>2026-03-11T00:00:00+09:00</published><updated>2026-03-11T00:00:00+09:00</updated><id>http://localhost:4000/2026/03/11/PYTHON</id><content type="html" xml:base="http://localhost:4000/2026/03/11/PYTHON.html"><![CDATA[<h1 id="python---2026년03월11일">Python - 2026년03월11일</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-03-11T16:40:10+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">INSU’s Blog</title><subtitle>데이터 사이언스와 머신러닝에 관한 블로그</subtitle><author><name>INSU</name></author><entry><title type="html">Python 환경 및 패키지 관리</title><link href="http://localhost:4000/2026/03/11/Python_Env_and_Package.html" rel="alternate" type="text/html" title="Python 환경 및 패키지 관리" /><published>2026-03-11T00:00:00+09:00</published><updated>2026-03-11T00:00:00+09:00</updated><id>http://localhost:4000/2026/03/11/Python_Env_and_Package</id><content type="html" xml:base="http://localhost:4000/2026/03/11/Python_Env_and_Package.html"><![CDATA[<h1 id="python-환경-및-패키지-관리---2026년03월11일">Python 환경 및 패키지 관리 - 2026년03월11일</h1>
 
-<!-- - tag : PYTHON  -->
+<!-- - tag : Python Python_Setup  -->
 <ul>
-  <li>tag : <a href=" /tags/tag_PYTHON.html" class="btn btn-default navbar-btn cursorNorm" role="button">PYTHON</a>
+  <li>tag : <a href=" /tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|
+<a href=" /tags/tag_Python_Setup.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python_Setup</a>
 |</li>
 </ul>
 
@@ -33,65 +35,15 @@ uv venv --python 3.11
 .venv\Scripts\activate
 </code></pre>
 
-<hr />
+<h2 id="라이브러리-관리">라이브러리 관리</h2>
 
-<h2 id="typst">Typst</h2>
-
-<h3 id="이미지-변환-webp---png">이미지 변환 (webp -&gt; png)</h3>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-
-<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
-<span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
-</code></pre></div></div>
-
-<hr />
-
-<h2 id="오류-해결">오류 해결</h2>
-
-<h3 id="rag---reranker">RAG - Reranker</h3>
-
-<p><strong>재현 코드</strong></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.cross_encoders</span> <span class="kn">import</span> <span class="n">HuggingFaceCrossEncoder</span>
-
-<span class="n">hf_reranker</span> <span class="o">=</span> <span class="n">HuggingFaceCrossEncoder</span><span class="p">(</span>
-    <span class="n">model_name</span><span class="o">=</span><span class="s">"BAAI/bge-reranker-v2-m3"</span>
-<span class="p">)</span>
-</code></pre></div></div>
-
-<p><strong>증상 (오류 메시지)</strong></p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error rendering output item using 'jupyter-ipywidget-renderer'
-Cannot read properties of undefined (reading 'ipywidgetsKernel')
-</code></pre></div></div>
-
-<p><strong>원인</strong></p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">ipywidgets</code> 렌더러/확장 모듈 미설치 또는 버전 불일치</li>
-</ul>
-
-<p><strong>해결 방법</strong></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ipywidgets <span class="nt">--upgrade</span>
-jupyter nbextension <span class="nb">enable</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
-jupyter nbextension <span class="nb">install</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
-</code></pre></div></div>
-
-<hr />
-
-<h2 id="기타">기타</h2>
-
-<h3 id="라이브러리-관리">라이브러리 관리</h3>
-
-<p><strong>방법 1: <code class="language-plaintext highlighter-rouge">pip freeze</code> 기반</strong></p>
+<h3 id="방법-1-pip-freeze-기반">방법 1: pip freeze 기반</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze <span class="o">&gt;</span> requirements.txt
 pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
 </code></pre></div></div>
 
-<p><strong>방법 2: <code class="language-plaintext highlighter-rouge">pipreqs</code> 기반</strong></p>
+<h3 id="방법-2-pipreqs-기반">방법 2: pipreqs 기반</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pipreqs
 pipreqs ./ <span class="nt">--force</span>
@@ -100,10 +52,82 @@ pipreqs ./ <span class="nt">--force</span>
 pipreqs <span class="nb">.</span> <span class="nt">--force</span> <span class="nt">--ignore</span> <span class="s2">"{가상환경}/Lib"</span>
 </code></pre></div></div>
 
-<p><strong>방법 3: 특정 패키지 점검</strong></p>
+<h3 id="방법-3-특정-패키지-점검">방법 3: 특정 패키지 점검</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip freeze | <span class="nb">grep </span>cohere
-</code></pre></div></div>]]></content><author><name>INSU</name></author><category term="PYTHON" /><summary type="html"><![CDATA[Python - 2026년03월11일 tag : PYTHON |]]></summary></entry><entry><title type="html">배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드</title><link href="http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot.html" rel="alternate" type="text/html" title="배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드" /><published>2026-03-05T00:00:00+09:00</published><updated>2026-03-05T00:00:00+09:00</updated><id>http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot</id><content type="html" xml:base="http://localhost:4000/project/ai/2026/03/05/badminton_stats_chatbot.html"><![CDATA[<h2 id="프로젝트-개요">프로젝트 개요</h2>
+</code></pre></div></div>]]></content><author><name>INSU</name></author><category term="Python" /><category term="Python_Setup" /><summary type="html"><![CDATA[Python 환경 및 패키지 관리 - 2026년03월11일 tag : Python | Python_Setup |]]></summary></entry><entry><title type="html">Python Typst 이미지 변환</title><link href="http://localhost:4000/2026/03/11/Python_Typst_Image.html" rel="alternate" type="text/html" title="Python Typst 이미지 변환" /><published>2026-03-11T00:00:00+09:00</published><updated>2026-03-11T00:00:00+09:00</updated><id>http://localhost:4000/2026/03/11/Python_Typst_Image</id><content type="html" xml:base="http://localhost:4000/2026/03/11/Python_Typst_Image.html"><![CDATA[<h1 id="python-typst-이미지-변환---2026년03월11일">Python Typst 이미지 변환 - 2026년03월11일</h1>
+
+<!-- - tag : Python Typst  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|
+<a href=" /tags/tag_Typst.html" class="btn btn-default navbar-btn cursorNorm" role="button">Typst</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="이미지-변환-webp---png">이미지 변환 (webp -&gt; png)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
+<span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
+</code></pre></div></div>]]></content><author><name>INSU</name></author><category term="Python" /><category term="Typst" /><summary type="html"><![CDATA[Python Typst 이미지 변환 - 2026년03월11일 tag : Python | Typst |]]></summary></entry><entry><title type="html">Python RAG Reranker 오류 해결</title><link href="http://localhost:4000/2026/03/11/Python_RAG_Troubleshooting.html" rel="alternate" type="text/html" title="Python RAG Reranker 오류 해결" /><published>2026-03-11T00:00:00+09:00</published><updated>2026-03-11T00:00:00+09:00</updated><id>http://localhost:4000/2026/03/11/Python_RAG_Troubleshooting</id><content type="html" xml:base="http://localhost:4000/2026/03/11/Python_RAG_Troubleshooting.html"><![CDATA[<h1 id="python-rag-reranker-오류-해결---2026년03월11일">Python RAG Reranker 오류 해결 - 2026년03월11일</h1>
+
+<!-- - tag : Python Troubleshooting RAG  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|
+<a href=" /tags/tag_Troubleshooting.html" class="btn btn-default navbar-btn cursorNorm" role="button">Troubleshooting</a>
+|
+<a href=" /tags/tag_RAG.html" class="btn btn-default navbar-btn cursorNorm" role="button">RAG</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="rag---reranker">RAG - Reranker</h2>
+
+<h3 id="재현-코드">재현 코드</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.cross_encoders</span> <span class="kn">import</span> <span class="n">HuggingFaceCrossEncoder</span>
+
+<span class="n">hf_reranker</span> <span class="o">=</span> <span class="n">HuggingFaceCrossEncoder</span><span class="p">(</span>
+    <span class="n">model_name</span><span class="o">=</span><span class="s">"BAAI/bge-reranker-v2-m3"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="증상-오류-메시지">증상 (오류 메시지)</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error rendering output item using 'jupyter-ipywidget-renderer'
+Cannot read properties of undefined (reading 'ipywidgetsKernel')
+</code></pre></div></div>
+
+<h3 id="원인">원인</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ipywidgets</code> 렌더러/확장 모듈 미설치 또는 버전 불일치</li>
+</ul>
+
+<h3 id="해결-방법">해결 방법</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>ipywidgets <span class="nt">--upgrade</span>
+jupyter nbextension <span class="nb">enable</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
+jupyter nbextension <span class="nb">install</span> <span class="nt">--py</span> widgetsnbextension <span class="nt">--sys-prefix</span>
+</code></pre></div></div>]]></content><author><name>INSU</name></author><category term="Python" /><category term="Troubleshooting" /><category term="RAG" /><summary type="html"><![CDATA[Python RAG Reranker 오류 해결 - 2026년03월11일 tag : Python | Troubleshooting | RAG |]]></summary></entry><entry><title type="html">배드민턴 통계 챗봇 개발기</title><link href="http://localhost:4000/2026/03/05/badminton_stats_chatbot.html" rel="alternate" type="text/html" title="배드민턴 통계 챗봇 개발기" /><published>2026-03-05T00:00:00+09:00</published><updated>2026-03-05T00:00:00+09:00</updated><id>http://localhost:4000/2026/03/05/badminton_stats_chatbot</id><content type="html" xml:base="http://localhost:4000/2026/03/05/badminton_stats_chatbot.html"><![CDATA[<h1 id="배드민턴-통계-챗봇-개발기---2026년03월05일">배드민턴 통계 챗봇 개발기 - 2026년03월05일</h1>
+
+<!-- - tag : Project RAG  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Project.html" class="btn btn-default navbar-btn cursorNorm" role="button">Project</a>
+|
+<a href=" /tags/tag_RAG.html" class="btn btn-default navbar-btn cursorNorm" role="button">RAG</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="프로젝트-개요">프로젝트 개요</h2>
 
 <p>배드민턴 동호회 경기 기록을 자연어로 조회할 수 있는 AI 챗봇을 개발했습니다.</p>
 
@@ -311,94 +335,7 @@ SELECT "팀A-1" FROM matches  →  정상 동작
 <ul>
   <li><strong>Live Demo</strong>: <a href="https://bm-stats-chatbot.streamlit.app">https://bm-stats-chatbot.streamlit.app</a></li>
   <li><strong>GitHub</strong>: <a href="https://github.com/insu97/badminton-stats-chatbot">https://github.com/insu97/badminton-stats-chatbot</a></li>
-</ul>]]></content><author><name>INSU</name></author><category term="Project" /><category term="AI" /><category term="RAG" /><summary type="html"><![CDATA[프로젝트 개요]]></summary></entry><entry><title type="html">SQL</title><link href="http://localhost:4000/2025/12/13/SQL.html" rel="alternate" type="text/html" title="SQL" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/SQL</id><content type="html" xml:base="http://localhost:4000/2025/12/13/SQL.html"><![CDATA[<h1 id="sql---2025년12월13일">SQL - 2025년12월13일</h1>
-
-<!-- - tag : SQL  -->
-<ul>
-  <li>tag : <a href=" /tags/tag_SQL.html" class="btn btn-default navbar-btn cursorNorm" role="button">SQL</a>
-|</li>
-</ul>
-
-<hr />
-
-<h2 id="sql">SQL</h2>
-
-<h3 id="sql-injection">SQL Injection</h3>
-
-<h4 id="개념-및-정의">개념 및 정의</h4>
-
-<p>SQL Injection은 악의적인 사용자가 SQL 쿼리문에 비정상적인 SQL 코드를 삽입하여 데이터베이스를 공격하는 보안 취약점입니다. 웹 애플리케이션의 입력 필드나 URL 매개변수 등을 통해 악의적인 SQL 명령어를 주입하고, 이를 데이터베이스에서 실행하게 함으로써 권한 없이 데이터에 접근하거나 조작할 수 있습니다.</p>
-
-<h4 id="문제점">문제점</h4>
-
-<ul>
-  <li><strong>데이터 유출</strong>: 데이터베이스의 민감한 정보(사용자 계정, 개인정보 등)가 노출될 수 있습니다.</li>
-  <li><strong>데이터 손상</strong>: 악의적으로 데이터를 삭제하거나 수정할 수 있습니다.</li>
-  <li><strong>인증 우회</strong>: 로그인 인증을 우회하여 관리자 권한으로 접근할 수 있습니다.</li>
-  <li><strong>시스템 제어</strong>: 데이터베이스 서버에 대한 제어권을 얻을 수 있습니다.</li>
-</ul>
-
-<p><strong>SQL Injection 예시:</strong></p>
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 정상적인 쿼리</span>
-<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="s1">'user_input'</span> <span class="k">AND</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'password_input'</span>
-
-<span class="c1">-- 악의적인 입력 (id: ' OR '1'='1)</span>
-<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="s1">''</span> <span class="k">OR</span> <span class="s1">'1'</span><span class="o">=</span><span class="s1">'1'</span> <span class="k">AND</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'password_input'</span>
-<span class="c1">-- 결과: 모든 사용자 정보가 반환됨</span>
-</code></pre></div></div>
-
-<h4 id="예방-방법">예방 방법</h4>
-
-<ol>
-  <li><strong>Prepared Statement 사용</strong>
-    <ul>
-      <li>쿼리의 구조와 데이터를 분리하여 입력값을 매개변수로 처리합니다.
-        <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 안전한 방법 (Prepared Statement)</span>
-<span class="k">PREPARE</span> <span class="n">stmt</span> <span class="k">FROM</span> <span class="s1">'SELECT * FROM users WHERE id = ? AND password = ?'</span>
-<span class="k">EXECUTE</span> <span class="n">stmt</span> <span class="k">USING</span> <span class="n">user_input</span><span class="p">,</span> <span class="n">password_input</span>
-</code></pre></div>        </div>
-      </li>
-    </ul>
-  </li>
-  <li><strong>입력값 검증 및 필터링</strong>
-    <ul>
-      <li>사용자 입력값의 길이, 형식, 타입을 검증합니다.</li>
-      <li>특수문자(‘ “ ; – /* */ 등)를 제거하거나 이스케이프 처리합니다.</li>
-    </ul>
-  </li>
-  <li><strong>이스케이프 처리</strong>
-    <ul>
-      <li>쿼리에 포함되는 모든 문자열을 적절히 이스케이프 처리합니다.
-        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python 예시
-</span><span class="n">escaped_input</span> <span class="o">=</span> <span class="n">input_value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"'"</span><span class="p">,</span> <span class="s">"''"</span><span class="p">)</span>
-</code></pre></div>        </div>
-      </li>
-    </ul>
-  </li>
-  <li><strong>최소 권한 원칙 (Least Privilege)</strong>
-    <ul>
-      <li>데이터베이스 계정에 필요한 최소한의 권한만 부여합니다.</li>
-      <li>읽기 전용 계정, 특정 테이블만 접근 가능한 계정 등으로 제한합니다.</li>
-    </ul>
-  </li>
-  <li><strong>에러 메시지 제한</strong>
-    <ul>
-      <li>데이터베이스 에러 메시지를 사용자에게 노출하지 않습니다.</li>
-      <li>일반적인 에러 메시지만 반환하도록 처리합니다.</li>
-    </ul>
-  </li>
-  <li><strong>웹 애플리케이션 방화벽 (WAF)</strong>
-    <ul>
-      <li>SQL Injection 패턴을 탐지하고 차단하는 WAF 솔루션을 사용합니다.</li>
-    </ul>
-  </li>
-  <li><strong>정기적인 보안 감시 및 로깅</strong>
-    <ul>
-      <li>의심스러운 SQL 쿼리를 모니터링하고 로깅합니다.</li>
-      <li>정기적인 보안 감사를 수행합니다.</li>
-    </ul>
-  </li>
-</ol>]]></content><author><name>INSU</name></author><category term="SQL" /><summary type="html"><![CDATA[SQL - 2025년12월13일 tag : SQL |]]></summary></entry><entry><title type="html">Github</title><link href="http://localhost:4000/2025/12/13/Github.html" rel="alternate" type="text/html" title="Github" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/Github</id><content type="html" xml:base="http://localhost:4000/2025/12/13/Github.html"><![CDATA[<h1 id="github---2025년12월13일">Github - 2025년12월13일</h1>
+</ul>]]></content><author><name>INSU</name></author><category term="Project" /><category term="RAG" /><summary type="html"><![CDATA[배드민턴 통계 챗봇 개발기 - 2026년03월05일 tag : Project | RAG |]]></summary></entry><entry><title type="html">Github</title><link href="http://localhost:4000/2025/12/13/Github.html" rel="alternate" type="text/html" title="Github" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/Github</id><content type="html" xml:base="http://localhost:4000/2025/12/13/Github.html"><![CDATA[<h1 id="github---2025년12월13일">Github - 2025년12월13일</h1>
 
 <!-- - tag : Github  -->
 <ul>
@@ -907,7 +844,94 @@ git push origin main
 
 <h2 id="실습-과제">실습 과제</h2>
 
-<p>직접 프로젝트를 생성하고 협업하는 과정을 처음부터 끝까지 해보기!</p>]]></content><author><name>INSU</name></author><category term="Github" /><summary type="html"><![CDATA[Github - 2025년12월13일 tag : Github |]]></summary></entry><entry><title type="html">Anaconda</title><link href="http://localhost:4000/2025/09/20/anaconda_settings.html" rel="alternate" type="text/html" title="Anaconda" /><published>2025-09-20T00:00:00+09:00</published><updated>2025-09-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/20/anaconda_settings</id><content type="html" xml:base="http://localhost:4000/2025/09/20/anaconda_settings.html"><![CDATA[<h1 id="anaconda---2025년09월20일">Anaconda - 2025년09월20일</h1>
+<p>직접 프로젝트를 생성하고 협업하는 과정을 처음부터 끝까지 해보기!</p>]]></content><author><name>INSU</name></author><category term="Github" /><summary type="html"><![CDATA[Github - 2025년12월13일 tag : Github |]]></summary></entry><entry><title type="html">SQL</title><link href="http://localhost:4000/2025/12/13/SQL.html" rel="alternate" type="text/html" title="SQL" /><published>2025-12-13T00:00:00+09:00</published><updated>2025-12-13T00:00:00+09:00</updated><id>http://localhost:4000/2025/12/13/SQL</id><content type="html" xml:base="http://localhost:4000/2025/12/13/SQL.html"><![CDATA[<h1 id="sql---2025년12월13일">SQL - 2025년12월13일</h1>
+
+<!-- - tag : SQL  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_SQL.html" class="btn btn-default navbar-btn cursorNorm" role="button">SQL</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="sql">SQL</h2>
+
+<h3 id="sql-injection">SQL Injection</h3>
+
+<h4 id="개념-및-정의">개념 및 정의</h4>
+
+<p>SQL Injection은 악의적인 사용자가 SQL 쿼리문에 비정상적인 SQL 코드를 삽입하여 데이터베이스를 공격하는 보안 취약점입니다. 웹 애플리케이션의 입력 필드나 URL 매개변수 등을 통해 악의적인 SQL 명령어를 주입하고, 이를 데이터베이스에서 실행하게 함으로써 권한 없이 데이터에 접근하거나 조작할 수 있습니다.</p>
+
+<h4 id="문제점">문제점</h4>
+
+<ul>
+  <li><strong>데이터 유출</strong>: 데이터베이스의 민감한 정보(사용자 계정, 개인정보 등)가 노출될 수 있습니다.</li>
+  <li><strong>데이터 손상</strong>: 악의적으로 데이터를 삭제하거나 수정할 수 있습니다.</li>
+  <li><strong>인증 우회</strong>: 로그인 인증을 우회하여 관리자 권한으로 접근할 수 있습니다.</li>
+  <li><strong>시스템 제어</strong>: 데이터베이스 서버에 대한 제어권을 얻을 수 있습니다.</li>
+</ul>
+
+<p><strong>SQL Injection 예시:</strong></p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 정상적인 쿼리</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="s1">'user_input'</span> <span class="k">AND</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'password_input'</span>
+
+<span class="c1">-- 악의적인 입력 (id: ' OR '1'='1)</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="s1">''</span> <span class="k">OR</span> <span class="s1">'1'</span><span class="o">=</span><span class="s1">'1'</span> <span class="k">AND</span> <span class="n">password</span> <span class="o">=</span> <span class="s1">'password_input'</span>
+<span class="c1">-- 결과: 모든 사용자 정보가 반환됨</span>
+</code></pre></div></div>
+
+<h4 id="예방-방법">예방 방법</h4>
+
+<ol>
+  <li><strong>Prepared Statement 사용</strong>
+    <ul>
+      <li>쿼리의 구조와 데이터를 분리하여 입력값을 매개변수로 처리합니다.
+        <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 안전한 방법 (Prepared Statement)</span>
+<span class="k">PREPARE</span> <span class="n">stmt</span> <span class="k">FROM</span> <span class="s1">'SELECT * FROM users WHERE id = ? AND password = ?'</span>
+<span class="k">EXECUTE</span> <span class="n">stmt</span> <span class="k">USING</span> <span class="n">user_input</span><span class="p">,</span> <span class="n">password_input</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><strong>입력값 검증 및 필터링</strong>
+    <ul>
+      <li>사용자 입력값의 길이, 형식, 타입을 검증합니다.</li>
+      <li>특수문자(‘ “ ; – /* */ 등)를 제거하거나 이스케이프 처리합니다.</li>
+    </ul>
+  </li>
+  <li><strong>이스케이프 처리</strong>
+    <ul>
+      <li>쿼리에 포함되는 모든 문자열을 적절히 이스케이프 처리합니다.
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python 예시
+</span><span class="n">escaped_input</span> <span class="o">=</span> <span class="n">input_value</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"'"</span><span class="p">,</span> <span class="s">"''"</span><span class="p">)</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><strong>최소 권한 원칙 (Least Privilege)</strong>
+    <ul>
+      <li>데이터베이스 계정에 필요한 최소한의 권한만 부여합니다.</li>
+      <li>읽기 전용 계정, 특정 테이블만 접근 가능한 계정 등으로 제한합니다.</li>
+    </ul>
+  </li>
+  <li><strong>에러 메시지 제한</strong>
+    <ul>
+      <li>데이터베이스 에러 메시지를 사용자에게 노출하지 않습니다.</li>
+      <li>일반적인 에러 메시지만 반환하도록 처리합니다.</li>
+    </ul>
+  </li>
+  <li><strong>웹 애플리케이션 방화벽 (WAF)</strong>
+    <ul>
+      <li>SQL Injection 패턴을 탐지하고 차단하는 WAF 솔루션을 사용합니다.</li>
+    </ul>
+  </li>
+  <li><strong>정기적인 보안 감시 및 로깅</strong>
+    <ul>
+      <li>의심스러운 SQL 쿼리를 모니터링하고 로깅합니다.</li>
+      <li>정기적인 보안 감사를 수행합니다.</li>
+    </ul>
+  </li>
+</ol>]]></content><author><name>INSU</name></author><category term="SQL" /><summary type="html"><![CDATA[SQL - 2025년12월13일 tag : SQL |]]></summary></entry><entry><title type="html">Anaconda</title><link href="http://localhost:4000/2025/09/20/anaconda_settings.html" rel="alternate" type="text/html" title="Anaconda" /><published>2025-09-20T00:00:00+09:00</published><updated>2025-09-20T00:00:00+09:00</updated><id>http://localhost:4000/2025/09/20/anaconda_settings</id><content type="html" xml:base="http://localhost:4000/2025/09/20/anaconda_settings.html"><![CDATA[<h1 id="anaconda---2025년09월20일">Anaconda - 2025년09월20일</h1>
 
 <!-- - tag : Anaconda  -->
 <ul>

@@ -3,9 +3,18 @@ title : TAGS
 layout : default
 ---
 
-<div class="tags">
-  {% assign sorted_tags = site.data.tags | sort %}
+<div class="tags tags-compact">
+  {% assign sorted_tags = site.data.tags | sort_natural %}
   {% for tag in sorted_tags %}
-    <a href="{{ "/tags/tag_" | append: tag | append: ".html" }}" class="btn btn-default navbar-btn cursorNorm" role="button">{{page.tagName}}{{tag}}</a>
+    {% assign tag_posts = site.tags[tag] %}
+    {% if tag_posts %}
+      {% assign tag_count = tag_posts | size %}
+    {% else %}
+      {% assign tag_count = 0 %}
+    {% endif %}
+    <a href="{{ "/tags/tag_" | append: tag | append: ".html" }}" class="tag-chip" role="button">
+      <span class="tag-name">{{ tag }}</span>
+      <span class="tag-count">({{ tag_count }})</span>
+    </a>
   {% endfor %}
 </div>

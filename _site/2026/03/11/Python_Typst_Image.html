@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Runpod</title>
+	<title>Python Typst 이미지 변환</title>
 	<link rel="stylesheet" href="/assets/css/default.css">
 	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -61,90 +61,41 @@
 		<div class="main">
 			<div class="markdown-body">
   <div class="md-content">
-    <h1 id="runpod---2025년07월25일">Runpod - 2025년07월25일</h1>
+    <h1 id="python-typst-이미지-변환---2026년03월11일">Python Typst 이미지 변환 - 2026년03월11일</h1>
 
-<!-- - tag : RUNPOD  -->
+<!-- - tag : Python Typst  -->
 <ul>
-  <li>tag : <a href=" /tags/tag_RUNPOD.html" class="btn btn-default navbar-btn cursorNorm" role="button">RUNPOD</a>
+  <li>tag : <a href=" /tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|
+<a href=" /tags/tag_Typst.html" class="btn btn-default navbar-btn cursorNorm" role="button">Typst</a>
 |</li>
 </ul>
 
 <hr />
 
-<h2 id="error">ERROR</h2>
+<h2 id="이미지-변환-webp---png">이미지 변환 (webp -&gt; png)</h2>
 
-<h3 id="runpod에-vscode로-접속-시">runpod에 vscode로 접속 시</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">install </span>terminal quit with output: 프로세스에서 없는 파이프에 쓰려고 했습니다.
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"image.webp"</span><span class="p">)</span>
+<span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">"image.png"</span><span class="p">,</span> <span class="s">"PNG"</span><span class="p">)</span>
 </code></pre></div></div>
-
-<blockquote>
-  <p>해결책 : C:\Users\{사용자이름}\.ssh 접속 후 known_hosts 파일 열어서 전부 삭제</p>
-</blockquote>
-
-<h2 id="others">Others</h2>
-
-<h3 id="runpod-files--local-downloads">RUNPOD files → Local Downloads</h3>
-
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># powershell</span><span class="w">
-</span><span class="n">scp</span><span class="w"> </span><span class="nt">-r</span><span class="w"> </span><span class="nt">-P</span><span class="w"> </span><span class="p">{</span><span class="err">포트번호</span><span class="p">}</span><span class="w"> </span><span class="err">`</span><span class="w">
-  </span><span class="nt">-i</span><span class="w"> </span><span class="s2">"C:\Users\YourUser\.ssh\id_ed25519"</span><span class="w"> </span><span class="err">`</span><span class="w">
-  </span><span class="s2">"root@{서버주소}:{원격폴더경로}"</span><span class="w"> </span><span class="err">`</span><span class="w">
-  </span><span class="s2">"{로컬 저장 경로}"</span><span class="w">
-</span></code></pre></div></div>
 
   </div>
   <div class="md-index">
     <h2>목차</h2>
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h2"><a href="#error">ERROR</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#runpod에-vscode로-접속-시">runpod에 vscode로 접속 시</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#others">Others</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#runpod-files--local-downloads">RUNPOD files → Local Downloads</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#이미지-변환-webp---png">이미지 변환 (webp -&gt; png)</a></li>
 </ul>
     <hr>
     <h2>관련 POST</h2>
     
       
         
-      
+          <p>
+            <a href="/2026/03/11/Python_Typst_Image.html">Python Typst 이미지 변환 [ 2026년03월11일 ]</a>
+          </p>
         
-      
-    
-      
-        
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
       
         
       
@@ -152,8 +103,44 @@
       
         
           <p>
-            <a href="/2025/07/25/RUNPOD.html">Runpod [ 2025년07월25일 ]</a>
+            <a href="/2026/03/11/Python_RAG_Troubleshooting.html">Python RAG Reranker 오류 해결 [ 2026년03월11일 ]</a>
           </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2026/03/11/Python_Env_and_Package.html">Python 환경 및 패키지 관리 [ 2026년03월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
         
       
     

@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드</title>
+	<title>배드민턴 통계 챗봇 개발기</title>
 	<link rel="stylesheet" href="/assets/css/default.css">
 	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -61,7 +61,19 @@
 		<div class="main">
 			<div class="markdown-body">
   <div class="md-content">
-    <h2 id="프로젝트-개요">프로젝트 개요</h2>
+    <h1 id="배드민턴-통계-챗봇-개발기---2026년03월05일">배드민턴 통계 챗봇 개발기 - 2026년03월05일</h1>
+
+<!-- - tag : Project RAG  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Project.html" class="btn btn-default navbar-btn cursorNorm" role="button">Project</a>
+|
+<a href=" /tags/tag_RAG.html" class="btn btn-default navbar-btn cursorNorm" role="button">RAG</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="프로젝트-개요">프로젝트 개요</h2>
 
 <p>배드민턴 동호회 경기 기록을 자연어로 조회할 수 있는 AI 챗봇을 개발했습니다.</p>
 
@@ -274,10 +286,48 @@ SELECT "팀A-1" FROM matches  →  정상 동작
   </div>
   <div class="md-index">
     <h2>목차</h2>
-    
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#프로젝트-개요">프로젝트 개요</a></li>
+<li class="toc-entry toc-h2"><a href="#배경-및-문제-정의">배경 및 문제 정의</a></li>
+<li class="toc-entry toc-h2"><a href="#해결-아키텍처">해결 아키텍처</a></li>
+<li class="toc-entry toc-h2"><a href="#기술-스택">기술 스택</a></li>
+<li class="toc-entry toc-h2"><a href="#주요-구현">주요 구현</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1-db-자동-생성-db_loaderpy">1. DB 자동 생성 (db_loader.py)</a></li>
+<li class="toc-entry toc-h3"><a href="#2-rag-파이프라인-rag_loaderpy">2. RAG 파이프라인 (rag_loader.py)</a></li>
+<li class="toc-entry toc-h3"><a href="#3-하이브리드-라우터-chainpy">3. 하이브리드 라우터 (chain.py)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#트러블슈팅">트러블슈팅</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#하이픈-포함-컬럼명-sql-오류">하이픈 포함 컬럼명 SQL 오류</a></li>
+<li class="toc-entry toc-h3"><a href="#rag-날짜-컨텍스트-문제">RAG 날짜 컨텍스트 문제</a></li>
+<li class="toc-entry toc-h3"><a href="#괄호-불균형-sql-생성">괄호 불균형 SQL 생성</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#결과">결과</a></li>
+<li class="toc-entry toc-h2"><a href="#회고">회고</a></li>
+<li class="toc-entry toc-h2"><a href="#링크">링크</a></li>
+</ul>
     <hr>
     <h2>관련 POST</h2>
     
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
       
         
       
@@ -285,8 +335,10 @@ SELECT "팀A-1" FROM matches  →  정상 동작
       
         
           <p>
-            <a href="/project/ai/2026/03/05/badminton_stats_chatbot.html">배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드 [ 2026년03월05일 ]</a>
+            <a href="/2026/03/05/badminton_stats_chatbot.html">배드민턴 통계 챗봇 개발기 [ 2026년03월05일 ]</a>
           </p>
+        
+      
         
       
     

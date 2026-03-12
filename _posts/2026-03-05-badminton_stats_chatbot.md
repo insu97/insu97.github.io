@@ -1,10 +1,11 @@
 ---
 layout: markdown
-title: "배드민턴 통계 챗봇 개발기 — Text-to-SQL + RAG 하이브리드"
-date: 2026-03-05
-categories: [Project, AI]
-tags: [RAG]
+title: 배드민턴 통계 챗봇 개발기
+tags: [Project, RAG]
+toc: true
 ---
+
+{% include markdown.html %}
 
 ## 프로젝트 개요
 
