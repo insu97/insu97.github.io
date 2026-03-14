@@ -54,7 +54,7 @@ LLM Response (GPT-4o-mini)
 |---|---|
 | Language | Python 3.13 |
 | Framework | LangChain, Streamlit |
-| LLM | OpenAI GPT-4o-mini |
+| LLM | OpenAI GPT-4.1-mini |
 | DB (정형) | SQLite |
 | DB (비정형) | FAISS (Vector DB) |
 | 데이터 소스 | Google Sheets API |
