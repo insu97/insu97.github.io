@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Book Notes App - 개인 전용 학습 노트 뷰어 + RAG 검색 PWA</title>
+	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+</head>
+
+<body>
+	<div class="header">
+  <div class="blog_image">
+    <img src="/assets/images/coffee.png" title="coffee">
+  </div>
+  <div class="main_text">
+    <h1><a href='/'>In수</a></h1>
+  </div>
+
+  <div id="music-controls" style="text-align: center;">
+    <!-- 첫 줄: GIF와 버튼 -->
+    <div class="top-controls">
+      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
+        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+
+      <button id="playButton" onclick="playMusic()">Play</button>
+      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
+      <button id="nextButton" onclick="nextMusic()">Next</button>
+    </div>
+
+    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
+    <div class="volume-controls"> <!-- style="margin-top: 0.5vw;" -->
+      <label for="volumeSlider">Volume:</label>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+</div>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				
+				<li><a href="/index.html">HOME</a></li>
+				
+				<li><a href="/posts/index.html">POSTS</a></li>
+				
+				<li><a href="/tags.html">TAGS</a></li>
+				
+				<li><a href="/books.html">BOOKS</a></li>
+				
+				<li><a href="/project.html">PROJECT</a></li>
+				
+			</ul>
+		</div>
+		<div class="main">
+			<div class="markdown-body">
+  <div class="md-content">
+    <h1 id="book-notes-app---개인-전용-학습-노트-뷰어--rag-검색-pwa---2026년03월28일">Book Notes App - 개인 전용 학습 노트 뷰어 + RAG 검색 PWA - 2026년03월28일</h1>
+
+<!-- - tag : Python FastAPI LangChain ChromaDB PWA Docker AWS OAuth  -->
+<ul>
+  <li>tag : <a href=" /tags/tag_Python.html" class="btn btn-default navbar-btn cursorNorm" role="button">Python</a>
+|
+<a href=" /tags/tag_FastAPI.html" class="btn btn-default navbar-btn cursorNorm" role="button">FastAPI</a>
+|
+<a href=" /tags/tag_LangChain.html" class="btn btn-default navbar-btn cursorNorm" role="button">LangChain</a>
+|
+<a href=" /tags/tag_ChromaDB.html" class="btn btn-default navbar-btn cursorNorm" role="button">ChromaDB</a>
+|
+<a href=" /tags/tag_PWA.html" class="btn btn-default navbar-btn cursorNorm" role="button">PWA</a>
+|
+<a href=" /tags/tag_Docker.html" class="btn btn-default navbar-btn cursorNorm" role="button">Docker</a>
+|
+<a href=" /tags/tag_AWS.html" class="btn btn-default navbar-btn cursorNorm" role="button">AWS</a>
+|
+<a href=" /tags/tag_OAuth.html" class="btn btn-default navbar-btn cursorNorm" role="button">OAuth</a>
+|</li>
+</ul>
+
+<hr />
+
+<h2 id="프로젝트-소개">프로젝트 소개</h2>
+
+<p>GitHub private repo에 Obsidian으로 정리한 학습 노트를 핸드폰에서 편하게 열람하고, 자연어로 검색할 수 있는 개인 전용 PWA 앱이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사용자(핸드폰) → nginx(80/443) → FastAPI(8000) → ChromaDB / GitHub
+</code></pre></div></div>
+
+<h3 id="왜-만들었는가">왜 만들었는가</h3>
+
+<ul>
+  <li>Obsidian은 PC에서는 편하지만 핸드폰에서 private repo 접근이 불편</li>
+  <li>수백 개의 마크다운 파일에서 원하는 내용을 빠르게 찾고 싶었음</li>
+  <li>LangChain RAG를 실제 서비스에 적용하는 경험을 쌓고 싶었음</li>
+</ul>
+
+<h3 id="기술-스택-선택-이유">기술 스택 선택 이유</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>기술</th>
+      <th>선택 이유</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PWA</td>
+      <td>스토어 배포 불필요, 서버 배포만으로 업데이트 즉시 반영, 새 언어 학습 불필요</td>
+    </tr>
+    <tr>
+      <td>FastAPI</td>
+      <td>비동기 지원, 타입 힌트 기반 자동 검증, Depends로 인증 로직 재사용</td>
+    </tr>
+    <tr>
+      <td>Google OAuth</td>
+      <td>비밀번호 직접 관리 불필요, 이메일 화이트리스트로 1인 접근 제어</td>
+    </tr>
+    <tr>
+      <td>ChromaDB</td>
+      <td>별도 서버 없이 Python 라이브러리로 벡터 DB 사용, 소규모 문서에 적합</td>
+    </tr>
+    <tr>
+      <td>text-embedding-3-small</td>
+      <td>한국어 성능 우수, $0.02/1M 토큰으로 거의 무료</td>
+    </tr>
+    <tr>
+      <td>AWS EC2 + Route 53</td>
+      <td>서버/도메인/DNS를 AWS 한 곳에서 통합 관리</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="아키텍처">아키텍처</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EC2 (Ubuntu, t3.micro, 서울 리전)
+│
+├── nginx (:80 → :443 리디렉트)
+│         (:443 → localhost:8000 프록시)
+│         (SSL: Let's Encrypt)
+│
+└── Docker
+    └── FastAPI (:8000)
+        ├── Auth (Google OAuth + JWT)
+        ├── Docs (마크다운 뷰어)
+        ├── Search (ChromaDB + LangChain RAG)
+        └── Webhook (GitHub push → 자동 동기화)
+</code></pre></div></div>
+
+<h3 id="두-개-repository의-관계">두 개 Repository의 관계</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>book-notes (private)              book-notes-app (private)
+├── langchain/                    ├── backend/
+│   ├── chapter1.md               │   ├── main.py
+│   └── chapter2.md               │   ├── auth/
+├── sql/                          │   ├── docs/
+│   └── camp.md                   │   └── search/
+└── ...                           ├── frontend/
+                                  ├── nginx/
+    학습 노트 원본                  ├── Dockerfile
+    (push → Webhook →              └── docker-compose.yml
+     앱에 자동 반영)
+                                      앱 코드
+                                      (push → EC2 수동 배포)
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="phase-1-인증-시스템">Phase 1: 인증 시스템</h2>
+
+<h3 id="google-oauth-20-흐름">Google OAuth 2.0 흐름</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. "Google로 로그인" 클릭
+2. → accounts.google.com으로 리디렉트
+3. → Google 로그인 + 권한 동의
+4. → /auth/callback으로 auth code 전달
+5. → auth code를 access token으로 교환
+6. → 이메일 추출 → 화이트리스트 확인
+7. → JWT 발급 (httpOnly cookie)
+</code></pre></div></div>
+
+<h3 id="1인-앱-접근-제어">1인 앱 접근 제어</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .env
+</span><span class="n">ALLOWED_EMAIL</span><span class="o">=</span><span class="n">myemail</span><span class="o">@</span><span class="n">gmail</span><span class="p">.</span><span class="n">com</span>
+
+<span class="c1"># 콜백에서 이메일 체크
+</span><span class="k">if</span> <span class="n">user_email</span> <span class="o">!=</span> <span class="n">os</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">"ALLOWED_EMAIL"</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="mi">403</span><span class="p">,</span> <span class="s">"Access denied"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Google OAuth 동의 화면을 “테스트 모드”로 설정하면 등록한 테스트 사용자만 로그인 가능하다.</p>
+
+<h3 id="jwt-httponly-cookie">JWT httpOnly Cookie</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">response</span><span class="p">.</span><span class="n">set_cookie</span><span class="p">(</span>
+    <span class="n">key</span><span class="o">=</span><span class="s">"access_token"</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>
+    <span class="n">httponly</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>   <span class="c1"># JS에서 접근 불가 (XSS 방지)
+</span>    <span class="n">secure</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>     <span class="c1"># HTTPS에서만 전송
+</span>    <span class="n">samesite</span><span class="o">=</span><span class="s">"lax"</span>   <span class="c1"># CSRF 방지
+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="fastapi-의존성-주입으로-인증-체크">FastAPI 의존성 주입으로 인증 체크</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">Depends</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_current_user</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">cookies</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"access_token"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">verify_token</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/api/docs/tree"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_tree</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">Depends</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"tree"</span><span class="p">:</span> <span class="n">build_tree</span><span class="p">()}</span>
+</code></pre></div></div>
+
+<p>모든 API 엔드포인트에 <code class="language-plaintext highlighter-rouge">Depends(get_current_user)</code>를 추가하면 인증이 필수가 된다.</p>
+
+<h3 id="트러블슈팅-mismatchingstateerror">트러블슈팅: MismatchingStateError</h3>
+
+<p>OAuth 콜백에서 세션 쿠키가 유실되어 발생한 문제.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 원인: SessionMiddleware의 https_only 설정
+# localhost(HTTP)에서 쿠키가 전송되지 않음
+</span>
+<span class="c1"># 해결: 개발 환경에서 https_only=False
+</span><span class="n">app</span><span class="p">.</span><span class="n">add_middleware</span><span class="p">(</span>
+    <span class="n">SessionMiddleware</span><span class="p">,</span>
+    <span class="n">secret_key</span><span class="o">=</span><span class="n">settings</span><span class="p">.</span><span class="n">JWT_SECRET_KEY</span><span class="p">,</span>
+    <span class="n">same_site</span><span class="o">=</span><span class="s">"lax"</span><span class="p">,</span>
+    <span class="n">https_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>  <span class="c1"># 로컬 개발 시
+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="phase-2-문서-동기화--뷰어">Phase 2: 문서 동기화 + 뷰어</h2>
+
+<h3 id="github-private-repo-동기화">GitHub Private Repo 동기화</h3>
+
+<p>GitPython으로 PAT(Personal Access Token)을 사용하여 private repo를 clone/pull한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">git</span>
+
+<span class="k">def</span> <span class="nf">clone_or_pull</span><span class="p">():</span>
+    <span class="n">repo_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"https://</span><span class="si">{</span><span class="n">PAT</span><span class="si">}</span><span class="s">@github.com/</span><span class="si">{</span><span class="n">GITHUB_REPO</span><span class="si">}</span><span class="s">.git"</span>
+    <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="n">DOCS_DIR</span><span class="p">):</span>
+        <span class="n">repo</span> <span class="o">=</span> <span class="n">git</span><span class="p">.</span><span class="n">Repo</span><span class="p">(</span><span class="n">DOCS_DIR</span><span class="p">)</span>
+        <span class="n">repo</span><span class="p">.</span><span class="n">remotes</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">pull</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">git</span><span class="p">.</span><span class="n">Repo</span><span class="p">.</span><span class="n">clone_from</span><span class="p">(</span><span class="n">repo_url</span><span class="p">,</span> <span class="n">DOCS_DIR</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">depth=1</code>: 최신 커밋만 가져옴 (히스토리 불필요)</li>
+  <li>PAT은 Fine-grained token으로 해당 repo의 Contents Read-only 권한만 부여</li>
+</ul>
+
+<h3 id="github-webhook-push-즉시-반영">GitHub Webhook (push 즉시 반영)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">hmac</span><span class="p">,</span> <span class="n">hashlib</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">BackgroundTasks</span>
+
+<span class="k">def</span> <span class="nf">verify_signature</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">secret</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="s">"sha256="</span> <span class="o">+</span> <span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span>
+        <span class="n">secret</span><span class="p">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">payload</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span>
+    <span class="p">).</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">hmac</span><span class="p">.</span><span class="n">compare_digest</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/webhook/github"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">webhook</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">background_tasks</span><span class="p">:</span> <span class="n">BackgroundTasks</span><span class="p">):</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">()</span>
+    <span class="n">signature</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"X-Hub-Signature-256"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">verify_signature</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">WEBHOOK_SECRET</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+
+    <span class="n">background_tasks</span><span class="p">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">sync_and_reindex</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"status"</span><span class="p">:</span> <span class="s">"accepted"</span><span class="p">}</span>  <span class="c1"># 즉시 200 응답
+</span></code></pre></div></div>
+
+<ul>
+  <li>HMAC-SHA256 서명으로 GitHub이 보낸 요청인지 검증</li>
+  <li>BackgroundTasks로 즉시 200 응답 후 백그라운드에서 동기화 (GitHub 10초 타임아웃 대응)</li>
+</ul>
+
+<h3 id="마크다운-파서--문서-트리">마크다운 파서 + 문서 트리</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_doc_tree</span><span class="p">(</span><span class="n">base_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s">"""디렉토리 구조를 JSON 트리로 변환. .md 파일만 대상."""</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">).</span><span class="n">rglob</span><span class="p">(</span><span class="s">"*.md"</span><span class="p">):</span>
+        <span class="n">relative</span> <span class="o">=</span> <span class="n">path</span><span class="p">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">base_dir</span><span class="p">)</span>
+        <span class="c1"># path traversal 방어: .. 포함된 경로 거부
+</span>        <span class="k">if</span> <span class="s">".."</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">relative</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="c1"># 트리 구조 생성
+</span>        <span class="p">...</span>
+    <span class="k">return</span> <span class="n">tree</span>
+</code></pre></div></div>
+
+<h3 id="프론트엔드-구성">프론트엔드 구성</h3>
+
+<ul>
+  <li>SPA 라우팅: hash 기반 (<code class="language-plaintext highlighter-rouge">#/docs</code>, <code class="language-plaintext highlighter-rouge">#/docs/path</code>, <code class="language-plaintext highlighter-rouge">#/search</code>)</li>
+  <li>마크다운 렌더링: marked.js (CDN)</li>
+  <li>코드 하이라이팅: highlight.js (CDN)</li>
+  <li>모바일 퍼스트: 768px 이하에서 사이드바를 슬라이드 메뉴로 변환</li>
+</ul>
+
+<hr />
+
+<h2 id="phase-3-rag-검색">Phase 3: RAG 검색</h2>
+
+<h3 id="rag-흐름">RAG 흐름</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사용자 질문: "LangChain에서 프롬프트 템플릿 사용법은?"
+    ↓
+1. 질문을 text-embedding-3-small로 임베딩
+    ↓
+2. ChromaDB에서 유사한 문서 청크 top-5 검색 (코사인 유사도)
+    ↓
+3. 검색된 문서 + 질문을 합쳐서 gpt-4.1-mini 프롬프트 구성
+    ↓
+4. LLM이 문서 기반으로 답변 생성
+    ↓
+5. 답변 + 출처(파일 경로) 반환
+</code></pre></div></div>
+
+<h3 id="청킹-전략">청킹 전략</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+
+<span class="n">splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">separators</span><span class="o">=</span><span class="p">[</span><span class="s">"## "</span><span class="p">,</span> <span class="s">"### "</span><span class="p">,</span> <span class="s">"</span><span class="se">\n\n</span><span class="s">"</span><span class="p">,</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>마크다운 헤더(<code class="language-plaintext highlighter-rouge">##</code>, <code class="language-plaintext highlighter-rouge">###</code>) 기준으로 의미 단위 분할</li>
+  <li>chunk_overlap=200: 청크 경계에서 문맥 유실 방지</li>
+  <li>메타데이터에 파일 경로 포함 → 출처 추적</li>
+</ul>
+
+<h3 id="환각-방지-프롬프트">환각 방지 프롬프트</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system_prompt</span> <span class="o">=</span> <span class="s">"""
+당신은 학습 노트 검색 도우미입니다.
+주어진 문서 내용만을 기반으로 답변하세요.
+문서에 없는 내용은 "해당 내용을 찾을 수 없습니다"라고 답하세요.
+"""</span>
+</code></pre></div></div>
+
+<h3 id="chromadb-벡터-저장소">ChromaDB 벡터 저장소</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">chromadb</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">chromadb</span><span class="p">.</span><span class="n">PersistentClient</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s">"./data/chroma"</span><span class="p">)</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">get_or_create_collection</span><span class="p">(</span><span class="s">"book_notes"</span><span class="p">)</span>
+
+<span class="c1"># 문서 저장
+</span><span class="n">collection</span><span class="p">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">documents</span><span class="o">=</span><span class="n">chunks</span><span class="p">,</span>
+    <span class="n">embeddings</span><span class="o">=</span><span class="n">vectors</span><span class="p">,</span>
+    <span class="n">metadatas</span><span class="o">=</span><span class="p">[{</span><span class="s">"source"</span><span class="p">:</span> <span class="s">"langchain/chapter3.md"</span><span class="p">}],</span>
+    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s">"chunk_001"</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># 유사도 검색
+</span><span class="n">results</span> <span class="o">=</span> <span class="n">collection</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="n">query_embeddings</span><span class="o">=</span><span class="p">[</span><span class="n">query_vector</span><span class="p">],</span> <span class="n">n_results</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>PersistentClient: 디스크에 저장 → Docker 볼륨으로 영속화</li>
+  <li>별도 서버 없이 Python 라이브러리로 사용</li>
+</ul>
+
+<hr />
+
+<h2 id="phase-4-pwa--docker--배포">Phase 4: PWA + Docker + 배포</h2>
+
+<h3 id="pwa-설정">PWA 설정</h3>
+
+<p>manifest.json + Service Worker를 추가하면 브라우저가 “설치 가능한 앱”으로 인식한다.</p>
+
+<ul>
+  <li>Android: Chrome 메뉴 → “홈 화면에 추가”</li>
+  <li>iOS: Safari 공유 버튼 → “홈 화면에 추가”</li>
+</ul>
+
+<p>Service Worker 캐싱 전략:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>요청</th>
+      <th>전략</th>
+      <th>이유</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>정적 파일 (HTML, CSS, JS)</td>
+      <td>Cache First</td>
+      <td>오프라인에서도 UI 로드</td>
+    </tr>
+    <tr>
+      <td>API 요청 (/api/*)</td>
+      <td>Network First</td>
+      <td>최신 데이터 필요</td>
+    </tr>
+    <tr>
+      <td>sw.js 자체</td>
+      <td>no-cache</td>
+      <td>항상 최신 버전 보장</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dockerfile-멀티스테이지-빌드">Dockerfile (멀티스테이지 빌드)</h3>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 빌드 스테이지</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
+<span class="k">COPY</span><span class="s"> pyproject.toml uv.lock ./</span>
+<span class="k">RUN </span>uv <span class="nb">sync</span> <span class="nt">--frozen</span>
+
+<span class="c"># 런타임 스테이지</span>
+<span class="k">FROM</span><span class="s"> python:3.11-slim</span>
+<span class="k">RUN </span>apt-get update <span class="o">&amp;&amp;</span> apt-get <span class="nb">install</span> <span class="nt">-y</span> git <span class="o">&amp;&amp;</span> <span class="nb">rm</span> <span class="nt">-rf</span> /var/lib/apt/lists/<span class="k">*</span>
+<span class="k">COPY</span><span class="s"> --from=builder /app/.venv .venv</span>
+<span class="k">COPY</span><span class="s"> . .</span>
+<span class="k">CMD</span><span class="s"> ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]</span>
+</code></pre></div></div>
+
+<ul>
+  <li>멀티스테이지: 빌드 도구는 builder에만 설치 → 최종 이미지 경량화</li>
+  <li>git 설치 필수: GitPython이 git CLI를 내부적으로 호출</li>
+</ul>
+
+<h3 id="docker-composeyml">docker-compose.yml</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">services</span><span class="pi">:</span>
+  <span class="na">app</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">.</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8000:8000"</span>
+    <span class="na">env_file</span><span class="pi">:</span> <span class="s">.env</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">chroma_data:/app/data/chroma</span>
+      <span class="pi">-</span> <span class="s">docs_data:/app/data/docs</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">chroma_data</span><span class="pi">:</span>
+  <span class="na">docs_data</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<ul>
+  <li>volumes: 컨테이너 삭제/재생성해도 ChromaDB 데이터와 동기화 문서 유지</li>
+</ul>
+
+<h3 id="nginx-리버스-프록시">nginx 리버스 프록시</h3>
+
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># HTTP → HTTPS 리디렉트</span>
+<span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">booknotesapp.com</span><span class="p">;</span>
+    <span class="kn">return</span> <span class="mi">301</span> <span class="s">https://</span><span class="nv">$host$request_uri</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># HTTPS 서버</span>
+<span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">443</span> <span class="s">ssl</span> <span class="s">http2</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">booknotesapp.com</span><span class="p">;</span>
+
+    <span class="kn">ssl_certificate</span>     <span class="n">/etc/letsencrypt/live/booknotesapp.com/fullchain.pem</span><span class="p">;</span>
+    <span class="kn">ssl_certificate_key</span> <span class="n">/etc/letsencrypt/live/booknotesapp.com/privkey.pem</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="n">/api/</span> <span class="p">{</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:8000</span><span class="p">;</span>
+        <span class="kn">proxy_read_timeout</span> <span class="s">120s</span><span class="p">;</span>  <span class="c1"># RAG 검색 대기 시간</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="n">/webhook/</span> <span class="p">{</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:8000</span><span class="p">;</span>
+        <span class="kn">proxy_read_timeout</span> <span class="s">30s</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>SSL 종료를 nginx에서 처리 → FastAPI는 HTTP만 담당</li>
+  <li>RAG 검색은 응답이 느릴 수 있어 120초 타임아웃 설정</li>
+</ul>
+
+<h3 id="aws-배포-절차">AWS 배포 절차</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 1. EC2 인스턴스 생성 (t3.micro, Ubuntu, 서울 리전)</span>
+<span class="c"># 2. 보안 그룹: SSH(22), HTTP(80), HTTPS(443) 오픈</span>
+<span class="c"># 3. Elastic IP 할당 + 인스턴스 연결</span>
+<span class="c"># 4. Route 53 도메인 등록 + A 레코드에 Elastic IP 설정</span>
+
+<span class="c"># EC2 접속</span>
+ssh <span class="nt">-i</span> <span class="s2">"키파일.pem"</span> ubuntu@3.35.40.73
+
+<span class="c"># Docker 설치</span>
+<span class="nb">sudo </span>apt update <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> docker.io docker-compose-v2
+<span class="nb">sudo </span>usermod <span class="nt">-aG</span> docker ubuntu
+
+<span class="c"># 코드 배포</span>
+git clone https://github.com/username/book-notes-app.git
+<span class="nb">cd </span>book-notes-app
+nano .env  <span class="c"># 환경변수 설정</span>
+
+<span class="c"># SSL 인증서 발급</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> certbot
+<span class="nb">sudo </span>certbot certonly <span class="nt">--standalone</span> <span class="nt">-d</span> booknotesapp.com
+
+<span class="c"># nginx 설치 + 설정</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> nginx
+<span class="nb">sudo cp </span>nginx/default.conf /etc/nginx/sites-available/default
+<span class="nb">sudo </span>nginx <span class="nt">-t</span>
+<span class="nb">sudo </span>systemctl restart nginx
+
+<span class="c"># Docker 실행</span>
+<span class="nb">sudo </span>docker compose up <span class="nt">-d</span>
+</code></pre></div></div>
+
+<h3 id="lets-encrypt-인증서-발급-주의사항">Let’s Encrypt 인증서 발급 주의사항</h3>
+
+<ul>
+  <li>발급 시 포트 80이 비어있어야 함 (Docker/nginx 중지 후 발급)</li>
+  <li>EC2 보안 그룹에서 80, 443 포트 열림 확인 필수</li>
+  <li>인증서 유효기간 90일 (certbot이 자동 갱신 설정)</li>
+</ul>
+
+<hr />
+
+<h2 id="트러블슈팅-모음">트러블슈팅 모음</h2>
+
+<h3 id="hatchling-빌드-에러">hatchling 빌드 에러</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ValueError: Unable to determine which files to ship inside the wheel
+</code></pre></div></div>
+
+<p>pyproject.toml에 빌드 대상 패키지를 명시하지 않아서 발생.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[tool.hatch.build.targets.wheel]</span>
+<span class="py">packages</span> <span class="p">=</span> <span class="nn">["backend"]</span>
+</code></pre></div></div>
+
+<h3 id="docker에서-git-없음">Docker에서 git 없음</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ImportError: Failed to initialize: Bad git executable.
+</code></pre></div></div>
+
+<p>Dockerfile runtime 스테이지에 git 설치 누락. <code class="language-plaintext highlighter-rouge">apt-get install -y git</code> 추가.</p>
+
+<h3 id="certbot-타임아웃">certbot 타임아웃</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Detail: Fetching http://booknotesapp.com/...: Timeout during connect
+</code></pre></div></div>
+
+<p>EC2 보안 그룹에 HTTP(80) 규칙이 없거나, Docker가 포트 80을 점유 중.
+보안 그룹 확인 + <code class="language-plaintext highlighter-rouge">docker compose down</code> 후 재시도.</p>
+
+<h3 id="oauth-콜백에서-localhost로-리디렉트">OAuth 콜백에서 localhost로 리디렉트</h3>
+
+<p><code class="language-plaintext highlighter-rouge">.env</code>의 <code class="language-plaintext highlighter-rouge">APP_URL</code>이 <code class="language-plaintext highlighter-rouge">http://localhost:8000</code>으로 되어있으면 발생.
+<code class="language-plaintext highlighter-rouge">APP_URL=https://booknotesapp.com</code>으로 변경 + Google Cloud Console에 프로덕션 리디렉션 URI 추가.</p>
+
+<hr />
+
+<h2 id="월-비용">월 비용</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>비용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EC2 t3.micro</td>
+      <td>~$8.5 (Free Tier 1년 무료)</td>
+    </tr>
+    <tr>
+      <td>EBS 8GB</td>
+      <td>~$0.8</td>
+    </tr>
+    <tr>
+      <td>Route 53 도메인</td>
+      <td>~$13/년</td>
+    </tr>
+    <tr>
+      <td>Route 53 호스팅</td>
+      <td>~$0.5/월</td>
+    </tr>
+    <tr>
+      <td>OpenAI API</td>
+      <td>~$0.5</td>
+    </tr>
+    <tr>
+      <td>Let’s Encrypt / OAuth / ChromaDB</td>
+      <td>무료</td>
+    </tr>
+    <tr>
+      <td><strong>합계</strong></td>
+      <td><strong>~$10~11/월</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="향후-개선-사항">향후 개선 사항</h2>
+
+<ul>
+  <li>검색 결과 스트리밍 (SSE)</li>
+  <li>다크 모드 지원</li>
+  <li>문서 즐겨찾기 / 최근 본 문서</li>
+  <li>Airflow DAG로 자동 동기화 + 인덱싱 파이프라인 (LLMOps 연계)</li>
+  <li>LangSmith 트레이싱 연동</li>
+  <li>GitHub Actions CI/CD로 앱 코드 자동 배포</li>
+</ul>
+
+  </div>
+  <div class="md-index">
+    <h2>목차</h2>
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#프로젝트-소개">프로젝트 소개</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#왜-만들었는가">왜 만들었는가</a></li>
+<li class="toc-entry toc-h3"><a href="#기술-스택-선택-이유">기술 스택 선택 이유</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#아키텍처">아키텍처</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#두-개-repository의-관계">두 개 Repository의 관계</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#phase-1-인증-시스템">Phase 1: 인증 시스템</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#google-oauth-20-흐름">Google OAuth 2.0 흐름</a></li>
+<li class="toc-entry toc-h3"><a href="#1인-앱-접근-제어">1인 앱 접근 제어</a></li>
+<li class="toc-entry toc-h3"><a href="#jwt-httponly-cookie">JWT httpOnly Cookie</a></li>
+<li class="toc-entry toc-h3"><a href="#fastapi-의존성-주입으로-인증-체크">FastAPI 의존성 주입으로 인증 체크</a></li>
+<li class="toc-entry toc-h3"><a href="#트러블슈팅-mismatchingstateerror">트러블슈팅: MismatchingStateError</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#phase-2-문서-동기화--뷰어">Phase 2: 문서 동기화 + 뷰어</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#github-private-repo-동기화">GitHub Private Repo 동기화</a></li>
+<li class="toc-entry toc-h3"><a href="#github-webhook-push-즉시-반영">GitHub Webhook (push 즉시 반영)</a></li>
+<li class="toc-entry toc-h3"><a href="#마크다운-파서--문서-트리">마크다운 파서 + 문서 트리</a></li>
+<li class="toc-entry toc-h3"><a href="#프론트엔드-구성">프론트엔드 구성</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#phase-3-rag-검색">Phase 3: RAG 검색</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#rag-흐름">RAG 흐름</a></li>
+<li class="toc-entry toc-h3"><a href="#청킹-전략">청킹 전략</a></li>
+<li class="toc-entry toc-h3"><a href="#환각-방지-프롬프트">환각 방지 프롬프트</a></li>
+<li class="toc-entry toc-h3"><a href="#chromadb-벡터-저장소">ChromaDB 벡터 저장소</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#phase-4-pwa--docker--배포">Phase 4: PWA + Docker + 배포</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#pwa-설정">PWA 설정</a></li>
+<li class="toc-entry toc-h3"><a href="#dockerfile-멀티스테이지-빌드">Dockerfile (멀티스테이지 빌드)</a></li>
+<li class="toc-entry toc-h3"><a href="#docker-composeyml">docker-compose.yml</a></li>
+<li class="toc-entry toc-h3"><a href="#nginx-리버스-프록시">nginx 리버스 프록시</a></li>
+<li class="toc-entry toc-h3"><a href="#aws-배포-절차">AWS 배포 절차</a></li>
+<li class="toc-entry toc-h3"><a href="#lets-encrypt-인증서-발급-주의사항">Let’s Encrypt 인증서 발급 주의사항</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#트러블슈팅-모음">트러블슈팅 모음</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#hatchling-빌드-에러">hatchling 빌드 에러</a></li>
+<li class="toc-entry toc-h3"><a href="#docker에서-git-없음">Docker에서 git 없음</a></li>
+<li class="toc-entry toc-h3"><a href="#certbot-타임아웃">certbot 타임아웃</a></li>
+<li class="toc-entry toc-h3"><a href="#oauth-콜백에서-localhost로-리디렉트">OAuth 콜백에서 localhost로 리디렉트</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#월-비용">월 비용</a></li>
+<li class="toc-entry toc-h2"><a href="#향후-개선-사항">향후 개선 사항</a></li>
+</ul>
+    <hr>
+    <h2>관련 POST</h2>
+    
+      
+        
+          <p>
+            <a href="/2026/03/28/book-notes-app.html">Book Notes App - 개인 전용 학습 노트 뷰어 + RAG 검색 PWA [ 2026년03월28일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2026/03/11/Python_Typst_Image.html">Python Typst 이미지 변환 [ 2026년03월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2026/03/11/Python_RAG_Troubleshooting.html">Python RAG Reranker 오류 해결 [ 2026년03월11일 ]</a>
+          </p>
+        
+      
+        
+      
+        
+      
+    
+      
+        
+          <p>
+            <a href="/2026/03/11/Python_Env_and_Package.html">Python 환경 및 패키지 관리 [ 2026년03월11일 ]</a>
+          </p>
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+  </div>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: 'rgb(135, 206, 250)',
+  textColor: '#fff'
+})</script>
+
+<!-- Latex -->
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+		</div>
+	</div>
+	<div class="footer">
+  <p>Email : parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
+</div>
+
+	<script src="/assets/js/music-controls.js" defer></script>
+</body>
+
+</html>
