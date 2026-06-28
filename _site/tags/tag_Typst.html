@@ -3,7 +3,26 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="color-scheme" content="light dark">
 	<title>Typst</title>
+
+	<!-- FOUC 방지: 스타일시트 적용 전 data-theme 동기 설정 -->
+	<script>
+		(function () {
+			try {
+				var t = localStorage.getItem('theme');
+				if (!t) { t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+				document.documentElement.setAttribute('data-theme', t);
+			} catch (e) { }
+		})();
+	</script>
+
+	<!-- 웹폰트: Pretendard (CSS @import 대신 link 로 로드) -->
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+	<link rel="stylesheet" as="style" crossorigin
+		href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css">
+
 	<link rel="stylesheet" href="/assets/css/default.css">
 	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -16,32 +35,31 @@
 
 <body>
 	<div class="header">
-  <div class="blog_image">
-    <img src="/assets/images/coffee.png" title="coffee">
-  </div>
   <div class="main_text">
-    <h1><a href='/'>In수</a></h1>
+    <h1><a href='/'>INSU's Blog</a></h1>
   </div>
 
-  <div id="music-controls" style="text-align: center;">
-    <!-- 첫 줄: GIF와 버튼 -->
-    <div class="top-controls">
-      <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif" alt="Music GIF"
-        style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 0.5vw;">
+  <div class="header-actions">
+    <div id="music-controls">
+      <div class="top-controls">
+        <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif"
+          alt="Music indicator">
 
-      <button id="playButton" onclick="playMusic()">Play</button>
-      <button id="pauseButton" onclick="pauseMusic()">Pause</button>
-      <button id="nextButton" onclick="nextMusic()">Next</button>
+        <button id="playButton" class="music-btn" onclick="playMusic()" aria-label="재생" title="재생">&#9654;</button>
+        <button id="pauseButton" class="music-btn" onclick="pauseMusic()" aria-label="일시정지" title="일시정지">&#10074;&#10074;</button>
+        <button id="nextButton" class="music-btn" onclick="nextMusic()" aria-label="다음 곡" title="다음 곡">&#9197;</button>
+      </div>
+
+      <div class="volume-controls">
+        <label for="volumeSlider" aria-label="볼륨">&#128266;</label>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+      </div>
     </div>
 
-    <!-- 두 번째 줄: Volume 라벨과 슬라이더 -->
-    <div class="volume-controls"> <!-- style="margin-top: 0.5vw;" -->
-      <label for="volumeSlider">Volume:</label>
-      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
-    </div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="테마 전환"></button>
   </div>
-
 </div>
+
 	<div class="container">
 		<div class="navigation">
 			<ul>
@@ -143,6 +161,7 @@
 </div>
 
 	<script src="/assets/js/music-controls.js" defer></script>
+	<script src="/assets/js/theme-toggle.js" defer></script>
 </body>
 
 </html>

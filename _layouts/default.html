@@ -3,7 +3,26 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="color-scheme" content="light dark">
 	<title>{{ page.title }}</title>
+
+	<!-- FOUC 방지: 스타일시트 적용 전 data-theme 동기 설정 -->
+	<script>
+		(function () {
+			try {
+				var t = localStorage.getItem('theme');
+				if (!t) { t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+				document.documentElement.setAttribute('data-theme', t);
+			} catch (e) { }
+		})();
+	</script>
+
+	<!-- 웹폰트: Pretendard (CSS @import 대신 link 로 로드) -->
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+	<link rel="stylesheet" as="style" crossorigin
+		href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css">
+
 	<link rel="stylesheet" href="/assets/css/default.css">
 	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -31,6 +50,7 @@
 	{% include footer.html %}
 
 	<script src="{{ site.baseurl }}/assets/js/music-controls.js" defer></script>
+	<script src="{{ site.baseurl }}/assets/js/theme-toggle.js" defer></script>
 </body>
 
 </html>
