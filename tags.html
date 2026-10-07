@@ -5,16 +5,20 @@ layout : default
 
 <div class="tags tags-compact">
   {% assign sorted_tags = site.data.tags | sort_natural %}
-  {% for tag in sorted_tags %}
-    {% assign tag_posts = site.tags[tag] %}
-    {% if tag_posts %}
-      {% assign tag_count = tag_posts | size %}
-    {% else %}
-      {% assign tag_count = 0 %}
-    {% endif %}
-    <a href="{{ "/tags/tag_" | append: tag | append: ".html" }}" class="tag-chip" role="button">
-      <span class="tag-name">{{ tag }}</span>
-      <span class="tag-count">({{ tag_count }})</span>
-    </a>
-  {% endfor %}
+  {% if sorted_tags.size > 0 %}
+    {% for tag in sorted_tags %}
+      {% assign tag_posts = site.tags[tag] %}
+      {% if tag_posts %}
+        {% assign tag_count = tag_posts | size %}
+      {% else %}
+        {% assign tag_count = 0 %}
+      {% endif %}
+      <a href="{{ "/tags/tag_" | append: tag | append: ".html" }}" class="tag-chip" role="button">
+        <span class="tag-name">{{ tag }}</span>
+        <span class="tag-count">({{ tag_count }})</span>
+      </a>
+    {% endfor %}
+  {% else %}
+    <p class="empty-note">등록된 태그가 없습니다.</p>
+  {% endif %}
 </div>
