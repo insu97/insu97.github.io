@@ -1641,6 +1641,15 @@ body {
   color: var(--color-text-secondary);
 }
 
+.main .posts p.empty-note,
+.books-page > p.empty-note,
+.tags.tags-compact > p.empty-note,
+.project > p.empty-note {
+  margin: 0;
+  padding: var(--spacing-lg) var(--spacing-sm);
+  color: var(--color-text-secondary);
+}
+
 .project details {
   border-top: var(--border-width) solid var(--color-gray-200);
 }
