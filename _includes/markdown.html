@@ -1,9 +1,14 @@
-# {{ page.title }} - {{ page.date | date: "%Y년%m월%d일" }}
-
-<!-- - tag : {% for i in page.tags %}{{ i }} {% endfor %} -->
-* tag : {% for tag in page.tags %}<a href="{{ " /tags/tag_" | append: tag | append: ".html" }}"
-    class="btn btn-default navbar-btn cursorNorm" role="button">{{page.tagName}}{{tag}}</a>
-|
-{% endfor %}
-
----
+<header class="article-head">
+  <p class="article-kicker">
+    <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+    <span>{{ page.date | date: "%a" | upcase }}</span>
+  </p>
+  <h1 class="article-title">{{ page.title }}</h1>
+  {% if page.tags and page.tags.size > 0 %}
+  <p class="article-tags">
+    {% for tag in page.tags %}
+    <a class="post-tag" href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">{{ tag | replace: '_', ' ' }}</a>
+    {% endfor %}
+  </p>
+  {% endif %}
+</header>

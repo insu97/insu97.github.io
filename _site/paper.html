@@ -1,94 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
 	<meta charset="utf-8">
-	<meta name="color-scheme" content="light dark">
-	<title>PAPER</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light">
+	<title>PAPER — INSU's Blog</title>
+	<meta name="description" content="데이터 사이언스와 머신러닝에 관한 블로그">
 
-	<!-- FOUC 방지: 스타일시트 적용 전 data-theme 동기 설정 -->
-	<script>
-		(function () {
-			try {
-				var t = localStorage.getItem('theme');
-				if (!t) { t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
-				document.documentElement.setAttribute('data-theme', t);
-			} catch (e) { }
-		})();
-	</script>
-
-	<!-- 웹폰트: Pretendard (CSS @import 대신 link 로 로드) -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-	<link rel="stylesheet" as="style" crossorigin
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Serif+KR:wght@500;600&display=swap">
+	<link rel="stylesheet" crossorigin
 		href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css">
 
 	<link rel="stylesheet" href="/assets/css/default.css">
+	<link rel="stylesheet" href="/assets/css/editorial.css">
 	<link rel="icon" type="image/png" href="/assets/favicon/favicon.ico">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-	<!-- head.html 또는 기본 레이아웃 파일에 추가 -->
-	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
-	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
 </head>
 
 <body>
-	<div class="header">
-  <div class="main_text">
-    <h1><a href='/'>INSU's Blog</a></h1>
-  </div>
+	<a class="skip-link" href="#content">본문으로</a>
+	<div class="page">
+		<header class="masthead">
+  <nav class="site-nav" aria-label="주요 메뉴">
+    <ul><li>
+        <a href="/index.html">HOME</a>
+      </li><li>
+        <a href="/posts/index.html">POSTS</a>
+      </li><li>
+        <a href="/tags.html">TAGS</a>
+      </li><li>
+        <a href="/books.html">BOOKS</a>
+      </li><li>
+        <a href="/project.html">PROJECT</a>
+      </li></ul>
+  </nav>
+  <p class="site-title"><a href="/">INSU's Blog</a></p>
+</header>
 
-  <div class="header-actions">
-    <div id="music-controls">
-      <div class="top-controls">
-        <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif"
-          alt="Music indicator">
-
-        <button id="playButton" class="music-btn" onclick="playMusic()" aria-label="재생" title="재생">&#9654;</button>
-        <button id="pauseButton" class="music-btn" onclick="pauseMusic()" aria-label="일시정지" title="일시정지">&#10074;&#10074;</button>
-        <button id="nextButton" class="music-btn" onclick="nextMusic()" aria-label="다음 곡" title="다음 곡">&#9197;</button>
-      </div>
-
-      <div class="volume-controls">
-        <label for="volumeSlider" aria-label="볼륨">&#128266;</label>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
-      </div>
-    </div>
-
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="테마 전환"></button>
-  </div>
-</div>
-
-	<div class="container">
-		<div class="navigation">
-			<ul>
-				
-				<li><a href="/index.html">HOME</a></li>
-				
-				<li><a href="/posts/index.html">POSTS</a></li>
-				
-				<li><a href="/tags.html">TAGS</a></li>
-				
-				<li><a href="/books.html">BOOKS</a></li>
-				
-				<li><a href="/project.html">PROJECT</a></li>
-				
-			</ul>
-		</div>
-		<div class="main">
+		<main class="main" id="content">
+			
+			<h1 class="visually-hidden">PAPER</h1>
+			
 			<div class="paper">
 </div>
 
-		</div>
-	</div>
-	<div class="footer">
-  <p>Email : parkinsu9701@gmail.com</p>
-  <a href="https://github.com/insu97">SITE : GITHUB_PAGE</a>
-</div>
+		</main>
+		<footer class="colophon">
+  <p>parkinsu9701@gmail.com</p>
+  <a href="https://github.com/insu97">GitHub</a>
+</footer>
 
-	<script src="/assets/js/music-controls.js" defer></script>
-	<script src="/assets/js/theme-toggle.js" defer></script>
+	</div>
 </body>
 
 </html>

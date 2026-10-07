@@ -1,25 +1,29 @@
-<div class="header">
-  <div class="main_text">
-    <h1><a href='/'>INSU's Blog</a></h1>
-  </div>
-
-  <div class="header-actions">
-    <div id="music-controls">
-      <div class="top-controls">
-        <img id="musicGif" src="https://cdn.pixabay.com/animation/2022/12/05/15/23/15-23-06-837_512.gif"
-          alt="Music indicator">
-
-        <button id="playButton" class="music-btn" onclick="playMusic()" aria-label="재생" title="재생">&#9654;</button>
-        <button id="pauseButton" class="music-btn" onclick="pauseMusic()" aria-label="일시정지" title="일시정지">&#10074;&#10074;</button>
-        <button id="nextButton" class="music-btn" onclick="nextMusic()" aria-label="다음 곡" title="다음 곡">&#9197;</button>
-      </div>
-
-      <div class="volume-controls">
-        <label for="volumeSlider" aria-label="볼륨">&#128266;</label>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
-      </div>
-    </div>
-
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="테마 전환"></button>
-  </div>
-</div>
+<header class="masthead">
+  <nav class="site-nav" aria-label="주요 메뉴">
+    <ul>
+      {%- for item in site.data.navigation.main -%}
+        {%- assign current = page.url | default: '/' -%}
+        {%- assign target = item.url -%}
+        {%- assign active = false -%}
+        {%- if target == '/index.html' or target == '/' -%}
+          {%- if current == '/' or current == '/index.html' -%}
+            {%- assign active = true -%}
+          {%- endif -%}
+        {%- elsif target == '/posts/index.html' -%}
+          {%- if current == '/posts/' or current == '/posts/index.html' or current contains '/posts/' or page.layout == 'markdown' -%}
+            {%- assign active = true -%}
+          {%- endif -%}
+        {%- else -%}
+          {%- assign stem = target | replace: '.html', '' -%}
+          {%- if current == target or current == stem or current contains stem -%}
+            {%- assign active = true -%}
+          {%- endif -%}
+        {%- endif -%}
+      <li>
+        <a href="{{ item.url | relative_url }}"{% if active %} class="is-active" aria-current="page"{% endif %}>{{ item.title }}</a>
+      </li>
+      {%- endfor -%}
+    </ul>
+  </nav>
+  <p class="site-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></p>
+</header>
