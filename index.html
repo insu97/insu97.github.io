@@ -1,23 +1,26 @@
 ---
-title : MainPage
+title : Home
 layout : default
-sidebar:
-nav: "main"
 ---
 
+{% include post-list.html posts=site.posts limit=10 %}
+
+{% if site.posts.size > 10 %}
+<p class="archive-link"><a href="{{ '/posts/index.html' | relative_url }}">All posts</a></p>
+{% endif %}
+
 <div class="search">
-  <!-- HTML elements for search -->
-  <input type="text" id="search-input" placeholder="Search blog posts..">
+  <label for="search-input">Search</label>
+  <input type="text" id="search-input" placeholder="제목, 본문, 태그" autocomplete="off">
   <ul id="results-container"></ul>
   <script src="{{ site.baseurl }}/assets/js/simple-jekyll-search.js"></script>
-
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       window.simpleJekyllSearch = new SimpleJekyllSearch({
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('results-container'),
         json: '{{ site.baseurl }}/search.json',
-        searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a><p class="search-result-content">{content}</p></li>',
+        searchResultTemplate: '<li><a href="{url}">{title}</a><p class="search-result-content">{desc}</p></li>',
         noResultsText: '검색 결과가 없습니다',
         limit: 5,
         searchFields: ['title', 'content', 'tags']

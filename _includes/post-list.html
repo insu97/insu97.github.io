@@ -1,0 +1,32 @@
+{% assign rows = include.posts %}
+{% assign cap = include.limit | default: 200 %}
+{% assign empty_label = include.empty | default: "작성된 글이 없습니다." %}
+{% if rows and rows.size > 0 %}
+<div class="post-list">
+  {% for post in rows limit: cap %}
+    {% assign tag = post.tags | first %}
+    {% assign blurb = post.description | default: post.excerpt | strip_html | strip_newlines | truncate: 140 %}
+    <article class="post-row">
+      <a class="post-row-link" href="{{ post.url | relative_url }}">
+        <div class="post-date">
+          <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+          <span class="post-dow">{{ post.date | date: "%a" | upcase }}</span>
+        </div>
+        <div class="post-copy">
+          <h2 class="post-title">{{ post.title }}</h2>
+          {% if blurb != "" %}
+          <p class="post-excerpt">{{ blurb }}</p>
+          {% endif %}
+        </div>
+      </a>
+      {% if tag %}
+      <a class="post-tag" href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">{{ tag | replace: '_', ' ' }}</a>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>
+{% else %}
+<div class="sheet">
+  <p class="empty-note">{{ empty_label }}</p>
+</div>
+{% endif %}
