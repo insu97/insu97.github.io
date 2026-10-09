@@ -473,7 +473,8 @@ a {
 
 .markdown-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 13.5rem;
+  grid-template-columns: minmax(0, 46rem) 13.5rem;
+  justify-content: space-between;
   gap: 3.5rem;
   align-items: start;
   width: 100%;
@@ -482,6 +483,12 @@ a {
   color: var(--ink);
   background: transparent;
   font-family: var(--font-sans);
+}
+
+/* default.css의 GitHub clearfix 가상 요소가 grid 아이템이 되어 본문을 밀어내는 것을 방지 */
+.markdown-body::before,
+.markdown-body::after {
+  display: none;
 }
 
 .md-content {
@@ -587,6 +594,8 @@ a {
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.2;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 
 .article-tags {
