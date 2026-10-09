@@ -3,24 +3,59 @@ title : Posts
 layout : default
 ---
 
-{% if paginator and paginator.posts.size > 0 %}
-  {% include post-list.html posts=paginator.posts %}
+{% include page-head.html desc="전체 글과 검색" %}
 
-  {% if paginator.total_pages > 1 %}
+{% capture c1 %}blog.<span class="fn">search</span>(<span class="st">"…"</span>){% endcapture %}
+{% include in-cell.html n=1 code=c1 %}
+<div class="row out"><div class="lab">Out[1]:</div><div class="cell search">
+  <label class="visually-hidden" for="search-input">글 검색</label>
+  <input type="text" id="search-input" placeholder="제목, 본문, 태그" autocomplete="off">
+  <ul id="results-container"></ul>
+  <script src="{{ site.baseurl }}/assets/js/simple-jekyll-search.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var input = document.getElementById('search-input');
+      var list = document.getElementById('post-listing');
+      window.simpleJekyllSearch = new SimpleJekyllSearch({
+        searchInput: input,
+        resultsContainer: document.getElementById('results-container'),
+        json: '{{ site.baseurl }}/search.json',
+        searchResultTemplate: '<li><a href="{url}">{title}</a><p class="search-result-content">{desc}</p></li>',
+        noResultsText: '검색 결과가 없습니다',
+        limit: 10,
+        searchFields: ['title', 'content', 'tags']
+      });
+      input.addEventListener('input', function () {
+        list.hidden = input.value.trim() !== '';
+      });
+    });
+  </script>
+</div></div>
+
+<div id="post-listing">
+  {% capture c2 %}blog.posts.<span class="fn">list</span>(){% endcapture %}
+  {% include in-cell.html n=2 code=c2 %}
+  <div class="row out"><div class="lab">Out[2]:</div><div class="cell">
+    {% if paginator and paginator.posts.size > 0 %}
+      {% include post-list.html posts=paginator.posts %}
+    {% else %}
+      {% include post-list.html posts=site.posts %}
+    {% endif %}
+  </div></div>
+
+  {% if paginator and paginator.total_pages > 1 %}
   <nav class="pagination" aria-label="글 목록 페이지">
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">Previous</a>
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">← Previous</a>
     {% else %}
-      <span class="previous is-disabled">Previous</span>
+      <span class="previous is-disabled">← Previous</span>
     {% endif %}
     <span class="page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span>
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next</a>
+      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next →</a>
     {% else %}
-      <span class="next is-disabled">Next</span>
+      <span class="next is-disabled">Next →</span>
     {% endif %}
   </nav>
   {% endif %}
-{% else %}
-  {% include post-list.html posts=site.posts %}
-{% endif %}
+</div>

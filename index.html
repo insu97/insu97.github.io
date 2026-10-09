@@ -3,28 +3,44 @@ title : Home
 layout : default
 ---
 
-{% include post-list.html posts=site.posts limit=10 %}
+{% include page-head.html title=site.title desc=site.description %}
 
-{% if site.posts.size > 10 %}
-<p class="archive-link"><a href="{{ '/posts/index.html' | relative_url }}">All posts</a></p>
-{% endif %}
+{% capture c1 %}<span class="kw">import</span> blog<br>blog.<span class="fn">summary</span>(){% endcapture %}
+{% include in-cell.html n=1 code=c1 %}
+{% assign last_post = site.posts | first %}
+<div class="row out"><div class="lab">Out[1]:</div><div class="cell">
+  <div class="stats">
+    <div class="stat"><b>{{ site.posts.size }}</b><span>전체 글</span></div>
+    <div class="stat"><b>{{ site.data.tags.size }}</b><span>태그</span></div>
+    <div class="stat"><b id="stat-streak">–</b><span>최장 연속 작성(일)</span></div>
+    <div class="stat"><b>{% if last_post %}{{ last_post.date | date: "%m.%d" }}{% else %}–{% endif %}</b><span>마지막 작성일</span></div>
+  </div>
+</div></div>
 
-<div class="search">
-  <label for="search-input">Search</label>
-  <input type="text" id="search-input" placeholder="제목, 본문, 태그" autocomplete="off">
-  <ul id="results-container"></ul>
-  <script src="{{ site.baseurl }}/assets/js/simple-jekyll-search.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      window.simpleJekyllSearch = new SimpleJekyllSearch({
-        searchInput: document.getElementById('search-input'),
-        resultsContainer: document.getElementById('results-container'),
-        json: '{{ site.baseurl }}/search.json',
-        searchResultTemplate: '<li><a href="{url}">{title}</a><p class="search-result-content">{desc}</p></li>',
-        noResultsText: '검색 결과가 없습니다',
-        limit: 5,
-        searchFields: ['title', 'content', 'tags']
-      });
-    });
-  </script>
-</div>
+{% capture c2 %}<span class="cm"># 연도별 작성 기록</span><br>blog.activity.<span class="fn">plot</span>(kind=<span class="st">"heatmap"</span>, year=<span class="nu">{{ site.time | date: "%Y" }}</span>){% endcapture %}
+{% include in-cell.html n=2 code=c2 %}
+<div class="row out"><div class="lab">Out[2]:</div><div class="cell">
+  {% include activity.html %}
+</div></div>
+
+{% capture c3 %}blog.posts.<span class="fn">head</span>(<span class="nu">5</span>){% endcapture %}
+{% include in-cell.html n=3 code=c3 %}
+<div class="row out"><div class="lab">Out[3]:</div><div class="cell">
+  {% include post-list.html posts=site.posts limit=5 %}
+  {% if site.posts.size > 5 %}
+  <a class="more" href="{{ '/posts/index.html' | relative_url }}">… 전체 글 보기 ({{ site.posts.size }})</a>
+  {% endif %}
+</div></div>
+
+{% capture c4 %}blog.tags.<span class="fn">value_counts</span>(){% endcapture %}
+{% include in-cell.html n=4 code=c4 %}
+<div class="row out"><div class="lab">Out[4]:</div><div class="cell">
+  {% assign sorted_tags = site.data.tags | sort_natural %}
+  <ul class="tag-index">
+    {% for tag in sorted_tags %}
+      {% assign tag_posts = site.tags[tag] %}
+      {% assign tag_count = tag_posts | size %}
+    <li><a href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">{{ tag | replace: '_', ' ' }}<span class="tag-count">{{ tag_count }}</span></a></li>
+    {% endfor %}
+  </ul>
+</div></div>

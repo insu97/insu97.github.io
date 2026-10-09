@@ -1,4 +1,6 @@
-<header class="masthead">
+<header class="topbar">
+  <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}.ipynb</a>
+  <span class="kernel">Python 3 (ipykernel) ● Trusted</span>
   <nav class="site-nav" aria-label="주요 메뉴">
     <ul>
       {%- for item in site.data.navigation.main -%}
@@ -10,7 +12,7 @@
             {%- assign active = true -%}
           {%- endif -%}
         {%- elsif target == '/posts/index.html' -%}
-          {%- if current == '/posts/' or current == '/posts/index.html' or current contains '/posts/' or page.layout == 'markdown' -%}
+          {%- if current contains '/posts/' or page.layout == 'markdown' -%}
             {%- assign active = true -%}
           {%- endif -%}
         {%- else -%}
@@ -25,5 +27,4 @@
       {%- endfor -%}
     </ul>
   </nav>
-  <p class="site-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></p>
 </header>

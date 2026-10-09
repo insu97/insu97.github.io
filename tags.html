@@ -3,26 +3,21 @@ title : Tags
 layout : default
 ---
 
-{% assign sorted_tags = site.data.tags | sort_natural %}
-{% if sorted_tags.size > 0 %}
-<ul class="tag-index">
-  {% for tag in sorted_tags %}
-    {% assign tag_posts = site.tags[tag] %}
-    {% if tag_posts %}
+{% include page-head.html desc="태그별로 글 모아보기" %}
+
+{% capture c1 %}blog.tags.<span class="fn">value_counts</span>(){% endcapture %}
+{% include in-cell.html n=1 code=c1 %}
+<div class="row out"><div class="lab">Out[1]:</div><div class="cell">
+  {% assign sorted_tags = site.data.tags | sort_natural %}
+  {% if sorted_tags.size > 0 %}
+  <ul class="tag-index">
+    {% for tag in sorted_tags %}
+      {% assign tag_posts = site.tags[tag] %}
       {% assign tag_count = tag_posts | size %}
-    {% else %}
-      {% assign tag_count = 0 %}
-    {% endif %}
-  <li>
-    <a href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">
-      <span class="tag-name">{{ tag | replace: '_', ' ' }}</span>
-      <span class="tag-count">{{ tag_count }}</span>
-    </a>
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-<div class="sheet">
+    <li><a href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">{{ tag | replace: '_', ' ' }}<span class="tag-count">{{ tag_count }}</span></a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
   <p class="empty-note">등록된 태그가 없습니다.</p>
-</div>
-{% endif %}
+  {% endif %}
+</div></div>

@@ -1,2 +1,8 @@
-{% assign tagged = site.tags[page.tags.first] %}
-{% include post-list.html posts=tagged empty="이 태그의 글이 없습니다." %}
+{% include page-head.html desc="# 태그" %}
+{% assign tag_name = page.tags.first %}
+{% assign tagged = site.tags[tag_name] %}
+{% capture filter_code %}blog.<span class="fn">filter</span>(tag=<span class="st">"{{ tag_name }}"</span>){% endcapture %}
+{% include in-cell.html n=1 code=filter_code %}
+<div class="row out"><div class="lab">Out[1]:</div><div class="cell">
+  {% include post-list.html posts=tagged empty="이 태그의 글이 없습니다." %}
+</div></div>

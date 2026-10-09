@@ -1,0 +1,27 @@
+{% comment %}
+  작성 기록(잔디). 글 목록을 JSON으로 내보내고 assets/js/activity.js 가 연도별로 그린다.
+{% endcomment %}
+<div class="activity" id="activity">
+  <div class="activity-head">
+    <div class="years" id="activity-years" role="group" aria-label="연도 선택"></div>
+    <span class="meta" id="activity-summary"></span>
+  </div>
+  <div class="hm">
+    <div class="hm-inner">
+      <div class="hm-body">
+        <div class="hm-days" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div class="hm-main">
+          <div class="hm-months" id="activity-months" aria-hidden="true"></div>
+          <div class="hm-grid" id="activity-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hm-legend">
+    <span>칸을 누르면 해당 날짜의 글로 이동</span>
+    <span class="hm-scale">Less <i style="background:var(--g0)"></i><i style="background:var(--g1)"></i><i style="background:var(--g2)"></i><i style="background:var(--g3)"></i><i style="background:var(--g4)"></i> More</span>
+  </div>
+  <div class="hm-tip" id="activity-tip"></div>
+</div>
+<script id="post-data" type="application/json">[{% for post in site.posts %}{"d":{{ post.date | date: '%Y-%m-%d' | jsonify }},"t":{{ post.title | jsonify }},"u":{{ post.url | relative_url | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+<script src="{{ '/assets/js/activity.js' | relative_url }}"></script>

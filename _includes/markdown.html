@@ -7,7 +7,7 @@
   {% if page.tags and page.tags.size > 0 %}
   <p class="article-tags">
     {% for tag in page.tags %}
-    <a class="post-tag" href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">{{ tag | replace: '_', ' ' }}</a>
+    <a class="tag" href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">{{ tag | replace: '_', ' ' }}</a>
     {% endfor %}
   </p>
   {% endif %}

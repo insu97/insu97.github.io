@@ -3,6 +3,10 @@ title : Project
 layout : default
 ---
 
-<div class="sheet">
+{% include page-head.html desc="진행한 프로젝트" %}
+
+{% capture c1 %}blog.projects.<span class="fn">list</span>(){% endcapture %}
+{% include in-cell.html n=1 code=c1 %}
+<div class="row out"><div class="lab">Out[1]:</div><div class="cell">
   <p class="empty-note">등록된 프로젝트가 없습니다.</p>
-</div>
+</div></div>

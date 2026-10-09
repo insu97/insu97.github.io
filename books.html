@@ -3,6 +3,10 @@ title : Books
 layout : default
 ---
 
-<div class="sheet">
+{% include page-head.html desc="읽은 책" %}
+
+{% capture c1 %}blog.books.<span class="fn">list</span>(){% endcapture %}
+{% include in-cell.html n=1 code=c1 %}
+<div class="row out"><div class="lab">Out[1]:</div><div class="cell">
   <p class="empty-note">등록된 책이 없습니다.</p>
-</div>
+</div></div>

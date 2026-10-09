@@ -11,28 +11,23 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Serif+KR:wght@500;600&display=swap">
+		href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Serif+4:wght@400;600&family=Noto+Serif+KR:wght@500;600&display=swap">
 	<link rel="stylesheet" crossorigin
 		href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css">
 
 	<link rel="stylesheet" href="{{ '/assets/css/default.css' | relative_url }}">
-	<link rel="stylesheet" href="{{ '/assets/css/editorial.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ '/assets/css/notebook.css' | relative_url }}">
 	<link rel="icon" type="image/png" href="{{ '/assets/favicon/favicon.ico' | relative_url }}">
 	<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
 	<a class="skip-link" href="#content">본문으로</a>
-	<div class="page">
-		{% include header.html %}
-		<main class="main" id="content">
-			{% if page.layout != 'markdown' %}
-			<h1 class="visually-hidden">{% if page.url == '/' or page.url == '/index.html' %}{{ site.title }}{% else %}{{ page.title }}{% endif %}</h1>
-			{% endif %}
-			{{ content }}
-		</main>
-		{% include footer.html %}
-	</div>
+	{% include header.html %}
+	<main class="nb{% if page.layout == 'markdown' %} nb-wide{% endif %}" id="content">
+		{{ content }}
+	</main>
+	{% include footer.html %}
 </body>
 
 </html>
