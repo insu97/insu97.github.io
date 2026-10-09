@@ -1,0 +1,65 @@
+# _posts/ 글을 insu-assistant(Cloud Run)에 동기화한다. 비서가 블로그 글을 근거로 답할 수 있게 한다.
+# 블로그 배포(jekyll.yml)와 별개라서 이 워크플로우가 실패해도 배포에는 영향이 없다.
+#
+# 필요한 설정 (Settings > Secrets and variables > Actions)
+#   Secret   ASSISTANT_SYNC_TOKEN : insu-assistant의 BLOG_SYNC_TOKEN과 같은 값
+#   Variable ASSISTANT_SYNC_URL   : 예) https://insu-assistant-bfsdbkjuuq-du.a.run.app
+name: Sync posts to insu-assistant
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "_posts/**"
+      - ".github/workflows/assistant-sync.yml"
+  # 첫 백필이나 수동 재동기화
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# 연달아 push해도 한 번에 하나씩 반영한다. 서버는 같은 스냅샷을 다시 받아도 결과가 같다.
+concurrency:
+  group: assistant-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build snapshot of _posts
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          files = [
+              {"path": path.as_posix(), "content": path.read_text(encoding="utf-8")}
+              for path in sorted(Path("_posts").glob("*.md"))
+          ]
+          if not files:
+              raise SystemExit("_posts에 글이 없어 동기화하지 않습니다.")
+          Path("snapshot.json").write_text(json.dumps({"files": files}, ensure_ascii=False), encoding="utf-8")
+          print(f"{len(files)}개 글을 담았습니다.")
+          PY
+
+      - name: Send snapshot to insu-assistant
+        env:
+          SYNC_URL: ${{ vars.ASSISTANT_SYNC_URL }}
+          SYNC_TOKEN: ${{ secrets.ASSISTANT_SYNC_TOKEN }}
+        run: |
+          if [ -z "$SYNC_URL" ] || [ -z "$SYNC_TOKEN" ]; then
+            echo "ASSISTANT_SYNC_URL(Variable)과 ASSISTANT_SYNC_TOKEN(Secret)을 설정하세요." >&2
+            exit 1
+          fi
+          # Cloud Run 콜드 스타트와 임베딩 시간을 고려해 넉넉히 기다리고, 일시적 오류(429/5xx)는 다시 시도한다.
+          curl --fail-with-body --silent --show-error \
+            --max-time 280 --retry 3 --retry-delay 20 \
+            -X POST "${SYNC_URL%/}/sync/blog" \
+            -H "Authorization: Bearer ${SYNC_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data-binary @snapshot.json
+          echo
