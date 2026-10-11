@@ -1,0 +1,33 @@
+{%- comment -%}
+  책 그룹 하나를 그린다. 호출 전에 book_posts(전체 책 글), shown_urls(이미 그린 글 URL) 가 있어야 한다.
+  slug=<태그 slug> 로 book_posts 를 거르거나, books=<글 배열> 을 직접 넘긴다. label 은 제목.
+{%- endcomment -%}
+{%- if include.books -%}
+  {%- assign bg_books = include.books -%}
+{%- else -%}
+  {%- assign bg_books = book_posts | where_exp: "p", "p.tags contains include.slug" -%}
+{%- endif -%}
+{%- if bg_books.size > 0 -%}
+<section class="book-group" id="book-{{ include.slug | default: 'etc' }}">
+  <h2>{{ include.label }}<span class="tag-count">{{ bg_books.size }}</span></h2>
+  <ul class="book-grid">
+    {%- for post in bg_books %}
+    <li>
+      <a href="{{ post.url | relative_url }}">
+        {%- if post.book.cover %}
+        <img src="{{ post.book.cover }}" alt="{{ post.book.title | default: post.title }} 표지" loading="lazy">
+        {%- else %}
+        <span class="book-grid-blank">{{ post.book.title | default: post.title }}</span>
+        {%- endif %}
+        <strong>{{ post.book.title | default: post.title }}</strong>
+        {%- if post.book.author %}
+        <span>{{ post.book.author }}</span>
+        {%- endif %}
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- assign bg_urls = bg_books | map: "url" -%}
+{%- assign shown_urls = shown_urls | concat: bg_urls -%}
+{%- endif -%}

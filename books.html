@@ -1,12 +1,45 @@
 ---
 title : Books
 layout : default
+wide : true
 ---
 
+{% assign book_posts = site.posts | where_exp: "p", "p.book" %}
+{% assign shown_urls = "" | split: "" %}
+<div class="side-layout">
+<div class="side-main">
 {% include page-head.html desc="읽은 책" %}
 
-{% capture c1 %}blog.books.<span class="fn">list</span>(){% endcapture %}
+{% capture c1 %}blog.books.<span class="fn">groupby</span>(<span class="st">"tag"</span>){% endcapture %}
 {% include in-cell.html n=1 code=c1 %}
 <div class="row out"><div class="lab">Out[1]:</div><div class="cell">
+  {% assign other_books = "" | split: "" %}
+  {% if book_posts.size > 0 %}
+    {% if site.data.tags.size > 0 %}
+      {% assign tag_tops = site.data.tags | sort_natural: "name" %}
+      {% for top in tag_tops %}
+        <div class="book-top" id="book-top-{{ top.slug }}">
+        {% include book-group.html slug=top.slug label=top.name %}
+        {% assign child_tags = top.children | sort_natural: "name" %}
+        {% for child in child_tags %}
+          {% capture group_label %}{{ top.name }} › {{ child.name }}{% endcapture %}
+          {% include book-group.html slug=child.slug label=group_label %}
+        {% endfor %}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% for post in book_posts %}
+      {% unless shown_urls contains post.url %}
+        {% assign other_books = other_books | push: post %}
+      {% endunless %}
+    {% endfor %}
+    {% include book-group.html books=other_books label="기타" %}
+  {% else %}
   <p class="empty-note">등록된 책이 없습니다.</p>
+  {% endif %}
 </div></div>
+</div>
+{% if book_posts.size > 0 %}
+{% include book-tag-menu.html %}
+{% endif %}
+</div>
