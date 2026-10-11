@@ -1,0 +1,31 @@
+{%- comment -%}
+  front matter 의 book: 을 읽어 표지(왼쪽)와 책 정보(오른쪽)를 한 줄로 그린다.
+  book:
+    title, author, publisher, published(YYYY-MM-DD), cover(이미지 URL), url(책 페이지)
+  다른 데이터를 넘기려면 {% include book-card.html book=some_book %}
+{%- endcomment -%}
+{%- assign b = include.book | default: page.book -%}
+{%- if b -%}
+<div class="book-card">
+{%- if b.cover %}
+<a class="book-card-cover" href="{{ b.url | default: b.cover }}"><img src="{{ b.cover }}" alt="{{ b.title }} 표지" loading="lazy"></a>
+{%- endif %}
+<dl class="book-card-info">
+{%- if b.title %}
+<dt>제목</dt><dd>{{ b.title }}</dd>
+{%- endif %}
+{%- if b.author %}
+<dt>저자</dt><dd>{{ b.author }}</dd>
+{%- endif %}
+{%- if b.publisher %}
+<dt>출판사</dt><dd>{{ b.publisher }}</dd>
+{%- endif %}
+{%- if b.published %}
+<dt>출간일</dt><dd>{{ b.published | date: "%Y-%m-%d" }}</dd>
+{%- endif %}
+{%- if b.url %}
+<dt>링크</dt><dd><a href="{{ b.url }}">서점 페이지에서 보기</a></dd>
+{%- endif %}
+</dl>
+</div>
+{%- endif -%}

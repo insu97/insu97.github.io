@@ -880,3 +880,54 @@ button:focus-visible {
     font-size: 1.75rem;
   }
 }
+
+/* 책 카드: 표지(왼쪽) + 정보(오른쪽) */
+.markdown-body .book-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem 1.5rem;
+  margin: 0 0 1.5rem;
+}
+
+.markdown-body .book-card-cover {
+  flex: none;
+}
+
+.markdown-body .book-card-cover img {
+  display: block;
+  width: 160px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.markdown-body .book-card-info {
+  flex: 1 1 14rem;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: baseline;
+  gap: 0.55rem 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* default.css 의 dt/dd 기본 여백·기울임을 초기화해 같은 줄에 맞춘다 */
+.markdown-body .book-card-info dt,
+.markdown-body .book-card-info dd {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.markdown-body .book-card-info dt {
+  color: var(--dim);
+  font-size: 0.85rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.markdown-body .book-card-info dd {
+  font-size: 1rem;
+}
