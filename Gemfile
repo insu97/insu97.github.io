@@ -25,3 +25,4 @@ gem 'jekyll-sitemap'
 
 gem 'wdm'
 gem "kramdown-parser-gfm"
+gem "webrick", "~> 1.9"
