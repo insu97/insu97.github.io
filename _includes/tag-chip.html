@@ -1,0 +1,2 @@
+{%- include tag-lookup.html slug=include.slug -%}
+<a class="tag" href="{{ '/tags/tag_' | append: include.slug | append: '.html' | relative_url }}">{{ tag_label }}</a>

@@ -8,16 +8,5 @@ layout : default
 {% capture c1 %}blog.tags.<span class="fn">value_counts</span>(){% endcapture %}
 {% include in-cell.html n=1 code=c1 %}
 <div class="row out"><div class="lab">Out[1]:</div><div class="cell">
-  {% assign sorted_tags = site.data.tags | sort_natural %}
-  {% if sorted_tags.size > 0 %}
-  <ul class="tag-index">
-    {% for tag in sorted_tags %}
-      {% assign tag_posts = site.tags[tag] %}
-      {% assign tag_count = tag_posts | size %}
-    <li><a href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">{{ tag | replace: '_', ' ' }}<span class="tag-count">{{ tag_count }}</span></a></li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p class="empty-note">등록된 태그가 없습니다.</p>
-  {% endif %}
+  {% include tag-index.html %}
 </div></div>

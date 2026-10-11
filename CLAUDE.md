@@ -41,11 +41,18 @@ toc: true
 
 ## Adding a tag (two-step — easy to miss)
 
-Tags do **not** auto-register. Each tag needs:
-1. An entry in `_data/tags.yml` (drives the `/tags.html` chip list and ordering).
-2. A page file `tags/tag_<TagName>.html` that includes `tags.html` — this is the per-tag listing page that `/tags/tag_<TagName>.html` links resolve to. Copy an existing one (e.g. `tags/tag_Python.html`) and change `title`/`tags`.
+Tags are two-level (parent › child) and do **not** auto-register. Posts put only the **child slug** in front matter (`tags: [essay-poem]`); parents are computed from `_data/tags.yml`. Each tag needs:
+1. An entry in `_data/tags.yml` (drives the `/tags.html` tree and ordering):
+   ```yaml
+   - name: 국내 도서          # display name
+     slug: domestic-books    # used in URLs and in post front matter
+     children:
+       - { name: 에세이/시, slug: essay-poem }
+   ```
+   Always give a `slug` (no `/` or spaces — it becomes the filename). A parent's count/listing includes posts tagged with any of its children.
+2. A page file `tags/tag_<slug>.html` for **every** parent and child that includes `tags.html`. Copy an existing one (e.g. `tags/tag_essay-poem.html`) and change `title`/`tags` (`tags: [<slug>]`).
 
-A tag used in a post's front matter but missing either of these will show no count on the tags page and have a broken listing link.
+A tag used in a post's front matter but missing either of these will show its raw slug and have a broken listing link. Helpers live in `_includes/tag-lookup.html` (slug → name/parent), `tag-posts.html` (slug → posts/count), `tag-index.html` (tree), `tag-chip.html` (post chip).
 
 ## Structure notes
 

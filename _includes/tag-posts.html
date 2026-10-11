@@ -1,0 +1,16 @@
+{%- comment -%}
+  slug 태그의 글 목록을 tag_posts, 개수를 tag_count 로 설정한다.
+  상위 태그는 하위 태그가 붙은 글까지 합쳐서 (중복 없이) 센다.
+{%- endcomment -%}
+{%- include tag-lookup.html slug=include.slug -%}
+{%- assign tp_slugs = tag_child_slugs | push: include.slug -%}
+{%- assign tag_posts = "" | split: "" -%}
+{%- for tp_post in site.posts -%}
+  {%- for tp_slug in tp_slugs -%}
+    {%- if tp_post.tags contains tp_slug -%}
+      {%- assign tag_posts = tag_posts | push: tp_post -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- assign tag_count = tag_posts.size -%}

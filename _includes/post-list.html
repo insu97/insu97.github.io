@@ -11,7 +11,7 @@
       <div class="meta">
         <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y-%m-%d" }} {{ post.date | date: "%a" | upcase }}</time>
         {% for tag in post.tags %}
-        <a class="tag" href="{{ '/tags/tag_' | append: tag | append: '.html' | relative_url }}">{{ tag | replace: '_', ' ' }}</a>
+        {% include tag-chip.html slug=tag %}
         {% endfor %}
       </div>
     </article>

@@ -1,0 +1,21 @@
+{%- if site.data.tags.size > 0 -%}
+{%- assign tag_tops = site.data.tags | sort_natural: "name" -%}
+<ul class="tag-index tag-tree">
+  {%- for top in tag_tops %}
+  {%- include tag-posts.html slug=top.slug %}
+  <li class="tag-group">
+    <a class="tag-parent" href="{{ '/tags/tag_' | append: top.slug | append: '.html' | relative_url }}">{{ top.name }}<span class="tag-count">{{ tag_count }}</span></a>
+    {%- if top.children.size > 0 %}
+    <ul class="tag-children">
+      {%- for child in top.children %}
+      {%- include tag-posts.html slug=child.slug %}
+      <li><a href="{{ '/tags/tag_' | append: child.slug | append: '.html' | relative_url }}">{{ child.name }}<span class="tag-count">{{ tag_count }}</span></a></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </li>
+  {%- endfor %}
+</ul>
+{%- else -%}
+<p class="empty-note">등록된 태그가 없습니다.</p>
+{%- endif -%}

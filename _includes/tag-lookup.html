@@ -1,0 +1,27 @@
+{%- comment -%}
+  slug 로 _data/tags.yml 을 조회해 아래 변수를 호출한 쪽 컨텍스트에 설정한다.
+  tag_label        표시 이름 (등록되지 않은 slug 는 slug 그대로)
+  tag_parent_slug  상위 태그 slug (최상위면 빈 문자열)
+  tag_parent_label 상위 태그 이름
+  tag_child_slugs  하위 태그 slug 배열
+{%- endcomment -%}
+{%- assign tag_label = include.slug | replace: '_', ' ' -%}
+{%- assign tag_parent_slug = "" -%}
+{%- assign tag_parent_label = "" -%}
+{%- assign tag_child_slugs = "" | split: "" -%}
+{%- for lk_top in site.data.tags -%}
+  {%- if lk_top.slug == include.slug -%}
+    {%- assign tag_label = lk_top.name -%}
+    {%- for lk_child in lk_top.children -%}
+      {%- assign tag_child_slugs = tag_child_slugs | push: lk_child.slug -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- for lk_child in lk_top.children -%}
+      {%- if lk_child.slug == include.slug -%}
+        {%- assign tag_label = lk_child.name -%}
+        {%- assign tag_parent_slug = lk_top.slug -%}
+        {%- assign tag_parent_label = lk_top.name -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
