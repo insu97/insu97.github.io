@@ -15,7 +15,7 @@ layout : default
     <div class="stat"><b>{{ site.posts.size }}</b><span>전체 글</span></div>
     <div class="stat"><b>{{ tag_total }}</b><span>태그</span></div>
     <div class="stat"><b id="stat-streak">–</b><span>최장 연속 작성(일)</span></div>
-    <div class="stat"><b>{% if last_post %}{{ last_post.date | date: "%m.%d" }}{% else %}–{% endif %}</b><span>마지막 작성일</span></div>
+    <div class="stat"><b id="stat-last">{% if last_post %}{{ last_post.date | date: "%m.%d" }}{% else %}–{% endif %}</b><span>마지막 작성일</span></div>
   </div>
 </div></div>
 
