@@ -1,5 +1,6 @@
 {% comment %}
   작성 기록(잔디). 글 목록을 JSON으로 내보내고 assets/js/activity.js 가 연도별로 그린다.
+  독서 기록은 날짜별 개수만 _data/reading_activity.json 에서 읽어 같은 칸에 더한다(private-notes 워크플로가 갱신).
 {% endcomment %}
 <div class="activity" id="activity">
   <div class="activity-head">
@@ -24,4 +25,5 @@
   <div class="hm-tip" id="activity-tip"></div>
 </div>
 <script id="post-data" type="application/json">[{% for post in site.posts %}{"d":{{ post.date | date: '%Y-%m-%d' | jsonify }},"t":{{ post.title | jsonify }},"u":{{ post.url | relative_url | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+<script id="reading-data" type="application/json">{{ site.data.reading_activity | jsonify }}</script>
 <script src="{{ '/assets/js/activity.js' | relative_url }}"></script>

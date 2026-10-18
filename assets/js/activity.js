@@ -4,6 +4,10 @@
   if (!dataEl || !grid) return;
 
   var posts = JSON.parse(dataEl.textContent);
+  // 독서 기록: {"YYYY-MM-DD": 그날 수정한 노트 수}. 개수만 있고 제목은 공개하지 않는다.
+  var readingEl = document.getElementById('reading-data');
+  var reading = {};
+  try { reading = (readingEl && JSON.parse(readingEl.textContent)) || {}; } catch (e) { reading = {}; }
   var yearsEl = document.getElementById('activity-years');
   var monthsEl = document.getElementById('activity-months');
   var summaryEl = document.getElementById('activity-summary');
@@ -25,6 +29,9 @@
   var firstYear = posts.reduce(function (min, p) {
     return Math.min(min, Number(p.d.slice(0, 4)));
   }, thisYear);
+  firstYear = Object.keys(reading).reduce(function (min, d) {
+    return Math.min(min, Number(d.slice(0, 4)));
+  }, firstYear);
 
   function renderYear(year) {
     var jan1 = new Date(year, 0, 1);
@@ -32,22 +39,28 @@
     var offset = jan1.getDay();
     var todayKey = key(today);
     var count = 0;
+    var notes = 0;
     var frag = document.createDocumentFragment();
 
     for (var i = 0; i < daysInYear; i++) {
       var day = new Date(year, 0, 1 + i);
       var k = key(day);
       var items = byDate[k] || [];
+      var readCount = Number(reading[k]) || 0;
       var el = document.createElement(items.length ? 'a' : 'i');
-      var cls = level(items.length);
+      var cls = level(items.length + readCount);
       if (k > todayKey) cls += ' future';
       el.className = cls.trim();
-      el.dataset.tip = k + ' · ' + (items.length ? items.map(function (p) { return p.t; }).join(', ') : '글 없음');
+      var parts = [];
+      if (items.length) parts.push(items.map(function (p) { return p.t; }).join(', '));
+      if (readCount) parts.push('독서 기록 ' + readCount + '건');
+      el.dataset.tip = k + ' · ' + (parts.length ? parts.join(' · ') : '글 없음');
+      notes += readCount;
       if (items.length) {
         el.href = items[0].u;
-        el.setAttribute('aria-label', el.dataset.tip);
         count += items.length;
       }
+      if (items.length || readCount) el.setAttribute('aria-label', el.dataset.tip);
       if (i === 0) el.style.gridRow = String(offset + 1);
       frag.appendChild(el);
     }
@@ -63,7 +76,7 @@
       label.style.left = col * CELL + 'px';
       monthsEl.appendChild(label);
     }
-    summaryEl.textContent = year + '년 · ' + count + '개의 글';
+    summaryEl.textContent = year + '년 · ' + count + '개의 글' + (notes ? ' · 독서 기록 ' + notes + '건' : '');
   }
 
   function selectYear(year) {
