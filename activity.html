@@ -1,0 +1,18 @@
+---
+title : 작성 기록
+layout : default
+---
+
+{% comment %}
+  날짜별 작성 기록. 홈의 잔디에서 기록이 있는 칸을 누르면 ?d=YYYY-MM-DD 로 들어온다.
+  assets/js/activity-log.js 가 그 달의 기록을 로그 형태로 그리고, 선택한 날을 펼친다.
+{% endcomment %}
+{% include page-head.html desc="날짜별로 쓴 글과 고친 독서 노트" %}
+
+<div class="row out"><div class="lab">Out[1]:</div><div class="cell">
+  <div class="alog" id="alog" aria-live="polite"></div>
+  <noscript>이 페이지는 자바스크립트가 필요해요.</noscript>
+</div></div>
+
+{% include activity-data.html %}
+<script src="{{ '/assets/js/activity-log.js' | relative_url }}"></script>

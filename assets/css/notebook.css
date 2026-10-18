@@ -1049,70 +1049,250 @@ button:focus-visible {
   color: var(--chip-ink);
 }
 
-/* 잔디 칸을 눌렀을 때 보이는 그날의 글 목록 */
-.hm-grid a.sel {
-  outline: 2px solid var(--ink);
-  outline-offset: 0;
-}
+/* 날짜별 작성 기록 페이지(activity.html) ---------------------------------- */
 
-.hm-detail {
-  margin-top: 0.9rem;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-}
-
-.hm-detail[hidden] {
-  display: none;
-}
-
-.hm-detail-head {
+.alog-head,
+.alog-mon {
   display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin-bottom: 0.4rem;
-  font: 12px var(--font-mono);
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  font: 600 15px var(--font-mono);
+}
+
+.alog-mon a,
+.alog-mon .off {
+  padding: 2px 10px;
+  border-radius: 4px;
+  color: var(--dim);
+  text-decoration: none;
+}
+
+.alog-mon a:hover {
+  background: var(--g0);
+  color: var(--ink);
+}
+
+.alog-mon .off {
+  opacity: 0.35;
+}
+
+.alog-mon .cur {
+  min-width: 7.5em;
+  text-align: center;
+  color: var(--ink);
+}
+
+.alog-strip {
+  display: grid;
+  grid-template-columns: repeat(var(--n, 31), minmax(0, 1fr));
+  gap: 3px;
+}
+
+.alog-strip a,
+.alog-strip i {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--g0);
+}
+
+.alog-strip .l1 { background: var(--g1); }
+.alog-strip .l2 { background: var(--g2); }
+.alog-strip .l3 { background: var(--g3); }
+.alog-strip .l4 { background: var(--g4); }
+
+.alog-strip a:hover {
+  outline: 2px solid var(--ink);
+}
+
+.alog-strip a.sel {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.alog-scale {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0 26px;
+  font: 11px var(--font-mono);
   color: var(--dim);
 }
 
-.hm-detail-head b {
-  color: var(--in);
-}
-
-.hm-detail-head button {
-  margin-left: auto;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--dim);
-  font: inherit;
-  cursor: pointer;
-}
-
-.hm-detail ul {
+.alog-log {
+  position: relative;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.hm-detail li {
+.alog-log::before {
+  content: "";
+  position: absolute;
+  left: 111px;
+  top: 6px;
+  bottom: 6px;
+  border-left: 2px solid var(--line);
+}
+
+.alog-ent {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 0 30px;
+  padding: 10px 0 12px;
+}
+
+.alog-ent::before {
+  content: "";
+  position: absolute;
+  left: 105px;
+  top: 19px;
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  border: 2px solid var(--g3);
+  border-radius: 50%;
+  background: var(--cell);
+}
+
+.alog-ent.open::before {
+  left: 103px;
+  top: 17px;
+  width: 14px;
+  height: 14px;
+  border-color: var(--in);
+  background: var(--in);
+}
+
+.alog-dt {
+  padding-top: 11px;
+  font: 13px/1.5 var(--font-mono);
+  text-align: right;
+  color: var(--dim);
+}
+
+.alog-dt b {
+  display: block;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.alog-ent.open .alog-dt b {
+  color: var(--in);
+}
+
+.alog-box {
+  min-width: 0;
+  padding: 8px 14px;
+  border-radius: 4px;
+}
+
+.alog-ent.open .alog-box {
+  border: 1px solid var(--line);
+  background: var(--cell);
+  box-shadow: -3px 0 0 var(--in);
+}
+
+.alog-sum {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.5rem;
-  padding: 5px 0;
+  gap: 4px 10px;
+  font-size: 14px;
+  color: var(--dim);
+  text-decoration: none;
+}
+
+.alog-sum:hover {
+  color: var(--ink);
+}
+
+.alog-k {
+  padding: 1px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  font: 12px var(--font-mono);
+}
+
+.alog-k.post {
+  background: var(--chip);
+  color: var(--chip-ink);
+}
+
+.alog-k.note {
+  background: #fbe9e1;
+  color: var(--out);
+}
+
+.alog-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alog-items li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 7px 0;
   border-top: 1px solid #eceef1;
 }
 
-.hm-detail li:first-child {
+.alog-items li:first-child {
   border-top: 0;
 }
 
-.hm-detail li small {
-  padding: 0 6px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  color: var(--dim);
+.alog-items a {
+  font-weight: 600;
+  color: var(--in);
+  text-decoration: none;
+}
+
+.alog-items a:hover {
+  text-decoration: underline;
+}
+
+.alog-gap {
+  padding: 2px 0 2px 142px;
   font: 11px var(--font-mono);
+  color: var(--dim);
+}
+
+@media (max-width: 600px) {
+  .alog-strip {
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+  }
+
+  .alog-log::before {
+    left: 7px;
+  }
+
+  .alog-ent {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 26px;
+  }
+
+  .alog-ent::before {
+    left: 1px;
+  }
+
+  .alog-ent.open::before {
+    left: -1px;
+  }
+
+  .alog-dt {
+    padding: 0 0 4px;
+    text-align: left;
+  }
+
+  .alog-dt b {
+    display: inline;
+    margin-right: 8px;
+  }
+
+  .alog-gap {
+    padding-left: 26px;
+  }
 }
