@@ -225,6 +225,13 @@
     streakEl.textContent = best;
   }
 
+  // 마지막 작성일: 글과 독서 노트 수정 중 가장 최근 날짜 (MM.DD)
+  var lastEl = document.getElementById('stat-last');
+  if (lastEl) {
+    var lastDay = Object.keys(byDate).concat(Object.keys(reading)).sort().pop();
+    if (lastDay) lastEl.textContent = lastDay.slice(5).replace('-', '.');
+  }
+
   selectYear(thisYear);
   var hm = document.querySelector('.hm');
   var todayCol = Math.floor(((today - new Date(thisYear, 0, 1)) / DAY_MS + new Date(thisYear, 0, 1).getDay()) / 7);
