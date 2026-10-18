@@ -4,7 +4,7 @@
   if (!dataEl || !grid) return;
 
   var posts = JSON.parse(dataEl.textContent);
-  // 독서 기록: {"YYYY-MM-DD": 그날 수정한 노트 수}. 개수만 있고 제목은 공개하지 않는다.
+  // 독서 기록: {"YYYY-MM-DD": [그날 수정한 노트의 책 제목, ...]}. 파일명·내용은 없다.
   var readingEl = document.getElementById('reading-data');
   var reading = {};
   try { reading = (readingEl && JSON.parse(readingEl.textContent)) || {}; } catch (e) { reading = {}; }
@@ -19,6 +19,12 @@
   posts.forEach(function (p) {
     (byDate[p.d] = byDate[p.d] || []).push(p);
   });
+
+  // 예전 형식(그날 수정한 개수)도 받아 준다.
+  function readingOf(v) {
+    if (Array.isArray(v)) return { n: v.length, titles: v };
+    return { n: Number(v) || 0, titles: [] };
+  }
 
   var pad = function (n) { return String(n).padStart(2, '0'); };
   var key = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
@@ -46,15 +52,17 @@
       var day = new Date(year, 0, 1 + i);
       var k = key(day);
       var items = byDate[k] || [];
-      var readCount = Number(reading[k]) || 0;
+      var rd = readingOf(reading[k]);
+      var readCount = rd.n;
       var el = document.createElement(items.length ? 'a' : 'i');
       var cls = level(items.length + readCount);
       if (k > todayKey) cls += ' future';
       el.className = cls.trim();
-      var parts = [];
-      if (items.length) parts.push(items.map(function (p) { return p.t; }).join(', '));
-      if (readCount) parts.push('독서 기록 ' + readCount + '건');
-      el.dataset.tip = k + ' · ' + (parts.length ? parts.join(' · ') : '글 없음');
+      var names = items.map(function (p) { return p.t; });
+      rd.titles.forEach(function (t) { if (names.indexOf(t) < 0) names.push(t); });
+      var tip = names.join(', ');
+      if (readCount && !rd.titles.length) tip = (tip ? tip + ' · ' : '') + '독서 기록 ' + readCount + '건';
+      el.dataset.tip = k + ' · ' + (tip || '글 없음');
       notes += readCount;
       if (items.length) {
         el.href = items[0].u;
