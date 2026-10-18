@@ -19,9 +19,10 @@
     </div>
   </div>
   <div class="hm-legend">
-    <span>칸을 누르면 해당 날짜의 글로 이동</span>
+    <span>칸을 누르면 그날의 글 목록</span>
     <span class="hm-scale">Less <i style="background:var(--g0)"></i><i style="background:var(--g1)"></i><i style="background:var(--g2)"></i><i style="background:var(--g3)"></i><i style="background:var(--g4)"></i> More</span>
   </div>
+  <div class="hm-detail" id="activity-detail" hidden></div>
   <div class="hm-tip" id="activity-tip"></div>
 </div>
 <script id="post-data" type="application/json">[{% for post in site.posts %}{"d":{{ post.date | date: '%Y-%m-%d' | jsonify }},"t":{{ post.title | jsonify }},"u":{{ post.url | relative_url | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>

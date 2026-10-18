@@ -1047,3 +1047,71 @@ button:focus-visible {
 .book-grid a:hover strong {
   color: var(--chip-ink);
 }
+
+/* 잔디 칸을 눌렀을 때 보이는 그날의 글 목록 */
+.hm-grid a.sel {
+  outline: 2px solid var(--ink);
+  outline-offset: 0;
+}
+
+.hm-detail {
+  margin-top: 0.9rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.hm-detail[hidden] {
+  display: none;
+}
+
+.hm-detail-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+  font: 12px var(--font-mono);
+  color: var(--dim);
+}
+
+.hm-detail-head b {
+  color: var(--in);
+}
+
+.hm-detail-head button {
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--dim);
+  font: inherit;
+  cursor: pointer;
+}
+
+.hm-detail ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hm-detail li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 5px 0;
+  border-top: 1px solid #eceef1;
+}
+
+.hm-detail li:first-child {
+  border-top: 0;
+}
+
+.hm-detail li small {
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--dim);
+  font: 11px var(--font-mono);
+}
