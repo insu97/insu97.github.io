@@ -720,6 +720,10 @@ main.nb-wide {
   padding-left: 0.85rem;
 }
 
+.md-index .toc-h4 {
+  padding-left: 0.85rem;
+}
+
 .md-index p {
   margin: 0 0 0.5rem;
   padding: 0;
