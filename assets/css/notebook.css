@@ -650,7 +650,7 @@ main.nb-full {
 
 .markdown-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 15rem;
+  grid-template-columns: minmax(0, 1fr) 19rem;
   gap: 1.5rem;
   align-items: start;
   width: 100%;
@@ -679,7 +679,7 @@ main.nb-full {
 .md-content > ul,
 .md-content > ol,
 .md-content > blockquote {
-  max-width: 56rem;
+  max-width: 72rem;
 }
 
 /* 짧은 값이 들어가는 표의 둘째 열부터는 줄바꿈하지 않는다 (예: "N분 뒤 종료") */
