@@ -24,7 +24,7 @@
 <body>
 	<a class="skip-link" href="#content">본문으로</a>
 	{% include header.html %}
-	<main class="nb{% if page.layout == 'markdown' or page.wide %} nb-wide{% endif %}" id="content">
+	<main class="nb{% if page.layout == 'markdown' or page.wide %} nb-wide{% endif %}{% if page.layout == 'markdown' %} nb-full{% endif %}" id="content">
 		{{ content }}
 	</main>
 	{% include footer.html %}

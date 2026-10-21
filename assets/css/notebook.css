@@ -171,6 +171,11 @@ main.nb-wide {
   max-width: 1280px;
 }
 
+/* 글 페이지: 가로 전체 사용. 표·코드는 넓게, 줄글은 읽기 좋은 폭으로 제한 */
+main.nb-full {
+  max-width: none;
+}
+
 .row {
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
@@ -668,6 +673,21 @@ main.nb-wide {
   background: var(--cell);
   border: 1px solid var(--line);
   border-radius: 4px;
+}
+
+.md-content > p,
+.md-content > ul,
+.md-content > ol,
+.md-content > blockquote {
+  max-width: 56rem;
+}
+
+/* 짧은 값이 들어가는 표의 둘째 열부터는 줄바꿈하지 않는다 (예: "N분 뒤 종료") */
+@media (min-width: 900px) {
+  .md-content table td:not(:first-child),
+  .md-content table th:not(:first-child) {
+    white-space: nowrap;
+  }
 }
 
 .md-index {
