@@ -16,3 +16,4 @@ toc: true
 | `sudo shutdown now` | 즉시 종료 | 서버 | bash |
 | `sudo shutdown +N` | N분 뒤 종료 | 서버 | bash |
 | `sudo shutdown -c` | 예약된 종료 취소 | 서버 | bash |
+| `nvidia-smi --query-gpu=temperature.gpu,power.draw,fan.speed,utilization.gpu,memory.used --format=csv -l 2` | GPU 온도 보기 | 서버 | bash |
