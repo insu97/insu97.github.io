@@ -5,7 +5,7 @@ layout : default
 
 {% include page-head.html desc="태그별로 글 모아보기" %}
 
-{% capture c1 %}blog.tags.<span class="fn">value_counts</span>(){% endcapture %}
+{% capture c1 %}blog.<span class="fn">groupby</span>([<span class="st">"parent"</span>, <span class="st">"tag"</span>]).<span class="fn">size</span>().<span class="fn">to_frame</span>(<span class="st">"posts"</span>){% endcapture %}
 {% include in-cell.html n=1 code=c1 %}
 <div class="row out"><div class="lab">Out[1]:</div><div class="cell">
   {% include tag-index.html %}

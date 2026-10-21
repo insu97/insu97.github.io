@@ -1,21 +1,52 @@
 {%- if site.data.tags.size > 0 -%}
 {%- assign tag_tops = site.data.tags | sort_natural: "name" -%}
-<ul class="tag-index tag-tree">
+{%- assign ti_max = 1 -%}
+{%- for top in tag_tops -%}
+  {%- for child in top.children -%}
+    {%- include tag-posts.html slug=child.slug -%}
+    {%- if tag_count > ti_max -%}{%- assign ti_max = tag_count -%}{%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- assign ti_rows = 0 -%}
+<div class="df-wrap">
+<table class="df">
+  <thead>
+    <tr><th class="l">parent</th><th></th><th class="l">tag</th><th>posts</th><th></th></tr>
+  </thead>
+  <tbody>
   {%- for top in tag_tops %}
-  {%- include tag-posts.html slug=top.slug %}
-  <li class="tag-group">
-    <a class="tag-parent" href="{{ '/tags/tag_' | append: top.slug | append: '.html' | relative_url }}">{{ top.name }}<span class="tag-count">{{ tag_count }}</span></a>
+    {%- include tag-posts.html slug=top.slug %}
+    {%- assign ti_top_count = tag_count %}
+    {%- assign ti_span = top.children.size | at_least: 1 %}
     {%- if top.children.size > 0 %}
-    <ul class="tag-children">
-      {%- for child in top.children %}
-      {%- include tag-posts.html slug=child.slug %}
-      <li><a href="{{ '/tags/tag_' | append: child.slug | append: '.html' | relative_url }}">{{ child.name }}<span class="tag-count">{{ tag_count }}</span></a></li>
-      {%- endfor %}
-    </ul>
+    {%- for child in top.children %}
+    {%- include tag-posts.html slug=child.slug %}
+    <tr{% if forloop.first %} class="grp-first"{% endif %}>
+      {%- if forloop.first %}
+      <th rowspan="{{ ti_span }}"><a href="{{ '/tags/tag_' | append: top.slug | append: '.html' | relative_url }}">{{ top.name }}</a><small>{{ ti_top_count }} posts</small></th>
+      {%- endif %}
+      <td class="n">{{ ti_rows }}</td>
+      <td class="name"><a href="{{ '/tags/tag_' | append: child.slug | append: '.html' | relative_url }}">{{ child.name }}</a></td>
+      <td class="cnt">{{ tag_count }}</td>
+      <td class="bar"><div class="meter" aria-hidden="true"><i style="width: {{ tag_count | times: 100.0 | divided_by: ti_max }}%"></i></div></td>
+    </tr>
+    {%- assign ti_rows = ti_rows | plus: 1 %}
+    {%- endfor %}
+    {%- else %}
+    <tr class="grp-first">
+      <th><a href="{{ '/tags/tag_' | append: top.slug | append: '.html' | relative_url }}">{{ top.name }}</a><small>{{ ti_top_count }} posts</small></th>
+      <td class="n">{{ ti_rows }}</td>
+      <td class="name">—</td>
+      <td class="cnt">{{ ti_top_count }}</td>
+      <td class="bar"><div class="meter" aria-hidden="true"><i style="width: {{ ti_top_count | times: 100.0 | divided_by: ti_max }}%"></i></div></td>
+    </tr>
+    {%- assign ti_rows = ti_rows | plus: 1 %}
     {%- endif %}
-  </li>
   {%- endfor %}
-</ul>
+  </tbody>
+</table>
+<p class="df-foot">{{ ti_rows }} rows × 1 columns</p>
+</div>
 {%- else -%}
 <p class="empty-note">등록된 태그가 없습니다.</p>
 {%- endif -%}
