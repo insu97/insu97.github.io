@@ -1905,21 +1905,23 @@ body {
    Code Label Badges – Unified Style (Rouge wrapper based)
    ========================================================================== */
 
-/* Base: Reserve space and setup pseudo-element for all code blocks */
+/* Base: badge sits in the right gutter of the first line instead of reserving a top band */
 .highlight pre,
 pre {
   position: relative;
-  padding-top: 32px !important;
+  padding-top: var(--spacing-md) !important;
+  padding-right: 88px !important;
 }
 
 .highlight pre::before,
 pre code::before {
   content: "";
   position: absolute;
-  top: 6px;
+  top: 10px;
   right: 8px;
-  padding: 4px 8px;
+  padding: 3px 8px;
   font-size: 10px;
+  line-height: 1.3;
   font-weight: 600;
   border-radius: 12px;
   background: var(--color-bg-secondary);

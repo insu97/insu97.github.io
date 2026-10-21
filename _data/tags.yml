@@ -2,3 +2,7 @@
   slug: domestic-books
   children:
     - { name: 에세이/시, slug: essay-poem }
+- name: LLM
+  slug: llm
+  children:
+    - { name: 로컬 LLM, slug: local-llm }
