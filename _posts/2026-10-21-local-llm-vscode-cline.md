@@ -1,6 +1,6 @@
 ---
 layout: markdown
-title: 로컬 LLM 구축 vscode & cline
+title: 로컬 LLM 구축 - VS Code & Cline 보안 설정
 tags: [local-llm]
 toc: true
 ---
