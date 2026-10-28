@@ -4,10 +4,7 @@ description: ""
 author: "INSU"
 url: "https://insu97.github.io"
 
-paginate: 10
-paginate_path: '/posts/page:num/'
 plugins:
-  - jekyll-paginate
   - jekyll-toc
   - jekyll-sitemap
   - jekyll-feed

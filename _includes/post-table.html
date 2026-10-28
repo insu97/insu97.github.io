@@ -1,0 +1,100 @@
+{% assign rows = include.posts %}
+{% assign step = include.step | default: 20 %}
+{% if rows and rows.size > 0 %}
+<div class="post-table" data-step="{{ step }}">
+  <div class="pt-tools">
+    <span class="pt-label">tags</span>
+    {% for t in site.tags %}
+    {%- assign t_slug = t[0] -%}
+    {%- include tag-lookup.html slug=t_slug -%}
+    <button type="button" class="pt-chip" data-tag="{{ t_slug }}" aria-pressed="false">{{ tag_label }} <span>{{ t[1].size }}</span></button>
+    {% endfor %}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th class="pt-idx"><span class="visually-hidden">번호</span></th>
+        <th class="pt-date"><button type="button" data-sort="date" data-dir="-1">date ↓</button></th>
+        <th><button type="button" data-sort="title">title</button></th>
+        <th class="pt-tags">tags</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in rows %}
+      <tr data-date="{{ post.date | date: '%Y-%m-%d' }}" data-title="{{ post.title | escape }}" data-tags="{{ post.tags | join: ' ' }}">
+        <td class="pt-idx"></td>
+        <td class="pt-date"><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y-%m-%d" }}</time></td>
+        <td class="pt-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></td>
+        <td class="pt-tags">{% for tag in post.tags %}{% include tag-chip.html slug=tag %} {% endfor %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="empty-note pt-empty" hidden>이 태그의 글이 아직 없습니다.</p>
+  <div class="pt-foot">
+    <span class="pt-count"></span>
+    <button type="button" class="pt-more" hidden></button>
+  </div>
+</div>
+<script>
+(function () {
+  var root = document.currentScript.previousElementSibling;
+  var body = root.querySelector('tbody');
+  var rows = Array.prototype.slice.call(body.rows);
+  var step = parseInt(root.dataset.step, 10);
+  var state = { tag: null, sort: 'date', dir: -1, shown: step };
+
+  function cmp(a, b) {
+    var x = state.sort === 'date' ? a.dataset.date : a.dataset.title;
+    var y = state.sort === 'date' ? b.dataset.date : b.dataset.title;
+    return state.dir * x.localeCompare(y, 'ko');
+  }
+
+  function render() {
+    var list = rows.filter(function (r) {
+      return !state.tag || r.dataset.tags.split(' ').indexOf(state.tag) !== -1;
+    }).sort(cmp);
+    rows.forEach(function (r) { r.hidden = true; });
+    list.forEach(function (r, i) {
+      body.appendChild(r);
+      r.hidden = i >= state.shown;
+      r.cells[0].textContent = i;
+    });
+    var left = list.length - state.shown;
+    var more = root.querySelector('.pt-more');
+    more.hidden = left <= 0;
+    more.textContent = '다음 ' + Math.min(step, Math.max(left, 0)) + '개 보기';
+    root.querySelector('.pt-count').textContent = list.length + ' rows × 3 columns';
+    root.querySelector('.pt-empty').hidden = list.length > 0;
+    root.querySelectorAll('[data-tag]').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.tag === state.tag);
+    });
+    root.querySelectorAll('[data-sort]').forEach(function (b) {
+      var on = b.dataset.sort === state.sort;
+      b.textContent = b.dataset.sort + (on ? (state.dir < 0 ? ' ↓' : ' ↑') : '');
+    });
+  }
+
+  root.addEventListener('click', function (e) {
+    var chip = e.target.closest('[data-tag]');
+    var sort = e.target.closest('[data-sort]');
+    if (chip) {
+      state.tag = state.tag === chip.dataset.tag ? null : chip.dataset.tag;
+      state.shown = step;
+    } else if (sort) {
+      var key = sort.dataset.sort;
+      state.dir = state.sort === key ? -state.dir : (key === 'date' ? -1 : 1);
+      state.sort = key;
+    } else if (e.target.closest('.pt-more')) {
+      state.shown += step;
+    } else {
+      return;
+    }
+    render();
+  });
+  render();
+})();
+</script>
+{% else %}
+<p class="empty-note">{{ include.empty | default: "작성된 글이 없습니다." }}</p>
+{% endif %}

@@ -36,26 +36,6 @@ layout : default
   {% capture c2 %}blog.posts.<span class="fn">list</span>(){% endcapture %}
   {% include in-cell.html n=2 code=c2 %}
   <div class="row out"><div class="lab">Out[2]:</div><div class="cell">
-    {% if paginator and paginator.posts.size > 0 %}
-      {% include post-list.html posts=paginator.posts %}
-    {% else %}
-      {% include post-list.html posts=site.posts %}
-    {% endif %}
+    {% include post-table.html posts=site.posts %}
   </div></div>
-
-  {% if paginator and paginator.total_pages > 1 %}
-  <nav class="pagination" aria-label="글 목록 페이지">
-    {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">← Previous</a>
-    {% else %}
-      <span class="previous is-disabled">← Previous</span>
-    {% endif %}
-    <span class="page-number">{{ paginator.page }} / {{ paginator.total_pages }}</span>
-    {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next →</a>
-    {% else %}
-      <span class="next is-disabled">Next →</span>
-    {% endif %}
-  </nav>
-  {% endif %}
 </div>
