@@ -8,8 +8,8 @@ layout : default
 {% capture c1 %}<span class="kw">import</span> blog<br>blog.<span class="fn">summary</span>(){% endcapture %}
 {% include in-cell.html n=1 code=c1 %}
 {% assign last_post = site.posts | first %}
-{% assign tag_total = site.data.tags.size | default: 0 %}
-{% for top in site.data.tags %}{% assign tag_total = tag_total | plus: top.children.size %}{% endfor %}
+{% assign tag_total = 0 %}
+{% for top in site.data.tags %}{% if top.children.size > 0 %}{% assign tag_total = tag_total | plus: top.children.size %}{% else %}{% assign tag_total = tag_total | plus: 1 %}{% endif %}{% endfor %}
 <div class="row out"><div class="lab">Out[1]:</div><div class="cell">
   <div class="stats">
     <div class="stat"><b>{{ site.posts.size }}</b><span>전체 글</span></div>
