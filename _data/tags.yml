@@ -2,3 +2,8 @@
   slug: domestic-books
   children:
     - { name: 에세이/시, slug: essay-poem }
+
+- name: 세미나
+  slug: seminar
+  children:
+    - { name: BeSTCon, slug: bestcon }
