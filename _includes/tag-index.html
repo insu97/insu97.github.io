@@ -6,6 +6,10 @@
     {%- include tag-posts.html slug=child.slug -%}
     {%- if tag_count > ti_max -%}{%- assign ti_max = tag_count -%}{%- endif -%}
   {%- endfor -%}
+  {%- if top.children.size == 0 -%}
+    {%- include tag-posts.html slug=top.slug -%}
+    {%- if tag_count > ti_max -%}{%- assign ti_max = tag_count -%}{%- endif -%}
+  {%- endif -%}
 {%- endfor -%}
 {%- assign ti_rows = 0 -%}
 <div class="df-wrap">
